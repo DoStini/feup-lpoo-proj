@@ -40,9 +40,9 @@ public class LanternaGui implements Gui {
     }
 
     @Override
-    public void drawText(String color, String text, Position pos) {
+    public void drawCharacter(String color, Character c, Position pos) {
         TextGraphics graphics = screen.newTextGraphics();
-        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), text);
+        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "" + c);
     }
 
     @Override
