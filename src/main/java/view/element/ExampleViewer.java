@@ -6,8 +6,8 @@ import ui.Gui;
 public class ExampleViewer implements ElementViewer{
     @Override
     public void draw(Gui gui) {
-        gui.drawColor("#adadad", new Position(20, 20));
-        gui.drawColor("#adadad", new Position(19, 21));
-        gui.drawColor("#adadad", new Position(21, 21));
+        gui.drawColor("#adadad", new Position(5, 5));
+        gui.drawColor("#adadad", new Position(4, 6));
+        gui.drawColor("#adadad", new Position(6, 6));
     }
 }
