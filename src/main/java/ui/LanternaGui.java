@@ -36,13 +36,13 @@ public class LanternaGui implements Gui {
     public void drawColor(String color, Position pos) {
         TextGraphics graphics = screen.newTextGraphics();
         graphics.setBackgroundColor(TextColor.Factory.fromString(color));
-        graphics.putString(new TerminalPosition(pos.getY(), pos.getX()), " ");
+        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), " ");
     }
 
     @Override
     public void drawText(String color, String text, Position pos) {
         TextGraphics graphics = screen.newTextGraphics();
-        graphics.putString(new TerminalPosition(pos.getY(), pos.getX()), text);
+        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), text);
     }
 
     @Override
