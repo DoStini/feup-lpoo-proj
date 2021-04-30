@@ -29,7 +29,7 @@ public class LanternaGui implements Gui {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
 
-        Font loadedFont = font.deriveFont(Font.PLAIN, 10);
+        Font loadedFont = font.deriveFont(Font.PLAIN, 2);
         return AWTTerminalFontConfiguration.newInstance(loadedFont);
     }
 
@@ -66,6 +66,12 @@ public class LanternaGui implements Gui {
         TextGraphics graphics = screen.newTextGraphics();
         graphics.setBackgroundColor(TextColor.Factory.fromString(color));
         graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), " ");
+    }
+
+    @Override
+    public void drawLine(String color, Position pos, int width) {
+        for (int i = 0; i < width; i++)
+            drawColor(color, new Position(pos.getX() + i, pos.getY()));
     }
 
     @Override
