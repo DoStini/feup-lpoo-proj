@@ -6,8 +6,13 @@ import com.shootemup.g53.ui.Gui;
 public class ExampleViewer implements ElementViewer{
     @Override
     public void draw(Gui gui) {
-        gui.drawColor("#adadad", new Position(20, 20));
-        gui.drawColor("#adadad", new Position(19, 21));
-        gui.drawColor("#adadad", new Position(21, 21));
+        int mid = 15;
+        int spacing = 10;
+        for (int i = 0; i < mid*2 + 1; i++) {
+            gui.drawLine("#8c2d19", new Position(mid-i/2, i), i);
+            if (i > spacing)
+                gui.drawLine("#000000", new Position(mid - i/2 + spacing/2, i), i - spacing);
+
+        }
     }
 }
