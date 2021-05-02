@@ -1,4 +1,4 @@
-package com.shootemup.g53.element;
+package com.shootemup.g53.view.element;
 
 import com.shootemup.g53.ui.Gui;
 
