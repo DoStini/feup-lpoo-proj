@@ -13,7 +13,7 @@ class MovementControllerTest {
     private Element element;
 
     @BeforeEach
-    void Setup() {
+    void setup() {
         element = Mockito.mock(Element.class, Mockito.CALLS_REAL_METHODS);
 
         element.setPosition(new Position(1,1));
@@ -21,13 +21,17 @@ class MovementControllerTest {
 
 
     @Test
-    void FallDown() {
-        MovementController fallDownMovement = new FallDownMovement();
+    void fallDown() {
+        int speed = 2;
+
+        MovementController fallDownMovement = new FallDownMovement(speed);
+
+        Position startPosition = element.getPosition();
 
         fallDownMovement.move(element);
-        Assertions.assertEquals(element.getPosition(), new Position(1,2));
+        Assertions.assertEquals(element.getPosition(), startPosition.getDown(speed));
 
         fallDownMovement.move(element);
-        Assertions.assertEquals(element.getPosition(), new Position(1,3));
+        Assertions.assertEquals(element.getPosition(), startPosition.getDown(speed*2));
     }
 }
