@@ -7,8 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class MovementControllerTest {
     private Element element;
 
@@ -32,6 +30,28 @@ class MovementControllerTest {
         Assertions.assertEquals(element.getPosition(), startPosition.getDown(speed));
 
         fallDownMovement.move(element);
-        Assertions.assertEquals(element.getPosition(), startPosition.getDown(speed*2));
+        Assertions.assertEquals(element.getPosition(), startPosition.getDown(speed * 2));
+    }
+
+    @Test
+    void diagonalBounce() {
+        int speed = 3;
+
+        MovementController diagonalBounceMovement = new DiagonalBounceMovement(
+                speed, 0, 10, DiagonalBounceMovement.Direction.DOWN_RIGHT
+        );
+
+        Position startPosition = element.getPosition();
+
+        System.out.println(diagonalBounceMovement.move(element).getPosition());
+        System.out.println(diagonalBounceMovement.move(element).getPosition());
+        System.out.println(diagonalBounceMovement.move(element).getPosition());
+        System.out.println(diagonalBounceMovement.move(element).getPosition());
+        System.out.println(diagonalBounceMovement.move(element).getPosition());
+        System.out.println(diagonalBounceMovement.move(element).getPosition());
+        System.out.println(diagonalBounceMovement.move(element).getPosition());
+        System.out.println(diagonalBounceMovement.move(element).getPosition());
+        System.out.println(diagonalBounceMovement.move(element).getPosition());
+        System.out.println(diagonalBounceMovement.move(element).getPosition());
     }
 }
