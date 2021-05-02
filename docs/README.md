@@ -39,6 +39,12 @@
 - View is responsible to display the data stored in the model
 - Controller is responsible to update the information in the model according to user interaction and game states
 
+#### Rendering elements
+- It is important that we built this part of the structure to be versatil, so that the game could be used with other engines.
+- To allow this situation, we created an interface `gui` that has functions like `drawColor` or `drawCharacter`. These will be called by specific Viewers. Example:
+
+![Rendering diagram](images/design/rendering.png)
+
 ### Design patterns in features
 
 #### Preliminary analysis on Power ups
