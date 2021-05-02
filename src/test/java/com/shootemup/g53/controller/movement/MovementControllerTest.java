@@ -58,4 +58,28 @@ class MovementControllerTest {
         diagonalBounceMovement.move(element);
         Assertions.assertEquals(new Position(5, 25), element.getPosition());
     }
+
+    @Test
+    void diagonalLeft() {
+        int speed = 3;
+
+        MovementController diagonalLeftMovement = new DiagonalDownLeftMovement(speed);
+
+        diagonalLeftMovement.move(element);
+        Assertions.assertEquals(new Position(-2, 4), element.getPosition());
+        diagonalLeftMovement.move(element);
+        Assertions.assertEquals(new Position(-5, 7), element.getPosition());
+    }
+
+    @Test
+    void diagonalRight() {
+        int speed = 3;
+
+        MovementController diagonalRightMovement = new DiagonalDownRightMovement(speed);
+
+        diagonalRightMovement.move(element);
+        Assertions.assertEquals(new Position(4, 4), element.getPosition());
+        diagonalRightMovement.move(element);
+        Assertions.assertEquals(new Position(7, 7), element.getPosition());
+    }
 }
