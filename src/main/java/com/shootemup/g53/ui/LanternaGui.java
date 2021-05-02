@@ -4,11 +4,12 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.input.InputProvider;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
+import com.shootemup.g53.controller.Action;
 import com.shootemup.g53.model.util.Position;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 
@@ -61,6 +62,35 @@ public class LanternaGui implements Gui {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Action readInput() {
+        try {
+            KeyStroke key = screen.pollInput();
+
+            if (key == null)
+                return  Action.NONE;
+
+            if (key.getKeyType() == KeyType.Escape)
+                return  Action.ESC;
+
+            if (key.getKeyType() == KeyType.Character) {
+                switch (key.getCharacter()) {
+                    case 'w':
+                        return Action.W;
+                    case 'a':
+                        return Action.A;
+                    case 's':
+                        return Action.S;
+                    case 'd':
+                        return Action.D;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Action.NONE;
     }
 
     @Override
