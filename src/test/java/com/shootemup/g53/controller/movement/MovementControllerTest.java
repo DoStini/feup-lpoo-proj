@@ -27,10 +27,10 @@ class MovementControllerTest {
         Position startPosition = element.getPosition();
 
         fallDownMovement.move(element);
-        Assertions.assertEquals(element.getPosition(), startPosition.getDown(speed));
+        Assertions.assertEquals(startPosition.getDown(speed), element.getPosition());
 
         fallDownMovement.move(element);
-        Assertions.assertEquals(element.getPosition(), startPosition.getDown(speed * 2));
+        Assertions.assertEquals(startPosition.getDown(speed * 2), element.getPosition());
     }
 
     @Test
@@ -41,17 +41,21 @@ class MovementControllerTest {
                 speed, 0, 10, DiagonalBounceMovement.Direction.DOWN_RIGHT
         );
 
-        Position startPosition = element.getPosition();
-
-        System.out.println(diagonalBounceMovement.move(element).getPosition());
-        System.out.println(diagonalBounceMovement.move(element).getPosition());
-        System.out.println(diagonalBounceMovement.move(element).getPosition());
-        System.out.println(diagonalBounceMovement.move(element).getPosition());
-        System.out.println(diagonalBounceMovement.move(element).getPosition());
-        System.out.println(diagonalBounceMovement.move(element).getPosition());
-        System.out.println(diagonalBounceMovement.move(element).getPosition());
-        System.out.println(diagonalBounceMovement.move(element).getPosition());
-        System.out.println(diagonalBounceMovement.move(element).getPosition());
-        System.out.println(diagonalBounceMovement.move(element).getPosition());
+        diagonalBounceMovement.move(element);
+        Assertions.assertEquals(new Position(4, 4), element.getPosition());
+        diagonalBounceMovement.move(element);
+        Assertions.assertEquals(new Position(7, 7), element.getPosition());
+        diagonalBounceMovement.move(element);
+        Assertions.assertEquals(new Position(10, 10), element.getPosition());
+        diagonalBounceMovement.move(element);
+        Assertions.assertEquals(new Position(7, 13), element.getPosition());
+        diagonalBounceMovement.move(element);
+        Assertions.assertEquals(new Position(4, 16), element.getPosition());
+        diagonalBounceMovement.move(element);
+        Assertions.assertEquals(new Position(1, 19), element.getPosition());
+        diagonalBounceMovement.move(element);
+        Assertions.assertEquals(new Position(2, 22), element.getPosition());
+        diagonalBounceMovement.move(element);
+        Assertions.assertEquals(new Position(5, 25), element.getPosition());
     }
 }
