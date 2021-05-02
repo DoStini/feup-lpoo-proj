@@ -23,6 +23,7 @@ public class LanternaGui implements Gui {
 
     TerminalScreen screen;
     TerminalSize terminalSize;
+    private TextGraphics graphics;
 
     private AWTTerminalFontConfiguration loadFont() throws URISyntaxException, IOException, FontFormatException {
         URL resource = getClass().getClassLoader().getResource("font.ttf");
@@ -55,6 +56,7 @@ public class LanternaGui implements Gui {
         try {
             AWTTerminalFontConfiguration font = loadFont();
             screen = loadTerminal(hSize, vSize, font);
+            graphics = screen.newTextGraphics();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (FontFormatException e) {
@@ -95,21 +97,19 @@ public class LanternaGui implements Gui {
 
     @Override
     public void drawColor(String color, Position pos) {
-        TextGraphics graphics = screen.newTextGraphics();
         graphics.setBackgroundColor(TextColor.Factory.fromString(color));
-        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), " ");
+        graphics.setCharacter(new TerminalPosition(pos.getX(), pos.getY()), ' ');
     }
 
     @Override
     public void drawLine(String color, Position pos, int width) {
-        for (int i = 0; i < width; i++)
-            drawColor(color, new Position(pos.getX() + i, pos.getY()));
+        graphics.setBackgroundColor(TextColor.Factory.fromString(color));
+        graphics.drawLine(new TerminalPosition(pos.getX(), pos.getY()), new TerminalPosition(pos.getX() + width, pos.getY()), ' ');
     }
 
     @Override
     public void drawCharacter(String color, Character c, Position pos) {
-        TextGraphics graphics = screen.newTextGraphics();
-        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "" + c);
+        graphics.setCharacter(new TerminalPosition(pos.getX(), pos.getY()), c);
     }
 
     @Override
