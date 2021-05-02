@@ -1,4 +1,4 @@
-package model.util;
+package com.shootemup.g53.model.util;
 
 public class Position {
     private int x;

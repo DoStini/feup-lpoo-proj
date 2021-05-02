@@ -1,7 +1,7 @@
-package view.element;
+package com.shootemup.g53.element;
 
-import model.util.Position;
-import ui.Gui;
+import com.shootemup.g53.model.util.Position;
+import com.shootemup.g53.ui.Gui;
 
 public class ExampleViewer implements ElementViewer{
     @Override

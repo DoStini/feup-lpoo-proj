@@ -1,8 +1,7 @@
-import model.util.Position;
-import ui.Gui;
-import ui.LanternaGui;
-import view.element.ElementViewer;
-import view.element.ExampleViewer;
+package com.shootemup.g53;
+
+import com.shootemup.g53.ui.Gui;
+import com.shootemup.g53.ui.LanternaGui;
 
 public class Application {
     public static void main(String[] args) {
