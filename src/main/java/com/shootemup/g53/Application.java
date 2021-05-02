@@ -15,22 +15,17 @@ import java.util.concurrent.TimeUnit;
 public class Application {
     public static void main(String[] args) {
         System.out.println("Hello world!");
-        Gui gui = new LanternaGui(50,50);
+        Gui gui = new LanternaGui(20, 20);
 
         ExampleViewer viewer = new ExampleViewer();
         PlayerController controller = new PlayerController();
-        Spaceship spaceship = new Spaceship(new Position(10, 10));
+        Spaceship spaceship = new Spaceship(new Position(5, 5));
 
         while (true) {
             Action act = gui.readInput();
             controller.handle(spaceship, act);
             viewer.draw(gui, spaceship);
             gui.refresh();
-            try {
-                TimeUnit.MILLISECONDS.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 

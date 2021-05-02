@@ -9,8 +9,6 @@ import java.util.List;
 
 public class PlayerController implements SpaceshipController {
 
-    List<KeyStroke> activeKeys;
-
     @Override
     public void handle(Spaceship spaceship, Action act) {
         if (fire(spaceship, act)) return;
@@ -30,25 +28,27 @@ public class PlayerController implements SpaceshipController {
     @Override
     public boolean move(Spaceship spaceship, Action act) {
         Position p = spaceship.getPosition();
-        int speed = 2;
+        int speed = 1; // Override when elements exist
         Position newPos;
         if (act == Action.W) {
-            spaceship.setPosition(p.getUp(speed));
-            return true;
+            return executeMove(spaceship, p.getUp(speed));
         }
         else if (act == Action.A) {
-            spaceship.setPosition(p.getLeft(speed));
-            return true;
+            return executeMove(spaceship, p.getLeft(speed));
         }
         else if (act == Action.S) {
-            spaceship.setPosition(p.getDown(speed));
-            return true;
+            return executeMove(spaceship, p.getDown(speed));
         }
         else if (act == Action.D) {
-            spaceship.setPosition(p.getRight(speed));
-            return true;
+            return  executeMove(spaceship, p.getRight(speed));
         }
         return false;
+    }
+
+    private boolean executeMove(Spaceship spaceship, Position position) {
+        // Later verify here if can move to the desired location
+        spaceship.setPosition(position);
+        return true;
     }
 
     @Override
