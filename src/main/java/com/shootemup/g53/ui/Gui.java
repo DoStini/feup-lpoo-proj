@@ -1,6 +1,6 @@
-package ui;
+package com.shootemup.g53.ui;
 
-import model.util.Position;
+import com.shootemup.g53.model.util.Position;
 
 public interface Gui {
     void drawColor(String color, Position pos);

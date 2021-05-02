@@ -1,4 +1,4 @@
-package ui;
+package com.shootemup.g53.ui;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
@@ -7,7 +7,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
-import model.util.Position;
+import com.shootemup.g53.model.util.Position;
 
 import java.io.IOException;
 
