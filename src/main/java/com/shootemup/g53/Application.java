@@ -22,10 +22,17 @@ public class Application {
         Spaceship spaceship = new Spaceship(new Position(5, 5));
 
         while (true) {
+            gui.clear();
             Action act = gui.readInput();
             controller.handle(spaceship, act);
             viewer.draw(gui, spaceship);
             gui.refresh();
+            Thread.yield();
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
