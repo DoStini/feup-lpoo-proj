@@ -5,7 +5,7 @@ import com.shootemup.g53.model.util.Position;
 abstract public class Element {
     private Position position;
 
-    public Element(Position positio) {
+    public Element(Position position) {
         this.position = position;
     }
 

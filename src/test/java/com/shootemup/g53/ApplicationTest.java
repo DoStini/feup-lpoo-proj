@@ -1,3 +1,5 @@
+package com.shootemup.g53;
+
 import com.shootemup.g53.Application;
 import org.junit.jupiter.api.Test;
 

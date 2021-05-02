@@ -1,5 +1,7 @@
 package com.shootemup.g53.model.util;
 
+import java.util.Objects;
+
 public class Position {
     private int x;
     private int y;
@@ -31,5 +33,18 @@ public class Position {
 
     public Position getDown(int offset) {
         return new Position(this.x, this.y + offset);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Position)) return false;
+        Position position = (Position) o;
+        return x == position.x && y == position.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }
