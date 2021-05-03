@@ -15,7 +15,7 @@ public class CircleDrawer implements Drawer {
     @Override
     public void draw(Gui gui, Position position) {
         for (int i = 0; i < radius; i++) {
-            int currentRadius = radius - i -1;
+            int currentRadius = radius - i - 1;
             gui.drawLine(color, position.getLeft(currentRadius).getUp(i), 2*currentRadius);
             gui.drawLine(color, position.getLeft(currentRadius).getDown(i), 2*currentRadius);
         }

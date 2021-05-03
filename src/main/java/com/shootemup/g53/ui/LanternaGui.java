@@ -4,6 +4,7 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
@@ -18,7 +19,7 @@ import java.net.URL;
 
 public class LanternaGui implements Gui {
 
-    TerminalScreen screen;
+    Screen screen;
     TerminalSize terminalSize;
 
     private AWTTerminalFontConfiguration loadFont(int fontSize) throws URISyntaxException, IOException, FontFormatException {
@@ -61,11 +62,15 @@ public class LanternaGui implements Gui {
         }
     }
 
+    public LanternaGui(Screen screen) {
+        this.screen = screen;
+    }
+
     @Override
     public void drawColor(String color, Position pos) {
         TextGraphics graphics = screen.newTextGraphics();
         graphics.setBackgroundColor(TextColor.Factory.fromString(color));
-        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), " ");
+        graphics.putString(pos.getX(), pos.getY(), " ");
     }
 
     @Override
@@ -78,7 +83,7 @@ public class LanternaGui implements Gui {
     @Override
     public void drawCharacter(String color, Character c, Position pos) {
         TextGraphics graphics = screen.newTextGraphics();
-        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "" + c);
+        graphics.putString(pos.getX(), pos.getY(), "" + c);
     }
 
     @Override
