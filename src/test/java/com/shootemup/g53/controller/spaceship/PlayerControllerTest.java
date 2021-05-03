@@ -27,7 +27,6 @@ class PlayerControllerTest {
     void handleMovementUp() {
         SpaceshipController controller = new PlayerController();
         controller.handle(spaceship, Action.W);
-        Position pos = position.getUp(1);
         Assertions.assertEquals(position.getUp(1), spaceship.getPosition());
     }
     @Test
@@ -47,5 +46,11 @@ class PlayerControllerTest {
         SpaceshipController controller = new PlayerController();
         controller.handle(spaceship, Action.D);
         Assertions.assertEquals(position.getRight(1), spaceship.getPosition());
+    }
+
+    @Test
+    void handleFire() {
+        SpaceshipController controller = new PlayerController();
+        controller.handle(spaceship, Action.FIRE);
     }
 }

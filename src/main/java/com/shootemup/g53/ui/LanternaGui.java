@@ -87,6 +87,8 @@ public class LanternaGui implements Gui {
                         return Action.S;
                     case 'd':
                         return Action.D;
+                    case 'f':
+                        return Action.FIRE;
                 }
             }
         } catch (IOException e) {

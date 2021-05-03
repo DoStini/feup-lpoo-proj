@@ -2,11 +2,18 @@ package com.shootemup.g53.controller.spaceship;
 
 import com.shootemup.g53.controller.Action;
 import com.shootemup.g53.model.element.Spaceship;
-import com.shootemup.g53.model.util.Position;
 
-public interface SpaceshipController {
-    void handle(Spaceship spaceship, Action act);
-    boolean fire (Spaceship spaceship, Action act);
-    boolean move (Spaceship spaceship, Action act);
-    boolean usePowerup (Spaceship spaceship, Action act);
+public abstract class SpaceshipController {
+
+    protected int lastFire = 0;
+    protected int lastMove = 0;
+    protected int current = 0;
+
+    void increaseFrame() {
+        current++;
+    }
+
+    abstract public void handle(Spaceship spaceship, Action act);
+    abstract boolean fire(Spaceship spaceship, Action act);
+    abstract boolean move(Spaceship spaceship, Action act);
 }

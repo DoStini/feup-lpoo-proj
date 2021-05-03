@@ -7,10 +7,11 @@ import com.shootemup.g53.model.util.Position;
 
 import java.util.List;
 
-public class PlayerController implements SpaceshipController {
+public class PlayerController extends SpaceshipController {
 
     @Override
     public void handle(Spaceship spaceship, Action act) {
+        increaseFrame();
         if (fire(spaceship, act)) return;
         if (usePowerup(spaceship, act)) return;
         move(spaceship, act);
@@ -19,7 +20,11 @@ public class PlayerController implements SpaceshipController {
     @Override
     public boolean fire(Spaceship spaceship, Action act) {
         if (act == Action.FIRE) {
-            System.out.println("Fire!");
+            int fireRate = 20;
+            if (current > lastFire + fireRate) {
+                System.out.println("Fire!");
+                lastFire = current;
+            }
             return true;
         }
         return false;
@@ -51,9 +56,7 @@ public class PlayerController implements SpaceshipController {
         return true;
     }
 
-    @Override
     public boolean usePowerup(Spaceship spaceship, Action act) {
         return false;
     }
-
 }
