@@ -5,24 +5,29 @@ import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 
 public class AIShootingController extends SpaceshipController {
-    @Override
-    public void handle(Spaceship spaceship, Action act) {
-        move(spaceship, Action.NONE);
+
+    public AIShootingController(Spaceship spaceship) {
+        super(spaceship);
     }
 
     @Override
-    public boolean fire(Spaceship spaceship, Action act) {
+    public void handle(Action act) {
+        move(Action.NONE);
+    }
+
+    @Override
+    public boolean fire(Action act) {
         return false;
     }
 
     @Override
-    public boolean move(Spaceship spaceship, Action act) {
+    public boolean move(Action act) {
         int speed = 1;
-        executeMove(spaceship, spaceship.getPosition().getDown(speed));
+        executeMove(spaceship.getPosition().getDown(speed));
         return true;
     }
 
-    private boolean executeMove(Spaceship spaceship, Position position) {
+    private boolean executeMove(Position position) {
         // Later verify here if can move to the desired location
         spaceship.setPosition(position);
         return true;

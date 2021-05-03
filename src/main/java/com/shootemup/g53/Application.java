@@ -17,10 +17,10 @@ public class Application {
         Gui gui = new LanternaGui(100, 100);
 
         ExampleViewer viewer = new ExampleViewer();
-        SpaceshipController controller = new PlayerController();
-        SpaceshipController aiController = new AIShootingController();
         Spaceship spaceship = new Spaceship(new Position(5, 5));
         Spaceship enemy = new Spaceship(new Position(10, 5));
+        SpaceshipController controller = new PlayerController(spaceship);
+        SpaceshipController aiController = new AIShootingController(enemy);
 
         while (true) {
             gui.clear();
@@ -29,8 +29,8 @@ public class Application {
                 gui.close();
                 break;
             }
-            controller.handle(spaceship, act);
-            aiController.handle(enemy, Action.NONE);
+            controller.handle(act);
+            aiController.handle(Action.NONE);
             viewer.draw(gui, spaceship);
             viewer.draw(gui, enemy);
             gui.refresh();

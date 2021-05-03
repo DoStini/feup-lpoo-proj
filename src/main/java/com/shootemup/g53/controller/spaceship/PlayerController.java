@@ -9,16 +9,20 @@ import java.util.List;
 
 public class PlayerController extends SpaceshipController {
 
-    @Override
-    public void handle(Spaceship spaceship, Action act) {
-        increaseFrame();
-        if (fire(spaceship, act)) return;
-        if (usePowerup(spaceship, act)) return;
-        move(spaceship, act);
+    public PlayerController(Spaceship spaceship) {
+        super(spaceship);
     }
 
     @Override
-    public boolean fire(Spaceship spaceship, Action act) {
+    public void handle(Action act) {
+        increaseFrame();
+        if (fire(act)) return;
+        if (usePowerup(spaceship, act)) return;
+        move(act);
+    }
+
+    @Override
+    public boolean fire(Action act) {
         if (act == Action.FIRE) {
             int fireRate = 20;
             if (current > lastFire + fireRate) {
@@ -31,7 +35,7 @@ public class PlayerController extends SpaceshipController {
     }
 
     @Override
-    public boolean move(Spaceship spaceship, Action act) {
+    public boolean move(Action act) {
         Position p = spaceship.getPosition();
         int speed = 1; // Override when elements exist
         Position newPos;

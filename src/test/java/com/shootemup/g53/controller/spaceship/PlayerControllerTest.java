@@ -25,32 +25,32 @@ class PlayerControllerTest {
 
     @Test
     void handleMovementUp() {
-        SpaceshipController controller = new PlayerController();
-        controller.handle(spaceship, Action.W);
+        SpaceshipController controller = new PlayerController(spaceship);
+        controller.handle(Action.W);
         Assertions.assertEquals(position.getUp(1), spaceship.getPosition());
     }
     @Test
     void handleMovementDown() {
-        SpaceshipController controller = new PlayerController();
-        controller.handle(spaceship, Action.S);
+        SpaceshipController controller = new PlayerController(spaceship);
+        controller.handle(Action.S);
         Assertions.assertEquals(position.getDown(1), spaceship.getPosition());
     }
     @Test
     void handleMovementLeft() {
-        SpaceshipController controller = new PlayerController();
-        controller.handle(spaceship, Action.A);
+        SpaceshipController controller = new PlayerController(spaceship);
+        controller.handle(Action.A);
         Assertions.assertEquals(position.getLeft(1), spaceship.getPosition());
     }
     @Test
     void handleMovementRight() {
-        SpaceshipController controller = new PlayerController();
-        controller.handle(spaceship, Action.D);
+        SpaceshipController controller = new PlayerController(spaceship);
+        controller.handle(Action.D);
         Assertions.assertEquals(position.getRight(1), spaceship.getPosition());
     }
 
     @Test
     void handleFire() {
-        SpaceshipController controller = new PlayerController();
-        controller.handle(spaceship, Action.FIRE);
+        SpaceshipController controller = new PlayerController(spaceship);
+        controller.handle(Action.FIRE);
     }
 }
