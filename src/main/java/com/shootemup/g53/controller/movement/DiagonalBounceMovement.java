@@ -1,6 +1,7 @@
 package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.model.element.Element;
+import com.shootemup.g53.model.util.Position;
 
 public class DiagonalBounceMovement implements MovementController{
     private final Element element;
@@ -21,45 +22,50 @@ public class DiagonalBounceMovement implements MovementController{
         this.direction = direction;
     }
 
-    private void moveLeft() {
-        element.setPosition(element.getPosition().getLeft(increment));
+    private Position moveLeft() {
+        Position newPosition = element.getPosition().getLeft(increment);
 
-        int x = element.getPosition().getX();
+        int x = newPosition.getX();
 
         if(x < xLeftLimit) {
             int diff = xLeftLimit - x;
-            element.setPosition(element.getPosition().getRight(diff + diff));
+            newPosition = newPosition.getRight(diff + diff);
 
             this.direction = Direction.DOWN_RIGHT;
         }
+
+        return newPosition;
     }
 
-    private void moveRight() {
-        element.setPosition(element.getPosition().getRight(increment));
+    private Position moveRight() {
+        Position newPosition = element.getPosition().getRight(increment);
 
-        int x = element.getPosition().getX();
+        int x = newPosition.getX();
 
         if(x > xRightLimit) {
             int diff = x-xRightLimit;
-            element.setPosition(element.getPosition().getLeft(diff + diff));
+            newPosition = newPosition.getLeft(diff + diff);
 
             this.direction = Direction.DOWN_LEFT;
         }
+
+        return newPosition;
     }
 
     @Override
-    public Element move() {
-        element.setPosition(element.getPosition().getDown(increment));
-
+    public Position move() {
+        Position position;
         switch (this.direction) {
             case DOWN_LEFT:
-                this.moveLeft();
+                position = this.moveLeft();
                 break;
             case DOWN_RIGHT:
-                this.moveRight();
+                position = this.moveRight();
                 break;
+            default:
+                position = new Position(0,0);
         }
 
-        return element;
+        return position.getDown(increment);
     }
 }

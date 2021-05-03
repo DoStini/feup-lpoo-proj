@@ -1,6 +1,7 @@
 package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.model.element.Element;
+import com.shootemup.g53.model.util.Position;
 
 public class FallDownMovement implements MovementController {
     private final Element element;
@@ -12,8 +13,7 @@ public class FallDownMovement implements MovementController {
     }
 
     @Override
-    public Element move() {
-        element.setPosition(element.getPosition().getDown(increment));
-        return element;
+    public Position move() {
+        return element.getPosition().getDown(increment);
     }
 }

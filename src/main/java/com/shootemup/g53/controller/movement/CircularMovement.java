@@ -17,7 +17,7 @@ public class CircularMovement implements MovementController{
     }
 
     @Override
-    public Element move() {
+    public Position move() {
         Position curCenter = element.getPosition().sub(
             new Position(
                 Math.toIntExact(Math.round(radius*Math.cos(this.angle))),
@@ -29,13 +29,9 @@ public class CircularMovement implements MovementController{
 
         this.angle %= 2*Math.PI;
 
-        Position newPosition = new Position(
+        return new Position(
                 Math.toIntExact(Math.round(radius*Math.cos(this.angle))),
                 Math.toIntExact(Math.round(radius*Math.sin(this.angle)))
         ).add(curCenter);
-
-        element.setPosition(newPosition);
-
-        return element;
     }
 }

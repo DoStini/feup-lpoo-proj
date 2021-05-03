@@ -1,6 +1,7 @@
 package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.model.element.Element;
+import com.shootemup.g53.model.util.Position;
 
 public class DiagonalDownLeftMovement implements MovementController{
     private final Element element;
@@ -12,11 +13,11 @@ public class DiagonalDownLeftMovement implements MovementController{
     }
 
     @Override
-    public Element move() {
-        element.setPosition(element.getPosition().getDown(increment));
-        element.setPosition(element.getPosition().getLeft(increment));
+    public Position move() {
+        Position newPosition = element.getPosition().getDown(increment);
+        newPosition = newPosition.getLeft(increment);
 
-        return element;
+        return newPosition;
     }
 }
 
