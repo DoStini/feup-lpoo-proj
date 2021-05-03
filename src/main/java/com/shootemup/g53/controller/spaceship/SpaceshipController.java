@@ -2,6 +2,7 @@ package com.shootemup.g53.controller.spaceship;
 
 import com.shootemup.g53.controller.Action;
 import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.ui.Gui;
 
 public abstract class SpaceshipController {
 
@@ -17,7 +18,7 @@ public abstract class SpaceshipController {
     void increaseFrame() {
         current++;
     }
-    abstract public void handle(Action act);
-    abstract boolean fire(Action act);
-    abstract boolean move(Action act);
+    abstract public void handle(Gui gui);
+    abstract void fire(Gui gui);
+    abstract void move(Gui gui);
 }

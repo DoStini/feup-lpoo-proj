@@ -12,6 +12,10 @@ import com.shootemup.g53.ui.LanternaGui;
 public class Application {
     public static void main(String[] args) {
         System.out.println("Hello world!");
+        controllersExample();
+    }
+
+    public static void controllersExample() {
         Gui gui = new LanternaGui(100, 100);
 
         ExampleViewer viewer = new ExampleViewer();
@@ -19,21 +23,19 @@ public class Application {
         Spaceship spaceship2 = new Spaceship(new Position(5, 5));
         Spaceship enemy = new Spaceship(new Position(10, 5));
         SpaceshipController aiController = new AIShootingController(enemy);
-        SpaceshipController controller2 = new PlayerController(spaceship2);
-        SpaceshipActiveController controller = new PlayerActiveController(spaceship);
+        SpaceshipController controller = new PlayerController(spaceship);
 
         while (true) {
             gui.clear();
-            Action act = gui.readInput();
-            if (act == Action.ESC) {
+
+            if (gui.isActionActive(Action.ESC)) {
                 gui.close();
                 break;
             }
+
             controller.handle(gui);
-            controller2.handle(act);
-            aiController.handle(Action.NONE);
+            aiController.handle(gui);
             viewer.draw(gui, spaceship);
-            viewer.draw(gui, spaceship2);
             viewer.draw(gui, enemy);
             gui.refresh();
             Thread.yield();

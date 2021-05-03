@@ -1,66 +1,46 @@
 package com.shootemup.g53.controller.spaceship;
 
-import com.googlecode.lanterna.input.KeyStroke;
 import com.shootemup.g53.controller.Action;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
-
-import java.util.List;
+import com.shootemup.g53.ui.Gui;
 
 public class PlayerController extends SpaceshipController {
-
     public PlayerController(Spaceship spaceship) {
         super(spaceship);
     }
 
     @Override
-    public void handle(Action act) {
-        increaseFrame();
-        if (fire(act)) return;
-        if (usePowerup(spaceship, act)) return;
-        move(act);
+    public void handle(Gui gui) {
+        fire(gui);
+        move(gui);
     }
 
     @Override
-    public boolean fire(Action act) {
-        if (act == Action.FIRE) {
-            int fireRate = 20;
-            if (current > lastFire + fireRate) {
-                System.out.println("Fire!");
-                lastFire = current;
-            }
-            return true;
-        }
-        return false;
+    void fire(Gui gui) {
+        if (gui.isActionActive(Action.FIRE))
+            System.out.println("Fire");
     }
 
     @Override
-    public boolean move(Action act) {
-        Position p = spaceship.getPosition();
+     void move(Gui gui) {
         int speed = 1; // Override when elements exist
-        Position newPos;
-        if (act == Action.W) {
-            return executeMove(spaceship, p.getUp(speed));
+        if (gui.isActionActive(Action.W)) {
+            executeMove(spaceship, spaceship.getPosition().getUp(speed));
         }
-        else if (act == Action.A) {
-            return executeMove(spaceship, p.getLeft(speed));
+        if (gui.isActionActive(Action.A)) {
+            executeMove(spaceship, spaceship.getPosition().getLeft(speed));
         }
-        else if (act == Action.S) {
-            return executeMove(spaceship, p.getDown(speed));
+        if (gui.isActionActive(Action.S)) {
+            executeMove(spaceship, spaceship.getPosition().getDown(speed));
         }
-        else if (act == Action.D) {
-            return  executeMove(spaceship, p.getRight(speed));
+        if (gui.isActionActive(Action.D)) {
+            executeMove(spaceship, spaceship.getPosition().getRight(speed));
         }
-        return false;
     }
 
-    private boolean executeMove(Spaceship spaceship, Position position) {
+    private void executeMove(Spaceship spaceship, Position position) {
         // Later verify here if can move to the desired location
         spaceship.setPosition(position);
-        return true;
-    }
-
-    public boolean usePowerup(Spaceship spaceship, Action act) {
-        return false;
     }
 }
