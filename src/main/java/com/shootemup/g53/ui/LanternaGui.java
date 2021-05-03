@@ -9,21 +9,28 @@ import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 import com.shootemup.g53.controller.Action;
 import com.shootemup.g53.model.util.Position;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LanternaGui implements Gui {
 
     TerminalScreen screen;
     TerminalSize terminalSize;
     private TextGraphics graphics;
+
+    private Map<Action, Boolean> keysPressed = new HashMap<>();
 
     private AWTTerminalFontConfiguration loadFont() throws URISyntaxException, IOException, FontFormatException {
         URL resource = getClass().getClassLoader().getResource("font.ttf");
@@ -39,17 +46,47 @@ public class LanternaGui implements Gui {
 
     private TerminalScreen loadTerminal(int hSize, int vSize, AWTTerminalFontConfiguration fontConfig) throws IOException {
         terminalSize = new TerminalSize(vSize, hSize);
-        DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
-        defaultTerminalFactory.setForceAWTOverSwing(true);
-        defaultTerminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
-
-        Terminal terminal = defaultTerminalFactory.createTerminal();
+        Terminal terminal = setupTerminal(fontConfig);
         TerminalScreen screen = new TerminalScreen(terminal);
 
         screen.setCursorPosition(null);
         screen.startScreen();
         screen.doResizeIfNecessary();
         return screen;
+    }
+
+    Terminal setupTerminal(AWTTerminalFontConfiguration fontConfig) {
+        DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+        defaultTerminalFactory.setForceAWTOverSwing(true);
+        defaultTerminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
+        Terminal terminal = null;
+        try {
+            terminal = defaultTerminalFactory.createTerminal();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return terminal;
+        }
+
+        ((AWTTerminalFrame) terminal).getComponent(0).addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                Action act = keyEventToAction(e);
+                keysPressed.put(act, true);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                Action act = keyEventToAction(e);
+                keysPressed.put(act, false);
+            }
+        });
+
+        return terminal;
     }
 
     public LanternaGui(int hSize, int vSize) {
@@ -64,6 +101,39 @@ public class LanternaGui implements Gui {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+    }
+
+    private Action keyEventToAction(KeyEvent key) {
+        if (key == null)
+            return Action.NONE;
+
+        switch (key.getKeyChar()) {
+            case KeyEvent.VK_ESCAPE:
+                return Action.ESC;
+            case 'w':
+                return Action.W;
+            case 'a':
+                return Action.A;
+            case 's':
+                return Action.S;
+            case 'd':
+                return Action.D;
+            case 'f':
+                return Action.FIRE;
+        }
+
+        switch (key.getKeyCode()) {
+            case KeyEvent.VK_LEFT:
+                return Action.LEFT;
+            case KeyEvent.VK_UP:
+                return Action.UP;
+            case KeyEvent.VK_RIGHT:
+                return Action.RIGHT;
+            case KeyEvent.VK_DOWN:
+                return Action.DOWN;
+        }
+
+        return Action.NONE;
     }
 
     @Override
@@ -95,6 +165,11 @@ public class LanternaGui implements Gui {
             e.printStackTrace();
         }
         return Action.NONE;
+    }
+
+    @Override
+    public boolean isActionActive(Action act) {
+        return keysPressed.containsKey(act)  ? keysPressed.get(act) : false;
     }
 
     @Override

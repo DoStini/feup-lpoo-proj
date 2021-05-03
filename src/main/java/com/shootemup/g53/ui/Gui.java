@@ -8,6 +8,7 @@ public interface Gui {
     void drawLine(String color, Position pos, int width);
     void drawCharacter(String color, Character c, Position pos);
     Action readInput();
+    boolean isActionActive(Action act);
     void refresh();
     void close();
     void clear();

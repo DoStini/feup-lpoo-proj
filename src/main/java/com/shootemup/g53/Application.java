@@ -1,9 +1,7 @@
 package com.shootemup.g53;
 
 import com.shootemup.g53.controller.Action;
-import com.shootemup.g53.controller.spaceship.AIShootingController;
-import com.shootemup.g53.controller.spaceship.PlayerController;
-import com.shootemup.g53.controller.spaceship.SpaceshipController;
+import com.shootemup.g53.controller.spaceship.*;
 import com.shootemup.g53.element.ExampleViewer;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
@@ -17,10 +15,12 @@ public class Application {
         Gui gui = new LanternaGui(100, 100);
 
         ExampleViewer viewer = new ExampleViewer();
-        Spaceship spaceship = new Spaceship(new Position(5, 5));
+        Spaceship spaceship = new Spaceship(new Position(20, 5));
+        Spaceship spaceship2 = new Spaceship(new Position(5, 5));
         Spaceship enemy = new Spaceship(new Position(10, 5));
-        SpaceshipController controller = new PlayerController(spaceship);
         SpaceshipController aiController = new AIShootingController(enemy);
+        SpaceshipController controller2 = new PlayerController(spaceship2);
+        SpaceshipActiveController controller = new PlayerActiveController(spaceship);
 
         while (true) {
             gui.clear();
@@ -29,9 +29,11 @@ public class Application {
                 gui.close();
                 break;
             }
-            controller.handle(act);
+            controller.handle(gui);
+            controller2.handle(act);
             aiController.handle(Action.NONE);
             viewer.draw(gui, spaceship);
+            viewer.draw(gui, spaceship2);
             viewer.draw(gui, enemy);
             gui.refresh();
             Thread.yield();
