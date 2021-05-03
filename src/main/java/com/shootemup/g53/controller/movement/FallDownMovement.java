@@ -4,16 +4,16 @@ import com.shootemup.g53.model.element.Element;
 
 public class FallDownMovement implements MovementController {
     private final Element element;
-    private final int speed;
+    private final int increment;
 
-    public FallDownMovement(Element element, int speed) {
+    public FallDownMovement(Element element, int increment) {
         this.element = element;
-        this.speed = speed;
+        this.increment = increment;
     }
 
     @Override
     public Element move() {
-        element.setPosition(element.getPosition().getDown(speed));
+        element.setPosition(element.getPosition().getDown(increment));
         return element;
     }
 }

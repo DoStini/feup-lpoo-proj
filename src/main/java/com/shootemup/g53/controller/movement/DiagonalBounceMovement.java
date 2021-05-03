@@ -4,7 +4,7 @@ import com.shootemup.g53.model.element.Element;
 
 public class DiagonalBounceMovement implements MovementController{
     private final Element element;
-    private final int speed;
+    private final int increment;
     private final int xLeftLimit;
     private final int xRightLimit;
     private Direction direction;
@@ -13,16 +13,16 @@ public class DiagonalBounceMovement implements MovementController{
         DOWN_RIGHT, DOWN_LEFT
     }
 
-    public DiagonalBounceMovement(Element element, int speed, int xLeftLimit, int xRightLimit, Direction direction) {
+    public DiagonalBounceMovement(Element element, int increment, int xLeftLimit, int xRightLimit, Direction direction) {
         this.element = element;
-        this.speed = speed;
+        this.increment = increment;
         this.xLeftLimit = xLeftLimit;
         this.xRightLimit = xRightLimit;
         this.direction = direction;
     }
 
     private void moveLeft() {
-        element.setPosition(element.getPosition().getLeft(speed));
+        element.setPosition(element.getPosition().getLeft(increment));
 
         int x = element.getPosition().getX();
 
@@ -35,7 +35,7 @@ public class DiagonalBounceMovement implements MovementController{
     }
 
     private void moveRight() {
-        element.setPosition(element.getPosition().getRight(speed));
+        element.setPosition(element.getPosition().getRight(increment));
 
         int x = element.getPosition().getX();
 
@@ -49,7 +49,7 @@ public class DiagonalBounceMovement implements MovementController{
 
     @Override
     public Element move() {
-        element.setPosition(element.getPosition().getDown(speed));
+        element.setPosition(element.getPosition().getDown(increment));
 
         switch (this.direction) {
             case DOWN_LEFT:

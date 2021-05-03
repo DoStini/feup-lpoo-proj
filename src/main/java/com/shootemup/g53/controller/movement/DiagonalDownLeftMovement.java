@@ -4,17 +4,17 @@ import com.shootemup.g53.model.element.Element;
 
 public class DiagonalDownLeftMovement implements MovementController{
     private final Element element;
-    private int speed;
+    private final int increment;
 
-    public DiagonalDownLeftMovement(Element element, int speed) {
+    public DiagonalDownLeftMovement(Element element, int increment) {
         this.element = element;
-        this.speed = speed;
+        this.increment = increment;
     }
 
     @Override
     public Element move() {
-        element.setPosition(element.getPosition().getDown(speed));
-        element.setPosition(element.getPosition().getLeft(speed));
+        element.setPosition(element.getPosition().getDown(increment));
+        element.setPosition(element.getPosition().getLeft(increment));
 
         return element;
     }
