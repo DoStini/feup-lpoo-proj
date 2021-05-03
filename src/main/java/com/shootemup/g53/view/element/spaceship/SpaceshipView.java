@@ -1,14 +1,14 @@
 package com.shootemup.g53.view.element.spaceship;
 
 import com.shootemup.g53.model.element.Spaceship;
-import com.shootemup.g53.view.element.ElementViewer;
+import com.shootemup.g53.view.element.ElementView;
 
-public abstract class SpaceshipViewer implements ElementViewer<Spaceship> {
+public abstract class SpaceshipView implements ElementView<Spaceship> {
     protected int lineWidth;
     protected int size;
     protected String color;
 
-    public SpaceshipViewer(String color, int size, int lineWidth) {
+    public SpaceshipView(String color, int size, int lineWidth) {
         this.size = size;
         this.color = color;
         this.lineWidth = lineWidth - 1;

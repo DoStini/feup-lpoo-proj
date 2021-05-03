@@ -4,7 +4,7 @@ import com.shootemup.g53.model.element.Element;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 
-public class ExampleViewer implements ElementViewer<Element> {
+public class ExampleView implements ElementView<Element> {
     @Override
     public void draw(Gui gui, Element element) {
         int mid = 15;

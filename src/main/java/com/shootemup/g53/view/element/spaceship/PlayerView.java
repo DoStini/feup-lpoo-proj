@@ -4,9 +4,9 @@ import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 
-public class PlayerViewer extends SpaceshipViewer {
+public class PlayerView extends SpaceshipView {
 
-    public PlayerViewer(String color, int size, int lineWidth) {
+    public PlayerView(String color, int size, int lineWidth) {
         super(color, size, lineWidth);
     }
 
