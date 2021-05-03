@@ -82,4 +82,46 @@ class MovementControllerTest {
         diagonalRightMovement.move(element);
         Assertions.assertEquals(new Position(7, 7), element.getPosition());
     }
+
+    @Test
+    void circular() {
+        double angSpeed = 72;
+
+        MovementController circular = new CircularMovement(3, 0, angSpeed);
+
+        Assertions.assertEquals(new Position(-1, 4), circular.move(element).getPosition());
+        Assertions.assertEquals(new Position(-4, 3), circular.move(element).getPosition());
+        Assertions.assertEquals(new Position(-4, -1), circular.move(element).getPosition());
+        Assertions.assertEquals(new Position(-1, -2), circular.move(element).getPosition());
+        Assertions.assertEquals(new Position(1, 1), circular.move(element).getPosition());
+        Assertions.assertEquals(new Position(-1, 4), circular.move(element).getPosition());
+    }
+
+    @Test
+    void circularReverse() {
+        double angSpeed = -72;
+
+        MovementController circular = new CircularMovement(3, 0, angSpeed);
+
+        Assertions.assertEquals(new Position(-1, -2), circular.move(element).getPosition());
+        Assertions.assertEquals(new Position(-4, -1), circular.move(element).getPosition());
+        Assertions.assertEquals(new Position(-4, 3), circular.move(element).getPosition());
+        Assertions.assertEquals(new Position(-1, 4), circular.move(element).getPosition());
+        Assertions.assertEquals(new Position(1, 1), circular.move(element).getPosition());
+        Assertions.assertEquals(new Position(-1, -2), circular.move(element).getPosition());
+    }
+
+    @Test
+    void circularReverseAngle() {
+        double angSpeed = -72;
+
+        MovementController circular = new CircularMovement(3, 90, angSpeed);
+
+        Assertions.assertEquals(new Position(4, -1), circular.move(element).getPosition());
+        Assertions.assertEquals(new Position(3, -4), circular.move(element).getPosition());
+        Assertions.assertEquals(new Position(-1, -4), circular.move(element).getPosition());
+        Assertions.assertEquals(new Position(-2, -1), circular.move(element).getPosition());
+        Assertions.assertEquals(new Position(1, 1), circular.move(element).getPosition());
+        Assertions.assertEquals(new Position(4, -1), circular.move(element).getPosition());
+    }
 }

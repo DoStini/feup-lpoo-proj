@@ -51,8 +51,12 @@ public class DiagonalBounceMovement implements MovementController{
         element.setPosition(element.getPosition().getDown(speed));
 
         switch (this.direction) {
-            case DOWN_LEFT -> this.moveLeft(element);
-            case DOWN_RIGHT -> this.moveRight(element);
+            case DOWN_LEFT:
+                this.moveLeft(element);
+                break;
+            case DOWN_RIGHT:
+                this.moveRight(element);
+                break;
         }
 
         return element;
