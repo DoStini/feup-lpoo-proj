@@ -64,6 +64,7 @@ public class DiagonalBounceMovement implements MovementController{
                 break;
             default:
                 position = new Position(0,0);
+                break;
         }
 
         return position.getDown(increment);
