@@ -32,4 +32,11 @@ public class Position {
     public Position getDown(int offset) {
         return new Position(this.x, this.y + offset);
     }
+
+    public double getSquaredDistance(Position other) {
+        double xDiff = this.x - other.getX();
+        double yDiff = this.y - other.getY();
+
+        return xDiff*xDiff + yDiff*yDiff;
+    }
 }

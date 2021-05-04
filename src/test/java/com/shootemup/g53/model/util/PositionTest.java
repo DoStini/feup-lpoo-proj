@@ -37,4 +37,21 @@ class PositionTest {
         Assertions.assertEquals(pos.getDown(1).getY(), 11);
         Assertions.assertEquals(pos.getDown(2).getY(), 12);
     }
+
+    @Test
+    void getSquaredDistance() {
+        Position pos2 = new Position(15, 10);
+
+        Assertions.assertEquals(25, pos.getSquaredDistance(pos2), 0.001);
+        Assertions.assertEquals(25, pos2.getSquaredDistance(pos), 0.001);
+        Assertions.assertEquals(0, pos.getSquaredDistance(pos), 0.001);
+
+        Position pos3 = new Position(10, 15);
+
+        Assertions.assertEquals(25, pos.getSquaredDistance(pos3), 0.001);
+        Assertions.assertEquals(25, pos3.getSquaredDistance(pos), 0.001);
+
+        Assertions.assertEquals(50, pos2.getSquaredDistance(pos3),0.001);
+        Assertions.assertEquals(50, pos3.getSquaredDistance(pos2),0.001);
+    }
 }
