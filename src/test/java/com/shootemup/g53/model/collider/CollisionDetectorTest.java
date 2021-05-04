@@ -14,17 +14,17 @@ class CollisionDetectorTest {
 
     @Test
     void squareCollider() {
-        SquareCollider collider = new SquareCollider(new Position(0,0), 10, 10);
-        SquareCollider collider2 = new SquareCollider(new Position(10, 10), 1,1);
-        SquareCollider collider3 = new SquareCollider(new Position(11, 11), 1,1);
-        SquareCollider collider4 = new SquareCollider(new Position(-1, -1), 0,0);
-        SquareCollider collider5 = new SquareCollider(new Position(-1, -1), 1,0);
-        SquareCollider collider6 = new SquareCollider(new Position(-1, -1), 0,1);
-        SquareCollider collider7 = new SquareCollider(new Position(-1, -1), 1,1);
-        SquareCollider collider8 = new SquareCollider(new Position(11, 0), 1,1);
+        Collider collider = new SquareCollider(new Position(0,0), 10, 10);
+        Collider collider2 = new SquareCollider(new Position(10, 10), 1,1);
+        Collider collider3 = new SquareCollider(new Position(11, 11), 1,1);
+        Collider collider4 = new SquareCollider(new Position(-1, -1), 0,0);
+        Collider collider5 = new SquareCollider(new Position(-1, -1), 1,0);
+        Collider collider6 = new SquareCollider(new Position(-1, -1), 0,1);
+        Collider collider7 = new SquareCollider(new Position(-1, -1), 1,1);
+        Collider collider8 = new SquareCollider(new Position(11, 0), 1,1);
 
 
-        CollisionDetector<SquareCollider, SquareCollider> scd = new SquareCollisionDetector();
+        CollisionDetector scd = new SquareCollisionDetector();
 
         Assertions.assertTrue(scd.collide(collider, collider2));
         Assertions.assertTrue(scd.collide(collider2, collider));
