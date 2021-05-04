@@ -32,4 +32,25 @@ public class ColliderIntegratedTest {
         Assertions.assertFalse(collider1.collide(collider2));
         Assertions.assertFalse(collider1.collide(collider2));
     }
+
+    @Test
+    void circleSquareCollision() {
+        Collider collider = new SquareCollider(new Position(0,0),10,10);
+        Collider collider1 = new CircleCollider(new Position(1,1),1);
+        Collider collider2 = new CircleCollider(new Position(-1,-1), 1);
+        Collider collider3 = new CircleCollider(new Position(-1, 0), 2);
+        Collider collider4 = new CircleCollider(new Position(0, -1), 2);
+
+        Assertions.assertTrue(collider.collide(collider1));
+        Assertions.assertTrue(collider1.collide(collider));
+
+        Assertions.assertFalse(collider.collide(collider2));
+        Assertions.assertFalse(collider2.collide(collider));
+
+        Assertions.assertTrue(collider.collide(collider3));
+        Assertions.assertTrue(collider3.collide(collider));
+
+        Assertions.assertTrue(collider.collide(collider4));
+        Assertions.assertTrue(collider4.collide(collider));
+    }
 }
