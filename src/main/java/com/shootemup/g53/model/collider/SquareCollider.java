@@ -16,7 +16,7 @@ public class SquareCollider implements Collider{
 
     @Override
     public boolean collide(Collider other) {
-        return false;
+        return CollisionDetectorFactory.createFromColliders(this, other).collide(this, other);
     }
 
     public Position getTopLeft() {

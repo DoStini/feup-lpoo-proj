@@ -22,6 +22,8 @@ class CollisionDetectorTest {
         Collider collider6 = new SquareCollider(new Position(-1, -1), 0,1);
         Collider collider7 = new SquareCollider(new Position(-1, -1), 1,1);
         Collider collider8 = new SquareCollider(new Position(11, 0), 1,1);
+        Collider collider9 = new SquareCollider(new Position(0,0),0,0);
+        Collider collider10 = new SquareCollider(new Position(0,0),0,0);
 
 
         CollisionDetector scd = new SquareCollisionDetector();
@@ -46,5 +48,8 @@ class CollisionDetectorTest {
 
         Assertions.assertFalse(scd.collide(collider, collider8));
         Assertions.assertFalse(scd.collide(collider8, collider));
+
+        Assertions.assertTrue(scd.collide(collider9, collider10));
+        Assertions.assertTrue(scd.collide(collider10, collider9));
     }
 }

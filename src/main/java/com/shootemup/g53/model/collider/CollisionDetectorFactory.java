@@ -5,7 +5,7 @@ import com.shootemup.g53.model.util.UnorderedPair;
 import java.util.HashMap;
 
 public class CollisionDetectorFactory {
-    private static HashMap<UnorderedPair<Class<?>>, CollisionDetector> classToDetector =
+    private static final HashMap<UnorderedPair<Class<?>>, CollisionDetector> classToDetector =
             new HashMap<>();
     private static boolean mapCreated = false;
 
