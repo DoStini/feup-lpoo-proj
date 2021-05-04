@@ -20,7 +20,7 @@ class PlayerControllerTest {
     @BeforeEach
     void setup() {
         position = Mockito.mock(Position.class);
-        spaceship = Mockito.spy( new Spaceship(position));
+        spaceship = Mockito.spy( new Spaceship(position, 1, ""));
         spaceship.setPosition(position);
         gui = Mockito.mock(Gui.class);
     }

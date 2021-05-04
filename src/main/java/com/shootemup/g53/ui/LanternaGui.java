@@ -4,6 +4,7 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
@@ -26,12 +27,11 @@ import java.util.Map;
 
 public class LanternaGui implements Gui {
 
-    TerminalScreen screen;
+    Screen screen;
     TerminalSize terminalSize;
-    private TextGraphics graphics;
     private InputController<KeyEvent> inputController;
 
-    private AWTTerminalFontConfiguration loadFont() throws URISyntaxException, IOException, FontFormatException {
+    private AWTTerminalFontConfiguration loadFont(int fontSize) throws URISyntaxException, IOException, FontFormatException {
         URL resource = getClass().getClassLoader().getResource("font.ttf");
         File fontFile = new File(resource.toURI());
         Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
@@ -39,7 +39,7 @@ public class LanternaGui implements Gui {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
 
-        Font loadedFont = font.deriveFont(Font.PLAIN, 10);
+        Font loadedFont = font.deriveFont(Font.PLAIN, fontSize);
         return AWTTerminalFontConfiguration.newInstance(loadedFont);
     }
 
@@ -76,11 +76,10 @@ public class LanternaGui implements Gui {
         return terminal;
     }
 
-    public LanternaGui(int hSize, int vSize) {
+    public LanternaGui(int hSize, int vSize, int fontSize) {
         try {
-            AWTTerminalFontConfiguration font = loadFont();
+            AWTTerminalFontConfiguration font = loadFont(fontSize);
             screen = loadTerminal(hSize, vSize, font);
-            graphics = screen.newTextGraphics();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (FontFormatException e) {
@@ -90,21 +89,29 @@ public class LanternaGui implements Gui {
         }
     }
 
+    public LanternaGui(Screen screen) {
+        this.screen = screen;
+    }
+
     @Override
     public void drawColor(String color, Position pos) {
+        TextGraphics graphics = screen.newTextGraphics();
         graphics.setBackgroundColor(TextColor.Factory.fromString(color));
-        graphics.setCharacter(new TerminalPosition(pos.getX(), pos.getY()), ' ');
+        graphics.setCharacter(pos.getX(), pos.getY(), ' ');
     }
 
     @Override
     public void drawLine(String color, Position pos, int width) {
+        TextGraphics graphics = screen.newTextGraphics();
         graphics.setBackgroundColor(TextColor.Factory.fromString(color));
-        graphics.drawLine(new TerminalPosition(pos.getX(), pos.getY()), new TerminalPosition(pos.getX() + width, pos.getY()), ' ');
+        graphics.drawLine(pos.getX(), pos.getY(), pos.getX() + width, pos.getY(), ' ');
     }
 
     @Override
     public void drawCharacter(String color, Character c, Position pos) {
-        graphics.setCharacter(new TerminalPosition(pos.getX(), pos.getY()), c);
+        TextGraphics graphics = screen.newTextGraphics();
+        graphics.setForegroundColor(TextColor.Factory.fromString(color));
+        graphics.setCharacter(pos.getX(), pos.getY(), c);
     }
 
     @Override

@@ -16,7 +16,7 @@ class AIShootingControllerTest {
     @BeforeEach
     void setup() {
         position = new Position(0, 0);
-        spaceship = Mockito.spy( new Spaceship(position));
+        spaceship = Mockito.spy( new Spaceship(position, 1, ""));
         spaceship.setPosition(position);
         // Mockito.when(spaceship.getSpeed()).thenReturn(1); Example
     }
