@@ -1,5 +1,6 @@
 package com.shootemup.g53.model.collider;
 
+import com.shootemup.g53.controller.collider.CircleCollisionDetector;
 import com.shootemup.g53.controller.collider.CollisionDetector;
 import com.shootemup.g53.controller.collider.NullCollisionDetector;
 import com.shootemup.g53.controller.collider.SquareCollisionDetector;
@@ -47,6 +48,8 @@ class CollisionDetectorTest {
 
         CollisionDetector scd = new SquareCollisionDetector();
 
+        Assertions.assertTrue(scd.collide(collider, collider));
+
         Assertions.assertTrue(scd.collide(collider, collider2));
         Assertions.assertTrue(scd.collide(collider2, collider));
 
@@ -73,5 +76,30 @@ class CollisionDetectorTest {
 
         Assertions.assertFalse(scd.collide(collider, collider11));
         Assertions.assertFalse(scd.collide(collider11, collider));
+    }
+
+    @Test
+    void circleCollision() {
+        Collider collider = new CircleCollider(new Position(0,0), 0.95);
+        Collider collider1 = new CircleCollider(new Position(0, 0),0.5);
+        Collider collider2 = new CircleCollider(new Position(2,2),0.95);
+        Collider collider3 = new CircleCollider(new Position(2,2),2.2);
+        Collider fakeCollider = new SquareCollider(new Position(0,0), 0, 0);
+
+        CollisionDetector ccd = new CircleCollisionDetector();
+
+        Assertions.assertTrue(ccd.collide(collider, collider));
+
+        Assertions.assertTrue(ccd.collide(collider1, collider));
+        Assertions.assertTrue(ccd.collide(collider, collider1));
+
+        Assertions.assertFalse(ccd.collide(collider, collider2));
+        Assertions.assertFalse(ccd.collide(collider2, collider));
+
+        Assertions.assertTrue(ccd.collide(collider, collider3));
+        Assertions.assertTrue(ccd.collide(collider3, collider));
+
+        Assertions.assertFalse(ccd.collide(collider, fakeCollider));
+        Assertions.assertFalse(ccd.collide(fakeCollider, collider));
     }
 }
