@@ -4,9 +4,10 @@ import com.shootemup.g53.model.util.Position;
 
 abstract public class Element {
     private Position position;
-
-    public Element(Position positio) {
+    private String color;
+    public Element(Position position, String color) {
         this.position = position;
+        this.color = color;
     }
 
     public Position getPosition() {
@@ -17,4 +18,11 @@ abstract public class Element {
         this.position = position;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 }

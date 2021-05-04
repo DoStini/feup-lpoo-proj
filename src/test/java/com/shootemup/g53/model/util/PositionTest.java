@@ -1,4 +1,4 @@
-package model.util;
+package com.shootemup.g53.model.util;
 
 import com.shootemup.g53.model.util.Position;
 import org.junit.jupiter.api.Assertions;
