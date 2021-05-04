@@ -2,8 +2,20 @@ package com.shootemup.g53.model.element;
 
 import com.shootemup.g53.model.util.Position;
 
-public class Coin extends Element {
-    public Coin(Position position) {
-        super(position);
+public class Coin extends MovableElement {
+
+    private int radius;
+
+    public int getRadius() {
+        return radius;
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
+    }
+
+    public Coin(Position position, int radius) {
+        super(position, "#cc9900");
+        this.radius = radius;
     }
 }

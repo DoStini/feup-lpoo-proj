@@ -18,15 +18,21 @@ class BulletViewTest {
         Gui gui = Mockito.mock(Gui.class);
         Position pos = new Position(0, 0);
         int size = 3;
-        BulletView view = new BulletView(size);
-        view.draw(gui, new Bullet(new Position(0,0)));
+
+        Bullet bullet = Mockito.mock(Bullet.class);
+        Mockito.when(bullet.getSize()).thenReturn(size);
+        Mockito.when(bullet.getColor()).thenReturn("#aaaaaa");
+        Mockito.when(bullet.getPosition()).thenReturn(new Position(0, 0));
+
+        BulletView view = new BulletView();
+        view.draw(gui, bullet);
 
         Mockito.verify(gui, Mockito.times(size))
                 .drawColor(Mockito.anyString(), Mockito.any());
 
         for (int i = 0; i < size; i++) {
             Mockito.verify(gui, Mockito.times(1))
-                    .drawColor("#FF2222", pos.getDown(i));
+                    .drawColor("#aaaaaa", pos.getDown(i));
         }
     }
 }

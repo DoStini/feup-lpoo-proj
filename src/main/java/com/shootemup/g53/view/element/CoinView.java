@@ -7,17 +7,11 @@ import com.shootemup.g53.view.shapes.Drawer;
 
 public class CoinView implements ElementView<Coin> {
 
-    private final int radius;
-
-    public CoinView(int radius) {
-        this.radius = radius;
-    }
-
     @Override
     public void draw(Gui gui, Coin element) {
-        Drawer drawer = new CircleDrawer("#cc9900", radius);
+        Drawer drawer = new CircleDrawer("#cc9900", element.getRadius());
         drawer.draw(gui, element.getPosition());
-        drawer = new CircleDrawer("#ffff00", Math.max(radius-2, 1));
+        drawer = new CircleDrawer("#ffff00", Math.max(element.getRadius()-2, 1));
         drawer.draw(gui, element.getPosition());
     }
 }

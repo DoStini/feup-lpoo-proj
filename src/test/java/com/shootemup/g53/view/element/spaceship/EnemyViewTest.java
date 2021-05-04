@@ -15,11 +15,16 @@ class EnemyViewTest {
         Gui gui = Mockito.mock(Gui.class);
         int size = 5;
         int lineWidth = 2;
-        SpaceshipView view = new EnemyView("#aaaaaa", size, lineWidth);
-        view.draw(gui, new Spaceship(new Position(0, 0)));
+        SpaceshipView view = new EnemyView(lineWidth);
+        Spaceship spaceship = Mockito.mock(Spaceship.class);
+        Mockito.when(spaceship.getHeight()).thenReturn(size);
+        Mockito.when(spaceship.getColor()).thenReturn("#aaaaaa");
+        Mockito.when(spaceship.getPosition()).thenReturn(new Position(0, 0));
+
+        view.draw(gui, spaceship);
 
         Mockito.verify(gui, Mockito.times(2*size - lineWidth + 1))
-                .drawLine(Mockito.anyString(), Mockito.any(), Mockito.anyInt());
+                .drawLine(Mockito.eq("#aaaaaa"), Mockito.any(), Mockito.anyInt());
 
     }
 }

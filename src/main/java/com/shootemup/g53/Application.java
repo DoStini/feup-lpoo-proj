@@ -1,6 +1,9 @@
 package com.shootemup.g53;
 
-import com.shootemup.g53.model.element.*;
+import com.shootemup.g53.model.element.Asteroid;
+import com.shootemup.g53.model.element.Bullet;
+import com.shootemup.g53.model.element.Coin;
+import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 import com.shootemup.g53.ui.LanternaGui;
@@ -17,21 +20,20 @@ public class Application {
     }
 
     public static void viewsDemo() {
-        System.out.println("Hello world!");
         Gui gui = new LanternaGui(50,50, 2);
 
-        Spaceship player = new Spaceship(new Position(20, 35));
-        Spaceship enemy = new Spaceship(new Position(20, 10));
+        Spaceship player = new Spaceship(new Position(20, 35), 10, "#aae243");
+        Spaceship enemy = new Spaceship(new Position(20, 35), 10, "#1212ee");
 
-        Asteroid asteroid = new Asteroid(new Position(30, 30));
-        Coin coin = new Coin(new Position(5, 5));
-        Bullet bullet = new Bullet(new Position(40, 40));
+        Asteroid asteroid = new Asteroid(new Position(30, 30), 10);
+        Coin coin = new Coin(new Position(5, 5), 4);
+        Bullet bullet = new Bullet(new Position(40, 40), "#ff0000", 5);
 
-        ElementView<Spaceship> playerViewer = new PlayerView("#aaea12", 10, 3);
-        ElementView<Spaceship> enemyViewer = new EnemyView("#8c2d19", 5, 2);
-        ElementView<Asteroid> asteroidViewer = new AsteroidView(5);
-        ElementView<Coin> coinElementView = new CoinView(6);
-        ElementView<Bullet> bulletElementView = new BulletView(5);
+        ElementView<Spaceship> playerViewer = new PlayerView(4);
+        ElementView<Spaceship> enemyViewer = new EnemyView(2);
+        ElementView<Asteroid> asteroidViewer = new AsteroidView();
+        ElementView<Coin> coinElementView = new CoinView();
+        ElementView<Bullet> bulletElementView = new BulletView();
 
         playerViewer.draw(gui, player);
         enemyViewer.draw(gui, enemy);
