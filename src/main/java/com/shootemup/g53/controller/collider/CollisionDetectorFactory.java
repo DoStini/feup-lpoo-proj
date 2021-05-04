@@ -1,5 +1,7 @@
-package com.shootemup.g53.model.collider;
+package com.shootemup.g53.controller.collider;
 
+import com.shootemup.g53.model.collider.Collider;
+import com.shootemup.g53.model.collider.SquareCollider;
 import com.shootemup.g53.model.util.UnorderedPair;
 
 import java.util.HashMap;
@@ -16,7 +18,7 @@ public class CollisionDetectorFactory {
         );
     }
 
-    static CollisionDetector createFromColliders(Collider first, Collider second) {
+    public static CollisionDetector createFromColliders(Collider first, Collider second) {
         if(!mapCreated) createMap();
 
         return classToDetector.getOrDefault(

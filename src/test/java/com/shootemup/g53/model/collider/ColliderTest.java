@@ -1,12 +1,10 @@
 package com.shootemup.g53.model.collider;
 
+import com.shootemup.g53.controller.collider.CollisionDetectorFactory;
 import com.shootemup.g53.model.util.Position;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.mockito.Spy;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ColliderTest {
     @Spy

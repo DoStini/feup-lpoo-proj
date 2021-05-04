@@ -1,5 +1,6 @@
 package com.shootemup.g53.model.collider;
 
+import com.shootemup.g53.controller.collider.CollisionDetectorFactory;
 import com.shootemup.g53.model.util.Position;
 
 public class SquareCollider implements Collider{

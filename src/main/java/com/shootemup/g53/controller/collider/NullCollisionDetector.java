@@ -1,4 +1,6 @@
-package com.shootemup.g53.model.collider;
+package com.shootemup.g53.controller.collider;
+
+import com.shootemup.g53.model.collider.Collider;
 
 public class NullCollisionDetector implements CollisionDetector {
     @Override
