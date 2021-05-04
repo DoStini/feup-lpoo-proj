@@ -9,7 +9,6 @@ public class SquareCollider implements Collider{
     private final int height;
 
     public SquareCollider(Position topLeft, int width, int height) {
-
         this.topLeft = topLeft;
         this.width = width;
         this.height = height;
