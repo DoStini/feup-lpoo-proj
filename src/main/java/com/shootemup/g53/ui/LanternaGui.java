@@ -4,13 +4,13 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 import com.shootemup.g53.controller.Action;
+import com.shootemup.g53.controller.input.AWTInputController;
+import com.shootemup.g53.controller.input.InputController;
 import com.shootemup.g53.model.util.Position;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 
@@ -29,8 +29,7 @@ public class LanternaGui implements Gui {
     TerminalScreen screen;
     TerminalSize terminalSize;
     private TextGraphics graphics;
-
-    private Map<Action, Boolean> keysPressed = new HashMap<>();
+    private InputController<KeyEvent> inputController;
 
     private AWTTerminalFontConfiguration loadFont() throws URISyntaxException, IOException, FontFormatException {
         URL resource = getClass().getClassLoader().getResource("font.ttf");
@@ -47,12 +46,17 @@ public class LanternaGui implements Gui {
     private TerminalScreen loadTerminal(int hSize, int vSize, AWTTerminalFontConfiguration fontConfig) throws IOException {
         terminalSize = new TerminalSize(vSize, hSize);
         Terminal terminal = setupTerminal(fontConfig);
+        setupInputController(terminal);
         TerminalScreen screen = new TerminalScreen(terminal);
 
         screen.setCursorPosition(null);
         screen.startScreen();
         screen.doResizeIfNecessary();
         return screen;
+    }
+
+    void setupInputController(Terminal terminal) {
+        this.inputController = new AWTInputController(terminal);
     }
 
     Terminal setupTerminal(AWTTerminalFontConfiguration fontConfig) {
@@ -67,24 +71,7 @@ public class LanternaGui implements Gui {
             return terminal;
         }
 
-        ((AWTTerminalFrame) terminal).getComponent(0).addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
 
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                Action act = keyEventToAction(e);
-                keysPressed.put(act, true);
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                Action act = keyEventToAction(e);
-                keysPressed.put(act, false);
-            }
-        });
 
         return terminal;
     }
@@ -103,75 +90,6 @@ public class LanternaGui implements Gui {
         }
     }
 
-    private Action keyEventToAction(KeyEvent key) {
-        if (key == null)
-            return Action.NONE;
-
-        switch (key.getKeyChar()) {
-            case KeyEvent.VK_ESCAPE:
-                return Action.ESC;
-            case 'w':
-                return Action.W;
-            case 'a':
-                return Action.A;
-            case 's':
-                return Action.S;
-            case 'd':
-                return Action.D;
-            case 'f':
-                return Action.FIRE;
-        }
-
-        switch (key.getKeyCode()) {
-            case KeyEvent.VK_LEFT:
-                return Action.LEFT;
-            case KeyEvent.VK_UP:
-                return Action.UP;
-            case KeyEvent.VK_RIGHT:
-                return Action.RIGHT;
-            case KeyEvent.VK_DOWN:
-                return Action.DOWN;
-        }
-
-        return Action.NONE;
-    }
-
-    @Override
-    public Action readInput() {
-        try {
-            KeyStroke key = screen.pollInput();
-
-            if (key == null)
-                return  Action.NONE;
-
-            if (key.getKeyType() == KeyType.Escape)
-                return  Action.ESC;
-
-            if (key.getKeyType() == KeyType.Character) {
-                switch (key.getCharacter()) {
-                    case 'w':
-                        return Action.W;
-                    case 'a':
-                        return Action.A;
-                    case 's':
-                        return Action.S;
-                    case 'd':
-                        return Action.D;
-                    case 'f':
-                        return Action.FIRE;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return Action.NONE;
-    }
-
-    @Override
-    public boolean isActionActive(Action act) {
-        return keysPressed.containsKey(act)  ? keysPressed.get(act) : false;
-    }
-
     @Override
     public void drawColor(String color, Position pos) {
         graphics.setBackgroundColor(TextColor.Factory.fromString(color));
@@ -187,6 +105,11 @@ public class LanternaGui implements Gui {
     @Override
     public void drawCharacter(String color, Character c, Position pos) {
         graphics.setCharacter(new TerminalPosition(pos.getX(), pos.getY()), c);
+    }
+
+    @Override
+    public boolean isActionActive(Action act) {
+        return inputController.isActionActive(act);
     }
 
     @Override

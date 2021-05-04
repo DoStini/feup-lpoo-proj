@@ -18,7 +18,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("Application")
+    mainClass.set("com.shootemup.g53.Application")
 }
 
 test {
