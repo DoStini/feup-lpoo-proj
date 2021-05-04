@@ -1,22 +1,38 @@
 package com.shootemup.g53.model.collider;
 
 import com.shootemup.g53.controller.collider.CollisionDetector;
+import com.shootemup.g53.controller.collider.NullCollisionDetector;
 import com.shootemup.g53.controller.collider.SquareCollisionDetector;
 import com.shootemup.g53.model.util.Position;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 class CollisionDetectorTest {
+    private Collider collider;
 
     @BeforeEach
     void setUp() {
+        collider = new SquareCollider(new Position(0,0), 10, 10);
+    }
 
+    @Test
+    void nullCollider() {
+        Collider fakeCollider = Mockito.mock(Collider.class, Mockito.CALLS_REAL_METHODS);
+        Collider realCollider = new SquareCollider(new Position(0,0),0,0);
+
+        CollisionDetector ncd = new NullCollisionDetector();
+
+        Assertions.assertFalse(ncd.collide(collider, fakeCollider));
+        Assertions.assertFalse(ncd.collide(fakeCollider, collider));
+        Assertions.assertFalse(ncd.collide(collider, realCollider));
+        Assertions.assertFalse(ncd.collide(realCollider, collider));
     }
 
     @Test
     void squareCollider() {
-        Collider collider = new SquareCollider(new Position(0,0), 10, 10);
         Collider collider2 = new SquareCollider(new Position(10, 10), 1,1);
         Collider collider3 = new SquareCollider(new Position(11, 11), 1,1);
         Collider collider4 = new SquareCollider(new Position(-1, -1), 0,0);
@@ -26,6 +42,7 @@ class CollisionDetectorTest {
         Collider collider8 = new SquareCollider(new Position(11, 0), 1,1);
         Collider collider9 = new SquareCollider(new Position(0,0),0,0);
         Collider collider10 = new SquareCollider(new Position(0,0),0,0);
+        Collider collider11 = Mockito.mock(Collider.class, Mockito.CALLS_REAL_METHODS);
 
 
         CollisionDetector scd = new SquareCollisionDetector();
@@ -53,5 +70,8 @@ class CollisionDetectorTest {
 
         Assertions.assertTrue(scd.collide(collider9, collider10));
         Assertions.assertTrue(scd.collide(collider10, collider9));
+
+        Assertions.assertFalse(scd.collide(collider, collider11));
+        Assertions.assertFalse(scd.collide(collider11, collider));
     }
 }
