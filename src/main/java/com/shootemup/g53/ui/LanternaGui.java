@@ -4,6 +4,7 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
@@ -18,10 +19,10 @@ import java.net.URL;
 
 public class LanternaGui implements Gui {
 
-    TerminalScreen screen;
+    Screen screen;
     TerminalSize terminalSize;
 
-    private AWTTerminalFontConfiguration loadFont() throws URISyntaxException, IOException, FontFormatException {
+    private AWTTerminalFontConfiguration loadFont(int fontSize) throws URISyntaxException, IOException, FontFormatException {
         URL resource = getClass().getClassLoader().getResource("font.ttf");
         File fontFile = new File(resource.toURI());
         Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
@@ -29,7 +30,7 @@ public class LanternaGui implements Gui {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
 
-        Font loadedFont = font.deriveFont(Font.PLAIN, 2);
+        Font loadedFont = font.deriveFont(Font.PLAIN, fontSize);
         return AWTTerminalFontConfiguration.newInstance(loadedFont);
     }
 
@@ -48,9 +49,9 @@ public class LanternaGui implements Gui {
         return screen;
     }
 
-    public LanternaGui(int hSize, int vSize) {
+    public LanternaGui(int hSize, int vSize, int fontSize) {
         try {
-            AWTTerminalFontConfiguration font = loadFont();
+            AWTTerminalFontConfiguration font = loadFont(fontSize);
             screen = loadTerminal(hSize, vSize, font);
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,23 +62,28 @@ public class LanternaGui implements Gui {
         }
     }
 
+    public LanternaGui(Screen screen) {
+        this.screen = screen;
+    }
+
     @Override
     public void drawColor(String color, Position pos) {
         TextGraphics graphics = screen.newTextGraphics();
         graphics.setBackgroundColor(TextColor.Factory.fromString(color));
-        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), " ");
+        graphics.putString(pos.getX(), pos.getY(), " ");
     }
 
     @Override
     public void drawLine(String color, Position pos, int width) {
-        for (int i = 0; i < width; i++)
-            drawColor(color, new Position(pos.getX() + i, pos.getY()));
+        TextGraphics graphics = screen.newTextGraphics();
+        graphics.setBackgroundColor(TextColor.Factory.fromString(color));
+        graphics.drawLine(pos.getX(), pos.getY(), pos.getX() + width, pos.getY(), ' ');
     }
 
     @Override
     public void drawCharacter(String color, Character c, Position pos) {
         TextGraphics graphics = screen.newTextGraphics();
-        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "" + c);
+        graphics.putString(pos.getX(), pos.getY(), "" + c);
     }
 
     @Override
