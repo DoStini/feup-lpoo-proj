@@ -5,7 +5,7 @@ import com.shootemup.g53.model.collider.Collider;
 import com.shootemup.g53.model.collider.SquareCollider;
 import com.shootemup.g53.model.util.Position;
 
-public class SquareCircleCollisionDetector implements CollisionDetector{
+public class CircleSquareCollisionDetector implements CollisionDetector{
     @Override
     public boolean collide(Collider first, Collider second) {
         SquareCollider square;

@@ -22,6 +22,9 @@ public class CollisionDetectorHashFactory implements CollisionDetectorFactory{
         classToDetector.put(
                 new UnorderedPair<>(CircleCollider.class, CircleCollider.class), new CircleCollisionDetector()
         );
+        classToDetector.put(
+                new UnorderedPair<>(CircleCollider.class, SquareCollider.class), new CircleSquareCollisionDetector()
+        );
     }
 
     public CollisionDetector createFromColliders(Collider first, Collider second) {

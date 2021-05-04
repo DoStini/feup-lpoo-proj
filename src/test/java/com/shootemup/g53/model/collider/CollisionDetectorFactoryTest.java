@@ -31,5 +31,15 @@ class CollisionDetectorFactoryTest {
                 CircleCollisionDetector.class,
                 detectorFactory.createFromColliders(circleCollider, circleCollider2).getClass()
         );
+
+        Assertions.assertEquals(
+                CircleSquareCollisionDetector.class,
+                detectorFactory.createFromColliders(circleCollider, collider).getClass()
+        );
+
+        Assertions.assertEquals(
+                CircleSquareCollisionDetector.class,
+                detectorFactory.createFromColliders(collider, circleCollider).getClass()
+        );
     }
 }

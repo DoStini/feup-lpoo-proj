@@ -5,7 +5,6 @@ import com.shootemup.g53.model.util.Position;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 class CollisionDetectorTest {
@@ -108,7 +107,7 @@ class CollisionDetectorTest {
         Collider collider4 = new CircleCollider(new Position(0, -1), 2);
         Collider fakeCollider = Mockito.mock(Collider.class, Mockito.CALLS_REAL_METHODS);
 
-        CollisionDetector sccd = new SquareCircleCollisionDetector();
+        CollisionDetector sccd = new CircleSquareCollisionDetector();
 
         Assertions.assertTrue(sccd.collide(collider, collider1));
         Assertions.assertTrue(sccd.collide(collider1, collider));
