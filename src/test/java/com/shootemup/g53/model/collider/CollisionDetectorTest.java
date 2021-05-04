@@ -1,9 +1,6 @@
 package com.shootemup.g53.model.collider;
 
-import com.shootemup.g53.controller.collider.CircleCollisionDetector;
-import com.shootemup.g53.controller.collider.CollisionDetector;
-import com.shootemup.g53.controller.collider.NullCollisionDetector;
-import com.shootemup.g53.controller.collider.SquareCollisionDetector;
+import com.shootemup.g53.controller.collider.*;
 import com.shootemup.g53.model.util.Position;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -101,5 +98,31 @@ class CollisionDetectorTest {
 
         Assertions.assertFalse(ccd.collide(collider, fakeCollider));
         Assertions.assertFalse(ccd.collide(fakeCollider, collider));
+    }
+
+    @Test
+    void circleSquareCollision() {
+        Collider collider1 = new CircleCollider(new Position(1,1),1);
+        Collider collider2 = new CircleCollider(new Position(-1,-1), 1);
+        Collider collider3 = new CircleCollider(new Position(-1, 0), 2);
+        Collider collider4 = new CircleCollider(new Position(0, -1), 2);
+        Collider fakeCollider = Mockito.mock(Collider.class, Mockito.CALLS_REAL_METHODS);
+
+        CollisionDetector sccd = new SquareCircleCollisionDetector();
+
+        Assertions.assertTrue(sccd.collide(collider, collider1));
+        Assertions.assertTrue(sccd.collide(collider1, collider));
+
+        Assertions.assertFalse(sccd.collide(collider, collider2));
+        Assertions.assertFalse(sccd.collide(collider2, collider));
+
+        Assertions.assertTrue(sccd.collide(collider, collider3));
+        Assertions.assertTrue(sccd.collide(collider3, collider));
+
+        Assertions.assertTrue(sccd.collide(collider, collider4));
+        Assertions.assertTrue(sccd.collide(collider4, collider));
+
+        Assertions.assertFalse(sccd.collide(collider, fakeCollider));
+        Assertions.assertFalse(sccd.collide(collider2, collider3));
     }
 }
