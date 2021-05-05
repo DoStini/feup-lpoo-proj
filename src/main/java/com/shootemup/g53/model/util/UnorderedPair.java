@@ -12,14 +12,6 @@ public class UnorderedPair<T> {
         this.second = second;
     }
 
-    public T getFirst() {
-        return first;
-    }
-
-    public T getSecond() {
-        return second;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -35,8 +27,7 @@ public class UnorderedPair<T> {
         int hashSecond = second.hashCode();
         int maxHash = Math.max(hashFirst, hashSecond);
         int minHash = Math.min(hashFirst, hashSecond);
-        // return Objects.hash(minHash, maxHash);
-        // the above line also works but I tend to avoid this to avoid unnecessary auto-boxing
+
         return minHash * 31 + maxHash;
     }
 }
