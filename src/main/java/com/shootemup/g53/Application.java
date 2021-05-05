@@ -4,7 +4,6 @@ import com.shootemup.g53.controller.Action;
 import com.shootemup.g53.controller.spaceship.AIShootingController;
 import com.shootemup.g53.controller.spaceship.PlayerController;
 import com.shootemup.g53.controller.spaceship.SpaceshipController;
-import com.shootemup.g53.element.ExampleViewer;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
@@ -15,10 +14,7 @@ import com.shootemup.g53.controller.Game;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.ui.Gui;
 import com.shootemup.g53.ui.LanternaGui;
-import com.shootemup.g53.view.element.AsteroidView;
-import com.shootemup.g53.view.element.BulletView;
-import com.shootemup.g53.view.element.CoinView;
-import com.shootemup.g53.view.element.ElementView;
+import com.shootemup.g53.view.element.*;
 import com.shootemup.g53.view.element.spaceship.EnemyView;
 import com.shootemup.g53.view.element.spaceship.PlayerView;
 
@@ -38,7 +34,7 @@ public class Application {
     }
 
     public static void controllersExample() {
-        Gui gui = new LanternaGui(100, 100, 2);
+        Gui gui = new LanternaGui(100, 100, 10);
 
         ExampleViewer viewer = new ExampleViewer();
         Spaceship spaceship = new Spaceship(new Position(20, 35), 10, "#aae243");
