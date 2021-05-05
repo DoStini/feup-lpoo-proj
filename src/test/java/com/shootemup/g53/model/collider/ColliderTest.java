@@ -1,27 +1,49 @@
 package com.shootemup.g53.model.collider;
 
-import com.shootemup.g53.controller.collider.CollisionDetectorFactory;
-import com.shootemup.g53.controller.collider.CollisionDetectorHashFactory;
-import com.shootemup.g53.controller.collider.SquareCollisionDetector;
 import com.shootemup.g53.model.util.Position;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class ColliderTest {
+
     @Test
-    void collision() {
-        CollisionDetectorFactory detectorFactory = Mockito.mock(CollisionDetectorFactory.class);
-        Mockito.when(detectorFactory.createFromColliders(Mockito.any(), Mockito.any())).thenReturn(
-                new SquareCollisionDetector()
-        );
+    void squareCollider() {
+        BoundingBox collider = new BoundingBox(new Position(0,0), 10, 10);
+        BoundingBox  collider2 = new BoundingBox(new Position(10, 10), 1,1);
+        BoundingBox  collider3 = new BoundingBox(new Position(11, 11), 1,1);
+        BoundingBox  collider4 = new BoundingBox(new Position(-1, -1), 0,0);
+        BoundingBox  collider5 = new BoundingBox(new Position(-1, -1), 1,0);
+        BoundingBox  collider6 = new BoundingBox(new Position(-1, -1), 0,1);
+        BoundingBox  collider7 = new BoundingBox(new Position(-1, -1), 1,1);
+        BoundingBox  collider8 = new BoundingBox(new Position(11, 0), 1,1);
+        BoundingBox  collider9 = new BoundingBox(new Position(0,0),0,0);
+        BoundingBox  collider10 = new BoundingBox(new Position(0,0),0,0);
 
-        Collider collider = new SquareCollider(new Position(0,0),0,0, detectorFactory);
-        Collider collider1 = new SquareCollider(new Position(0,0 ),0,0, detectorFactory);
+        Assertions.assertTrue(collider.collides(collider));
 
-        Assertions.assertTrue(collider.collide(collider1));
-        Assertions.assertTrue(collider1.collide(collider));
+        Assertions.assertTrue(collider.collides(collider2));
+        Assertions.assertTrue(collider2.collides(collider));
 
-        Mockito.verify(detectorFactory, Mockito.times(2)).createFromColliders(Mockito.any(), Mockito.any());
+        Assertions.assertFalse(collider.collides(collider3));
+        Assertions.assertFalse(collider3.collides(collider));
+
+        Assertions.assertFalse(collider.collides(collider4));
+        Assertions.assertFalse(collider4.collides(collider));
+
+        Assertions.assertFalse(collider.collides(collider5));
+        Assertions.assertFalse(collider5.collides(collider));
+
+        Assertions.assertFalse(collider.collides(collider6));
+        Assertions.assertFalse(collider6.collides(collider));
+
+        Assertions.assertTrue(collider.collides(collider7));
+        Assertions.assertTrue(collider7.collides(collider));
+
+        Assertions.assertFalse(collider.collides(collider8));
+        Assertions.assertFalse(collider8.collides(collider));
+
+        Assertions.assertTrue(collider9.collides(collider10));
+        Assertions.assertTrue(collider10.collides(collider9));
     }
 }
