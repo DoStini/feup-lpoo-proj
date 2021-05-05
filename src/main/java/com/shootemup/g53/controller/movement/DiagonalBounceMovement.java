@@ -10,7 +10,7 @@ public class DiagonalBounceMovement implements MovementController{
     private final int xRightLimit;
     private Direction direction;
 
-    enum Direction {
+    public enum Direction {
         DOWN_RIGHT, DOWN_LEFT
     }
 
