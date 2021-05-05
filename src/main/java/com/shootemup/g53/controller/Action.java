@@ -11,6 +11,7 @@ public enum Action {
     D,
     ESC,
     FIRE,
+    Q,
     POWER_1,
     POWER_2,
     POWER_3,

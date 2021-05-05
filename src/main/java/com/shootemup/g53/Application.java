@@ -10,6 +10,9 @@ import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
+import com.shootemup.g53.controller.Game;
+
+import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.ui.Gui;
 import com.shootemup.g53.ui.LanternaGui;
 import com.shootemup.g53.view.element.AsteroidView;
@@ -19,12 +22,19 @@ import com.shootemup.g53.view.element.ElementView;
 import com.shootemup.g53.view.element.spaceship.EnemyView;
 import com.shootemup.g53.view.element.spaceship.PlayerView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class Application {
+    private static int height = 300;
+    private static int width = 300;
+
     public static void main(String[] args) {
         System.out.println("Hello world!");
-        controllersExample();
-        viewsDemo();
+        gameDemo();
+
     }
 
     public static void controllersExample() {
@@ -45,8 +55,6 @@ public class Application {
                 break;
             }
 
-            controller.handle(gui);
-            aiController.handle(gui);
             viewer.draw(gui, spaceship);
             viewer.draw(gui, enemy);
             gui.refresh();
@@ -60,26 +68,21 @@ public class Application {
     }
 
     public static void viewsDemo() {
-        Gui gui = new LanternaGui(50,50, 2);
+        Gui gui = new LanternaGui(50, 50, 2);
 
         Spaceship player = new Spaceship(new Position(20, 35), 10, "#aae243");
         Spaceship enemy = new Spaceship(new Position(20, 35), 10, "#1212ee");
+    }
+    public static void gameDemo() {
+        Spaceship spaceship = new Spaceship(new Position(20, 35), 10, "#aae243");
+        Spaceship enemy = new Spaceship(new Position(20, 35), 10, "#1212ee");
+        List<Spaceship> enemySpaceships = Arrays.asList(enemy);
+        Gui gui = new LanternaGui(height,width, 5);
 
-        Asteroid asteroid = new Asteroid(new Position(30, 30), 10);
-        Coin coin = new Coin(new Position(5, 5), 4);
-        Bullet bullet = new Bullet(new Position(40, 40), "#ff0000", 5);
-
-        ElementView<Spaceship> playerViewer = new PlayerView(4);
-        ElementView<Spaceship> enemyViewer = new EnemyView(2);
-        ElementView<Asteroid> asteroidViewer = new AsteroidView();
-        ElementView<Coin> coinElementView = new CoinView();
-        ElementView<Bullet> bulletElementView = new BulletView();
-
-        playerViewer.draw(gui, player);
-        enemyViewer.draw(gui, enemy);
-        asteroidViewer.draw(gui, asteroid);
-        coinElementView.draw(gui, coin);
-        bulletElementView.draw(gui, bullet);
+        GameModel gameModel = new GameModel(width,height, enemySpaceships);
+        gameModel.setPlayer(spaceship);
+        Game game = new Game(gui,gameModel);
+        game.run();
 
         gui.refresh();
     }

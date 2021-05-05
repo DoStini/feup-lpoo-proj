@@ -53,6 +53,8 @@ public class AWTInputController extends InputController<KeyEvent> {
                 return Action.D;
             case 'f':
                 return Action.FIRE;
+            case 'q':
+                return Action.Q;
         }
 
         switch (event.getKeyCode()) {
