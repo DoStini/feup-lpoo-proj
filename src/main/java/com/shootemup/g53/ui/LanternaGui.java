@@ -8,19 +8,28 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
+import com.shootemup.g53.controller.Action;
+import com.shootemup.g53.controller.input.AWTInputController;
+import com.shootemup.g53.controller.input.InputController;
 import com.shootemup.g53.model.util.Position;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LanternaGui implements Gui {
 
     Screen screen;
     TerminalSize terminalSize;
+    private InputController<KeyEvent> inputController;
 
     private AWTTerminalFontConfiguration loadFont(int fontSize) throws URISyntaxException, IOException, FontFormatException {
         URL resource = getClass().getClassLoader().getResource("font.ttf");
@@ -36,17 +45,35 @@ public class LanternaGui implements Gui {
 
     private TerminalScreen loadTerminal(int hSize, int vSize, AWTTerminalFontConfiguration fontConfig) throws IOException {
         terminalSize = new TerminalSize(vSize, hSize);
-        DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
-        defaultTerminalFactory.setForceAWTOverSwing(true);
-        defaultTerminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
-
-        Terminal terminal = defaultTerminalFactory.createTerminal();
+        Terminal terminal = setupTerminal(fontConfig);
+        setupInputController(terminal);
         TerminalScreen screen = new TerminalScreen(terminal);
 
         screen.setCursorPosition(null);
         screen.startScreen();
         screen.doResizeIfNecessary();
         return screen;
+    }
+
+    void setupInputController(Terminal terminal) {
+        this.inputController = new AWTInputController(terminal);
+    }
+
+    Terminal setupTerminal(AWTTerminalFontConfiguration fontConfig) {
+        DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+        defaultTerminalFactory.setForceAWTOverSwing(true);
+        defaultTerminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
+        Terminal terminal = null;
+        try {
+            terminal = defaultTerminalFactory.createTerminal();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return terminal;
+        }
+
+
+
+        return terminal;
     }
 
     public LanternaGui(int hSize, int vSize, int fontSize) {
@@ -70,7 +97,7 @@ public class LanternaGui implements Gui {
     public void drawColor(String color, Position pos) {
         TextGraphics graphics = screen.newTextGraphics();
         graphics.setBackgroundColor(TextColor.Factory.fromString(color));
-        graphics.putString(pos.getX(), pos.getY(), " ");
+        graphics.setCharacter(pos.getX(), pos.getY(), ' ');
     }
 
     @Override
@@ -83,7 +110,13 @@ public class LanternaGui implements Gui {
     @Override
     public void drawCharacter(String color, Character c, Position pos) {
         TextGraphics graphics = screen.newTextGraphics();
-        graphics.putString(pos.getX(), pos.getY(), "" + c);
+        graphics.setForegroundColor(TextColor.Factory.fromString(color));
+        graphics.setCharacter(pos.getX(), pos.getY(), c);
+    }
+
+    @Override
+    public boolean isActionActive(Action act) {
+        return inputController.isActionActive(act);
     }
 
     @Override

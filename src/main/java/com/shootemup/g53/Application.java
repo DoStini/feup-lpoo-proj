@@ -1,5 +1,10 @@
 package com.shootemup.g53;
 
+import com.shootemup.g53.controller.Action;
+import com.shootemup.g53.controller.spaceship.AIShootingController;
+import com.shootemup.g53.controller.spaceship.PlayerController;
+import com.shootemup.g53.controller.spaceship.SpaceshipController;
+import com.shootemup.g53.element.ExampleViewer;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
@@ -14,9 +19,44 @@ import com.shootemup.g53.view.element.ElementView;
 import com.shootemup.g53.view.element.spaceship.EnemyView;
 import com.shootemup.g53.view.element.spaceship.PlayerView;
 
+
 public class Application {
     public static void main(String[] args) {
+        System.out.println("Hello world!");
+        controllersExample();
         viewsDemo();
+    }
+
+    public static void controllersExample() {
+        Gui gui = new LanternaGui(100, 100, 2);
+
+        ExampleViewer viewer = new ExampleViewer();
+        Spaceship spaceship = new Spaceship(new Position(20, 35), 10, "#aae243");
+        Spaceship spaceship2 = new Spaceship(new Position(10, 35), 10, "#1212ee");
+        Spaceship enemy = new Spaceship(new Position(30, 35), 10, "#1212ee");
+        SpaceshipController aiController = new AIShootingController(enemy);
+        SpaceshipController controller = new PlayerController(spaceship);
+
+        while (true) {
+            gui.clear();
+
+            if (gui.isActionActive(Action.ESC)) {
+                gui.close();
+                break;
+            }
+
+            controller.handle(gui);
+            aiController.handle(gui);
+            viewer.draw(gui, spaceship);
+            viewer.draw(gui, enemy);
+            gui.refresh();
+            Thread.yield();
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void viewsDemo() {

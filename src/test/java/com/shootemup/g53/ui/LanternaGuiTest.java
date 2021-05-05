@@ -38,7 +38,7 @@ class LanternaGuiTest {
                 .setBackgroundColor(TextColor.Factory.fromString(color));
 
         Mockito.verify(tg, Mockito.times(1))
-                .putString(position.getX(), position.getY(), " ");
+                .setCharacter(position.getX(), position.getY(), ' ');
 
     }
 
@@ -62,7 +62,7 @@ class LanternaGuiTest {
         gui.drawCharacter(color, c, position);
 
         Mockito.verify(tg, Mockito.times(1))
-                .putString(position.getX(), position.getY(), "" + c);
+                .setCharacter(position.getX(), position.getY(), c);
     }
 
     @Test
