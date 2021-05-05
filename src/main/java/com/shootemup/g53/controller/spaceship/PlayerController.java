@@ -21,19 +21,20 @@ public class PlayerController extends SpaceshipController {
     @Override
     public Position move(Gui gui) {
         int speed = 1; // Override when elements exist
+        Position newPosition = spaceship.getPosition();
         if (gui.isActionActive(Action.W)) {
-            return spaceship.getPosition().getUp(speed);
+            newPosition = newPosition.getUp(speed);
         }
         if (gui.isActionActive(Action.A)) {
-            return spaceship.getPosition().getLeft(speed);
+            newPosition = newPosition.getLeft(speed);
         }
         if (gui.isActionActive(Action.S)) {
-            return spaceship.getPosition().getDown(speed);
+            newPosition = newPosition.getDown(speed);
         }
         if (gui.isActionActive(Action.D)) {
-            return spaceship.getPosition().getRight(speed);
+            newPosition = newPosition.getRight(speed);
         }
-        return null;
+        return newPosition;
 
     }
 

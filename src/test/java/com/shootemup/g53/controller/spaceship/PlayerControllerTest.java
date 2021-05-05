@@ -30,7 +30,7 @@ class PlayerControllerTest {
         SpaceshipController controller = new PlayerController(spaceship);
         Mockito.when(gui.isActionActive(Action.W)).thenReturn(true);
 
-        controller.handle(gui);
+        controller.move(gui);
         Mockito.verify(position, Mockito.times(1))
                 .getUp(1);
     }
@@ -39,7 +39,7 @@ class PlayerControllerTest {
         SpaceshipController controller = new PlayerController(spaceship);
         Mockito.when(gui.isActionActive(Action.S)).thenReturn(true);
 
-        controller.handle(gui);
+        controller.move(gui);
         Mockito.verify(position, Mockito.times(1))
                 .getDown(1);
     }
@@ -48,7 +48,7 @@ class PlayerControllerTest {
         SpaceshipController controller = new PlayerController(spaceship);
         Mockito.when(gui.isActionActive(Action.A)).thenReturn(true);
 
-        controller.handle(gui);
+        controller.move(gui);
         Mockito.verify(position, Mockito.times(1))
                 .getLeft(1);
     }
@@ -57,7 +57,7 @@ class PlayerControllerTest {
         SpaceshipController controller = new PlayerController(spaceship);
         Mockito.when(gui.isActionActive(Action.D)).thenReturn(true);
 
-        controller.handle(gui);
+        controller.move(gui);
         Mockito.verify(position, Mockito.times(1))
                 .getRight(1);
     }
@@ -77,7 +77,7 @@ class PlayerControllerTest {
         Mockito.when(position.getRight(Mockito.anyInt())).thenReturn(position);
 
 
-        controller.handle(gui);
+        controller.move(gui);
         Mockito.verify(position, Mockito.times(1))
                 .getUp(1);
         Mockito.verify(position, Mockito.times(1))
@@ -86,6 +86,8 @@ class PlayerControllerTest {
                 .getDown(1);
         Mockito.verify(position, Mockito.times(1))
                 .getLeft(1);
+
+
     }
 
     @Test
