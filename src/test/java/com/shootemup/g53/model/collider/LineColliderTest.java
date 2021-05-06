@@ -24,47 +24,30 @@ public class LineColliderTest {
     }
 
     @Test
-    void integratedLineComposite() {
-        LineCollider collider = Mockito.spy(new LineCollider(element1, new Position(0,0),2));
-        LineCollider collider2 = Mockito.spy(new LineCollider(element1, new Position(1,1),4));
-        LineCollider collider3 = Mockito.spy(new LineCollider(element1, new Position(-1,2),8));
-        LineCollider collider4 = Mockito.spy(new LineCollider(element1, new Position(0,-1),0));
-        BodyCollider collider5 = Mockito.spy(new LineCollider(element1, new Position(0,-3),0));
-        BodyCollider collider6 = Mockito.spy(new LineCollider(element2, new Position(-2, 1), 0));
+    void integratedTest() {
+        BodyCollider collider = Mockito.spy(new LineCollider(element1, new Position(0,0),2));
+        BodyCollider collider2 = Mockito.spy(new LineCollider(element2, new Position(1,1),4));
 
-        List<LineCollider> colliders = Arrays.asList(collider, collider2, collider3, collider4);
-
-        BodyCollider compositeCollider = Mockito.spy(new LineCompositeCollider(element1, colliders));
-
-        Assertions.assertFalse(compositeCollider.collides(collider5));
-        Mockito.verify(compositeCollider, Mockito.times(1)).collides(Mockito.any());
-        Mockito.verify(compositeCollider, Mockito.times(0)).innerVisit(Mockito.any()); // bounding dont collide
-
-        Assertions.assertFalse(collider5.collides(compositeCollider));
-        Mockito.verify(collider5, Mockito.times(1)).collides(Mockito.any());
-        Mockito.verify(collider5, Mockito.times(0)).innerVisit(Mockito.any()); // bounding dont collide
-
-        Assertions.assertTrue(compositeCollider.collides(collider));
-        Mockito.verify(compositeCollider, Mockito.times(2)).collides(Mockito.any());
-        Mockito.verify(compositeCollider, Mockito.times(1)).innerVisit(Mockito.any());
-        Mockito.verify(collider, Mockito.times(1)).collidesLineComposite(Mockito.any());
-        Mockito.verify(compositeCollider, Mockito.times(1)).collidesLine(Mockito.any());
-
-        Assertions.assertTrue(collider.collides(compositeCollider));
+        Assertions.assertFalse(collider.collides(collider2));
         Mockito.verify(collider, Mockito.times(1)).collides(Mockito.any());
+        Mockito.verify(collider, Mockito.times(0)).innerVisit(Mockito.any()); // bounding dont collide
+
+        BodyCollider collider3 = Mockito.spy(new LineCollider(element2, new Position(-1,0),2));
+
+        Assertions.assertTrue(collider3.collides(collider));
+        Mockito.verify(collider3, Mockito.times(1)).collides(Mockito.any());
+        Mockito.verify(collider3, Mockito.times(1)).innerVisit(Mockito.any());
+        Mockito.verify(collider, Mockito.times(1)).collidesLine(Mockito.any());
+
+        Assertions.assertTrue(collider.collides(collider3));
+        Mockito.verify(collider, Mockito.times(2)).collides(Mockito.any());
         Mockito.verify(collider, Mockito.times(1)).innerVisit(Mockito.any());
-        Mockito.verify(compositeCollider, Mockito.times(2)).collidesLine(Mockito.any());
+        Mockito.verify(collider3, Mockito.times(1)).collidesLine(Mockito.any());
 
-        Assertions.assertFalse(compositeCollider.collides(collider6));
-        Mockito.verify(compositeCollider, Mockito.times(3)).collides(Mockito.any());
-        Mockito.verify(compositeCollider, Mockito.times(2)).innerVisit(Mockito.any());
-        Mockito.verify(collider6, Mockito.times(1)).collidesLineComposite(Mockito.any());
-        Mockito.verify(compositeCollider, Mockito.times(3)).collidesLine(Mockito.any());
+        BodyCollider collider4 = Mockito.spy(new LineCollider(element3, new Position(-1,-2),2));
 
-        Assertions.assertFalse(collider6.collides(compositeCollider));
-        Mockito.verify(collider6, Mockito.times(1)).collides(Mockito.any());
-        Mockito.verify(collider6, Mockito.times(1)).innerVisit(Mockito.any());
-        Mockito.verify(compositeCollider, Mockito.times(4)).collidesLine(Mockito.any());
+        Assertions.assertTrue(collider.collides(collider4));
+        Assertions.assertTrue(collider4.collides(collider));
     }
 
     @Test
