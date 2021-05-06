@@ -5,6 +5,7 @@ import com.shootemup.g53.controller.movement.DiagonalDownRightMovement;
 import com.shootemup.g53.controller.spaceship.AIShootingController;
 import com.shootemup.g53.controller.spaceship.PlayerController;
 import com.shootemup.g53.controller.spaceship.SpaceshipController;
+import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.controller.Game;
@@ -21,7 +22,12 @@ import java.util.List;
 public class Application {
     public static void main(String[] args) {
         System.out.println("Hello world!");
-        gameDemo();
+        Gui gui = new LanternaGui(20,20, 15);
+        Coin coin = new Coin(new Position(5 ,5 ), 5);
+        CoinView coinView = new CoinView();
+        coinView.draw(gui, coin);
+        gui.refresh();
+        //gameDemo();
 
     }
 

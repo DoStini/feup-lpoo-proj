@@ -46,7 +46,7 @@ class AIChangingControllerTest {
     void handleRateNonReached() {
         SpaceshipController controller = new AIChangingController(spaceship, movementControllers, 15, random);
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 15; i++) {
             controller.handle(gui);
         }
         
