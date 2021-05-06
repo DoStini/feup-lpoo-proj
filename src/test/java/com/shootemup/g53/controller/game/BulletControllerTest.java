@@ -2,7 +2,6 @@ package com.shootemup.g53.controller.game;
 
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.game.GameModel;
-import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.model.util.objectpool.ObjectPool;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,10 +27,10 @@ class BulletControllerTest {
         Bullet bullet = Mockito.mock(Bullet.class);
         Mockito.when(objectPool.retrieve()).thenReturn(bullet);
 
-        bulletController.addBullet(5,5,"", 5);
+        bulletController.addBullet(5,5,"color", 5);
 
         Mockito.verify(gameModel, Mockito.times(1)).addBullet(bullet);
-        Mockito.verify(bullet, Mockito.times(1)).init(5,5,"", 5);
+        Mockito.verify(bullet, Mockito.times(1)).init(5,5,"color", 5);
 
         bulletController.removeBullet(bullet);
         Mockito.verify(gameModel, Mockito.times(1)).removeBullet(bullet);

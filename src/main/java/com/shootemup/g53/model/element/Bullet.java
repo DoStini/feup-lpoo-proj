@@ -5,7 +5,6 @@ import com.shootemup.g53.model.util.objectpool.PoolableObject;
 
 public class Bullet extends MovableElement implements PoolableObject {
 
-
     private int size;
     private boolean active = false;
 
@@ -20,7 +19,7 @@ public class Bullet extends MovableElement implements PoolableObject {
 
 
     @Override
-    public boolean isActive() { return false; }
+    public boolean isActive() { return active; }
 
     @Override
     public void activate() { active = true; }
@@ -34,6 +33,9 @@ public class Bullet extends MovableElement implements PoolableObject {
     }
 
     public void init(int x, int y, String color, int size) {
-
+        position.setX(x);
+        position.setY(y);
+        setColor(color);
+        this.size = size;
     }
 }
