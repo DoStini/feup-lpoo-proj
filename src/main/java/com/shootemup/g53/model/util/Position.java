@@ -39,6 +39,10 @@ public class Position {
         return new Position(position.x+x, position.y+y);
     }
 
+    public Position sub(Position position) {
+        return new Position(x- position.getX(), y - position.getY());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

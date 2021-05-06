@@ -2,7 +2,7 @@ package com.shootemup.g53.model.element;
 
 import com.shootemup.g53.model.util.Position;
 
-public abstract class MovableElement extends Element{
+public abstract class MovableElement extends Element {
 
     private int frameCount = 0;
     private int velocity = 3;

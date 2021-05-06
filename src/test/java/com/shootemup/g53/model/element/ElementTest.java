@@ -1,7 +1,6 @@
 package com.shootemup.g53.model.element;
 
 import com.shootemup.g53.model.util.Position;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

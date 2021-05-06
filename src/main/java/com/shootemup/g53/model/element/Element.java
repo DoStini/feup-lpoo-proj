@@ -5,6 +5,7 @@ import com.shootemup.g53.model.util.Position;
 abstract public class Element {
     private Position position;
     private String color;
+
     public Element(Position position, String color) {
         this.position = position;
         this.color = color;
