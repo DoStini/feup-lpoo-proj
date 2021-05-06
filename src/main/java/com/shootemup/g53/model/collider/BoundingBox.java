@@ -2,7 +2,7 @@ package com.shootemup.g53.model.collider;
 
 import com.shootemup.g53.model.util.Position;
 
-public class BoundingBox implements Collider<BoundingBox> {
+public class BoundingBox {
     private final Position topLeft;
     private final int width;
     private final int height;
@@ -25,7 +25,6 @@ public class BoundingBox implements Collider<BoundingBox> {
         return height;
     }
 
-    @Override
     public boolean collides(BoundingBox other) {
         return !(
                 this.getTopLeft().getX() + this.getWidth() < other.getTopLeft().getX() ||
