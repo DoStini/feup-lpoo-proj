@@ -33,6 +33,10 @@ public class Position {
         return new Position(this.x, this.y + offset);
     }
 
+    public Position add(Position position) {
+        return new Position(position.x+x, position.y+y);
+    }
+
     public double getSquaredDistance(Position other) {
         double xDiff = this.x - other.getX();
         double yDiff = this.y - other.getY();

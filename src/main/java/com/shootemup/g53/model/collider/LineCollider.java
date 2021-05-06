@@ -16,7 +16,7 @@ public class LineCollider extends BodyCollider {
 
     @Override
     protected BoundingBox createBoundingBox() {
-        return null;
+        return new BoundingBox(new Position(topLeft.getX(), topLeft.getY()), width, 0);
     }
 
     @Override
@@ -26,6 +26,10 @@ public class LineCollider extends BodyCollider {
 
     @Override
     protected boolean collidesLine(LineCollider other) {
-        return false;
+        Position realLeft = this.topLeft.add(this.element.getPosition());
+        Position otherRealLeft = this.topLeft.add(other.element.getPosition());
+
+        return  realLeft.getX() <= otherRealLeft.getX() + other.width &&
+                realLeft.getX() + this.width >= otherRealLeft.getX();
     }
 }

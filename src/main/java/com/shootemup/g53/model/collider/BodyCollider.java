@@ -13,15 +13,19 @@ public abstract class BodyCollider {
         this.boundingBox = null;
     }
 
-    public BoundingBox getBoundingBox() {
+    public BoundingBox getRealBoundingBox() {
         if(this.boundingBox == null) this.boundingBox = createBoundingBox();
-        return this.boundingBox;
+        return new BoundingBox(
+                this.boundingBox.getTopLeft().add(this.element.getPosition()),
+                this.boundingBox.getWidth(),
+                this.boundingBox.getHeight()
+        );
     }
 
     abstract protected BoundingBox createBoundingBox();
 
     public boolean collides(BodyCollider other) {
-        if(!other.getBoundingBox().collides(this.getBoundingBox())) return false;
+        if(!other.getRealBoundingBox().collides(this.getRealBoundingBox())) return false;
         else return innerVisit(other);
     }
 
