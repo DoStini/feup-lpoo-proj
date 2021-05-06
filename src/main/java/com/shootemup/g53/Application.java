@@ -1,9 +1,8 @@
 package com.shootemup.g53;
 
-import com.shootemup.g53.model.element.Asteroid;
-import com.shootemup.g53.model.element.Bullet;
-import com.shootemup.g53.model.element.Coin;
-import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.model.collider.BodyCollider;
+import com.shootemup.g53.model.collider.LineCollider;
+import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 import com.shootemup.g53.ui.LanternaGui;
