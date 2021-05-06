@@ -13,9 +13,11 @@ import com.shootemup.g53.ui.Gui;
 
 public class GameController extends GenericController {
     private GameModel gameModel;
+    private BulletController bulletController;
 
     public GameController(GameModel gameModel) {
         this.gameModel = gameModel;
+        this.bulletController = new BulletController(gameModel, 20);
     }
 
 
@@ -41,7 +43,6 @@ public class GameController extends GenericController {
         if(insideBounds(desiredPosition)){
             player.setPosition(desiredPosition);
         }
-
     }
 
     public void handleEnemies(Gui gui){
@@ -54,7 +55,4 @@ public class GameController extends GenericController {
             }
         }
     }
-
-
-
 }
