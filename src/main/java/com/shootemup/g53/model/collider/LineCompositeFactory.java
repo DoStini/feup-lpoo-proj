@@ -25,4 +25,16 @@ public class LineCompositeFactory {
 
         return new LineCompositeCollider(element, colliderHashMap);
     }
+
+    LineCompositeCollider createFromIsoscelesTriangle(Element element, Position center, int height) {
+        HashMap<Integer, LineCollider> colliderHashMap = new HashMap<>();
+
+        for(int y = 0; y <= height; y++) {
+            colliderHashMap.put(
+                    y+center.getY(), new LineCollider(element, new Position(center.getX()-y, y+ center.getY()), 2*(y))
+            );
+        }
+
+        return new LineCompositeCollider(element, colliderHashMap);
+    }
 }
