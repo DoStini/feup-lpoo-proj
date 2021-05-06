@@ -1,26 +1,31 @@
 package com.shootemup.g53.controller.spaceship;
 
-import com.shootemup.g53.controller.Action;
-import com.shootemup.g53.model.element.Bullet;
+import com.shootemup.g53.controller.input.Action;
+import com.shootemup.g53.controller.movement.MovementController;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 
 public class AIShootingController extends SpaceshipController {
 
-    public AIShootingController(Spaceship spaceship) {
+    private MovementController controller;
+
+    public AIShootingController(Spaceship spaceship, MovementController controller) {
         super(spaceship);
+        this.controller = controller;
     }
 
     @Override
-    public Bullet fire(Gui gui) {
-        return null;
+    public void fire(Gui gui) {
+        if (frame > lastFire + spaceship.getFireRate()) {
+            System.out.println("Enemy Fire");
+            lastFire = frame;
+        }
     }
 
     @Override
     public Position move(Gui gui) {
-        int speed = 1;
-        return spaceship.getPosition().getDown(speed);
+        return controller.move();
     }
 
 }

@@ -1,27 +1,29 @@
 package com.shootemup.g53.controller.spaceship;
 
-import com.shootemup.g53.controller.Action;
+import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerControllerTest {
 
     private Spaceship spaceship;
     private Position position;
+    private int speed = 5;
+    private int fireRate = 10;
+
     Gui gui;
 
     @BeforeEach
     void setup() {
         position = Mockito.mock(Position.class);
-        spaceship = Mockito.spy( new Spaceship(position, 1, ""));
-        spaceship.setPosition(position);
+        spaceship = Mockito.mock(Spaceship.class);
+        Mockito.when(spaceship.getFireRate()).thenReturn(fireRate);
+        Mockito.when(spaceship.getSpeed()).thenReturn(speed);
+        Mockito.when(spaceship.getPosition()).thenReturn(position);
         gui = Mockito.mock(Gui.class);
     }
 
@@ -32,7 +34,7 @@ class PlayerControllerTest {
 
         controller.move(gui);
         Mockito.verify(position, Mockito.times(1))
-                .getUp(1);
+                .getUp(speed);
     }
     @Test
     void handleMovementDown() {
@@ -41,7 +43,7 @@ class PlayerControllerTest {
 
         controller.move(gui);
         Mockito.verify(position, Mockito.times(1))
-                .getDown(1);
+                .getDown(speed);
     }
     @Test
     void handleMovementLeft() {
@@ -50,7 +52,7 @@ class PlayerControllerTest {
 
         controller.move(gui);
         Mockito.verify(position, Mockito.times(1))
-                .getLeft(1);
+                .getLeft(speed);
     }
     @Test
     void handleMovementRight() {
@@ -59,7 +61,7 @@ class PlayerControllerTest {
 
         controller.move(gui);
         Mockito.verify(position, Mockito.times(1))
-                .getRight(1);
+                .getRight(speed);
     }
 
     @Test
@@ -79,15 +81,13 @@ class PlayerControllerTest {
 
         controller.move(gui);
         Mockito.verify(position, Mockito.times(1))
-                .getUp(1);
+                .getUp(speed);
         Mockito.verify(position, Mockito.times(1))
-                .getRight(1);
+                .getRight(speed);
         Mockito.verify(position, Mockito.times(1))
-                .getDown(1);
+                .getDown(speed);
         Mockito.verify(position, Mockito.times(1))
-                .getLeft(1);
-
-
+                .getLeft(speed);
     }
 
     @Test

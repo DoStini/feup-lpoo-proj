@@ -4,24 +4,14 @@ import com.shootemup.g53.model.util.Position;
 
 public abstract class MovableElement extends Element {
 
-    private int frameCount = 0;
-    private int velocity = 3;
-    // private MovementStrategy movementStrategy;
+    private int speed;
 
-    public MovableElement(Position position, String color) {
+    public MovableElement(Position position, String color, int speed) {
         super(position, color);
+        this.speed = speed;
     }
 
-    public Position move(){
-        if(frameCount < this.velocity){
-            frameCount++;
-            return null;
-        }
-        frameCount = 0;
-        return null;
-        //return movementStrategy.move(this.getPosition());
+    public int getSpeed() {
+        return speed;
     }
-
-   
-
 }
