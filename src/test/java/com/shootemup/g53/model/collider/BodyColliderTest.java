@@ -2,6 +2,7 @@ package com.shootemup.g53.model.collider;
 
 import com.shootemup.g53.model.element.Element;
 import com.shootemup.g53.model.util.Position;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -55,5 +56,26 @@ class BodyColliderTest {
         Mockito.verify(collider2, Mockito.times(2)).getRealBoundingBox();
         Mockito.verify(collider2, Mockito.times(1)).innerVisit(Mockito.any());
         Mockito.verify(collider2, Mockito.times(1)).collidesLine(Mockito.any());
+    }
+
+    @Test
+    void boundingBoxCreation() {
+        BodyCollider collider = Mockito.spy(new LineCollider(element1, new Position(0,0),2));
+        BodyCollider collider2 = Mockito.spy(new LineCollider(element2, new Position(1,1),4));
+
+        BoundingBox collider1BB = collider.getRealBoundingBox();
+        Assertions.assertEquals(element1.getPosition(), collider1BB.getTopLeft());
+        Assertions.assertEquals(2, collider1BB.getWidth());
+        Assertions.assertEquals(0, collider1BB.getHeight());
+
+        BoundingBox collider2BB = collider2.getRealBoundingBox();
+        Assertions.assertEquals(element2.getPosition().add(new Position(1,1)), collider2BB.getTopLeft());
+        Assertions.assertEquals(4, collider2BB.getWidth());
+        Assertions.assertEquals(0, collider2BB.getHeight());
+    }
+
+    @Test
+    void lineCollision() {
+
     }
 }
