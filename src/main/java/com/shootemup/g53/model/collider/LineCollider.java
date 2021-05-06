@@ -32,4 +32,9 @@ public class LineCollider extends BodyCollider {
         return realLeft.getX() <= otherRealLeft.getX() + other.width &&
                 realLeft.getX() + this.width >= otherRealLeft.getX();
     }
+
+    @Override
+    protected boolean collidesLineComposite(LineCompositeCollider other) {
+        return other.collidesLine(this);
+    }
 }

@@ -26,16 +26,25 @@ public class LineCompositeCollider extends BodyCollider {
 
     @Override
     protected BoundingBox createBoundingBox() {
-        return null;
+        return new BoundingBoxFactory().createFromLineComposite(this);
     }
 
     @Override
     protected boolean innerVisit(BodyCollider other) {
-        return false;
+        return other.collidesLineComposite(this);
     }
 
     @Override
     protected boolean collidesLine(LineCollider other) {
+        int realOtherY = other.topLeft.getY() + other.element.getPosition().getY();
+
+        LineCollider sameHeightCollider = colliderHashMap.get(realOtherY-element.getPosition().getY());
+
+        return sameHeightCollider != null && sameHeightCollider.collidesLine(other);
+    }
+
+    @Override
+    protected boolean collidesLineComposite(LineCompositeCollider other) {
         return false;
     }
 
