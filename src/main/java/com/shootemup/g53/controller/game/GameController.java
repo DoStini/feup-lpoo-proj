@@ -2,27 +2,37 @@ package com.shootemup.g53.controller.game;
 
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.GenericController;
-import com.shootemup.g53.controller.movement.CircularMovement;
-import com.shootemup.g53.controller.movement.DiagonalDownLeftMovement;
-import com.shootemup.g53.controller.movement.MovementController;
+import com.shootemup.g53.controller.movement.*;
+import com.shootemup.g53.controller.spaceship.AIChangingController;
 import com.shootemup.g53.controller.spaceship.AIShootingController;
 import com.shootemup.g53.controller.spaceship.PlayerController;
+import com.shootemup.g53.controller.spaceship.SpaceshipController;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class GameController extends GenericController {
     private GameModel gameModel;
     private PlayerController playerController;
-    AIShootingController enemyController;
+    SpaceshipController enemyController;
 
     public GameController(GameModel gameModel) {
         this.gameModel = gameModel;
         playerController = new PlayerController(gameModel.getPlayer());
-        MovementController m = new CircularMovement(gameModel.getEnemySpaceships().get(0), 5, 0, 20);
-        enemyController = new AIShootingController(gameModel.getEnemySpaceships().get(0), m);
+        Spaceship s = gameModel.getEnemySpaceships().get(0);
+        List<MovementController> controllers = Arrays.asList(
+                new CircularMovement(s, 5, 0, 30),
+                new DiagonalBounceMovement(s, s.getSpeed(), 3, 3, DiagonalBounceMovement.Direction.DOWN_LEFT),
+                new FallDownMovement(s, s.getSpeed())
+        );
+
+        enemyController = new AIChangingController(s, controllers, 20);
     }
 
 
