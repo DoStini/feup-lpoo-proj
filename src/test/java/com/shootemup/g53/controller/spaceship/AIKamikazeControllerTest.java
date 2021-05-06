@@ -10,21 +10,19 @@ import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AIShootingControllerTest {
+class AIKamikazeControllerTest {
 
     Spaceship spaceship;
     MovementController movementController;
     Position position;
     Gui gui;
     private int speed = 5;
-    private int fireRate = 5;
 
 
     @BeforeEach
     void setup() {
         position = new Position(0, 0);
         spaceship = Mockito.mock(Spaceship.class);
-        Mockito.when(spaceship.getFireRate()).thenReturn(fireRate);
         Mockito.when(spaceship.getSpeed()).thenReturn(speed);
         Mockito.when(spaceship.getPosition()).thenReturn(position);
 
@@ -36,8 +34,14 @@ class AIShootingControllerTest {
 
     @Test
     void handle() {
-        AIShootingController controller = new AIShootingController(spaceship, movementController);
+        SpaceshipController controller = new AIKamikazeController(spaceship, movementController);
         assertEquals(new Position(5, 5), controller.handle(gui));
         Mockito.verify(movementController, Mockito.times(1)).move();
+    }
+
+    @Test
+    void kamikaze() {
+        SpaceshipController controller = new AIKamikazeController(spaceship);
+        assertEquals(position.getDown(speed), controller.handle(gui));
     }
 }
