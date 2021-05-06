@@ -38,4 +38,10 @@ class AIKamikazeControllerTest {
         assertEquals(new Position(5, 5), controller.handle(gui));
         Mockito.verify(movementController, Mockito.times(1)).move();
     }
+
+    @Test
+    void kamikaze() {
+        SpaceshipController controller = new AIKamikazeController(spaceship);
+        assertEquals(position.getDown(speed), controller.handle(gui));
+    }
 }
