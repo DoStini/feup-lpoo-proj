@@ -11,7 +11,7 @@ public class AIKamikazeController extends SpaceshipController {
     private MovementController controller;
 
     public AIKamikazeController(Spaceship spaceship) {
-        this(spaceship, new FallDownMovement(spaceship, spaceship.getSpeed()));
+        this(spaceship, new FallDownMovement(spaceship));
     }
 
     public AIKamikazeController(Spaceship spaceship, MovementController controller) {

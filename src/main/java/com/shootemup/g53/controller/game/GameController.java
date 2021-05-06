@@ -28,8 +28,8 @@ public class GameController extends GenericController {
         Spaceship s = gameModel.getEnemySpaceships().get(0);
         List<MovementController> controllers = Arrays.asList(
                 new CircularMovement(s, 5, 0, 30),
-                new DiagonalBounceMovement(s, s.getSpeed(), 3, 3, DiagonalBounceMovement.Direction.DOWN_LEFT),
-                new FallDownMovement(s, s.getSpeed())
+                new DiagonalBounceMovement(s, 3, 3, DiagonalBounceMovement.Direction.DOWN_LEFT),
+                new FallDownMovement(s)
         );
 
         enemyController = new AIChangingController(s, controllers, 20);
