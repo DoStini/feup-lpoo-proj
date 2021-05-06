@@ -16,7 +16,7 @@ public class LineCollider extends BodyCollider {
 
     @Override
     protected BoundingBox createBoundingBox() {
-        return new BoundingBox(new Position(topLeft.getX(), topLeft.getY()), width, 0);
+        return new BoundingBoxFactory().createFromLine(this);
     }
 
     @Override
