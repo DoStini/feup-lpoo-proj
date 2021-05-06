@@ -126,6 +126,7 @@ class BodyColliderTest {
         LineCollider collider6 = new LineCollider(element2, new Position(-1, 0), 0);
         LineCollider collider7 = new LineCollider(element2, new Position(-4, 0), 1);
         LineCollider collider8 = new LineCollider(element2, new Position(-4, 0), 2);
+        LineCollider collider9 = new LineCollider(element3, new Position(-2, -2), 0);
 
 
         List<LineCollider> colliders = Arrays.asList(collider, collider2, collider3, collider4);
@@ -146,5 +147,13 @@ class BodyColliderTest {
 
         Assertions.assertTrue(compositeCollider.collidesLine(collider8));
         Assertions.assertTrue(collider8.collidesLineComposite(compositeCollider));
+
+        Assertions.assertTrue(compositeCollider.collidesLine(collider9));
+        Assertions.assertTrue(collider9.collidesLineComposite(compositeCollider));
+
+        LineCompositeCollider compositeCollider2 = new LineCompositeCollider(element3, colliders);
+
+        Assertions.assertTrue(collider3.collidesLineComposite(compositeCollider2));
+        Assertions.assertTrue(compositeCollider2.collidesLine(collider3));
     }
 }
