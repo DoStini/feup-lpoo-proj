@@ -7,8 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import javax.sound.sampled.Line;
-
 class BodyColliderTest {
     private Element element1, element2, element3;
 
@@ -20,6 +18,22 @@ class BodyColliderTest {
         this.element2.setPosition(new Position(2, 0));
         this.element3 = Mockito.mock(Element.class, Mockito.CALLS_REAL_METHODS);
         this.element3.setPosition(new Position(2, 2));
+    }
+
+    @Test
+    void boundingBoxCreation() {
+        BodyCollider collider = Mockito.spy(new LineCollider(element1, new Position(0,0),2));
+        BodyCollider collider2 = Mockito.spy(new LineCollider(element2, new Position(1,1),4));
+
+        BoundingBox collider1BB = collider.getRealBoundingBox();
+        Assertions.assertEquals(element1.getPosition(), collider1BB.getTopLeft());
+        Assertions.assertEquals(2, collider1BB.getWidth());
+        Assertions.assertEquals(0, collider1BB.getHeight());
+
+        BoundingBox collider2BB = collider2.getRealBoundingBox();
+        Assertions.assertEquals(element2.getPosition().add(new Position(1,1)), collider2BB.getTopLeft());
+        Assertions.assertEquals(4, collider2BB.getWidth());
+        Assertions.assertEquals(0, collider2BB.getHeight());
     }
 
     @Test
@@ -56,22 +70,6 @@ class BodyColliderTest {
     }
 
     @Test
-    void boundingBoxCreation() {
-        BodyCollider collider = Mockito.spy(new LineCollider(element1, new Position(0,0),2));
-        BodyCollider collider2 = Mockito.spy(new LineCollider(element2, new Position(1,1),4));
-
-        BoundingBox collider1BB = collider.getRealBoundingBox();
-        Assertions.assertEquals(element1.getPosition(), collider1BB.getTopLeft());
-        Assertions.assertEquals(2, collider1BB.getWidth());
-        Assertions.assertEquals(0, collider1BB.getHeight());
-
-        BoundingBox collider2BB = collider2.getRealBoundingBox();
-        Assertions.assertEquals(element2.getPosition().add(new Position(1,1)), collider2BB.getTopLeft());
-        Assertions.assertEquals(4, collider2BB.getWidth());
-        Assertions.assertEquals(0, collider2BB.getHeight());
-    }
-
-    @Test
     void integratedTest() {
         BodyCollider collider = Mockito.spy(new LineCollider(element1, new Position(0,0),2));
         BodyCollider collider2 = Mockito.spy(new LineCollider(element2, new Position(1,1),4));
@@ -103,15 +101,15 @@ class BodyColliderTest {
         LineCollider collider = new LineCollider(element1, new Position(0,0),2);
         LineCollider collider2 = new LineCollider(element2, new Position(1,1),4);
         LineCollider collider3 = new LineCollider(element2, new Position(-1,0),2);
-        BodyCollider collider4 = new LineCollider(element3, new Position(-1,-2),2);
+        LineCollider collider4 = new LineCollider(element3, new Position(-1,-2),2);
 
         Assertions.assertFalse(collider.collidesLine(collider2));
         Assertions.assertFalse(collider2.collidesLine(collider));
 
-        Assertions.assertTrue(collider3.collides(collider));
-        Assertions.assertTrue(collider.collides(collider3));
+        Assertions.assertTrue(collider3.collidesLine(collider));
+        Assertions.assertTrue(collider.collidesLine(collider3));
 
-        Assertions.assertTrue(collider.collides(collider4));
-        Assertions.assertTrue(collider4.collides(collider));
+        Assertions.assertTrue(collider.collidesLine(collider4));
+        Assertions.assertTrue(collider4.collidesLine(collider));
     }
 }

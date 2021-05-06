@@ -4,8 +4,8 @@ import com.shootemup.g53.model.element.Element;
 import com.shootemup.g53.model.util.Position;
 
 public class LineCollider extends BodyCollider {
-    Position topLeft;
-    int width;
+    protected final Position topLeft;
+    protected final int width;
 
     public LineCollider(Element element, Position topLeft, int width) {
         super(element);
@@ -29,7 +29,7 @@ public class LineCollider extends BodyCollider {
         Position realLeft = this.topLeft.add(this.element.getPosition());
         Position otherRealLeft = other.topLeft.add(other.element.getPosition());
 
-        return  realLeft.getX() <= otherRealLeft.getX() + other.width &&
+        return realLeft.getX() <= otherRealLeft.getX() + other.width &&
                 realLeft.getX() + this.width >= otherRealLeft.getX();
     }
 }
