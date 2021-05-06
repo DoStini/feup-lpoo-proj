@@ -27,7 +27,7 @@ public class LineCollider extends BodyCollider {
     @Override
     protected boolean collidesLine(LineCollider other) {
         Position realLeft = this.topLeft.add(this.element.getPosition());
-        Position otherRealLeft = this.topLeft.add(other.element.getPosition());
+        Position otherRealLeft = other.topLeft.add(other.element.getPosition());
 
         return  realLeft.getX() <= otherRealLeft.getX() + other.width &&
                 realLeft.getX() + this.width >= otherRealLeft.getX();

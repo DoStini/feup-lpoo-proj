@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import javax.sound.sampled.Line;
+
 class BodyColliderTest {
     private Element element1, element2, element3;
 
@@ -91,6 +93,23 @@ class BodyColliderTest {
         Mockito.verify(collider3, Mockito.times(1)).collidesLine(Mockito.any());
 
         BodyCollider collider4 = Mockito.spy(new LineCollider(element3, new Position(-1,-2),2));
+
+        Assertions.assertTrue(collider.collides(collider4));
+        Assertions.assertTrue(collider4.collides(collider));
+    }
+
+    @Test
+    void lineCollision() {
+        LineCollider collider = new LineCollider(element1, new Position(0,0),2);
+        LineCollider collider2 = new LineCollider(element2, new Position(1,1),4);
+        LineCollider collider3 = new LineCollider(element2, new Position(-1,0),2);
+        BodyCollider collider4 = new LineCollider(element3, new Position(-1,-2),2);
+
+        Assertions.assertFalse(collider.collidesLine(collider2));
+        Assertions.assertFalse(collider2.collidesLine(collider));
+
+        Assertions.assertTrue(collider3.collides(collider));
+        Assertions.assertTrue(collider.collides(collider3));
 
         Assertions.assertTrue(collider.collides(collider4));
         Assertions.assertTrue(collider4.collides(collider));
