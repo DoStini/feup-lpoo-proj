@@ -20,7 +20,7 @@ import java.util.List;
 public class GameController extends GenericController {
     private GameModel gameModel;
     private PlayerController playerController;
-    SpaceshipController enemyController;
+    private SpaceshipController enemyController; // For testing purposes
 
     public GameController(GameModel gameModel) {
         this.gameModel = gameModel;
