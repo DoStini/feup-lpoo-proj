@@ -1,10 +1,17 @@
 package com.shootemup.g53.model.collider;
 
 import com.shootemup.g53.model.element.Element;
+import com.shootemup.g53.model.util.Position;
 
 public class LineCollider extends BodyCollider {
-    LineCollider(Element element) {
+    Position topLeft;
+    int width;
+
+    public LineCollider(Element element, Position topLeft, int width) {
         super(element);
+
+        this.topLeft = topLeft;
+        this.width = width;
     }
 
     @Override
@@ -14,12 +21,12 @@ public class LineCollider extends BodyCollider {
 
 
     @Override
-    public boolean collides(Collider other) {
-        return other.collides(this);
+    public boolean collides(BodyCollider other) {
+        return other.collidesInner(this);
     }
 
     @Override
-    public boolean collides(LineCollider other) {
+    protected boolean collidesInner(LineCollider other) {
         return false;
     }
 }

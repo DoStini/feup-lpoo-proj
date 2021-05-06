@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-class ColliderTest {
+class BoundingBoxTest {
 
     @Test
     void squareCollider() {
