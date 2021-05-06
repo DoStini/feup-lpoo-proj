@@ -28,11 +28,11 @@ class LineCompositeFactoryTest {
         LineCompositeFactory factory = new LineCompositeFactory();
 
         LineCompositeCollider compositeCollider = factory.createFromSquare(
-                element2, new Position(0,0), 10, 5
+                element2, new Position(1, 3), 10, 5
         );
 
         BoundingBox bb = compositeCollider.getRealBoundingBox();
-        Assertions.assertEquals(new Position(0,2), bb.getTopLeft());
+        Assertions.assertEquals(new Position(1,5), bb.getTopLeft());
         Assertions.assertEquals(10, bb.getWidth());
         Assertions.assertEquals(5, bb.getHeight());
 
@@ -42,9 +42,34 @@ class LineCompositeFactoryTest {
         colliderList.sort(Comparator.comparingInt(o -> o.topLeft.getY()));
 
         for(int y = 0; y <= 5; y++) {
-            Assertions.assertEquals(y, colliderList.get(y).topLeft.getY());
-            Assertions.assertEquals(0, colliderList.get(y).topLeft.getX());
+            Assertions.assertEquals(y+3, colliderList.get(y).topLeft.getY());
+            Assertions.assertEquals(1, colliderList.get(y).topLeft.getX());
             Assertions.assertEquals(10, colliderList.get(y).width);
+        }
+    }
+
+    @Test
+    void fromLine() {
+        LineCompositeFactory factory = new LineCompositeFactory();
+
+        LineCompositeCollider compositeCollider = factory.createFromVerticalLine(
+                element2, new Position(1, 3), 5
+        );
+
+        BoundingBox bb = compositeCollider.getRealBoundingBox();
+        Assertions.assertEquals(new Position(1,5), bb.getTopLeft());
+        Assertions.assertEquals(0, bb.getWidth());
+        Assertions.assertEquals(5, bb.getHeight());
+
+        Collection<LineCollider> colliders = compositeCollider.getColliderHashMap().values();
+        List<LineCollider> colliderList = new ArrayList<>(colliders);
+
+        colliderList.sort(Comparator.comparingInt(o -> o.topLeft.getY()));
+
+        for(int y = 0; y <= 5; y++) {
+            Assertions.assertEquals(y+3, colliderList.get(y).topLeft.getY());
+            Assertions.assertEquals(1, colliderList.get(y).topLeft.getX());
+            Assertions.assertEquals(0, colliderList.get(y).width);
         }
     }
 }
