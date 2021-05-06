@@ -19,14 +19,13 @@ public class LineCollider extends BodyCollider {
         return null;
     }
 
-
     @Override
-    public boolean collides(BodyCollider other) {
-        return other.collidesInner(this);
+    protected boolean innerVisit(BodyCollider other) {
+        return other.collidesLine(this);
     }
 
     @Override
-    protected boolean collidesInner(LineCollider other) {
+    protected boolean collidesLine(LineCollider other) {
         return false;
     }
 }

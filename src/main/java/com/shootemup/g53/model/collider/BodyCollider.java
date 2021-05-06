@@ -13,13 +13,18 @@ public abstract class BodyCollider {
         this.boundingBox = null;
     }
 
-    BoundingBox getBoundingBox() {
+    public BoundingBox getBoundingBox() {
         if(this.boundingBox == null) this.boundingBox = createBoundingBox();
         return this.boundingBox;
     }
 
     abstract protected BoundingBox createBoundingBox();
 
-    abstract public boolean collides(BodyCollider other);
-    abstract protected boolean collidesInner(LineCollider other);
+    public boolean collides(BodyCollider other) {
+        if(!other.getBoundingBox().collides(this.getBoundingBox())) return false;
+        else return innerVisit(other);
+    }
+
+    abstract protected boolean innerVisit(BodyCollider other);
+    abstract protected boolean collidesLine(LineCollider other);
 }
