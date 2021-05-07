@@ -11,7 +11,7 @@ public class BulletView implements ElementView<Bullet> {
         Position pos = element.getPosition();
         int mid = pos.getX();
 
-        for (int i = 0; i < element.getSize(); i++)
+        for (int i = 0; i <= element.getSize(); i++)
             gui.drawColor(element.getColor(), pos.getDown(i));
     }
 }

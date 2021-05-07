@@ -27,10 +27,10 @@ class BulletViewTest {
         BulletView view = new BulletView();
         view.draw(gui, bullet);
 
-        Mockito.verify(gui, Mockito.times(size))
+        Mockito.verify(gui, Mockito.times(size+1))
                 .drawColor(Mockito.anyString(), Mockito.any());
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i <= size; i++) {
             Mockito.verify(gui, Mockito.times(1))
                     .drawColor("#aaaaaa", pos.getDown(i));
         }
