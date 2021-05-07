@@ -30,10 +30,12 @@ public class Application {
 //        coinView.draw(gui, coin);
 
         Spaceship enemy = new Spaceship(new Position(6,6), 5, "#aae243",1, 1);
-        PlayerView view = new PlayerView(3);
+        PlayerView view = new PlayerView(2);
         view.draw(gui, enemy);
-        EnemyView enemyView = new EnemyView(3);
+        EnemyView enemyView = new EnemyView(2);
         enemyView.draw(gui, enemy);
+
+        //gui.drawLine("#aaaaaa", new Position(7,7), 1);
 
         gui.refresh();
         //gameDemo();

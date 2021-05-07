@@ -17,7 +17,7 @@ public class EnemyView extends SpaceshipView {
         String color = element.getColor();
 
         for (int i = 0; i <= size; i++) {
-            if(i > lineWidth) {
+            if(i > lineWidth-1) {
                 gui.drawLine(color, pos.getLeft(i).getUp(i), lineWidth);
                 gui.drawLine(color, pos.getRight(i-lineWidth).getUp(i), lineWidth);
             } else {

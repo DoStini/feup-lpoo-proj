@@ -16,7 +16,7 @@ public class PlayerView extends SpaceshipView {
         int mid = pos.getX();
         String color = element.getColor();
         for (int i = 0; i <= element.getHeight(); i++) {
-            if (i > lineWidth) {
+            if (i > lineWidth-1) {
                 gui.drawLine(color, pos.getLeft(i).getDown(i), lineWidth);
                 gui.drawLine(color, pos.getRight(i-lineWidth).getDown(i), lineWidth);
             }

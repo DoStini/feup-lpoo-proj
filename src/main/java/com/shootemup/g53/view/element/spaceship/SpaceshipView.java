@@ -8,6 +8,6 @@ public abstract class SpaceshipView implements ElementView<Spaceship> {
     protected String color;
 
     public SpaceshipView(int lineWidth) {
-        this.lineWidth = lineWidth - 1;
+        this.lineWidth = lineWidth;
     }
 }
