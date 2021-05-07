@@ -28,8 +28,8 @@ class LineCompositeFactoryTest {
                 element2, new Position(1, 3), 10, 5
         );
 
-        BoundingBox bb = compositeCollider.getRealBoundingBox();
-        Assertions.assertEquals(new Position(1,5), bb.getTopLeft());
+        BoundingBox bb = compositeCollider.getBoundingBox();
+        Assertions.assertEquals(new Position(1,5), bb.getTopLeft().add(element2.getPosition()));
         Assertions.assertEquals(10, bb.getWidth());
         Assertions.assertEquals(5, bb.getHeight());
 
@@ -57,8 +57,8 @@ class LineCompositeFactoryTest {
                 element2, new Position(1, 3), 5
         );
 
-        BoundingBox bb = compositeCollider.getRealBoundingBox();
-        Assertions.assertEquals(new Position(1,5), bb.getTopLeft());
+        BoundingBox bb = compositeCollider.getBoundingBox();
+        Assertions.assertEquals(new Position(1,5), bb.getTopLeft().add(element2.getPosition()));
         Assertions.assertEquals(0, bb.getWidth());
         Assertions.assertEquals(5, bb.getHeight());
 
@@ -86,8 +86,8 @@ class LineCompositeFactoryTest {
                 element2, new Position(2, 1), 5
         );
 
-        BoundingBox bb = compositeCollider.getRealBoundingBox();
-        Assertions.assertEquals(new Position(-3,3), bb.getTopLeft());
+        BoundingBox bb = compositeCollider.getBoundingBox();
+        Assertions.assertEquals(new Position(-3,3), bb.getTopLeft().add(element2.getPosition()));
         Assertions.assertEquals(5*2, bb.getWidth());
         Assertions.assertEquals(5, bb.getHeight());
 
@@ -116,8 +116,8 @@ class LineCompositeFactoryTest {
                 element2, new Position(2, 1), 5
         );
 
-        BoundingBox bb = compositeCollider.getRealBoundingBox();
-        Assertions.assertEquals(new Position(2-5+0,1-5+2), bb.getTopLeft());
+        BoundingBox bb = compositeCollider.getBoundingBox();
+        Assertions.assertEquals(new Position(2-5+0,1-5+2), bb.getTopLeft().add(element2.getPosition()));
         Assertions.assertEquals(5*2, bb.getWidth());
         Assertions.assertEquals(5, bb.getHeight());
 
@@ -146,8 +146,8 @@ class LineCompositeFactoryTest {
                 element2, new Position(2, 1), 5
         );
 
-        BoundingBox bb = compositeCollider.getRealBoundingBox();
-        Assertions.assertEquals(new Position(2-5,1-5+2), bb.getTopLeft());
+        BoundingBox bb = compositeCollider.getBoundingBox();
+        Assertions.assertEquals(new Position(2-5,1-5+2), bb.getTopLeft().add(element2.getPosition()));
         Assertions.assertEquals(5*2, bb.getWidth());
         Assertions.assertEquals(5*2, bb.getHeight());
 

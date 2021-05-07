@@ -28,13 +28,13 @@ class BodyColliderTest {
         BodyCollider collider = Mockito.spy(new LineCollider(element1, new Position(0,0),2));
         BodyCollider collider2 = Mockito.spy(new LineCollider(element2, new Position(1,1),4));
 
-        BoundingBox collider1BB = collider.getRealBoundingBox();
-        Assertions.assertEquals(element1.getPosition(), collider1BB.getTopLeft());
+        BoundingBox collider1BB = collider.getBoundingBox();
+        Assertions.assertEquals(element1.getPosition(), collider1BB.getTopLeft().add(element1.getPosition()));
         Assertions.assertEquals(2, collider1BB.getWidth());
         Assertions.assertEquals(0, collider1BB.getHeight());
 
-        BoundingBox collider2BB = collider2.getRealBoundingBox();
-        Assertions.assertEquals(element2.getPosition().add(new Position(1,1)), collider2BB.getTopLeft());
+        BoundingBox collider2BB = collider2.getBoundingBox();
+        Assertions.assertEquals(element2.getPosition().add(new Position(1,1)), collider2BB.getTopLeft().add(element2.getPosition()));
         Assertions.assertEquals(4, collider2BB.getWidth());
         Assertions.assertEquals(0, collider2BB.getHeight());
     }
@@ -50,24 +50,24 @@ class BodyColliderTest {
         collider.collides(collider2);
 
         Mockito.verify(collider, Mockito.times(1)).createBoundingBox();
-        Mockito.verify(collider, Mockito.times(1)).getRealBoundingBox();
+        Mockito.verify(collider, Mockito.times(1)).getBoundingBox();
         Mockito.verify(collider, Mockito.times(1)).innerVisit(Mockito.any());
         Mockito.verify(collider, Mockito.times(0)).collidesLine(Mockito.any());
 
         Mockito.verify(collider2, Mockito.times(1)).createBoundingBox();
-        Mockito.verify(collider2, Mockito.times(1)).getRealBoundingBox();
+        Mockito.verify(collider2, Mockito.times(1)).getBoundingBox();
         Mockito.verify(collider2, Mockito.times(0)).innerVisit(Mockito.any());
         Mockito.verify(collider2, Mockito.times(1)).collidesLine(Mockito.any());
 
         collider2.collides(collider);
 
         Mockito.verify(collider, Mockito.times(1)).createBoundingBox();
-        Mockito.verify(collider, Mockito.times(2)).getRealBoundingBox();
+        Mockito.verify(collider, Mockito.times(2)).getBoundingBox();
         Mockito.verify(collider, Mockito.times(1)).innerVisit(Mockito.any());
         Mockito.verify(collider, Mockito.times(1)).collidesLine(Mockito.any());
 
         Mockito.verify(collider2, Mockito.times(1)).createBoundingBox();
-        Mockito.verify(collider2, Mockito.times(2)).getRealBoundingBox();
+        Mockito.verify(collider2, Mockito.times(2)).getBoundingBox();
         Mockito.verify(collider2, Mockito.times(1)).innerVisit(Mockito.any());
         Mockito.verify(collider2, Mockito.times(1)).collidesLine(Mockito.any());
     }

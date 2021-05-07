@@ -45,14 +45,15 @@ public class LineCompositeCollider extends BodyCollider {
 
     @Override
     protected boolean collidesLineComposite(LineCompositeCollider other) {
-        BoundingBox thisBoundingBox = getRealBoundingBox();
-        BoundingBox otherBoundingBox = other.getRealBoundingBox();
+        int thisBoundingBoxY = getBoundingBox().getTopLeft().getY() + this.element.getPosition().getY();
+        int otherBoundingBoxY = other.getBoundingBox().getTopLeft().getY() + other.element.getPosition().getY();
 
         int topY, botY;
 
-        topY = Math.max(thisBoundingBox.getTopLeft().getY(), otherBoundingBox.getTopLeft().getY());
-        botY = Math.min(thisBoundingBox.getTopLeft().getY()+thisBoundingBox.getHeight(),
-                otherBoundingBox.getTopLeft().getY() + otherBoundingBox.getHeight());
+        topY = Math.max(thisBoundingBoxY, otherBoundingBoxY);
+        botY = Math.min(
+                thisBoundingBoxY + this.boundingBox.getHeight(), otherBoundingBoxY + other.boundingBox.getHeight()
+        );
 
         LineCollider thisHeightCollider, otherHeightCollider;
 

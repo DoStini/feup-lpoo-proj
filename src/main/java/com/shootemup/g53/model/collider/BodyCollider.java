@@ -5,27 +5,25 @@ import com.shootemup.g53.model.element.Element;
 // idea from https://stackoverflow.com/questions/22899363/advice-on-class-structure-in-a-collision-detection-system
 // based on this https://refactoring.guru/design-patterns/visitor design pattern
 public abstract class BodyCollider {
-    Element element;
-    BoundingBox boundingBox;
+    protected Element element;
+    protected BoundingBox boundingBox;
 
     protected BodyCollider(Element element) {
         this.element = element;
         this.boundingBox = null;
     }
 
-    public BoundingBox getRealBoundingBox() {
+    public BoundingBox getBoundingBox() {
         if(this.boundingBox == null) this.boundingBox = createBoundingBox();
-        return new BoundingBox(
-                this.boundingBox.getTopLeft().add(this.element.getPosition()),
-                this.boundingBox.getWidth(),
-                this.boundingBox.getHeight()
-        );
+        return boundingBox;
     }
 
     abstract protected BoundingBox createBoundingBox();
 
     public boolean collides(BodyCollider other) {
-        if(!other.getRealBoundingBox().collides(this.getRealBoundingBox())) return false;
+        if(!this.getBoundingBox().collides(
+                other.getBoundingBox(), this.element.getPosition(), other.element.getPosition())
+        ) return false;
         else return innerVisit(other);
     }
 
