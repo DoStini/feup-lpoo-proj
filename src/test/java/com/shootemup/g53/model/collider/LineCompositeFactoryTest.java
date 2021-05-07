@@ -109,6 +109,36 @@ class LineCompositeFactoryTest {
     }
 
     @Test
+    void fromInvertedIsoscelesTriangle() {
+        LineCompositeFactory factory = new LineCompositeFactory();
+
+        LineCompositeCollider compositeCollider = factory.createFromInvertedIsoscelesTriangle(
+                element2, new Position(2, 1), 5
+        );
+
+        BoundingBox bb = compositeCollider.getRealBoundingBox();
+        Assertions.assertEquals(new Position(2-5+0,1-5+2), bb.getTopLeft());
+        Assertions.assertEquals(5*2, bb.getWidth());
+        Assertions.assertEquals(5, bb.getHeight());
+
+        Collection<LineCollider> colliders = compositeCollider.getColliderHashMap().values();
+        Collection<Integer> heights = compositeCollider.getColliderHashMap().keySet();
+        List<LineCollider> colliderList = new ArrayList<>(colliders);
+        List<Integer> heightsList = new ArrayList<>(heights);
+
+        colliderList.sort(Comparator.comparingInt(o -> o.topLeft.getY()));
+        Collections.sort(heightsList);
+
+        for(int y = 0; y <= 5; y++) {
+            Assertions.assertEquals(1-y, heightsList.get(5-y));
+            Assertions.assertEquals(1-y, colliderList.get(5-y).topLeft.getY());
+            Assertions.assertEquals(heightsList.get(5-y), colliderList.get(5-y).topLeft.getY());
+            Assertions.assertEquals(2-y, colliderList.get(5-y).topLeft.getX());
+            Assertions.assertEquals(y*2, colliderList.get(5-y).width);
+        }
+    }
+
+    @Test
     void fromCircle() {
         LineCompositeFactory factory = new LineCompositeFactory();
 

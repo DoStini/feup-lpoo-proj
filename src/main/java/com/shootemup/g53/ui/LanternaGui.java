@@ -1,6 +1,5 @@
 package com.shootemup.g53.ui;
 
-import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
@@ -8,8 +7,7 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
-import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
-import com.shootemup.g53.controller.Action;
+import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.input.AWTInputController;
 import com.shootemup.g53.controller.input.InputController;
 import com.shootemup.g53.model.util.Position;
@@ -17,13 +15,10 @@ import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 public class LanternaGui implements Gui {
 

@@ -38,6 +38,18 @@ public class LineCompositeFactory {
         return new LineCompositeCollider(element, colliderHashMap);
     }
 
+    LineCompositeCollider createFromInvertedIsoscelesTriangle(Element element, Position top, int height) {
+        HashMap<Integer, LineCollider> colliderHashMap = new HashMap<>();
+
+        for(int y = 0; y <= height; y++) {
+            colliderHashMap.put(
+                    top.getY()-y, new LineCollider(element, new Position(top.getX()-y, top.getY()-y), 2*(y))
+            );
+        }
+
+        return new LineCompositeCollider(element, colliderHashMap);
+    }
+
     LineCompositeCollider createFromCircle(Element element, Position center, int radius) {
         HashMap<Integer, LineCollider> colliderHashMap = new HashMap<>();
 

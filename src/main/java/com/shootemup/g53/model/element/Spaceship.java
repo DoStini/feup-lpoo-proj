@@ -2,11 +2,18 @@ package com.shootemup.g53.model.element;
 
 import com.shootemup.g53.model.util.Position;
 
-public class Spaceship extends MovableElement{
+public class Spaceship extends MovableElement {
     private int height;
-    public Spaceship(Position position, int height, String color) {
-        super(position, color);
+    private int fireRate;
+
+    public Spaceship(Position position, int height, String color, int speed, int fireRate) {
+        super(position, color, speed);
         this.height = height;
+        this.fireRate = fireRate;
+    }
+
+    public int getFireRate() {
+        return fireRate;
     }
 
     public int getHeight() {
