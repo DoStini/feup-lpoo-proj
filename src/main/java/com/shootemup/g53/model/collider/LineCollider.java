@@ -26,11 +26,11 @@ public class LineCollider extends BodyCollider {
 
     @Override
     protected boolean collidesLine(LineCollider other) {
-        Position realLeft = this.topLeft.add(this.element.getPosition());
-        Position otherRealLeft = other.topLeft.add(other.element.getPosition());
+        int realLeftX = this.topLeft.getX() + this.element.getPosition().getX();
+        int otherRealLeftX = other.topLeft.getX() + other.element.getPosition().getX();
 
-        return realLeft.getX() <= otherRealLeft.getX() + other.width &&
-                realLeft.getX() + this.width >= otherRealLeft.getX();
+        return realLeftX <= otherRealLeftX + other.width &&
+                realLeftX + this.width >= otherRealLeftX;
     }
 
     @Override

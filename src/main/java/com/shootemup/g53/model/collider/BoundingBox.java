@@ -26,11 +26,19 @@ public class BoundingBox {
     }
 
     public boolean collides(BoundingBox other) {
-        return !(
-                this.getTopLeft().getX() + this.getWidth() < other.getTopLeft().getX() ||
-                        this.getTopLeft().getX() > other.getTopLeft().getX() + other.getWidth() ||
-                        this.getTopLeft().getY() + this.getHeight() < other.getTopLeft().getY() ||
-                        this.getTopLeft().getY() > other.getTopLeft().getY() + other.getHeight()
-        );
+        return  this.getTopLeft().getX() + this.getWidth() >= other.getTopLeft().getX() &&
+                this.getTopLeft().getX() <= other.getTopLeft().getX() + other.getWidth() &&
+                this.getTopLeft().getY() + this.getHeight() >= other.getTopLeft().getY() &&
+                this.getTopLeft().getY() <= other.getTopLeft().getY() + other.getHeight();
+    }
+
+    public boolean collides(BoundingBox other, Position thisOffset, Position otherOffset) {
+        int thisLeftX = this.topLeft.getX() + thisOffset.getX(), thisLeftY = this.topLeft.getY() + thisOffset.getY();
+        int otherLeftX = other.topLeft.getX() + otherOffset.getX(), otherLeftY = other.topLeft.getY() + otherOffset.getY();
+
+        return  thisLeftX + this.width >= otherLeftX &&
+                thisLeftX <= otherLeftX + other.width &&
+                thisLeftY + this.height >= otherLeftY &&
+                thisLeftY <= otherLeftY + other.height;
     }
 }

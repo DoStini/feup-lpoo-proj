@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class BoundingBoxTest {
-
     @Test
     void squareCollider() {
         BoundingBox collider = new BoundingBox(new Position(0,0), 10, 10);
@@ -45,5 +44,33 @@ class BoundingBoxTest {
 
         Assertions.assertTrue(collider9.collides(collider10));
         Assertions.assertTrue(collider10.collides(collider9));
+    }
+
+    @Test
+    void squareColliderWithOffset() {
+        BoundingBox collider = new BoundingBox(new Position(0,0), 10, 10);
+        BoundingBox  collider2 = new BoundingBox(new Position(10, 10), 1,1);
+        BoundingBox  collider3 = new BoundingBox(new Position(11, 11), 1,1);
+        BoundingBox  collider4 = new BoundingBox(new Position(-1, -1), 0,0);
+
+        Assertions.assertTrue(collider.collides(collider, new Position(0,0), new Position(0,0)));
+
+        Assertions.assertTrue(collider.collides(collider2, new Position(2,2), new Position(2,2)));
+        Assertions.assertTrue(collider2.collides(collider, new Position(2,2), new Position(2,2)));
+
+        Assertions.assertFalse(collider.collides(collider3, new Position(2,0), new Position(2,0)));
+        Assertions.assertFalse(collider3.collides(collider, new Position(0,2), new Position(0,2)));
+
+        Assertions.assertTrue(collider.collides(collider3, new Position(1,1), new Position(0,0)));
+        Assertions.assertTrue(collider3.collides(collider, new Position(0,0), new Position(1,1)));
+
+        Assertions.assertTrue(collider.collides(collider3, new Position(0,0), new Position(-1,-1)));
+        Assertions.assertTrue(collider3.collides(collider, new Position(-1,-1), new Position(0,0)));
+
+        Assertions.assertFalse(collider.collides(collider4, new Position(0,0), new Position(0,0)));
+        Assertions.assertFalse(collider4.collides(collider, new Position(0,0), new Position(0,0)));
+
+        Assertions.assertTrue(collider.collides(collider4, new Position(0,0), new Position(1,1)));
+        Assertions.assertTrue(collider4.collides(collider, new Position(1,1), new Position(0,0)));
     }
 }
