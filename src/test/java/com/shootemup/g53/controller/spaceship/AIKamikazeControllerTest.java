@@ -1,5 +1,6 @@
 package com.shootemup.g53.controller.spaceship;
 
+import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.MovementController;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
@@ -14,6 +15,7 @@ class AIKamikazeControllerTest {
 
     Spaceship spaceship;
     MovementController movementController;
+    private BulletPoolController bulletPoolController;
     Position position;
     Gui gui;
     private int speed = 5;
@@ -25,6 +27,7 @@ class AIKamikazeControllerTest {
         spaceship = Mockito.mock(Spaceship.class);
         Mockito.when(spaceship.getSpeed()).thenReturn(speed);
         Mockito.when(spaceship.getPosition()).thenReturn(position);
+        bulletPoolController = Mockito.mock(BulletPoolController.class);
 
         movementController = Mockito.mock(MovementController.class);
         Mockito.when(movementController.move()).thenReturn(new Position(5, 5));
@@ -35,13 +38,13 @@ class AIKamikazeControllerTest {
     @Test
     void handle() {
         SpaceshipController controller = new AIKamikazeController(spaceship, movementController);
-        assertEquals(new Position(5, 5), controller.handle(gui));
+        assertEquals(new Position(5, 5), controller.handle(gui, bulletPoolController));
         Mockito.verify(movementController, Mockito.times(1)).move();
     }
 
     @Test
     void kamikaze() {
         SpaceshipController controller = new AIKamikazeController(spaceship);
-        assertEquals(position.getDown(speed), controller.handle(gui));
+        assertEquals(position.getDown(speed), controller.handle(gui, bulletPoolController));
     }
 }

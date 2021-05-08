@@ -7,13 +7,14 @@ import com.shootemup.g53.ui.Gui;
 
 public abstract class SpaceshipController {
 
-    protected int lastFire = 0;
+    protected int lastFire;
     protected int frame = 0;
 
     protected Spaceship spaceship;
 
     public SpaceshipController(Spaceship spaceship) {
         this.spaceship = spaceship;
+        lastFire = -spaceship.getFireRate() + 1;
     }
 
     public Position handle(Gui gui, BulletPoolController bulletPoolController) {
@@ -28,4 +29,8 @@ public abstract class SpaceshipController {
 
     public abstract void fire(Gui gui, BulletPoolController bulletPoolController);
     public abstract Position move(Gui gui);
+
+    protected boolean canShoot() {
+        return frame >= lastFire + spaceship.getFireRate();
+    }
 }

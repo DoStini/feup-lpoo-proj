@@ -1,5 +1,6 @@
 package com.shootemup.g53.controller.spaceship;
 
+import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.MovementController;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
@@ -14,6 +15,8 @@ class AIShootingControllerTest {
 
     Spaceship spaceship;
     MovementController movementController;
+    private BulletPoolController bulletPoolController;
+
     Position position;
     Gui gui;
     private int speed = 5;
@@ -24,6 +27,8 @@ class AIShootingControllerTest {
     void setup() {
         position = new Position(0, 0);
         spaceship = Mockito.mock(Spaceship.class);
+        bulletPoolController = Mockito.mock(BulletPoolController.class);
+
         Mockito.when(spaceship.getFireRate()).thenReturn(fireRate);
         Mockito.when(spaceship.getSpeed()).thenReturn(speed);
         Mockito.when(spaceship.getPosition()).thenReturn(position);
@@ -35,9 +40,34 @@ class AIShootingControllerTest {
     }
 
     @Test
-    void handle() {
+    void movement() {
         AIShootingController controller = new AIShootingController(spaceship, movementController);
-        assertEquals(new Position(5, 5), controller.handle(gui));
+        assertEquals(new Position(5, 5), controller.handle(gui, bulletPoolController));
         Mockito.verify(movementController, Mockito.times(1)).move();
+    }
+
+    @Test
+    void fireRateNotReached() {
+        AIShootingController controller = new AIShootingController(spaceship, movementController);
+
+        for (int i = 0; i < fireRate; i++) {
+            controller.handle(gui, bulletPoolController);
+        }
+
+        Mockito.verify(bulletPoolController, Mockito.times(1))
+                .addEnemyBullet(position.getX(), position.getY(), "#00ff00", 3);
+
+    }
+    @Test
+    void fireRateReached() {
+        AIShootingController controller = new AIShootingController(spaceship, movementController);
+
+        for (int i = 0; i < fireRate + 1; i++) {
+            controller.handle(gui, bulletPoolController);
+        }
+
+        Mockito.verify(bulletPoolController, Mockito.times(2))
+                .addEnemyBullet(position.getX(), position.getY(), "#00ff00", 3);
+
     }
 }

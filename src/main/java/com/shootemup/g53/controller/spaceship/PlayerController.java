@@ -13,7 +13,7 @@ public class PlayerController extends SpaceshipController {
 
     @Override
     public void fire(Gui gui, BulletPoolController bulletPoolController) {
-        if (gui.isActionActive(Action.SPACE) && frame > lastFire + spaceship.getFireRate()) {
+        if (gui.isActionActive(Action.SPACE) && canShoot()) {
             bulletPoolController.addPlayerBullet(spaceship.getPosition().getX(), spaceship.getPosition().getY(),
                                         "#ff0000", 3);
             lastFire = frame;

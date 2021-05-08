@@ -10,8 +10,6 @@ import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 
-import java.util.Iterator;
-
 
 public class GameController extends GenericController {
     private GameModel gameModel;
@@ -79,6 +77,6 @@ public class GameController extends GenericController {
             if (!insideBounds(bullet.getPosition(), 0, 0))
                 bulletPoolController.restoreBullet(bullet);
         }
-        bulletPoolController.removeBullets();
+        bulletPoolController.removeInactiveBullets();
     }
 }

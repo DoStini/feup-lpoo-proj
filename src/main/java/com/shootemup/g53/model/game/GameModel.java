@@ -83,9 +83,4 @@ public class GameModel extends Model {
     public void addEnemyBullet(Bullet bullet) {
         enemyBullets.add(bullet);
     }
-
-    public void removeBullet(Bullet bullet) {
-        if(playerBullets.remove(bullet)) return;
-        enemyBullets.remove(bullet);
-    }
 }

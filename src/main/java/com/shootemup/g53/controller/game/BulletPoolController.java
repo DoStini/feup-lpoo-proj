@@ -5,6 +5,8 @@ import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.model.util.objectpool.ObjectPool;
 
+import java.util.List;
+
 public class BulletPoolController {
     private ObjectPool<Bullet> bulletPool;
 
@@ -48,9 +50,8 @@ public class BulletPoolController {
         bulletPool.restore(bullet);
     }
 
-    public void removeBullets() {
-        gameModel.getPlayerBullets().removeIf(b -> !b.isActive());
+    public void removeInactiveBullets() {
         gameModel.getEnemyBullets().removeIf(b -> !b.isActive());
+        gameModel.getPlayerBullets().removeIf(b -> !b.isActive());
     }
-
 }

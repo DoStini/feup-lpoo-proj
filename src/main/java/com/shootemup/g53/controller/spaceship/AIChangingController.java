@@ -45,7 +45,7 @@ public class AIChangingController extends SpaceshipController {
 
     @Override
     public void fire(Gui gui, BulletPoolController bulletPoolController) {
-        if (frame > lastFire + spaceship.getFireRate()) {
+        if (canShoot()) {
             bulletPoolController.addEnemyBullet(spaceship.getPosition().getX(), spaceship.getPosition().getY(),
                     "#00ff00", 3);
             lastFire = frame;
