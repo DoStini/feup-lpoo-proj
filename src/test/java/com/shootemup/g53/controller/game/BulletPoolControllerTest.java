@@ -32,7 +32,7 @@ class BulletPoolControllerTest {
         Mockito.verify(gameModel, Mockito.times(1)).addBullet(bullet);
         Mockito.verify(bullet, Mockito.times(1)).init(5,5,"color", 5);
 
-        bulletPoolController.removeBullet(bullet);
+        bulletPoolController.restoreBullet(bullet);
         Mockito.verify(gameModel, Mockito.times(1)).removeBullet(bullet);
         Mockito.verify(objectPool, Mockito.times(1)).restore(bullet);
     }
@@ -49,7 +49,7 @@ class BulletPoolControllerTest {
         Mockito.verify(gameModel, Mockito.times(1))
                 .addBullet(Mockito.any());
 
-        bulletPoolController.removeBullet(bullet);
+        bulletPoolController.restoreBullet(bullet);
         Mockito.verify(gameModel, Mockito.times(1)).removeBullet(bullet);
         Mockito.verify(objectPool, Mockito.times(1)).restore(bullet);
     }

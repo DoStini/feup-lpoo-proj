@@ -11,6 +11,7 @@ public class Bullet extends MovableElement implements PoolableObject {
     public Bullet(Position position, String color, int size) {
         super(position, color, 2);
         this.size = size;
+        this.active = true;
     }
 
     public int getSize() {

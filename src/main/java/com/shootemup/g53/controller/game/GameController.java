@@ -71,29 +71,14 @@ public class GameController extends GenericController {
     public void handleBullets() {
         for (Bullet bullet: gameModel.getEnemyBullets()) {
             bullet.setPosition(new FallDownMovement(bullet).move());
+            if (!insideBounds(bullet.getPosition(), 0, 0))
+                bulletPoolController.restoreBullet(bullet);
         }
         for (Bullet bullet: gameModel.getPlayerBullets()) {
             bullet.setPosition(new GoUpMovement(bullet).move());
+            if (!insideBounds(bullet.getPosition(), 0, 0))
+                bulletPoolController.restoreBullet(bullet);
         }
-        restoreBullets();
-    }
-
-    public void restoreBullets() {
-        Iterator<Bullet> it = gameModel.getEnemyBullets().iterator();
-        while (it.hasNext()) {
-            Bullet bullet = it.next();
-            if (!insideBounds(bullet.getPosition(), 0, 0)) {
-                it.remove();
-                bulletPoolController.removeBullet(bullet);
-            }
-        }
-        it = gameModel.getPlayerBullets().iterator();
-        while (it.hasNext()) {
-            Bullet bullet = it.next();
-            if (!insideBounds(bullet.getPosition(), 0, 0)) {
-                it.remove();
-                bulletPoolController.removeBullet(bullet);
-            }
-        }
+        bulletPoolController.removeBullets();
     }
 }

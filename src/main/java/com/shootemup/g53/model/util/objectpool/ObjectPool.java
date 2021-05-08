@@ -34,11 +34,6 @@ public class ObjectPool<T extends PoolableObject> {
     }
 
     public void restore(T object) {
-        for (T obj: objects) {
-            if (obj == object) {
-                obj.deactivate();
-                break;
-            }
-        }
+        object.deactivate();
     }
 }

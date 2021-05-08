@@ -44,8 +44,13 @@ public class BulletPoolController {
         return bullet;
     }
 
-    public void removeBullet(Bullet bullet) {
-        //gameModel.removeBullet(bullet);
+    public void restoreBullet(Bullet bullet) {
         bulletPool.restore(bullet);
     }
+
+    public void removeBullets() {
+        gameModel.getPlayerBullets().removeIf(b -> !b.isActive());
+        gameModel.getEnemyBullets().removeIf(b -> !b.isActive());
+    }
+
 }
