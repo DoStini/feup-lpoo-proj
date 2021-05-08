@@ -1,10 +1,5 @@
 package com.shootemup.g53;
 
-import com.shootemup.g53.controller.input.Action;
-import com.shootemup.g53.controller.movement.DiagonalDownRightMovement;
-import com.shootemup.g53.controller.spaceship.AIShootingController;
-import com.shootemup.g53.controller.spaceship.PlayerController;
-import com.shootemup.g53.controller.spaceship.SpaceshipController;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
