@@ -9,6 +9,8 @@ import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.ui.Gui;
 import com.shootemup.g53.ui.LanternaGui;
 import com.shootemup.g53.view.element.*;
+import com.shootemup.g53.view.element.spaceship.EnemyView;
+import com.shootemup.g53.view.element.spaceship.PlayerView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,9 +20,18 @@ public class Application {
     public static void main(String[] args) {
         System.out.println("Hello world!");
         Gui gui = new LanternaGui(20,20, 15);
-        Coin coin = new Coin(new Position(5 ,5 ), 5);
-        CoinView coinView = new CoinView();
-        coinView.draw(gui, coin);
+//        Coin coin = new Coin(new Position(5 ,5 ), 5);
+//        CoinView coinView = new CoinView();
+//        coinView.draw(gui, coin);
+
+        Spaceship enemy = new Spaceship(new Position(6,6), 5, "#aae243",1, 1);
+        PlayerView view = new PlayerView(2);
+        view.draw(gui, enemy);
+        EnemyView enemyView = new EnemyView(2);
+        enemyView.draw(gui, enemy);
+
+        //gui.drawLine("#aaaaaa", new Position(7,7), 1);
+
         gui.refresh();
         //gameDemo();
 
