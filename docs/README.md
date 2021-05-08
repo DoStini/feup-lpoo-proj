@@ -5,28 +5,53 @@
 
 ### Specific Elements
 
-- Player's Spaceship
-- Enemies' Spaceship's
 - Boss Enemies
-- Asteroids
 - Powerup items
 - Inventory
-- Collectibles that improve player's score
 - Health bar
-- Bullets
 - Bullets indicator
 - Score indicator
 - Game menu:
-    - Play
-    - Scores
-    - Configure player's look
+  - Play
+  - Scores
+  - Configure player's look
 ### Controls and Actions
-- Player's movement using keyboard, vertically and horizontally with some limits.
-- Enemies' movement
 - Enemies' random generation
-- Shooting bullets
+- Basic Powerups
 - Combined Powerups
 - Controlling powerups with mouse
+- Asteroids actions
+- Collectibles that improve player's score
+- Apply collision detection to elements
+
+## Implemented Features
+### Elements and Views
+- Player's Spaceship
+- Enemies' Spaceship's
+- Bullets
+- Asteroids
+- Coins
+
+#### Example element views
+![Views screenshot](images/screenshots/views.png)
+
+#### UML Diagram
+
+![Elements UML](images/design/elements.png)
+
+### Controls and actions
+### Player's movement using keyboard, vertically and horizontally with some limits.
+![Player controls](gifs/player.gif)
+
+### Enemies' movement
+| ![Down Movement](gifs/enemy1.gif)  |  ![Diagonal Movement](gifs/enemy2.gif)   |
+| :---: | :---: |
+| ![Circular Movement](gifs/enemy3.gif)   | ![Diagonal Movement](gifs/enemy4.gif)   |
+
+### Shooting bullets
+![Bullets](gifs/spawn-bullets.gif)
+
+### Collision detection
 
 ## Game mockup
 
@@ -40,7 +65,7 @@
 - Controller is responsible to update the information in the model according to user interaction and game states
 
 #### Rendering elements
-- It is important that we built this part of the structure to be versatil, so that the game could be used with other engines.
+- It is important that we build this part of the structure to be versatil, so that the game could be used with other engines.
 - To allow this situation, we created an interface `gui` that has functions like `drawColor` or `drawCharacter`. These will be called by specific Viewers. Example:
 
 ![Rendering diagram](images/design/rendering.png)
