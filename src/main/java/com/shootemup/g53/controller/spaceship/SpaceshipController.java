@@ -14,7 +14,7 @@ public abstract class SpaceshipController {
 
     public SpaceshipController(Spaceship spaceship) {
         this.spaceship = spaceship;
-        lastFire = -spaceship.getFireRate() + 1;
+        lastFire = -spaceship.getFireRate();
     }
 
     public Position handle(Gui gui, BulletPoolController bulletPoolController) {
