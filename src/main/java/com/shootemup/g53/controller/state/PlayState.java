@@ -57,6 +57,7 @@ public class PlayState extends State<GameModel> {
                     return;
                 }
                 gameController.handleEnemies(gui);
+                gameController.handleBullets();
 
                 gameViewer.draw(gameModel);
 

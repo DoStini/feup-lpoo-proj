@@ -1,21 +1,21 @@
 package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.model.element.Element;
+import com.shootemup.g53.model.element.MovableElement;
 import com.shootemup.g53.model.util.Position;
 
 public class DiagonalDownRightMovement implements MovementController{
-    private final Element element;
-    private final int increment;
+    private final MovableElement element;
 
-    public DiagonalDownRightMovement(Element element, int increment) {
+    public DiagonalDownRightMovement(MovableElement element) {
         this.element = element;
-        this.increment = increment;
     }
 
     @Override
     public Position move() {
-        Position newPosition = element.getPosition().getDown(increment);
-        newPosition = newPosition.getRight(increment);
+        int speed = element.getSpeed();
+        Position newPosition = element.getPosition().getDown(speed);
+        newPosition = newPosition.getRight(speed);
 
         return newPosition;
     }

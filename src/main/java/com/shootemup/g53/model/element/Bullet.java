@@ -9,7 +9,7 @@ public class Bullet extends MovableElement implements PoolableObject {
     private boolean active = false;
 
     public Bullet(Position position, String color, int size) {
-        super(position, color);
+        super(position, color, 2);
         this.size = size;
     }
 

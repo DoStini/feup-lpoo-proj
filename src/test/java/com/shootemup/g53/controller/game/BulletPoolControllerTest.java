@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 
-class BulletControllerTest {
+class BulletPoolControllerTest {
 
-    BulletController bulletController;
+    BulletPoolController bulletPoolController;
     ObjectPool<Bullet> objectPool;
     GameModel gameModel;
 
@@ -19,7 +19,7 @@ class BulletControllerTest {
         gameModel = Mockito.mock(GameModel.class);
         objectPool = Mockito.mock(ObjectPool.class);
 
-        bulletController = new BulletController(gameModel, objectPool);
+        bulletPoolController = new BulletPoolController(gameModel, objectPool);
     }
 
     @Test
@@ -27,12 +27,12 @@ class BulletControllerTest {
         Bullet bullet = Mockito.mock(Bullet.class);
         Mockito.when(objectPool.retrieve()).thenReturn(bullet);
 
-        bulletController.addBullet(5,5,"color", 5);
+        bulletPoolController.addBullet(5,5,"color", 5);
 
         Mockito.verify(gameModel, Mockito.times(1)).addBullet(bullet);
         Mockito.verify(bullet, Mockito.times(1)).init(5,5,"color", 5);
 
-        bulletController.removeBullet(bullet);
+        bulletPoolController.removeBullet(bullet);
         Mockito.verify(gameModel, Mockito.times(1)).removeBullet(bullet);
         Mockito.verify(objectPool, Mockito.times(1)).restore(bullet);
     }
@@ -42,14 +42,14 @@ class BulletControllerTest {
         Bullet bullet = Mockito.mock(Bullet.class);
         Mockito.when(objectPool.retrieve()).thenReturn(null);
 
-        bulletController.addBullet(5,5,"", 5);
+        bulletPoolController.addBullet(5,5,"", 5);
 
         Mockito.verify(bullet, Mockito.times(0))
                 .init(Mockito.anyInt(),Mockito.anyInt(),Mockito.anyString(), Mockito.anyInt());
         Mockito.verify(gameModel, Mockito.times(1))
                 .addBullet(Mockito.any());
 
-        bulletController.removeBullet(bullet);
+        bulletPoolController.removeBullet(bullet);
         Mockito.verify(gameModel, Mockito.times(1)).removeBullet(bullet);
         Mockito.verify(objectPool, Mockito.times(1)).restore(bullet);
     }

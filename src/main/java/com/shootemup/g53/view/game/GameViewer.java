@@ -1,9 +1,12 @@
 package com.shootemup.g53.view.game;
 
+import com.shootemup.g53.controller.movement.FallDownMovement;
+import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.ui.Gui;
 import com.shootemup.g53.view.Viewer;
+import com.shootemup.g53.view.element.BulletView;
 import com.shootemup.g53.view.element.spaceship.EnemyView;
 import com.shootemup.g53.view.element.spaceship.PlayerView;
 import com.shootemup.g53.view.element.spaceship.SpaceshipView;
@@ -12,7 +15,6 @@ public class GameViewer extends Viewer<GameModel> {
     private Gui gui;
     public GameViewer(Gui gui) {
         this.gui = gui;
-
     }
 
     @Override
@@ -25,6 +27,14 @@ public class GameViewer extends Viewer<GameModel> {
         for(Spaceship enemy: model.getEnemySpaceships()){
             enemyView.draw(gui,enemy);
         }
+
+        for (Bullet bullet: model.getEnemyBullets()) {
+            new BulletView().draw(gui, bullet);
+        }
+        for (Bullet bullet: model.getPlayerBullets()) {
+            new BulletView().draw(gui, bullet);
+        }
+
         gui.refresh();
     }
 }

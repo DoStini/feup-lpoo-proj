@@ -1,9 +1,10 @@
 plugins {
     id 'java'
     id 'application'
+    id 'info.solidsoft.pitest' version '1.6.0'
 }
 
-group 'org.example'
+group 'com.shootemup.g53'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -16,6 +17,10 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     testImplementation 'org.mockito:mockito-core:3.7.7'
     implementation group: 'com.googlecode.lanterna', name: 'lanterna', version: '3.1.1'
+}
+
+pitest {
+    junit5PluginVersion = '0.12'
 }
 
 application {

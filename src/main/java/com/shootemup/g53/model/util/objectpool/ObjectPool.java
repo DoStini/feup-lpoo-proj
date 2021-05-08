@@ -9,7 +9,7 @@ public class ObjectPool<T extends PoolableObject> {
 
     public ObjectPool(int cacheSize, T templateObject) {
         this.cacheSize = cacheSize;
-        this.objects = new ArrayList<>();
+        this.objects = new ArrayList<T>();
         init(templateObject);
     }
 

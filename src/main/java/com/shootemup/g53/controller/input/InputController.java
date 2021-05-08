@@ -1,7 +1,5 @@
 package com.shootemup.g53.controller.input;
 
-import com.shootemup.g53.controller.Action;
-
 import java.util.HashMap;
 import java.util.Map;
 

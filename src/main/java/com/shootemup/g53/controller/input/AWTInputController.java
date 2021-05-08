@@ -1,9 +1,7 @@
 package com.shootemup.g53.controller.input;
 
-import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
-import com.shootemup.g53.controller.Action;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -51,8 +49,6 @@ public class AWTInputController extends InputController<KeyEvent> {
                 return Action.S;
             case 'd':
                 return Action.D;
-            case 'f':
-                return Action.FIRE;
             case 'q':
                 return Action.Q;
         }
@@ -66,6 +62,8 @@ public class AWTInputController extends InputController<KeyEvent> {
                 return Action.RIGHT;
             case KeyEvent.VK_DOWN:
                 return Action.DOWN;
+            case KeyEvent.VK_SPACE:
+                return Action.SPACE;
         }
 
         return Action.NONE;

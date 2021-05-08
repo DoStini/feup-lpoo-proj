@@ -1,4 +1,4 @@
-package com.shootemup.g53.controller;
+package com.shootemup.g53.controller.input;
 
 public enum Action {
     UP,
@@ -10,7 +10,7 @@ public enum Action {
     S,
     D,
     ESC,
-    FIRE,
+    SPACE,
     Q,
     POWER_1,
     POWER_2,
