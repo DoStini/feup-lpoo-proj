@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GameControllerTest {
     private GameModel gameModel;
+    private BulletPoolController bulletPoolController;
     private Position position;
     private Position position2;
     private Bullet bullet;
@@ -31,7 +32,7 @@ public class GameControllerTest {
         gameModel = Mockito.mock(GameModel.class);
         position = Mockito.mock(Position.class);
         position2 = Mockito.mock(Position.class);
-
+        bulletPoolController = Mockito.mock(BulletPoolController.class);
         bullet = Mockito.mock(Bullet.class);
         bullet2 = Mockito.mock(Bullet.class);
         Mockito.when(gameModel.getWidth()).thenReturn(50);
@@ -44,16 +45,17 @@ public class GameControllerTest {
 
         Mockito.when(bullet.getPosition()).thenReturn(position2);
         Mockito.when(bullet.move()).thenReturn(position2);
-
+        Mockito.when(bullet.isActive()).thenReturn(true);
         Mockito.when(bullet2.getPosition()).thenReturn(position);
         Mockito.when(bullet2.move()).thenReturn(position);
+        Mockito.when(bullet2.isActive()).thenReturn(true);
         gui = Mockito.mock(Gui.class);
     }
 
     @Test
     void handleEscKeyPress() {
         Mockito.when(gui.isActionActive(Action.ESC)).thenReturn(true);
-        GameController gameController = new GameController(gameModel);
+        GameController gameController = new GameController(gameModel,null);
         gameController.handleKeyPress(gui);
         Mockito.verify(gameModel, Mockito.times(1))
                 .setGameFinished(true);
@@ -61,7 +63,7 @@ public class GameControllerTest {
 
     @Test
     void checkInsideBoounds() {
-        GameController gameController = new GameController(gameModel);
+        GameController gameController = new GameController(gameModel, null);
         assertEquals(gameController.insideBounds(position), true);
         assertEquals(gameController.insideBounds(position2), false);
         Mockito.verify(gameModel, Mockito.times(2))
@@ -72,10 +74,9 @@ public class GameControllerTest {
 
     @Test
     void bulletHandleTest() {
-        GameController gameController = new GameController(gameModel);
+        GameController gameController = new GameController(gameModel, bulletPoolController);
         gameController.handleBullets();
-        Mockito.verify(gameModel, Mockito.times(1))
-                .removeBullet(bullet);
+        Mockito.verify(bulletPoolController, Mockito.times(1)).removeInactiveBullets();
 
         Mockito.verify(bullet, Mockito.times(1))
                 .move();

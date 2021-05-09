@@ -21,8 +21,9 @@ public class GameController extends GenericController {
     private PlayerController playerController;
     private SpaceshipController spaceshipController;
 
-    public GameController(GameModel gameModel) {
-        bulletPoolController = new BulletPoolController(gameModel, 30);
+    public GameController(GameModel gameModel, BulletPoolController bulletPoolController) {
+        if(bulletPoolController != null) this.bulletPoolController = bulletPoolController;
+        else this.bulletPoolController = new BulletPoolController(gameModel, 30);
         this.gameModel = gameModel;
         this.playerController = new PlayerController(gameModel.getPlayer());
     }
