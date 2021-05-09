@@ -71,7 +71,7 @@
 ![Rendering diagram](images/design/rendering.png)
 
 ## Design
-### Spaceship Controllers
+### Movement 
 #### Problem in Context
 Since we have only one class referring to the spaceships, either enemies or player, we needed to find a way to control this elements in different ways, so that it could be used by players and enemies.
 
@@ -115,13 +115,13 @@ The current implementation is as follows in the UML diagram.
 
 This pattern is implemented in the following classes:
 
-- [MovementController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/MovementController.java)
+- [MovementStrategy](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/MovementStrategy.java)
 - [CircularMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/CircularMovement.java)
 - [DiagonalBounceMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/DiagonalBounceMovement.java)
 - [DiagonalDownLeftMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/DiagonalDownLeftMovement.java)
 - [DiagonalDownRightMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/DiagonalDownRightMovement.java)
 - [FallDownMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/FallDownMovement.java)
-- [GoUpMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/GoUpMovement.java)
+- [MoveUpwardsMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/MoveUpwardsMovement.java)
 
 
 ### Colliders
@@ -211,15 +211,10 @@ This pattern is implemented in the following class:
 
 ## Known Code Smells and Refactoring Suggestions
 
-### Temporary fields
-The [AIKamikazeController]() class has temporary fields in its super class - [SpaceshipController]() - which is the last fire variable. 
-
-One way to solve this issue would be to introduce another level of abstraction, for example SpaceshipShootingController (which would have the fire and lastFire method), and the other class could be AIKamikazeController.
-
 ### Middle Man
-The [AIKamikazeController]() is also a middle man to [MovementController](). 
+The [SpaceshipController]() is a middle man to [Spaceship](). 
 
-To solve this issue we could simply remove this class, since it just calls the move method from the second class. However, this would lead to undesired consequences. In the game controller we would have to store different types of classes to control spaceships - one list for SpaceshipControllers and another for MovementControllers.
+To solve this issue we could simply remove this class, since it just calls the move and fire methods from the second class. 
 
 ### Switch Statement
 The [DiagonalBounceMovement]() contains switch case statements.
