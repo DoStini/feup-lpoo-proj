@@ -258,9 +258,11 @@ Whenever a new collider shape is added, a new abstract method for checking colli
 There is no way to solve this issue without removing the Visitor Pattern which would make for worse organization.
 
 ## Testing
-
+### Mutation
 [Mutation testing](tests/pitest/index.html)
-[Coverage Report](tests/coverage.png)
+
+### Coverage
+![Coverage Report](tests/coverage.png)
 
 Some features that are already well-defined strong tests, however there are some mutants still left to fix.
 
