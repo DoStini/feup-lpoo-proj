@@ -42,6 +42,24 @@ class MovementControllerTest {
     }
 
     @Test
+    void goUp() {
+        int speed = 2;
+
+        Mockito.when(element.getSpeed()).thenReturn(speed);
+
+        MovementController goUpMovement = new GoUpMovement(element);
+
+        Position startPosition = element.getPosition();
+
+        element.setPosition(goUpMovement.move());
+        Assertions.assertEquals(startPosition.getUp(speed), element.getPosition());
+
+        element.setPosition(goUpMovement.move());
+        Assertions.assertEquals(startPosition.getUp(speed * 2), element.getPosition());
+    }
+
+
+    @Test
     void diagonalBounce() {
         int speed = 3;
         Mockito.when(element.getSpeed()).thenReturn(speed);

@@ -5,7 +5,9 @@ import com.shootemup.g53.model.Model;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.model.util.objectpool.ObjectPool;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameModel extends Model {
@@ -38,6 +40,7 @@ public class GameModel extends Model {
     public void setHeight(int height) {
         this.height = height;
     }
+
 
     public boolean isGameFinished() {
         return isGameFinished;

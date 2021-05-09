@@ -17,16 +17,26 @@ import java.util.ArrayList;
 
 public class GameController extends GenericController {
     private GameModel gameModel;
+    private BulletPoolController bulletPoolController;
     private PlayerController playerController;
     private SpaceshipController spaceshipController;
 
     public GameController(GameModel gameModel) {
+        bulletPoolController = new BulletPoolController(gameModel, 30);
         this.gameModel = gameModel;
         this.playerController = new PlayerController(gameModel.getPlayer());
     }
 
 
     @Override
+    public void handle(Gui gui) {
+        handleKeyPress(gui);
+        handlePlayerInput(gui);
+        handleEnemies();
+        handleBullets();
+
+    }
+
     public void handleKeyPress(Gui gui) {
         if(gui.isActionActive(Action.ESC)){
             gameModel.setGameFinished(true);
@@ -37,7 +47,8 @@ public class GameController extends GenericController {
         if(pos == null){
             return false;
         }
-        return pos.getX() > 0 && pos.getX() < gameModel.getWidth() && pos.getY() > 0 && pos.getY() < gameModel.getHeight();
+        return pos.getX()> 0 && pos.getX() < gameModel.getWidth() &&
+                pos.getY() > 0 && pos.getY() < gameModel.getHeight();
     }
 
     public void handlePlayerInput(Gui gui) {
@@ -89,4 +100,6 @@ public class GameController extends GenericController {
             }
         }
     }
+
+   
 }

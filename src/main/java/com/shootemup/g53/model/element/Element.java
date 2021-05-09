@@ -3,7 +3,7 @@ package com.shootemup.g53.model.element;
 import com.shootemup.g53.model.util.Position;
 
 abstract public class Element {
-    private Position position;
+    protected Position position;
     private String color;
 
     public Element(Position position, String color) {
