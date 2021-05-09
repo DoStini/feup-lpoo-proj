@@ -15,6 +15,7 @@
   - Play
   - Scores
   - Configure player's look
+  
 ### Controls and Actions
 - Enemies' random generation
 - Basic Powerups
@@ -64,7 +65,7 @@
 - Controller is responsible to update the information in the model according to user interaction and game states
 
 #### Rendering elements
-- It is important that we build this part of the structure to be versatil, so that the game could be used with other engines.
+- It is important that we build this part of the structure to be versatile, so that the game could be used with other engines.
 - To allow this situation, we created an interface `gui` that has functions like `drawColor` or `drawCharacter`. These will be called by specific Viewers. Example:
 
 ![Rendering diagram](images/design/rendering.png)
@@ -92,10 +93,36 @@ This pattern is implemented in the following classes:
 - [AIKamikazeController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/spaceship/AIKamikazeController.java)
 - [PlayerController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/spaceship/PlayerController.java)
 
+### Movement
+
+#### Problem in Context
+
+We wanted to create different ways of movement that could be applied to various elements like 
+asteroids, spaceships or bullets.
+
+We also didn't want to create lots of duplicated or hard to maintain code. The solution needed to allow
+the easy creation of different movement methods without causing divergent changes or shotgun surgery.
+
+#### The Pattern
+
+To solve this issue, we have applied a [Strategy Pattern](https://refactoring.guru/design-patterns/strategy).
+
+#### Implementation
+
+The current implementation is as follows in the UML diagram.
+
+![Movement](images/design/movement.png)
+
+### Colliders
+
+#### Problem in Context
+
+Elements like asteroids and bullets need to collide with spaceships to so we can know when to
+remove health from them.
+
 ### Preliminary analysis on Power ups
 
 - State is the design pattern that will be the foundation to this set of features. According to what power up is being used, the player will have different states
-- However, if powerups are used at the same time, we could adapt a Composite pattern to determine how the following actions would be applied. A function inside the composite class could mathematically calculate the powerup effects and its color.
 
 
 ## Known Code Smells and Refactoring Suggestions
