@@ -86,7 +86,7 @@ This pattern allows us to extract all the different controls into different clas
 #### Implementation
 The current implementation is as follows in the UML diagram
 
-![FiringStrategy](images/design/firingStrategy.png)
+![FiringStrategy](images/design/firingStrat.png)
 
 This pattern is implemented in the following classes:
 
