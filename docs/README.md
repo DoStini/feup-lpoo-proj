@@ -38,7 +38,7 @@
 
 #### UML Diagram
 
-![Elements UML](images/design/elements.png)
+![Elements UML](images/design/elementsUML.png)
 
 ### Controls and actions
 ### Player's movement using keyboard, vertically and horizontally with some limits.
@@ -111,7 +111,7 @@ To solve this issue, we have applied a [Strategy Pattern](https://refactoring.gu
 
 The current implementation is as follows in the UML diagram.
 
-![Movement](images/design/movementStrategy.png)
+![Movement](images/design/movementStrat.png)
 
 This pattern is implemented in the following classes:
 
