@@ -160,6 +160,29 @@ This pattern is implemented in the following classes:
 - [LineCollider](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/collider/LineCollider.java)
 - [LineCompositeCollider](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/collider/LineCompositeCollider.java)
 
+### Bounding Box Creation
+
+#### Problem in Context
+
+Each collider shape has a different way of calculating and creating their bounding boxes. However, this shouldn't be
+the collider's function, as it would violate the Single-Responsibility principle.
+
+#### The Pattern
+
+To solve this issue, the [Factory Pattern](https://refactoring.guru/design-patterns/factory-method) was used.
+The factory creates a bounding box based by the type of the object passed through the parameter.
+
+#### Implementation
+
+The current implementation is as follows in the UML diagram.
+
+![BoundingBox](images/design/boundingbox.png)
+
+This pattern is implemented in the following class:
+
+- [BoundingBoxFactory](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/collider/BoundingBoxFactory.java)
+
+
 ### Preliminary analysis on Power ups
 
 - State is the design pattern that will be the foundation to this set of features. According to what power up is being used, the player will have different states
