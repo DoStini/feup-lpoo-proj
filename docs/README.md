@@ -226,6 +226,13 @@ The [DiagonalBounceMovement]() contains switch case statements.
 
 We can solve this issue by replacing the `Direction` with a state class, using a State Pattern. This could be achieved by using the already implemented [DiagonalDownLeft]() and [DiagonalDownRight]() movement classes.
 
+### Shotgun Surgery
+
+Whenever a new collider shape is added, a new abstract method for checking collision with it has to be added to the 
+[BodyCollider]() class, which means every sub-class of BodyCollider needs to implement that method.
+
+There is no way to solve this issue without removing the Visitor Pattern which would make for worse organization.
+
 ## Testing
 
 ## Self-evaluation
