@@ -16,9 +16,19 @@ import java.util.List;
 import java.util.Random;
 
 public class GameBuilder {
+    private Random rand;
+
+    public GameBuilder(){
+        rand = new Random();
+    }
+
+    public GameBuilder(Random rand) {
+        this.rand = rand;
+    }
+
     public GameModel buildGame(int numOfEnemies, int numOfCoins, int width, int height){
         GameModel gameModel = new GameModel(width,height);
-        Random rand = new Random();
+
         //generate some enemies first
         List<Spaceship> enemiesList = new ArrayList<>();
         List<Coin> coinList = new ArrayList<>();
@@ -37,7 +47,6 @@ public class GameBuilder {
             controllers.add( new DiagonalBounceMovement(3, 3, Direction.DOWN_LEFT, s.getPosition()));
             controllers.add(new FallDownMovement());
             controllers.add(new ChangingMovement(20,controllers));
-
 
             List<FiringController> firingControllers = Arrays.asList(new StraightBulletController(Direction.DOWN));
 

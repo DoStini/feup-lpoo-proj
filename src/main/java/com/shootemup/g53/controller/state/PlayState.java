@@ -46,7 +46,6 @@ public class PlayState extends State<GameModel> {
     @Override
     public void run(){
         try{
-
             while(true){
                 Thread.sleep(50);
                 gameController.handleKeyPress(gui);
