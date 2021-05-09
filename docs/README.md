@@ -90,8 +90,8 @@ The current implementation is as follows in the UML diagram
 
 This pattern is implemented in the following classes:
 
-- [FiringStrategy](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/firing/FiringStrategy.java)
-- [StraightBulletStrategy](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/firing/StraightBulletStrategy.java)
+- [FiringStrategy](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/controller/firing/FiringStrategy.java)
+- [StraightBulletStrategy](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/controller/firing/StraightBulletStrategy.java)
 
 ### Movement
 
@@ -115,13 +115,13 @@ The current implementation is as follows in the UML diagram.
 
 This pattern is implemented in the following classes:
 
-- [MovementStrategy](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/MovementStrategy.java)
-- [CircularMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/CircularMovement.java)
-- [DiagonalBounceMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/DiagonalBounceMovement.java)
-- [DiagonalDownLeftMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/DiagonalDownLeftMovement.java)
-- [DiagonalDownRightMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/DiagonalDownRightMovement.java)
-- [FallDownMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/FallDownMovement.java)
-- [MoveUpwardsMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/MoveUpwardsMovement.java)
+- [MovementStrategy](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/controller/movement/MovementStrategy.java)
+- [CircularMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/controller/movement/CircularMovement.java)
+- [DiagonalBounceMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/controller/movement/DiagonalBounceMovement.java)
+- [DiagonalDownLeftMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/controller/movement/DiagonalDownLeftMovement.java)
+- [DiagonalDownRightMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/controller/movement/DiagonalDownRightMovement.java)
+- [FallDownMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/controller/movement/FallDownMovement.java)
+- [MoveUpwardsMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/controller/movement/MoveUpwardsMovement.java)
 
 
 ### Colliders
@@ -156,9 +156,9 @@ The current implementation is as follows in the UML diagram.
 
 This pattern is implemented in the following classes:
 
-- [BodyCollider](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/collider/BodyCollider.java)
-- [LineCollider](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/collider/LineCollider.java)
-- [LineCompositeCollider](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/collider/LineCompositeCollider.java)
+- [BodyCollider](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/model/collider/BodyCollider.java)
+- [LineCollider](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/model/collider/LineCollider.java)
+- [LineCompositeCollider](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/model/collider/LineCompositeCollider.java)
 
 ### Bounding Box Creation
 
@@ -180,7 +180,7 @@ The current implementation is as follows in the UML diagram.
 
 This pattern is implemented in the following class:
 
-- [BoundingBoxFactory](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/collider/BoundingBoxFactory.java)
+- [BoundingBoxFactory](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/model/collider/BoundingBoxFactory.java)
 
 ### Line Composite Collider Shapes
 
@@ -202,7 +202,7 @@ The current implementation is as follows in the UML diagram.
 
 This pattern is implemented in the following class:
 
-- [LineCompositeFactory](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/collider/LineCompositeFactory.java)
+- [LineCompositeFactory](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/model/collider/LineCompositeFactory.java)
 
 ### Bullets
 #### Problem in Context
@@ -218,11 +218,11 @@ The current implementation is as follows in the UML diagram.
 ![Bullet pool](images/design/bulletpool.png)
 
 This pattern is implemented in the following classes:
-- [ObjectPool](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/util/objectpool/ObjectPool.java)
-- [BulletPoolController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/game/BulletPoolController.java)
-- [GameModel](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/collider/LineCompositeFactory.java)
-- [PoolableObject](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/util/objectpool/PoolableObject.java)
-- [Bullet](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/element/Bullet.java)
+- [ObjectPool](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/model/util/objectpool/ObjectPool.java)
+- [BulletPoolController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/controller/game/BulletPoolController.java)
+- [GameModel](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/model/collider/LineCompositeFactory.java)
+- [PoolableObject](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/model/util/objectpool/PoolableObject.java)
+- [Bullet](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/model/element/Bullet.java)
 
 #### Consequences
 The pattern used allows spawning bullets very quickly and more efficiently and with easy access, controlling the game data in a very organized and structured way.
@@ -231,29 +231,43 @@ The pattern used allows spawning bullets very quickly and more efficiently and w
 
 - State is the design pattern that will be the foundation to this set of features. According to what power up is being used, the player will have different states
 
-#### Implementation
-
-
 ## Known Code Smells and Refactoring Suggestions
 
-### Middle Man
-The [SpaceshipController]() is a middle man to [Spaceship](). 
+### Temporary fields
 
-To solve this issue we could simply remove this class, since it just calls the move and fire methods from the second class. 
+The class [MovableElement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/model/element/MovableElement.java) has a temporary field - movementStrategy. This happens when PlayerController is controlling the spaceship element.
+
+One possible solution to this problem is to extract the class into AISpaceship.
+
+### Long class
+
+The class [GameController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/controller/game/GameController.java) is doing too much operations.
+
+One possible solution to this problem is to call only the controllers of enemies, players bullets and so others instead of verifying and setting their positions.
 
 ### Switch Statement
-The [DiagonalBounceMovement]() contains switch case statements.
+The [DiagonalBounceMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/main/src/main/java/com/shootemup/g53/controller/movement/CircularMovement.java) contains switch case statements.
 
 We can solve this issue by replacing the `Direction` with a state class, using a State Pattern. This could be achieved by using the already implemented [DiagonalDownLeft]() and [DiagonalDownRight]() movement classes.
 
 ### Shotgun Surgery
 
 Whenever a new collider shape is added, a new abstract method for checking collision with it has to be added to the 
-[BodyCollider]() class, which means every sub-class of BodyCollider needs to implement that method.
+[BodyCollider](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/collider/BodyCollider.java) class, which means every sub-class of BodyCollider needs to implement that method.
 
 There is no way to solve this issue without removing the Visitor Pattern which would make for worse organization.
 
 ## Testing
 
+[Mutation testing](tests/pitest/index.html)
+[Coverage Report](tests/coverage.png)
+
+Some features that are already well-defined strong tests, however there are some mutants still left to fix.
+
+Some situations like game states and controllers are yet tested, since they are still in a thought process.
+
 ## Self-evaluation
 
+- Andre Moreira - 33.33%
+- Miguel Freitas - 33.33%
+- Nuno Alves - 33.33%
