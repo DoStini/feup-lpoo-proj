@@ -21,7 +21,7 @@
 - Basic Powerups
 - Combined Powerups
 - Controlling powerups with mouse
-- Asteroids actions
+- Asteroid actions
 - Collectibles that improve player's score
 - Apply collision detection to elements
 
@@ -113,12 +113,52 @@ The current implementation is as follows in the UML diagram.
 
 ![Movement](images/design/movement.png)
 
+This pattern is implemented in the following classes:
+
+- [MovementController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/MovementController.java)
+- [CircularMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/CircularMovement.java)
+- [DiagonalBounceMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/DiagonalBounceMovement.java)
+- [DiagonalDownLeftMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/DiagonalDownLeftMovement.java)
+- [DiagonalDownRightMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/DiagonalDownRightMovement.java)
+- [FallDownMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/FallDownMovement.java)
+- [GoUpMovement](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/movement/GoUpMovement.java)
+
+
 ### Colliders
 
 #### Problem in Context
 
-Elements like asteroids and bullets need to collide with spaceships to so we can know when to
-remove health from them.
+Elements like asteroids and bullets need to collide with spaceships, so we can know when to
+remove health from them. To do this elements need to have associated colliders that have different shapes
+to create more believable collisions.
+
+Different shapes have different ways of checking collision with each other which, if not correctly
+designed, could degenerate into multiple switch statements.
+
+The idea is to have multiple lines per collider with different widths and relative positions and 
+have collision checking using polymorphism.
+
+#### The Pattern
+
+To solve the issue related to the usage of multiple lines per collider, the [Composite Pattern](https://refactoring.guru/design-patterns/composite) was used.
+
+To solve the issue related to the checking of collisions of different shapes, while keeping the benefits of polymorphism
+, a variation of the [Visitor Pattern](https://refactoring.guru/design-patterns/visitor) was used. We deviated from
+the standard visitor behaviour by making the collider visit the other collider (a self visitor), making the collider
+both the visitor and also the visited element. One disadvantage of this pattern is that
+whenever we need to create a new collider shape, the Collider class needs to be changed.
+
+#### Implementation
+
+The current implementation is as follows in the UML diagram.
+
+![Colliders](images/design/colliders.png)
+
+This pattern is implemented in the following classes:
+
+- [BodyCollider](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/collider/BodyCollider.java)
+- [LineCollider](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/collider/LineCollider.java)
+- [LineCompositeCollider](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/collider/LineCompositeCollider.java)
 
 ### Preliminary analysis on Power ups
 
