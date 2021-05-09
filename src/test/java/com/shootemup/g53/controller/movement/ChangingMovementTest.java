@@ -47,8 +47,10 @@ class ChangingMovementTest {
         gui = Mockito.mock(Gui.class);
     }
 
+    /*
     @Test
     void movement() {
+
         SpaceshipController controller = new AIChangingController(spaceship, movementControllers, 15, random);
         MovementController movementController = movementControllers.get(0);
         Mockito.when(movementController.move()).thenReturn(position);
@@ -57,17 +59,14 @@ class ChangingMovementTest {
 
         Mockito.verify(random, Mockito.times(1)).nextInt(Mockito.anyInt());
     }
+    */
 
     @Test
     void handleRateNonReached() {
         MovementController controller = new ChangingMovement(15, movementControllers,random,0);
 
         for (int i = 0; i < 15; i++) {
-<<<<<<< HEAD:src/test/java/com/shootemup/g53/controller/movement/ChangingMovementTest.java
             controller.move(spaceship.getPosition(), spaceship.getSpeed());
-=======
-            controller.handle(gui, bulletPoolController);
->>>>>>> develop:src/test/java/com/shootemup/g53/controller/spaceship/AIChangingControllerTest.java
         }
         
         Mockito.verify(random, Mockito.times(1)).nextInt(Mockito.anyInt());
@@ -78,39 +77,11 @@ class ChangingMovementTest {
         MovementController controller = new ChangingMovement(15, movementControllers,  random,0);
 
         for (int i = 0; i < 16; i++) {
-<<<<<<< HEAD:src/test/java/com/shootemup/g53/controller/movement/ChangingMovementTest.java
             controller.move(spaceship.getPosition(), spaceship.getSpeed());
-=======
-            controller.handle(gui, bulletPoolController);
->>>>>>> develop:src/test/java/com/shootemup/g53/controller/spaceship/AIChangingControllerTest.java
         }
 
         Mockito.verify(random, Mockito.times(2)).nextInt(Mockito.anyInt());
     }
 
-    @Test
-    void fireRateNotReached() {
-        SpaceshipController controller = new AIChangingController(spaceship, movementControllers, 15, random);
 
-        for (int i = 0; i < fireRate; i++) {
-            controller.handle(gui, bulletPoolController);
-        }
-
-        Mockito.verify(bulletPoolController, Mockito.times(1))
-                .addEnemyBullet(position.getX(), position.getY(), "#00ff00", 3);
-
-    }
-
-    @Test
-    void fireRateReached() {
-        SpaceshipController controller = new AIChangingController(spaceship, movementControllers, 15, random);
-
-        for (int i = 0; i <= fireRate; i++) {
-            controller.handle(gui, bulletPoolController);
-        }
-
-        Mockito.verify(bulletPoolController, Mockito.times(2))
-                .addEnemyBullet(position.getX(), position.getY(), "#00ff00", 3);
-
-    }
 }

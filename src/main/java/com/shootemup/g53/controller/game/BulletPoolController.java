@@ -35,7 +35,7 @@ public class BulletPoolController {
     Bullet setupBullet(int x, int y, String color, int size) {
         Bullet bullet = bulletPool.retrieve();
         if (bullet == null) {
-            bullet = new Bullet(new Position(x, y), color, bullet.getSpeed(), size);
+            bullet = new Bullet(new Position(x, y), color, 1, size);
             System.out.println("Not found");
         }
         else {

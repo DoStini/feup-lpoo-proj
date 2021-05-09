@@ -47,14 +47,14 @@ class MovementControllerTest {
 
         Mockito.when(element.getSpeed()).thenReturn(speed);
 
-        MovementController goUpMovement = new GoUpMovement(element);
+        MovementController goUpMovement = new MoveUpwardsMovement();
 
         Position startPosition = element.getPosition();
 
-        element.setPosition(goUpMovement.move());
+        element.setPosition(goUpMovement.move(element.getPosition(), element.getSpeed()));
         Assertions.assertEquals(startPosition.getUp(speed), element.getPosition());
 
-        element.setPosition(goUpMovement.move());
+        element.setPosition(goUpMovement.move(element.getPosition(), element.getSpeed()));
         Assertions.assertEquals(startPosition.getUp(speed * 2), element.getPosition());
     }
 
