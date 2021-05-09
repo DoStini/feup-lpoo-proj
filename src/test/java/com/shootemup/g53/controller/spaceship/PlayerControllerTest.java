@@ -1,17 +1,14 @@
 package com.shootemup.g53.controller.spaceship;
 
-import com.shootemup.g53.controller.firing.FiringController;
-import com.shootemup.g53.controller.firing.StraightBulletController;
+import com.shootemup.g53.controller.firing.StraightBulletStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
-import com.shootemup.g53.controller.movement.MoveUpwardsMovement;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Direction;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,7 +17,7 @@ class PlayerControllerTest {
 
     private Spaceship spaceship;
     private Position position;
-    private StraightBulletController firingController;
+    private StraightBulletStrategy firingController;
     private BulletPoolController bulletPoolController;
     private int speed = 5;
     private int fireRate = 10;
@@ -32,7 +29,7 @@ class PlayerControllerTest {
         position = Mockito.mock(Position.class);
         spaceship = Mockito.mock(Spaceship.class);
         bulletPoolController = Mockito.mock(BulletPoolController.class);
-        firingController = new StraightBulletController(Direction.UP, 2);
+        firingController = new StraightBulletStrategy(Direction.UP, 2);
 
         Mockito.when(spaceship.getFireRate()).thenReturn(fireRate);
         Mockito.when(spaceship.getSpeed()).thenReturn(speed);

@@ -1,11 +1,9 @@
 package com.shootemup.g53.controller.movement;
 
-import com.shootemup.g53.model.element.Element;
-import com.shootemup.g53.model.element.MovableElement;
 import com.shootemup.g53.model.util.Direction;
 import com.shootemup.g53.model.util.Position;
 
-public class DiagonalBounceMovement implements MovementController{
+public class DiagonalBounceMovement implements MovementStrategy {
     private final Position initalPosition;
     private final int xLeftLimit;
     private final int xRightLimit;

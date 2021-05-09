@@ -1,12 +1,9 @@
 package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.controller.game.BulletPoolController;
-import com.shootemup.g53.controller.movement.MovementController;
-import com.shootemup.g53.controller.spaceship.SpaceshipController;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -21,7 +18,7 @@ class ChangingMovementTest {
 
     Spaceship spaceship;
 
-    List<MovementController> movementControllers;
+    List<MovementStrategy> movementStrategies;
     private BulletPoolController bulletPoolController;
     private Random random;
 
@@ -42,7 +39,7 @@ class ChangingMovementTest {
         random = Mockito.mock(Random.class);
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
 
-        movementControllers = Arrays.asList(Mockito.mock(MovementController.class));
+        movementStrategies = Arrays.asList(Mockito.mock(MovementStrategy.class));
 
         gui = Mockito.mock(Gui.class);
     }
@@ -63,7 +60,7 @@ class ChangingMovementTest {
 
     @Test
     void handleRateNonReached() {
-        MovementController controller = new ChangingMovement(15, movementControllers,random,0);
+        MovementStrategy controller = new ChangingMovement(15, movementStrategies,random,0);
 
         for (int i = 0; i < 15; i++) {
             controller.move(spaceship.getPosition(), spaceship.getSpeed());
@@ -74,7 +71,7 @@ class ChangingMovementTest {
 
     @Test
     void handleRateReached() {
-        MovementController controller = new ChangingMovement(15, movementControllers,  random,0);
+        MovementStrategy controller = new ChangingMovement(15, movementStrategies,  random,0);
 
         for (int i = 0; i < 16; i++) {
             controller.move(spaceship.getPosition(), spaceship.getSpeed());

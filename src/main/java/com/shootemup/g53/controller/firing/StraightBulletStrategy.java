@@ -6,11 +6,11 @@ import com.shootemup.g53.controller.movement.MoveUpwardsMovement;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Direction;
 
-public class StraightBulletController implements FiringController{
+public class StraightBulletStrategy implements FiringStrategy {
     private Direction direction;
     private int bulletSpeed;
 
-    public StraightBulletController(Direction direction, int speed) {
+    public StraightBulletStrategy(Direction direction, int speed) {
         this.direction = direction;
         this.bulletSpeed = speed;
     }

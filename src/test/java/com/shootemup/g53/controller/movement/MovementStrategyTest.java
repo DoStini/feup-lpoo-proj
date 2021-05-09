@@ -1,6 +1,5 @@
 package com.shootemup.g53.controller.movement;
 
-import com.shootemup.g53.model.element.Element;
 import com.shootemup.g53.model.element.MovableElement;
 import com.shootemup.g53.model.util.Direction;
 import com.shootemup.g53.model.util.Position;
@@ -9,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-class MovementControllerTest {
+class MovementStrategyTest {
     private MovableElement element;
 
     @BeforeEach
@@ -30,7 +29,7 @@ class MovementControllerTest {
 
         Mockito.when(element.getSpeed()).thenReturn(speed);
 
-        MovementController fallDownMovement = new FallDownMovement();
+        MovementStrategy fallDownMovement = new FallDownMovement();
 
         Position startPosition = element.getPosition();
 
@@ -47,7 +46,7 @@ class MovementControllerTest {
 
         Mockito.when(element.getSpeed()).thenReturn(speed);
 
-        MovementController goUpMovement = new MoveUpwardsMovement();
+        MovementStrategy goUpMovement = new MoveUpwardsMovement();
 
         Position startPosition = element.getPosition();
 
@@ -64,7 +63,7 @@ class MovementControllerTest {
         int speed = 3;
         Mockito.when(element.getSpeed()).thenReturn(speed);
 
-        MovementController diagonalBounceMovement = new DiagonalBounceMovement(0, 10, Direction.DOWN_RIGHT, element.getPosition());
+        MovementStrategy diagonalBounceMovement = new DiagonalBounceMovement(0, 10, Direction.DOWN_RIGHT, element.getPosition());
 
         element.setPosition(diagonalBounceMovement.move(element.getPosition(), speed));
         Assertions.assertEquals(new Position(4, 4), element.getPosition());
@@ -89,7 +88,7 @@ class MovementControllerTest {
         int speed = 3;
         Mockito.when(element.getSpeed()).thenReturn(speed);
 
-        MovementController diagonalLeftMovement = new DiagonalDownLeftMovement();
+        MovementStrategy diagonalLeftMovement = new DiagonalDownLeftMovement();
 
         element.setPosition(diagonalLeftMovement.move(element.getPosition(), speed));
         Assertions.assertEquals(new Position(-2, 4), element.getPosition());
@@ -102,7 +101,7 @@ class MovementControllerTest {
         int speed = 3;
         Mockito.when(element.getSpeed()).thenReturn(speed);
 
-        MovementController diagonalRightMovement = new DiagonalDownRightMovement();
+        MovementStrategy diagonalRightMovement = new DiagonalDownRightMovement();
 
         element.setPosition(diagonalRightMovement.move(element.getPosition(), speed));
         Assertions.assertEquals(new Position(4, 4), element.getPosition());
@@ -114,7 +113,7 @@ class MovementControllerTest {
     void circular() {
         double angSpeed = 72;
 
-        MovementController circular = new CircularMovement(3, 0, angSpeed);
+        MovementStrategy circular = new CircularMovement(3, 0, angSpeed);
 
         element.setPosition(circular.move(element.getPosition(), element.getSpeed()));
         Assertions.assertEquals(new Position(-1, 4), element.getPosition());
@@ -134,7 +133,7 @@ class MovementControllerTest {
     void circularReverse() {
         double angSpeed = -72;
 
-        MovementController circular = new CircularMovement(3, 0, angSpeed);
+        MovementStrategy circular = new CircularMovement(3, 0, angSpeed);
 
         element.setPosition(circular.move(element.getPosition(), element.getSpeed()));
         Assertions.assertEquals(new Position(-1, -2), element.getPosition());
@@ -154,7 +153,7 @@ class MovementControllerTest {
     void circularReverseAngle() {
         double angSpeed = -72;
 
-        MovementController circular = new CircularMovement( 3, 90, angSpeed);
+        MovementStrategy circular = new CircularMovement( 3, 90, angSpeed);
 
         element.setPosition(circular.move(element.getPosition(), element.getSpeed()));
         Assertions.assertEquals(new Position(4, -1), element.getPosition());

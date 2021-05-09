@@ -1,10 +1,8 @@
 package com.shootemup.g53.controller.movement;
 
-import com.shootemup.g53.model.element.Element;
-import com.shootemup.g53.model.element.MovableElement;
 import com.shootemup.g53.model.util.Position;
 
-public class CircularMovement implements MovementController{
+public class CircularMovement implements MovementStrategy {
     private final double radius;
     private double angle;
     private double angularSpeed;

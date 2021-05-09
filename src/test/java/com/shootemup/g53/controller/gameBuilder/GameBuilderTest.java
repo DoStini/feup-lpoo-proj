@@ -1,17 +1,10 @@
 package com.shootemup.g53.controller.gameBuilder;
 
-import com.shootemup.g53.controller.Game;
-import com.shootemup.g53.controller.movement.ChangingMovement;
-import com.shootemup.g53.controller.movement.MovementController;
-import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
-import com.shootemup.g53.model.util.Position;
-import com.shootemup.g53.ui.Gui;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.Arrays;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

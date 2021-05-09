@@ -1,9 +1,8 @@
 package com.shootemup.g53.controller.gameBuilder;
 
-import com.shootemup.g53.controller.firing.FiringController;
-import com.shootemup.g53.controller.firing.StraightBulletController;
+import com.shootemup.g53.controller.firing.FiringStrategy;
+import com.shootemup.g53.controller.firing.StraightBulletStrategy;
 import com.shootemup.g53.controller.movement.*;
-import com.shootemup.g53.controller.spaceship.SpaceshipController;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
@@ -34,7 +33,7 @@ public class GameBuilder {
         List<Coin> coinList = new ArrayList<>();
 
         Spaceship player = new Spaceship(new Position(20, 35), 3, "#aae243", 2, 10);
-        player.setFiringController(new StraightBulletController(Direction.UP, 2));
+        player.setFiringController(new StraightBulletStrategy(Direction.UP, 2));
         gameModel.setPlayer(player);
 
         for(int i = 0; i < numOfEnemies; i++){
@@ -42,16 +41,16 @@ public class GameBuilder {
             int randomY = rand.nextInt(height - 10) + 5;
 
             Spaceship s = new Spaceship(new Position(randomX, randomY), 3, "#1212ee", 1,30);
-            List<MovementController> controllers = new ArrayList<MovementController>();
+            List<MovementStrategy> controllers = new ArrayList<MovementStrategy>();
             controllers.add(new CircularMovement(5, 0, 30));
             controllers.add( new DiagonalBounceMovement(3, 3, Direction.DOWN_LEFT, s.getPosition()));
             controllers.add(new FallDownMovement());
             controllers.add(new ChangingMovement(20,controllers));
 
-            List<FiringController> firingControllers = Arrays.asList(new StraightBulletController(Direction.DOWN, 2));
+            List<FiringStrategy> firingStrategies = Arrays.asList(new StraightBulletStrategy(Direction.DOWN, 2));
 
             s.setMovementController(controllers.get(0));
-            s.setFiringController(firingControllers.get(0));
+            s.setFiringController(firingStrategies.get(0));
             enemiesList.add(s);
         }
 

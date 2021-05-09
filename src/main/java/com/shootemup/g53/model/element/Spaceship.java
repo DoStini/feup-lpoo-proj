@@ -1,17 +1,15 @@
 package com.shootemup.g53.model.element;
 
-import com.shootemup.g53.controller.firing.FiringController;
+import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
-import com.shootemup.g53.controller.spaceship.SpaceshipController;
 import com.shootemup.g53.model.util.Position;
-import com.shootemup.g53.ui.Gui;
 
 public class Spaceship extends MovableElement {
     private int height;
     private int fireRate;
     private int lastFire = 0;
     private int frame = 0;
-    private FiringController firingController;
+    private FiringStrategy firingStrategy;
 
     public Spaceship(Position position, int height, String color, int speed, int fireRate) {
         super(position, color, speed);
@@ -55,15 +53,15 @@ public class Spaceship extends MovableElement {
         this.frame = frame;
     }
 
-    public FiringController getFiringController() {
-        return firingController;
+    public FiringStrategy getFiringController() {
+        return firingStrategy;
     }
 
     public void fire(BulletPoolController bulletPoolController){
-        firingController.fire(this, bulletPoolController );
+        firingStrategy.fire(this, bulletPoolController );
     }
 
-    public void setFiringController(FiringController firingController) {
-        this.firingController = firingController;
+    public void setFiringController(FiringStrategy firingStrategy) {
+        this.firingStrategy = firingStrategy;
     }
 }

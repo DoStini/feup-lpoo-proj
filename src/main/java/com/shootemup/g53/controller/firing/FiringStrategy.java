@@ -5,6 +5,6 @@ import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 
-public interface FiringController {
+public interface FiringStrategy {
     void fire(Spaceship spaceship, BulletPoolController bulletPoolController);
 }
