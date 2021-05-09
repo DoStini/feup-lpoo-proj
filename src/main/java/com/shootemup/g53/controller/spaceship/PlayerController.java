@@ -23,7 +23,7 @@ public class PlayerController {
     }
 
     public Position move(Gui gui) {
-        int speed = spaceship.getSpeed(); // Override when elements exist
+        int speed = spaceship.getSpeed();
         Position newPosition = spaceship.getPosition();
         if (gui.isActionActive(Action.W)) {
             newPosition = newPosition.getUp(speed);
