@@ -1,5 +1,6 @@
 package com.shootemup.g53.model.element;
 
+import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.model.util.objectpool.PoolableObject;
 
@@ -8,8 +9,8 @@ public class Bullet extends MovableElement implements PoolableObject {
     private int size;
     private boolean active = false;
 
-    public Bullet(Position position, String color, int size) {
-        super(position, color, 2);
+    public Bullet(Position position, String color,int speed, int size) {
+        super(position, color, speed);
         this.size = size;
         this.active = true;
     }
@@ -30,13 +31,15 @@ public class Bullet extends MovableElement implements PoolableObject {
 
     @Override
     public PoolableObject clone() {
-        return new Bullet(getPosition(), getColor(), size);
+        return new Bullet(getPosition(), getColor(),getSpeed(), size);
     }
 
-    public void init(int x, int y, String color, int size) {
+    public void init(int x, int y, String color, int size,int speed, MovementStrategy movementStrategy) {
         position.setX(x);
         position.setY(y);
         setColor(color);
         this.size = size;
+        setSpeed(speed);
+        setMovementController(movementStrategy);
     }
 }
