@@ -17,7 +17,7 @@ public class BulletPoolController {
     }
 
     public BulletPoolController(GameModel gameModel, int cacheSize) {
-        this(gameModel, new ObjectPool<>(cacheSize, new Bullet(new Position(0,0), "", 0,0)));
+        this(gameModel, new ObjectPool<>(cacheSize, new Bullet(new Position(0,0), "", 0,0,null)));
     }
 
     public void addBullet(int x, int y, String color, int size,int speed, MovementStrategy movementStrategy) {
@@ -28,13 +28,13 @@ public class BulletPoolController {
     Bullet setupBullet(int x, int y, String color, int size,int speed, MovementStrategy movementStrategy) {
         Bullet bullet = bulletPool.retrieve();
         if (bullet == null) {
-            bullet = new Bullet(new Position(x, y), color, speed, size);
-            bullet.setMovementController(movementStrategy);
-            System.out.println("Not found");
+            bullet = new Bullet(new Position(x, y), color, speed, size, movementStrategy);
+
+
         }
         else {
             bullet.init(x, y, color, size,speed, movementStrategy);
-            System.out.println("Found");
+
         }
 
         return bullet;

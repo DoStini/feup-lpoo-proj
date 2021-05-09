@@ -1,9 +1,7 @@
 package com.shootemup.g53.controller.game;
 
 import com.shootemup.g53.controller.input.Action;
-import com.shootemup.g53.controller.spaceship.PlayerController;
 import com.shootemup.g53.model.element.Bullet;
-import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
@@ -11,9 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

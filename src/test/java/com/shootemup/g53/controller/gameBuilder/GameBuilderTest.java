@@ -24,7 +24,7 @@ public class GameBuilderTest {
         GameBuilder gameBuilder = new GameBuilder(random);
         GameModel gameModel = gameBuilder.buildGame(5,0,50,50);
 
-        Mockito.verify(random, Mockito.times(10)).nextInt(Mockito.anyInt());
+        Mockito.verify(random, Mockito.times(20)).nextInt(Mockito.anyInt());
         assertEquals(gameModel.getEnemySpaceships().size(),5);
     }
 

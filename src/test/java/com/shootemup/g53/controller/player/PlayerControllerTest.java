@@ -1,8 +1,9 @@
-package com.shootemup.g53.controller.spaceship;
+package com.shootemup.g53.controller.player;
 
 import com.shootemup.g53.controller.firing.StraightBulletStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
+import com.shootemup.g53.controller.movement.MoveUpwardsMovement;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Direction;
 import com.shootemup.g53.model.util.Position;
@@ -29,9 +30,8 @@ class PlayerControllerTest {
         position = Mockito.mock(Position.class);
         spaceship = Mockito.mock(Spaceship.class);
         bulletPoolController = Mockito.mock(BulletPoolController.class);
-        firingController = new StraightBulletStrategy(Direction.UP, 2);
+        firingController = new StraightBulletStrategy(new MoveUpwardsMovement(), 2,fireRate);
 
-        Mockito.when(spaceship.getFireRate()).thenReturn(fireRate);
         Mockito.when(spaceship.getSpeed()).thenReturn(speed);
         Mockito.when(spaceship.getPosition()).thenReturn(position);
         Mockito.when(spaceship.getFiringController()).thenReturn(firingController);

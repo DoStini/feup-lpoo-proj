@@ -9,8 +9,8 @@ public class Bullet extends MovableElement implements PoolableObject {
     private int size;
     private boolean active = false;
 
-    public Bullet(Position position, String color,int speed, int size) {
-        super(position, color, speed);
+    public Bullet(Position position, String color,int speed, int size, MovementStrategy movementStrategy) {
+        super(position, color, speed, movementStrategy);
         this.size = size;
         this.active = true;
     }
@@ -31,7 +31,7 @@ public class Bullet extends MovableElement implements PoolableObject {
 
     @Override
     public PoolableObject clone() {
-        return new Bullet(getPosition(), getColor(),getSpeed(), size);
+        return new Bullet(getPosition(), getColor(),getSpeed(), size, movementStrategy);
     }
 
     public void init(int x, int y, String color, int size,int speed, MovementStrategy movementStrategy) {
