@@ -1,5 +1,6 @@
 package com.shootemup.g53.controller.spaceship;
 
+import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
@@ -11,9 +12,10 @@ public class PlayerController extends SpaceshipController {
     }
 
     @Override
-    public void fire(Gui gui) {
-        if (gui.isActionActive(Action.SPACE) && frame > lastFire + spaceship.getFireRate()) {
-            System.out.println("Fire");
+    public void fire(Gui gui, BulletPoolController bulletPoolController) {
+        if (gui.isActionActive(Action.SPACE) && canShoot()) {
+            bulletPoolController.addPlayerBullet(spaceship.getPosition().getX(), spaceship.getPosition().getY(),
+                                        "#ff0000", 3);
             lastFire = frame;
         }
     }

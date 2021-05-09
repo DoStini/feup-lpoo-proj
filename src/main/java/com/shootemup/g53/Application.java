@@ -19,27 +19,12 @@ import java.util.List;
 public class Application {
     public static void main(String[] args) {
         System.out.println("Hello world!");
-        Gui gui = new LanternaGui(20,20, 15);
-//        Coin coin = new Coin(new Position(5 ,5 ), 5);
-//        CoinView coinView = new CoinView();
-//        coinView.draw(gui, coin);
-
-        Spaceship enemy = new Spaceship(new Position(6,6), 5, "#aae243",1, 1);
-        PlayerView view = new PlayerView(2);
-        view.draw(gui, enemy);
-        EnemyView enemyView = new EnemyView(2);
-        enemyView.draw(gui, enemy);
-
-        //gui.drawLine("#aaaaaa", new Position(7,7), 1);
-
-        gui.refresh();
-        //gameDemo();
-
+        gameDemo();
     }
 
     public static void gameDemo() {
-        Spaceship spaceship = new Spaceship(new Position(20, 35), 5, "#aae243", 2, 5);
-        Spaceship enemy = new Spaceship(new Position(20, 5), 5, "#1212ee", 1, 10);
+        Spaceship spaceship = new Spaceship(new Position(20, 35), 5, "#aae243", 2, 2);
+        Spaceship enemy = new Spaceship(new Position(20, 5), 5, "#1212ee", 0, 10);
         List<Spaceship> enemySpaceships = Arrays.asList(enemy);
 
         int height = 40, width = 50;

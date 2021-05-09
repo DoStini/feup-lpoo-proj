@@ -1,5 +1,6 @@
 package com.shootemup.g53.controller.spaceship;
 
+import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.controller.movement.MovementController;
 import com.shootemup.g53.model.element.Spaceship;
@@ -20,7 +21,7 @@ public class AIKamikazeController extends SpaceshipController {
     }
 
     @Override
-    public void fire(Gui gui) {
+    public void fire(Gui gui, BulletPoolController bulletPoolController) {
     }
 
     @Override

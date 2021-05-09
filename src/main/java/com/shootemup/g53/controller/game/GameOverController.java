@@ -14,6 +14,11 @@ public class GameOverController extends GenericController {
     }
 
     @Override
+    public void handle(Gui gui) {
+
+    }
+
+    @Override
     public void handleKeyPress(Gui gui) {
 
     }

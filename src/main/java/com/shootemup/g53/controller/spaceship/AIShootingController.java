@@ -1,6 +1,6 @@
 package com.shootemup.g53.controller.spaceship;
 
-import com.shootemup.g53.controller.input.Action;
+import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.MovementController;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
@@ -16,9 +16,10 @@ public class AIShootingController extends SpaceshipController {
     }
 
     @Override
-    public void fire(Gui gui) {
-        if (frame > lastFire + spaceship.getFireRate()) {
-            System.out.println("Enemy Fire");
+    public void fire(Gui gui, BulletPoolController bulletPoolController) {
+        if (canShoot()) {
+            bulletPoolController.addEnemyBullet(spaceship.getPosition().getX(), spaceship.getPosition().getY(),
+                    "#00ff00", 3);
             lastFire = frame;
         }
     }

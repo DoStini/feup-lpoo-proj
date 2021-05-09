@@ -1,5 +1,6 @@
 package com.shootemup.g53.controller.spaceship;
 
+import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
@@ -8,10 +9,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class PlayerControllerTest {
 
     private Spaceship spaceship;
     private Position position;
+    private BulletPoolController bulletPoolController;
     private int speed = 5;
     private int fireRate = 10;
 
@@ -21,9 +25,17 @@ class PlayerControllerTest {
     void setup() {
         position = Mockito.mock(Position.class);
         spaceship = Mockito.mock(Spaceship.class);
+        bulletPoolController = Mockito.mock(BulletPoolController.class);
+
         Mockito.when(spaceship.getFireRate()).thenReturn(fireRate);
         Mockito.when(spaceship.getSpeed()).thenReturn(speed);
         Mockito.when(spaceship.getPosition()).thenReturn(position);
+
+        Mockito.when(position.getUp(Mockito.anyInt())).thenReturn(position);
+        Mockito.when(position.getDown(Mockito.anyInt())).thenReturn(position);
+        Mockito.when(position.getLeft(Mockito.anyInt())).thenReturn(position);
+        Mockito.when(position.getRight(Mockito.anyInt())).thenReturn(position);
+
         gui = Mockito.mock(Gui.class);
     }
 
@@ -32,7 +44,8 @@ class PlayerControllerTest {
         SpaceshipController controller = new PlayerController(spaceship);
         Mockito.when(gui.isActionActive(Action.W)).thenReturn(true);
 
-        controller.move(gui);
+        assertEquals(position, controller.handle(gui, bulletPoolController));
+
         Mockito.verify(position, Mockito.times(1))
                 .getUp(speed);
     }
@@ -41,7 +54,8 @@ class PlayerControllerTest {
         SpaceshipController controller = new PlayerController(spaceship);
         Mockito.when(gui.isActionActive(Action.S)).thenReturn(true);
 
-        controller.move(gui);
+        assertEquals(position, controller.handle(gui, bulletPoolController));
+
         Mockito.verify(position, Mockito.times(1))
                 .getDown(speed);
     }
@@ -50,7 +64,8 @@ class PlayerControllerTest {
         SpaceshipController controller = new PlayerController(spaceship);
         Mockito.when(gui.isActionActive(Action.A)).thenReturn(true);
 
-        controller.move(gui);
+        assertEquals(position, controller.handle(gui, bulletPoolController));
+
         Mockito.verify(position, Mockito.times(1))
                 .getLeft(speed);
     }
@@ -59,7 +74,8 @@ class PlayerControllerTest {
         SpaceshipController controller = new PlayerController(spaceship);
         Mockito.when(gui.isActionActive(Action.D)).thenReturn(true);
 
-        controller.move(gui);
+        assertEquals(position, controller.handle(gui, bulletPoolController));
+
         Mockito.verify(position, Mockito.times(1))
                 .getRight(speed);
     }
@@ -73,13 +89,9 @@ class PlayerControllerTest {
         Mockito.when(gui.isActionActive(Action.D)).thenReturn(true);
 
         // Since position.getUp and others return a new position, we need to return the same position to test calls
-        Mockito.when(position.getUp(Mockito.anyInt())).thenReturn(position);
-        Mockito.when(position.getDown(Mockito.anyInt())).thenReturn(position);
-        Mockito.when(position.getLeft(Mockito.anyInt())).thenReturn(position);
-        Mockito.when(position.getRight(Mockito.anyInt())).thenReturn(position);
 
+        assertEquals(position, controller.handle(gui, bulletPoolController));
 
-        controller.move(gui);
         Mockito.verify(position, Mockito.times(1))
                 .getUp(speed);
         Mockito.verify(position, Mockito.times(1))
@@ -91,6 +103,31 @@ class PlayerControllerTest {
     }
 
     @Test
-    void handleFire() {
+    void fireRateNotReached() {
+        Mockito.when(gui.isActionActive(Action.SPACE)).thenReturn(true);
+
+        SpaceshipController controller = new PlayerController(spaceship);
+
+        for (int i = 0; i < fireRate; i++) {
+            controller.handle(gui, bulletPoolController);
+        }
+
+        Mockito.verify(bulletPoolController, Mockito.times(1))
+                .addPlayerBullet(position.getX(), position.getY(), "#ff0000", 3);
+
+    }
+    @Test
+    void fireRateReached() {
+        Mockito.when(gui.isActionActive(Action.SPACE)).thenReturn(true);
+
+        SpaceshipController controller = new PlayerController(spaceship);
+
+        for (int i = 0; i < fireRate + 1; i++) {
+            controller.handle(gui, bulletPoolController);
+        }
+
+        Mockito.verify(bulletPoolController, Mockito.times(2))
+                .addPlayerBullet(position.getX(), position.getY(), "#ff0000", 3);
+
     }
 }
