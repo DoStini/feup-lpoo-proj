@@ -165,7 +165,7 @@ This pattern is implemented in the following classes:
 #### Problem in Context
 
 Each collider shape has a different way of calculating and creating their bounding boxes. However, this shouldn't be
-the collider's function, as it would violate the Single-Responsibility principle.
+the colliders' function, as it would violate the Single-Responsibility principle.
 
 #### The Pattern
 
@@ -182,6 +182,27 @@ This pattern is implemented in the following class:
 
 - [BoundingBoxFactory](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/collider/BoundingBoxFactory.java)
 
+### Line Composite Collider Shapes
+
+#### Problem in Context
+
+Every time we want to create a Line Composite Collider, a list of Line Colliders must be passed by parameter through
+the constructor. This can become quite messy and complicated, with a lot of duplicated code, specially since most of the
+elements are represented by shapes like triangles, vertical lines or diamonds.
+
+#### The Pattern
+
+To solve this issue, the [Factory Pattern](https://refactoring.guru/design-patterns/factory-method) was used.
+
+#### Implementation
+
+The current implementation is as follows in the UML diagram.
+
+![LineFactory](images/design/linefactory.png)
+
+This pattern is implemented in the following class:
+
+- [LineCompositeFactory](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/collider/LineCompositeFactory.java)
 
 ### Preliminary analysis on Power ups
 
