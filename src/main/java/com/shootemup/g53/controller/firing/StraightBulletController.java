@@ -3,10 +3,8 @@ package com.shootemup.g53.controller.firing;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.controller.movement.MoveUpwardsMovement;
-import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Direction;
-import com.shootemup.g53.model.util.Position;
 
 public class StraightBulletController implements FiringController{
     private Direction direction;
@@ -21,7 +19,6 @@ public class StraightBulletController implements FiringController{
     public void fire(Spaceship spaceship, BulletPoolController bulletPoolController) {
         spaceship.increaseFrame();
         if (spaceship.getFrame() > spaceship.getLastFire() + spaceship.getFireRate()) {
-
             if(direction == Direction.DOWN){
                 bulletPoolController.addBullet(spaceship.getPosition().getX(), spaceship.getPosition().getY(),
                         "#ff0000", 3, bulletSpeed, new FallDownMovement());

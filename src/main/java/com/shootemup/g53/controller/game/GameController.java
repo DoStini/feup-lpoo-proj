@@ -28,15 +28,6 @@ public class GameController extends GenericController {
     }
 
 
-    @Override
-    public void handle(Gui gui) {
-        handleKeyPress(gui);
-        handlePlayerInput(gui);
-        handleEnemies();
-        handleBullets();
-
-    }
-
     public void handleKeyPress(Gui gui) {
         if(gui.isActionActive(Action.ESC)){
             gameModel.setGameFinished(true);
@@ -62,14 +53,16 @@ public class GameController extends GenericController {
     }
 
     public void handleBullets(){
-        for(Bullet bullet: new ArrayList<>(gameModel.getBulletList())){
+        for(Bullet bullet: gameModel.getBulletList()){
             Position newBulletPos = bullet.move();
             if(insideBounds(newBulletPos)){
                 bullet.setPosition(newBulletPos);
             }else{
-                gameModel.removeBullet(bullet);
+                bulletPoolController.restoreBullet(bullet);
             }
         }
+
+        bulletPoolController.removeInactiveBullets();
     }
 
     public void handleEnemies(){

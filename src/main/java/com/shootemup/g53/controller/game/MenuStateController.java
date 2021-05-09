@@ -6,10 +6,6 @@ import com.shootemup.g53.ui.Gui;
 
 public class MenuStateController extends GenericController {
 
-    @Override
-    public void handle(Gui gui) {
-
-    }
 
     @Override
     public void handleKeyPress(Gui gui) {
