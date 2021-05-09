@@ -18,7 +18,7 @@ public class GameController extends GenericController {
     private SpaceshipController enemyController; // For testing purposes
 
     public GameController(GameModel gameModel) {
-        bulletPoolController = new BulletPoolController(gameModel, 2);
+        bulletPoolController = new BulletPoolController(gameModel, 30);
         this.gameModel = gameModel;
         playerController = new PlayerController(gameModel.getPlayer());
         Spaceship s = gameModel.getEnemySpaceships().get(0);
