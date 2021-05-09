@@ -38,7 +38,7 @@
 
 #### UML Diagram
 
-![Elements UML](images/design/elementUML.png)
+![Elements UML](images/design/elements.png)
 
 ### Controls and actions
 ### Player's movement using keyboard, vertically and horizontally with some limits.
