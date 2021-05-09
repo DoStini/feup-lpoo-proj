@@ -1,47 +1,27 @@
 package com.shootemup.g53;
 
-import com.shootemup.g53.controller.input.Action;
-import com.shootemup.g53.controller.movement.DiagonalDownRightMovement;
-import com.shootemup.g53.controller.spaceship.AIShootingController;
-import com.shootemup.g53.controller.spaceship.PlayerController;
-import com.shootemup.g53.controller.spaceship.SpaceshipController;
-import com.shootemup.g53.model.element.Coin;
-import com.shootemup.g53.model.element.Spaceship;
-import com.shootemup.g53.model.util.Position;
+import com.shootemup.g53.controller.gameBuilder.GameBuilder;
 import com.shootemup.g53.controller.Game;
 
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.ui.Gui;
 import com.shootemup.g53.ui.LanternaGui;
-import com.shootemup.g53.view.element.*;
-
-import java.util.Arrays;
-import java.util.List;
 
 
 public class Application {
     public static void main(String[] args) {
         System.out.println("Hello world!");
-        Gui gui = new LanternaGui(20,20, 15);
-        Coin coin = new Coin(new Position(5 ,5 ), 5);
-        CoinView coinView = new CoinView();
-        coinView.draw(gui, coin);
-        gui.refresh();
-        //gameDemo();
+        gameDemo();
 
     }
 
     public static void gameDemo() {
-        Spaceship spaceship = new Spaceship(new Position(20, 35), 5, "#aae243", 2, 5);
-        Spaceship enemy = new Spaceship(new Position(20, 5), 5, "#1212ee", 1, 10);
-        List<Spaceship> enemySpaceships = Arrays.asList(enemy);
 
-        int height = 40, width = 50;
+        int height = 50, width = 100;
 
         Gui gui = new LanternaGui(height,width, 15);
 
-        GameModel gameModel = new GameModel(width,height, enemySpaceships);
-        gameModel.setPlayer(spaceship);
+        GameModel gameModel = new GameBuilder().buildGame(5,3,width,height);
         Game game = new Game(gui,gameModel);
         game.run();
 

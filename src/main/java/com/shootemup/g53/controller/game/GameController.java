@@ -2,37 +2,27 @@ package com.shootemup.g53.controller.game;
 
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.GenericController;
-import com.shootemup.g53.controller.movement.*;
-import com.shootemup.g53.controller.spaceship.AIChangingController;
-import com.shootemup.g53.controller.spaceship.AIShootingController;
 import com.shootemup.g53.controller.spaceship.PlayerController;
 import com.shootemup.g53.controller.spaceship.SpaceshipController;
+import com.shootemup.g53.model.element.Bullet;
+import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 
 
 public class GameController extends GenericController {
     private GameModel gameModel;
     private PlayerController playerController;
-    private SpaceshipController enemyController; // For testing purposes
+    private SpaceshipController spaceshipController;
 
     public GameController(GameModel gameModel) {
         this.gameModel = gameModel;
-        playerController = new PlayerController(gameModel.getPlayer());
-        Spaceship s = gameModel.getEnemySpaceships().get(0);
-        List<MovementController> controllers = Arrays.asList(
-                new CircularMovement(s, 5, 0, 30),
-                new DiagonalBounceMovement(s, 3, 3, DiagonalBounceMovement.Direction.DOWN_LEFT),
-                new FallDownMovement(s)
-        );
-
-        enemyController = new AIChangingController(s, controllers, 20);
+        this.playerController = new PlayerController(gameModel.getPlayer());
     }
 
 
@@ -52,17 +42,50 @@ public class GameController extends GenericController {
 
     public void handlePlayerInput(Gui gui) {
         Spaceship player = gameModel.getPlayer();
-        Position desiredPosition = playerController.handle(gui);
+        Position desiredPosition = playerController.move(gui);
+        Bullet bullet = playerController.fire(gui);
+        if(bullet != null) gameModel.addBullet(bullet);
         if(insideBounds(desiredPosition)){
             player.setPosition(desiredPosition);
         }
     }
 
-    public void handleEnemies(Gui gui){
+    public void handleBullets(){
+        for(Bullet bullet: new ArrayList<>(gameModel.getBulletList())){
+            Position newBulletPos = bullet.move();
+            if(insideBounds(newBulletPos)){
+                bullet.setPosition(newBulletPos);
+            }else{
+                gameModel.removeBullet(bullet);
+            }
+        }
+    }
+
+    public void handleEnemies(){
         for(Spaceship enemy: gameModel.getEnemySpaceships()) {
-            Position desiredEnemyPosition = enemyController.handle(gui);
+            spaceshipController = new SpaceshipController(enemy);
+            Position desiredEnemyPosition = spaceshipController.move();
+            Bullet bullet = spaceshipController.fire();
+            if(bullet != null){
+                gameModel.addBullet(bullet);
+            }
             if(insideBounds(desiredEnemyPosition)){
                 enemy.setPosition(desiredEnemyPosition);
+            }else{
+                spaceshipController.handleFailedMovement();
+                spaceshipController.move();
+            }
+        }
+    }
+
+    public void handleCoins(){
+        for(Coin coin: gameModel.getCoins()) {
+            Position desiredEnemyPosition = coin.move();
+            if(insideBounds(desiredEnemyPosition)){
+                coin.setPosition(desiredEnemyPosition);
+            }else{
+                coin.handleFailedMovement();
+                coin.move();
             }
         }
     }

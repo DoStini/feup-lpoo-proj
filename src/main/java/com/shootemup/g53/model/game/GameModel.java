@@ -2,6 +2,8 @@ package com.shootemup.g53.model.game;
 
 import com.shootemup.g53.controller.spaceship.SpaceshipController;
 import com.shootemup.g53.model.Model;
+import com.shootemup.g53.model.element.Bullet;
+import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 
 import java.util.List;
@@ -11,12 +13,13 @@ public class GameModel extends Model {
     private int height;
     private boolean isGameFinished = false;
     private Spaceship player;
+    private List<Coin> coins;
     private List<Spaceship> enemySpaceships;
+    private List<Bullet> bulletList;
 
-    public GameModel(int width, int height, List<Spaceship> enemySpaceships) {
+    public GameModel(int width, int height) {
         this.width = width;
         this.height = height;
-        this.enemySpaceships = enemySpaceships;
     }
 
 
@@ -58,5 +61,29 @@ public class GameModel extends Model {
 
     public void setEnemySpaceships(List<Spaceship> enemySpaceships) {
         this.enemySpaceships = enemySpaceships;
+    }
+
+    public List<Coin> getCoins() {
+        return coins;
+    }
+
+    public void setCoins(List<Coin> coins) {
+        this.coins = coins;
+    }
+
+    public List<Bullet> getBulletList() {
+        return bulletList;
+    }
+
+    public void setBulletList(List<Bullet> bulletList) {
+        this.bulletList = bulletList;
+    }
+
+    public void addBullet(Bullet bullet){
+        this.bulletList.add(bullet);
+    }
+
+    public void removeBullet(Bullet bullet){
+        this.bulletList.remove(bullet);
     }
 }

@@ -5,19 +5,17 @@ import com.shootemup.g53.model.element.MovableElement;
 import com.shootemup.g53.model.util.Position;
 
 public class DiagonalDownLeftMovement implements MovementController{
-    private final MovableElement element;
-
-    public DiagonalDownLeftMovement(MovableElement element) {
-        this.element = element;
-    }
-
     @Override
-    public Position move() {
-        int speed = element.getSpeed();
-        Position newPosition = element.getPosition().getDown(speed);
+    public Position move(Position position, int speed) {
+        Position newPosition = position.getDown(speed);
         newPosition = newPosition.getLeft(speed);
 
         return newPosition;
+    }
+
+    @Override
+    public void handleFailedMovement() {
+
     }
 }
 

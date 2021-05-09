@@ -1,6 +1,7 @@
-package com.shootemup.g53.controller.spaceship;
+package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.controller.movement.MovementController;
+import com.shootemup.g53.controller.spaceship.SpaceshipController;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
@@ -14,7 +15,7 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AIChangingControllerTest {
+class ChangingMovementTest {
 
     Spaceship spaceship;
 
@@ -44,10 +45,10 @@ class AIChangingControllerTest {
 
     @Test
     void handleRateNonReached() {
-        SpaceshipController controller = new AIChangingController(spaceship, movementControllers, 15, random);
+        MovementController controller = new ChangingMovement(15, movementControllers,random,0);
 
         for (int i = 0; i < 15; i++) {
-            controller.handle(gui);
+            controller.move(spaceship.getPosition(), spaceship.getSpeed());
         }
         
         Mockito.verify(random, Mockito.times(1)).nextInt(Mockito.anyInt());
@@ -55,10 +56,10 @@ class AIChangingControllerTest {
 
     @Test
     void handleRateReached() {
-        SpaceshipController controller = new AIChangingController(spaceship, movementControllers, 15, random);
+        MovementController controller = new ChangingMovement(15, movementControllers,  random,0);
 
         for (int i = 0; i < 16; i++) {
-            controller.handle(gui);
+            controller.move(spaceship.getPosition(), spaceship.getSpeed());
         }
 
         Mockito.verify(random, Mockito.times(2)).nextInt(Mockito.anyInt());

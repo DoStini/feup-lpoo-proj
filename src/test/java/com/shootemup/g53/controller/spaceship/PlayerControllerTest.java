@@ -29,7 +29,7 @@ class PlayerControllerTest {
 
     @Test
     void handleMovementUp() {
-        SpaceshipController controller = new PlayerController(spaceship);
+        PlayerController controller = new PlayerController(spaceship);
         Mockito.when(gui.isActionActive(Action.W)).thenReturn(true);
 
         controller.move(gui);
@@ -38,7 +38,7 @@ class PlayerControllerTest {
     }
     @Test
     void handleMovementDown() {
-        SpaceshipController controller = new PlayerController(spaceship);
+        PlayerController controller = new PlayerController(spaceship);
         Mockito.when(gui.isActionActive(Action.S)).thenReturn(true);
 
         controller.move(gui);
@@ -47,7 +47,7 @@ class PlayerControllerTest {
     }
     @Test
     void handleMovementLeft() {
-        SpaceshipController controller = new PlayerController(spaceship);
+        PlayerController controller = new PlayerController(spaceship);
         Mockito.when(gui.isActionActive(Action.A)).thenReturn(true);
 
         controller.move(gui);
@@ -56,7 +56,7 @@ class PlayerControllerTest {
     }
     @Test
     void handleMovementRight() {
-        SpaceshipController controller = new PlayerController(spaceship);
+        PlayerController controller = new PlayerController(spaceship);
         Mockito.when(gui.isActionActive(Action.D)).thenReturn(true);
 
         controller.move(gui);
@@ -66,7 +66,7 @@ class PlayerControllerTest {
 
     @Test
     void handleMultikeyMovement() {
-        SpaceshipController controller = new PlayerController(spaceship);
+        PlayerController controller = new PlayerController(spaceship);
         Mockito.when(gui.isActionActive(Action.W)).thenReturn(true);
         Mockito.when(gui.isActionActive(Action.A)).thenReturn(true);
         Mockito.when(gui.isActionActive(Action.S)).thenReturn(true);
