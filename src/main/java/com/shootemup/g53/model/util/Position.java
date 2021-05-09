@@ -63,4 +63,11 @@ public class Position {
                 ", y=" + y +
                 '}';
     }
+
+    public double getSquaredDistance(Position other) {
+        double xDiff = this.x - other.getX();
+        double yDiff = this.y - other.getY();
+
+        return xDiff*xDiff + yDiff*yDiff;
+    }
 }

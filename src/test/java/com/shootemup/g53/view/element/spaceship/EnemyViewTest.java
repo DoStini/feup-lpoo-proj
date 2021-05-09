@@ -23,7 +23,7 @@ class EnemyViewTest {
 
         view.draw(gui, spaceship);
 
-        Mockito.verify(gui, Mockito.times(2*size - lineWidth + 1))
+        Mockito.verify(gui, Mockito.times(2*(size+1) - lineWidth))
                 .drawLine(Mockito.eq("#aaaaaa"), Mockito.any(), Mockito.anyInt());
 
     }
