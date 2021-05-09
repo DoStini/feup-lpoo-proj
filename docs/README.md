@@ -204,9 +204,34 @@ This pattern is implemented in the following class:
 
 - [LineCompositeFactory](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/collider/LineCompositeFactory.java)
 
+### Bullets
+#### Problem in Context
+Since we have to spawn a lot of bullets during the game, we might have to be calling `new` a lot of times to instantiate those objects, which can be a little exhaustive and time-consuming.
+
+#### The Pattern
+To solve this issue, we implemented a cache of Bullet objects, following the [Object pool](https://gameprogrammingpatterns.com/object-pool.html) optimization pattern. We adapted this pattern to create the objects on startup, and then we can request them and manipulate their data, which is faster than instantiating a new object. If the pool has no available object, it returns a null so that we can handle the situation according to our desire.
+
+#### Implementation
+
+The current implementation is as follows in the UML diagram.
+
+![Bullet pool](images/design/bulletpool.png)
+
+This pattern is implemented in the following classes:
+- [ObjectPool](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/util/objectpool/ObjectPool.java)
+- [BulletPoolController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/game/BulletPoolController.java)
+- [GameModel](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/collider/LineCompositeFactory.java)
+- [PoolableObject](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/util/objectpool/PoolableObject.java)
+- [Bullet](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/model/element/Bullet.java)
+
+#### Consequences
+The pattern used allows spawning bullets very quickly and more efficiently and with easy access, controlling the game data in a very organized and structured way.
+
 ### Preliminary analysis on Power ups
 
 - State is the design pattern that will be the foundation to this set of features. According to what power up is being used, the player will have different states
+
+#### Implementation
 
 
 ## Known Code Smells and Refactoring Suggestions
