@@ -1,11 +1,10 @@
 package com.shootemup.g53.controller.spaceship;
 
-import com.shootemup.g53.controller.firing.StraightBulletController;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Spaceship;
-import com.shootemup.g53.model.util.Direction;
+
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 
@@ -15,12 +14,11 @@ public class PlayerController {
         this.spaceship = spaceship;
     }
 
-    public Bullet fire(Gui gui, BulletPoolController bulletPoolController) {
+    public void fire(Gui gui, BulletPoolController bulletPoolController) {
         spaceship.increaseFrame();
         if (gui.isActionActive(Action.SPACE)) {
-            return spaceship.fire();
+            spaceship.fire(bulletPoolController);
         }
-        return null;
     }
 
     public Position move(Gui gui) {
@@ -40,6 +38,5 @@ public class PlayerController {
         }
         return newPosition;
     }
-
 
 }

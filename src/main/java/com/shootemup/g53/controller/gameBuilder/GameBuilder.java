@@ -34,7 +34,7 @@ public class GameBuilder {
         List<Coin> coinList = new ArrayList<>();
 
         Spaceship player = new Spaceship(new Position(20, 35), 3, "#aae243", 2, 10);
-        player.setFiringController(new StraightBulletController(Direction.UP));
+        player.setFiringController(new StraightBulletController(Direction.UP, 2));
         gameModel.setPlayer(player);
 
         for(int i = 0; i < numOfEnemies; i++){
@@ -48,7 +48,7 @@ public class GameBuilder {
             controllers.add(new FallDownMovement());
             controllers.add(new ChangingMovement(20,controllers));
 
-            List<FiringController> firingControllers = Arrays.asList(new StraightBulletController(Direction.DOWN));
+            List<FiringController> firingControllers = Arrays.asList(new StraightBulletController(Direction.DOWN, 2));
 
             s.setMovementController(controllers.get(0));
             s.setFiringController(firingControllers.get(0));

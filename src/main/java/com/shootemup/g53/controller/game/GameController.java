@@ -54,8 +54,8 @@ public class GameController extends GenericController {
     public void handlePlayerInput(Gui gui) {
         Spaceship player = gameModel.getPlayer();
         Position desiredPosition = playerController.move(gui);
-        Bullet bullet = playerController.fire(gui, bulletPoolController);
-        if(bullet != null) gameModel.addBullet(bullet);
+        playerController.fire(gui, bulletPoolController);
+
         if(insideBounds(desiredPosition)){
             player.setPosition(desiredPosition);
         }
@@ -76,10 +76,7 @@ public class GameController extends GenericController {
         for(Spaceship enemy: gameModel.getEnemySpaceships()) {
             spaceshipController = new SpaceshipController(enemy);
             Position desiredEnemyPosition = spaceshipController.move();
-            Bullet bullet = spaceshipController.fire();
-            if(bullet != null){
-                gameModel.addBullet(bullet);
-            }
+            spaceshipController.fire(bulletPoolController);
             if(insideBounds(desiredEnemyPosition)){
                 enemy.setPosition(desiredEnemyPosition);
             }else{

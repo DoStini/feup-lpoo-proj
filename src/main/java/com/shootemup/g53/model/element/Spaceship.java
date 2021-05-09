@@ -1,6 +1,7 @@
 package com.shootemup.g53.model.element;
 
 import com.shootemup.g53.controller.firing.FiringController;
+import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.spaceship.SpaceshipController;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
@@ -58,8 +59,8 @@ public class Spaceship extends MovableElement {
         return firingController;
     }
 
-    public Bullet fire(){
-        return firingController.fire(this, 2);
+    public void fire(BulletPoolController bulletPoolController){
+        firingController.fire(this, bulletPoolController );
     }
 
     public void setFiringController(FiringController firingController) {

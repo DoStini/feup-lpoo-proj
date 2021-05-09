@@ -16,8 +16,8 @@ public class SpaceshipController {
         return spaceship.move();
     }
 
-    public Bullet fire(){
-        return spaceship.fire();
+    public void fire(BulletPoolController bulletPoolController){
+        spaceship.fire(bulletPoolController);
     };
     public void handleFailedMovement(){
         spaceship.handleFailedMovement();

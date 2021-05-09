@@ -1,5 +1,6 @@
 package com.shootemup.g53.controller.firing;
 
+import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.controller.movement.MoveUpwardsMovement;
 import com.shootemup.g53.model.element.Bullet;
@@ -9,23 +10,28 @@ import com.shootemup.g53.model.util.Position;
 
 public class StraightBulletController implements FiringController{
     private Direction direction;
+    private int bulletSpeed;
 
-    public StraightBulletController(Direction direction) {
+    public StraightBulletController(Direction direction, int speed) {
         this.direction = direction;
+        this.bulletSpeed = speed;
     }
 
     @Override
-    public Bullet fire(Spaceship spaceship, int speed) {
+    public void fire(Spaceship spaceship, BulletPoolController bulletPoolController) {
         spaceship.increaseFrame();
         if (spaceship.getFrame() > spaceship.getLastFire() + spaceship.getFireRate()) {
-            Bullet bullet = new Bullet(spaceship.getPosition(), "#ffffff",speed,2);
 
-            if(direction == Direction.DOWN) bullet.setMovementController(new FallDownMovement());
-            else bullet.setMovementController(new MoveUpwardsMovement());
+            if(direction == Direction.DOWN){
+                bulletPoolController.addBullet(spaceship.getPosition().getX(), spaceship.getPosition().getY(),
+                        "#ff0000", 3, bulletSpeed, new FallDownMovement());
+            }
+            else bulletPoolController.addBullet(spaceship.getPosition().getX(), spaceship.getPosition().getY(),
+                    "#ff0000", 3, bulletSpeed,new MoveUpwardsMovement());
 
             spaceship.setLastFire(spaceship.getFrame());
-            return bullet;
+
         }
-        return null;
+
     }
 }
