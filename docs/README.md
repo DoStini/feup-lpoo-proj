@@ -57,8 +57,7 @@
 
 ![Current mockup of the game](images/game_mockup.png)
 
-## Design
-### Structure
+## Structure
 #### Model view controller
 - Model holds all the data for the game
 - View is responsible to display the data stored in the model
@@ -70,7 +69,28 @@
 
 ![Rendering diagram](images/design/rendering.png)
 
-### Design patterns in features
+## Design
+### Spaceship Controllers
+#### Problem in Context
+Since we have only one class referring to the spaceships, either enemies or player, we needed to find a way to control this elements in different ways, so that it could be used by players and enemies.
+
+In order to execute this we would probably have to use conditionals to decide what movements would be chosen.
+This methodology would violate the single responsibility principle since the controller class would have to know how to control either players or enemies.
+
+#### The pattern
+To solve this issue, we have applied an adaptation of the [Strategy Pattern](https://refactoring.guru/design-patterns/strategy).
+This pattern allows us to extract all the different controls into different classes, each strategy class containing methods only relevant to that specific controller.
+
+#### Implementation
+The current implementation is as follows in the UML diagram
+
+![Controllers](images/design/controllers.png)
+
+This pattern is implemented in the following classes:
+- [AIChangingController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/spaceship/AIChangingController.java)
+- [AIShootingController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/spaceship/AIShootingController.java)
+- [AIKamikazeController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/spaceship/AIKamikazeController.java)
+- [PlayerController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/spaceship/PlayerController.java)
 
 #### Preliminary analysis on Power ups
 
