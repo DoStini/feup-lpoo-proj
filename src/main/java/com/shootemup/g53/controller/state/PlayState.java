@@ -23,7 +23,7 @@ public class PlayState extends State<GameModel> {
     public PlayState(Game game, GameModel gameModel, Gui gui){
         this.game = game;
         this.gameModel = gameModel;
-        this.gameController = new GameController(this.gameModel, null);
+        this.gameController = new GameController(this.gameModel);
         this.gameViewer = new GameViewer(gui);
         this.gui = gui;
     }
