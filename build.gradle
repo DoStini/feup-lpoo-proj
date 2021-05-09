@@ -1,9 +1,14 @@
 plugins {
     id 'java'
     id 'application'
+    id 'info.solidsoft.pitest' version '1.6.0'
 }
 
-group 'org.example'
+pitest {
+    junit5PluginVersion = '0.12'
+}
+
+group 'com.shootemup.g53'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -11,13 +16,19 @@ repositories {
 }
 
 dependencies {
+    testImplementation('org.mockito:mockito-core:3.7.7')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation 'org.mockito:mockito-core:3.7.7'
     implementation group: 'com.googlecode.lanterna', name: 'lanterna', version: '3.1.1'
 }
 
+pitest {
+    junit5PluginVersion = '0.12'
+}
+
 application {
-    mainClass.set("Application")
+    mainClass.set("com.shootemup.g53.Application")
 }
 
 test {
