@@ -1,6 +1,6 @@
 package com.shootemup.g53.model.game;
 
-import com.shootemup.g53.controller.spaceship.SpaceshipController;
+
 import com.shootemup.g53.model.Model;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;

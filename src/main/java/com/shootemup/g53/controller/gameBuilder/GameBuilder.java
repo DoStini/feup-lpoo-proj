@@ -32,22 +32,22 @@ public class GameBuilder {
         List<Spaceship> enemiesList = new ArrayList<>();
         List<Coin> coinList = new ArrayList<>();
 
-        Spaceship player = new Spaceship(new Position(20, 35), 3, "#aae243", 2, 10);
-        player.setFiringController(new StraightBulletStrategy(Direction.UP, 2));
+        Spaceship player = new Spaceship(new Position(20, 35), 3, "#aae243", 2);
+        player.setFiringController(new StraightBulletStrategy(Direction.UP, 2, 8));
         gameModel.setPlayer(player);
 
         for(int i = 0; i < numOfEnemies; i++){
             int randomX = rand.nextInt(width - 10) + 5;
             int randomY = rand.nextInt(height - 10) + 5;
 
-            Spaceship s = new Spaceship(new Position(randomX, randomY), 3, "#1212ee", 1,30);
+            Spaceship s = new Spaceship(new Position(randomX, randomY), 3, "#1212ee", 1);
             List<MovementStrategy> controllers = new ArrayList<MovementStrategy>();
             controllers.add(new CircularMovement(5, 0, 30));
             controllers.add( new DiagonalBounceMovement(3, 3, Direction.DOWN_LEFT, s.getPosition()));
             controllers.add(new FallDownMovement());
             controllers.add(new ChangingMovement(20,controllers));
 
-            List<FiringStrategy> firingStrategies = Arrays.asList(new StraightBulletStrategy(Direction.DOWN, 2));
+            List<FiringStrategy> firingStrategies = Arrays.asList(new StraightBulletStrategy(Direction.DOWN, 2, 30));
 
             s.setMovementController(controllers.get(0));
             s.setFiringController(firingStrategies.get(0));

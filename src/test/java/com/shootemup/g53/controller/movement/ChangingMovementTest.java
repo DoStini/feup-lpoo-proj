@@ -32,7 +32,7 @@ class ChangingMovementTest {
         position = new Position(0, 0);
         spaceship = Mockito.mock(Spaceship.class);
         bulletPoolController = Mockito.mock(BulletPoolController.class);
-        Mockito.when(spaceship.getFireRate()).thenReturn(fireRate);
+
         Mockito.when(spaceship.getSpeed()).thenReturn(speed);
         Mockito.when(spaceship.getPosition()).thenReturn(position);
 
@@ -45,10 +45,11 @@ class ChangingMovementTest {
     }
 
     /*
+
     @Test
     void movement() {
 
-        SpaceshipController controller = new AIChangingController(spaceship, movementControllers, 15, random);
+        MovementStrategy controller = new AIChangingController(spaceship, movementControllers, 15, random);
         MovementController movementController = movementControllers.get(0);
         Mockito.when(movementController.move()).thenReturn(position);
 

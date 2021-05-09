@@ -7,4 +7,5 @@ import com.shootemup.g53.model.util.Position;
 
 public interface FiringStrategy {
     void fire(Spaceship spaceship, BulletPoolController bulletPoolController);
+    void increaseFrame();
 }
