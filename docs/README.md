@@ -38,7 +38,7 @@
 
 #### UML Diagram
 
-![Elements UML](images/design/elements.png)
+![Elements UML](images/design/elementUML.png)
 
 ### Controls and actions
 ### Player's movement using keyboard, vertically and horizontally with some limits.
@@ -71,12 +71,13 @@
 ![Rendering diagram](images/design/rendering.png)
 
 ## Design
-### Movement 
+### Firing
 #### Problem in Context
-Since we have only one class referring to the spaceships, either enemies or player, we needed to find a way to control this elements in different ways, so that it could be used by players and enemies.
+We wanted to create different ways of firing that could be applied to the spaceships.
 
-In order to execute this we would probably have to use conditionals to decide what movements would be chosen.
-This methodology would violate the single responsibility principle since the controller class would have to know how to control either players or enemies.
+We also didn't want to create lots of duplicated or hard to maintain code. The solution needed to allow
+the easy creation of different firing methods without causing divergent changes or shotgun surgery.
+
 
 #### The pattern
 To solve this issue, we have applied an adaptation of the [Strategy Pattern](https://refactoring.guru/design-patterns/strategy).
@@ -85,13 +86,12 @@ This pattern allows us to extract all the different controls into different clas
 #### Implementation
 The current implementation is as follows in the UML diagram
 
-![Controllers](images/design/controllers.png)
+![FiringStrategy](images/design/firingStrategy.png)
 
 This pattern is implemented in the following classes:
-- [AIChangingController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/spaceship/AIChangingController.java)
-- [AIShootingController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/spaceship/AIShootingController.java)
-- [AIKamikazeController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/spaceship/AIKamikazeController.java)
-- [PlayerController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/spaceship/PlayerController.java)
+
+- [FiringStrategy](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/firing/FiringStrategy.java)
+- [StraightBulletStrategy](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/firing/StraightBulletStrategy.java)
 
 ### Movement
 
@@ -111,7 +111,7 @@ To solve this issue, we have applied a [Strategy Pattern](https://refactoring.gu
 
 The current implementation is as follows in the UML diagram.
 
-![Movement](images/design/movement.png)
+![Movement](images/design/movementStrategy.png)
 
 This pattern is implemented in the following classes:
 
