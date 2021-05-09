@@ -2,37 +2,33 @@ package com.shootemup.g53.controller.game;
 
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.GenericController;
-import com.shootemup.g53.controller.movement.*;
-import com.shootemup.g53.controller.spaceship.*;
+import com.shootemup.g53.controller.spaceship.PlayerController;
+import com.shootemup.g53.controller.spaceship.SpaceshipController;
 import com.shootemup.g53.model.element.Bullet;
+import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
+
+import java.util.ArrayList;
+
 
 
 public class GameController extends GenericController {
     private GameModel gameModel;
     private BulletPoolController bulletPoolController;
     private PlayerController playerController;
-    private SpaceshipController enemyController; // For testing purposes
+    private SpaceshipController spaceshipController;
 
     public GameController(GameModel gameModel) {
-        bulletPoolController = new BulletPoolController(gameModel, 30);
-        this.gameModel = gameModel;
-        playerController = new PlayerController(gameModel.getPlayer());
-        Spaceship s = gameModel.getEnemySpaceships().get(0);
-        enemyController = new AIShootingController(s, new FallDownMovement(s));
+        this(gameModel, new BulletPoolController(gameModel, 30));
     }
 
-
-    @Override
-    public void handle(Gui gui) {
-        handleKeyPress(gui);
-        handlePlayerInput(gui);
-        handleEnemies(gui);
-        handleBullets();
-
+    public GameController(GameModel gameModel, BulletPoolController bulletPoolController) {
+        this.gameModel = gameModel;
+        this.bulletPoolController = bulletPoolController;
+        playerController = new PlayerController(gameModel.getPlayer());
     }
 
     public void handleKeyPress(Gui gui) {
@@ -41,7 +37,7 @@ public class GameController extends GenericController {
         }
     }
 
-    public boolean insideBounds(Position pos, int width, int height) {
+    public boolean insideBounds(Position pos) {
         if(pos == null){
             return false;
         }
@@ -51,32 +47,52 @@ public class GameController extends GenericController {
 
     public void handlePlayerInput(Gui gui) {
         Spaceship player = gameModel.getPlayer();
-        Position desiredPosition = playerController.handle(gui, bulletPoolController);
-        if(insideBounds(desiredPosition, player.getHeight(), player.getHeight())){
+        Position desiredPosition = playerController.move(gui);
+        playerController.fire(gui, bulletPoolController);
+
+        if(insideBounds(desiredPosition)){
             player.setPosition(desiredPosition);
         }
     }
 
-    public void handleEnemies(Gui gui){
+    public void handleBullets(){
+        for(Bullet bullet: gameModel.getBulletList()){
+            Position newBulletPos = bullet.move();
+            if(insideBounds(newBulletPos)){
+                bullet.setPosition(newBulletPos);
+            }else{
+                bulletPoolController.restoreBullet(bullet);
+            }
+        }
+
+        bulletPoolController.removeInactiveBullets();
+    }
+
+    public void handleEnemies(){
         for(Spaceship enemy: gameModel.getEnemySpaceships()) {
-            Position desiredEnemyPosition = enemyController.handle(gui, bulletPoolController);
-            if(insideBounds(desiredEnemyPosition, enemy.getHeight(), enemy.getHeight())){
+            spaceshipController = new SpaceshipController(enemy);
+            Position desiredEnemyPosition = spaceshipController.move();
+            spaceshipController.fire(bulletPoolController);
+            if(insideBounds(desiredEnemyPosition)){
                 enemy.setPosition(desiredEnemyPosition);
+            }else{
+                spaceshipController.handleFailedMovement();
+                spaceshipController.move();
             }
         }
     }
 
-    public void handleBullets() {
-        for (Bullet bullet: gameModel.getEnemyBullets()) {
-            bullet.setPosition(new FallDownMovement(bullet).move());
-            if (!insideBounds(bullet.getPosition(), 0, 0))
-                bulletPoolController.restoreBullet(bullet);
+    public void handleCoins(){
+        for(Coin coin: gameModel.getCoins()) {
+            Position desiredEnemyPosition = coin.move();
+            if(insideBounds(desiredEnemyPosition)){
+                coin.setPosition(desiredEnemyPosition);
+            }else{
+                coin.handleFailedMovement();
+                coin.move();
+            }
         }
-        for (Bullet bullet: gameModel.getPlayerBullets()) {
-            bullet.setPosition(new GoUpMovement(bullet).move());
-            if (!insideBounds(bullet.getPosition(), 0, 0))
-                bulletPoolController.restoreBullet(bullet);
-        }
-        bulletPoolController.removeInactiveBullets();
     }
+
+   
 }

@@ -46,19 +46,18 @@ public class PlayState extends State<GameModel> {
     @Override
     public void run(){
         try{
-
             while(true){
                 Thread.sleep(50);
                 gameController.handleKeyPress(gui);
                 gameController.handlePlayerInput(gui);
-                //could be made with an observer pattern instead of this polling
+
                 if(gameModel.isGameFinished()){
                     game.changeState(new GameOverState(this.game,new GameOverModel(),this.gui));
                     return;
                 }
-                gameController.handleEnemies(gui);
+                gameController.handleEnemies();
                 gameController.handleBullets();
-
+                gameController.handleCoins();
                 gameViewer.draw(gameModel);
 
             }

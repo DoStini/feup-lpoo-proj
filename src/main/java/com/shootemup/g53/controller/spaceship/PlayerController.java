@@ -2,27 +2,27 @@ package com.shootemup.g53.controller.spaceship;
 
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
+import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Spaceship;
+
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 
-public class PlayerController extends SpaceshipController {
+public class PlayerController {
+    private Spaceship spaceship;
     public PlayerController(Spaceship spaceship) {
-        super(spaceship);
+        this.spaceship = spaceship;
     }
 
-    @Override
     public void fire(Gui gui, BulletPoolController bulletPoolController) {
-        if (gui.isActionActive(Action.SPACE) && canShoot()) {
-            bulletPoolController.addPlayerBullet(spaceship.getPosition().getX(), spaceship.getPosition().getY(),
-                                        "#ff0000", 3);
-            lastFire = frame;
+        spaceship.increaseFrame();
+        if (gui.isActionActive(Action.SPACE)) {
+            spaceship.fire(bulletPoolController);
         }
     }
 
-    @Override
     public Position move(Gui gui) {
-        int speed = spaceship.getSpeed(); // Override when elements exist
+        int speed = spaceship.getSpeed();
         Position newPosition = spaceship.getPosition();
         if (gui.isActionActive(Action.W)) {
             newPosition = newPosition.getUp(speed);
@@ -38,4 +38,5 @@ public class PlayerController extends SpaceshipController {
         }
         return newPosition;
     }
+
 }

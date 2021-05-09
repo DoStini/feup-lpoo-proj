@@ -14,7 +14,7 @@ class BulletTest {
 
     @BeforeEach
     void setup() {
-        bullet = new Bullet(new Position(0, 0), "", 0);
+        bullet = new Bullet(new Position(0, 0), "", 0,0);
     }
 
     @Test
@@ -39,7 +39,7 @@ class BulletTest {
 
     @Test
     void init() {
-        bullet.init(5,5,"color", 5);
+        bullet.init(5,5,"color", 5, 0, null);
         Assertions.assertEquals(bullet.getPosition(), new Position(5, 5));
         Assertions.assertEquals(bullet.getColor(), "color");
         Assertions.assertEquals(bullet.getSize(), 5);

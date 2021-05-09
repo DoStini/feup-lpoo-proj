@@ -13,10 +13,7 @@ public class GameOverController extends GenericController {
         this.gameOverModel = gameModel;
     }
 
-    @Override
-    public void handle(Gui gui) {
 
-    }
 
     @Override
     public void handleKeyPress(Gui gui) {

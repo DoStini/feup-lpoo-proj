@@ -2,12 +2,10 @@ package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.model.util.Position;
 
-public class DiagonalDownRightMovement implements MovementStrategy {
+public class MoveUpwardsMovement implements MovementStrategy {
     @Override
     public Position move(Position position, int speed) {
-        Position newPosition = position.getDown(speed);
-        newPosition = newPosition.getRight(speed);
-        return newPosition;
+        return position.getUp(speed);
     }
 
     @Override
@@ -15,4 +13,3 @@ public class DiagonalDownRightMovement implements MovementStrategy {
 
     }
 }
-
