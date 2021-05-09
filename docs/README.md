@@ -5,49 +5,117 @@
 
 ### Specific Elements
 
-- Player's Spaceship
-- Enemies' Spaceship's
 - Boss Enemies
-- Asteroids
 - Powerup items
 - Inventory
-- Collectibles that improve player's score
 - Health bar
-- Bullets
 - Bullets indicator
 - Score indicator
 - Game menu:
-    - Play
-    - Scores
-    - Configure player's look
+  - Play
+  - Scores
+  - Configure player's look
 ### Controls and Actions
-- Player's movement using keyboard, vertically and horizontally with some limits.
-- Enemies' movement
 - Enemies' random generation
-- Shooting bullets
+- Basic Powerups
 - Combined Powerups
 - Controlling powerups with mouse
+- Asteroids actions
+- Collectibles that improve player's score
+- Apply collision detection to elements
+
+## Implemented Features
+### Elements and Views
+- Player's Spaceship
+- Enemies' Spaceship's
+- Bullets
+- Asteroids
+- Coins
+
+#### Example element views
+![Views screenshot](images/screenshots/views.png)
+
+#### UML Diagram
+
+![Elements UML](images/design/elements.png)
+
+### Controls and actions
+### Player's movement using keyboard, vertically and horizontally with some limits.
+![Player controls](gifs/player.gif)
+
+### Enemies' movement
+| ![Down Movement](gifs/enemy1.gif)  |  ![Diagonal Movement](gifs/enemy2.gif)   |
+| :---: | :---: |
+| ![Circular Movement](gifs/enemy3.gif)   | ![Diagonal Movement](gifs/enemy4.gif)   |
+
+### Shooting bullets
+![Bullets](gifs/spawn-bullets.gif)
+
+### Collision detection
 
 ## Game mockup
 
 ![Current mockup of the game](images/game_mockup.png)
 
-## Design
-### Structure
+## Structure
 #### Model view controller
 - Model holds all the data for the game
 - View is responsible to display the data stored in the model
 - Controller is responsible to update the information in the model according to user interaction and game states
 
 #### Rendering elements
-- It is important that we built this part of the structure to be versatil, so that the game could be used with other engines.
+- It is important that we build this part of the structure to be versatil, so that the game could be used with other engines.
 - To allow this situation, we created an interface `gui` that has functions like `drawColor` or `drawCharacter`. These will be called by specific Viewers. Example:
 
 ![Rendering diagram](images/design/rendering.png)
 
-### Design patterns in features
+## Design
+### Spaceship Controllers
+#### Problem in Context
+Since we have only one class referring to the spaceships, either enemies or player, we needed to find a way to control this elements in different ways, so that it could be used by players and enemies.
 
-#### Preliminary analysis on Power ups
+In order to execute this we would probably have to use conditionals to decide what movements would be chosen.
+This methodology would violate the single responsibility principle since the controller class would have to know how to control either players or enemies.
+
+#### The pattern
+To solve this issue, we have applied an adaptation of the [Strategy Pattern](https://refactoring.guru/design-patterns/strategy).
+This pattern allows us to extract all the different controls into different classes, each strategy class containing methods only relevant to that specific controller.
+
+#### Implementation
+The current implementation is as follows in the UML diagram
+
+![Controllers](images/design/controllers.png)
+
+This pattern is implemented in the following classes:
+- [AIChangingController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/spaceship/AIChangingController.java)
+- [AIShootingController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/spaceship/AIShootingController.java)
+- [AIKamikazeController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/spaceship/AIKamikazeController.java)
+- [PlayerController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/spaceship/PlayerController.java)
+
+### Preliminary analysis on Power ups
 
 - State is the design pattern that will be the foundation to this set of features. According to what power up is being used, the player will have different states
 - However, if powerups are used at the same time, we could adapt a Composite pattern to determine how the following actions would be applied. A function inside the composite class could mathematically calculate the powerup effects and its color.
+
+
+## Known Code Smells and Refactoring Suggestions
+
+### Temporary fields
+The [AIKamikazeController]() class has temporary fields in its super class - [SpaceshipController]() - which is the last fire variable. 
+
+One way to solve this issue would be to introduce another level of abstraction, for example SpaceshipShootingController (which would have the fire and lastFire method), and the other class could be AIKamikazeController.
+
+### Middle Man
+The [AIKamikazeController]() is also a middle man to [MovementController](). 
+
+To solve this issue we could simply remove this class, since it just calls the move method from the second class. However, this would lead to undesired consequences. In the game controller we would have to store different types of classes to control spaceships - one list for SpaceshipControllers and another for MovementControllers.
+
+### Switch Statement
+The [DiagonalBounceMovement]() contains switch case statements.
+
+We can solve this issue by replacing the `Direction` with a state class, using a State Pattern. This could be achieved by using the already implemented [DiagonalDownLeft]() and [DiagonalDownRight]() movement classes.
+
+## Testing
+
+## Self-evaluation
+
