@@ -92,7 +92,30 @@ This pattern is implemented in the following classes:
 - [AIKamikazeController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/spaceship/AIKamikazeController.java)
 - [PlayerController](https://github.com/FEUP-LPOO-2021/lpoo-2021-g53/blob/develop/src/main/java/com/shootemup/g53/controller/spaceship/PlayerController.java)
 
-#### Preliminary analysis on Power ups
+### Preliminary analysis on Power ups
 
 - State is the design pattern that will be the foundation to this set of features. According to what power up is being used, the player will have different states
 - However, if powerups are used at the same time, we could adapt a Composite pattern to determine how the following actions would be applied. A function inside the composite class could mathematically calculate the powerup effects and its color.
+
+
+## Known Code Smells and Refactoring Suggestions
+
+### Temporary fields
+The [AIKamikazeController]() class has temporary fields in its super class - [SpaceshipController]() - which is the last fire variable. 
+
+One way to solve this issue would be to introduce another level of abstraction, for example SpaceshipShootingController (which would have the fire and lastFire method), and the other class could be AIKamikazeController.
+
+### Middle Man
+The [AIKamikazeController]() is also a middle man to [MovementController](). 
+
+To solve this issue we could simply remove this class, since it just calls the move method from the second class. However, this would lead to undesired consequences. In the game controller we would have to store different types of classes to control spaceships - one list for SpaceshipControllers and another for MovementControllers.
+
+### Switch Statement
+The [DiagonalBounceMovement]() contains switch case statements.
+
+We can solve this issue by replacing the `Direction` with a state class, using a State Pattern. This could be achieved by using the already implemented [DiagonalDownLeft]() and [DiagonalDownRight]() movement classes.
+
+## Testing
+
+## Self-evaluation
+
