@@ -59,7 +59,8 @@ public class GameController extends GenericController {
 
     public void handleBullets(){
         for(Bullet bullet: gameModel.getBulletList()){
-            Position newBulletPos = bullet.move();
+            movableElementController.setMovableElement(bullet);
+            Position newBulletPos = movableElementController.move();
             if(insideBounds(newBulletPos)){
                 bullet.setPosition(newBulletPos);
             }else{

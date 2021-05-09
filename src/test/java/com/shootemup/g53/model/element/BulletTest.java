@@ -14,7 +14,7 @@ class BulletTest {
 
     @BeforeEach
     void setup() {
-        bullet = new Bullet(new Position(0, 0), "", 0,0);
+        bullet = new Bullet(new Position(0, 0), "", 0,0,null);
     }
 
     @Test

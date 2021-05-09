@@ -8,8 +8,8 @@ public class MovableElementController {
 
     public MovableElementController(MovableElement movableElement) {
         this.movableElement = movableElement;
-
     }
+
     public void setPosition(Position position){
         movableElement.setPosition(position);
     }
@@ -20,9 +20,7 @@ public class MovableElementController {
 
     public void handleFailedMovement(){
         movableElement.handleFailedMovement();
-    };
-
-
+    }
 
     public void setMovableElement(MovableElement movableElement) {
         this.movableElement = movableElement;

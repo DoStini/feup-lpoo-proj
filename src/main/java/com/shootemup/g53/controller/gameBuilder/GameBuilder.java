@@ -32,25 +32,25 @@ public class GameBuilder {
         List<Spaceship> enemiesList = new ArrayList<>();
         List<Coin> coinList = new ArrayList<>();
 
-        Spaceship player = new Spaceship(new Position(20, 35), 3, "#aae243", 2);
-        player.setFiringController(new StraightBulletStrategy(Direction.UP, 2, 8));
+        Spaceship player = new Spaceship(new Position(20, 35), 3, "#aae243", 2, null, new StraightBulletStrategy(new MoveUpwardsMovement(), 2, 8));
         gameModel.setPlayer(player);
 
         for(int i = 0; i < numOfEnemies; i++){
             int randomX = rand.nextInt(width - 10) + 5;
             int randomY = rand.nextInt(height - 10) + 5;
 
-            Spaceship s = new Spaceship(new Position(randomX, randomY), 3, "#1212ee", 1);
             List<MovementStrategy> controllers = new ArrayList<MovementStrategy>();
             controllers.add(new CircularMovement(5, 0, 30));
-            controllers.add( new DiagonalBounceMovement(3, 3, Direction.DOWN_LEFT, s.getPosition()));
+            controllers.add( new DiagonalBounceMovement(3, 3, Direction.DOWN_LEFT, new Position(randomX,randomY)));
             controllers.add(new FallDownMovement());
             controllers.add(new ChangingMovement(20,controllers));
 
-            List<FiringStrategy> firingStrategies = Arrays.asList(new StraightBulletStrategy(Direction.DOWN, 2, 30));
+            List<FiringStrategy> firingStrategies = Arrays.asList(new StraightBulletStrategy(new FallDownMovement(), 2, 10));
 
-            s.setMovementController(controllers.get(0));
-            s.setFiringController(firingStrategies.get(0));
+            MovementStrategy selectedMovementStrategy = controllers.get(rand.nextInt(controllers.size()));
+            FiringStrategy selectedFiringStrategy = firingStrategies.get(rand.nextInt(firingStrategies.size()));
+            Spaceship s = new Spaceship(new Position(randomX, randomY), 3, "#1212ee", 1,selectedMovementStrategy, selectedFiringStrategy);
+
             enemiesList.add(s);
         }
 
@@ -59,8 +59,7 @@ public class GameBuilder {
         for(int i = 0; i < numOfCoins; i++){
             int randomX = rand.nextInt(width - 10) + 5;
             int randomY = rand.nextInt(height - 10) + 5;
-            Coin coin = new Coin( new Position(randomX,randomY), 2 );
-            coin.setMovementController(new FallDownMovement());
+            Coin coin = new Coin( new Position(randomX,randomY), 2, new FallDownMovement() );
             coinList.add(coin);
         }
         gameModel.setCoins(coinList);

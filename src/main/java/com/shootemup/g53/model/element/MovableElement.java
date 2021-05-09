@@ -7,9 +7,10 @@ public abstract class MovableElement extends Element {
 
     private int speed;
     protected MovementStrategy movementStrategy;
-    public MovableElement(Position position, String color, int speed) {
+    public MovableElement(Position position, String color, int speed, MovementStrategy movementStrategy) {
         super(position, color);
         this.speed = speed;
+        this.movementStrategy = movementStrategy;
     }
 
     public int getSpeed() {

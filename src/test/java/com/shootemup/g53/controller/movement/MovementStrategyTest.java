@@ -19,17 +19,12 @@ class MovementStrategyTest {
     }
 
     @Test
-    void changingMovement(){
-
-    }
-
-    @Test
     void fallDown() {
         int speed = 2;
 
         Mockito.when(element.getSpeed()).thenReturn(speed);
 
-        MovementStrategy fallDownMovement = new FallDownMovement();
+        FallDownMovement fallDownMovement = new FallDownMovement();
 
         Position startPosition = element.getPosition();
 
@@ -38,6 +33,7 @@ class MovementStrategyTest {
 
         element.setPosition(fallDownMovement.move(element.getPosition(), element.getSpeed()));
         Assertions.assertEquals(startPosition.getDown(speed * 2), element.getPosition());
+
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.shootemup.g53.model.element;
 
+import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.util.Position;
 
 public class Asteroid extends MovableElement {
@@ -14,8 +15,8 @@ public class Asteroid extends MovableElement {
         this.radius = radius;
     }
 
-    public Asteroid(Position position, int radius) {
-        super(position, "#555555", 5);
+    public Asteroid(Position position, int radius, MovementStrategy movementStrategy) {
+        super(position, "#555555", 5, movementStrategy);
         this.radius = radius;
     }
 }

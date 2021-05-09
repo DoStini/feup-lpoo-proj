@@ -1,5 +1,6 @@
 package com.shootemup.g53.controller.game;
 
+import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
@@ -25,7 +26,6 @@ class BulletPoolControllerTest {
     void setup() {
         gameModel = Mockito.mock(GameModel.class);
         objectPool = Mockito.mock(ObjectPool.class);
-
         bulletPoolController = new BulletPoolController(gameModel, objectPool);
     }
 
@@ -65,16 +65,19 @@ class BulletPoolControllerTest {
 
     void removeBullets() {
         List<Bullet> list = new ArrayList<>();
-        list.add(new Bullet(new Position(0,0), "", 0,0));
+        list.add(new Bullet(new Position(0,0), "", 0,0, new FallDownMovement()));
+        list.add(new Bullet(new Position(0,0), "", 0,0, new FallDownMovement()));
+        list.add(new Bullet(new Position(0,0), "", 0,0, new FallDownMovement()));
         Mockito.when(gameModel.getBulletList()).thenReturn(list);
 
         Assertions.assertTrue(list.get(0).isActive());
-
+        list.get(2).activate();
+        list.get(1).activate();
         list.get(0).deactivate();
 
         bulletPoolController.restoreBullet(list.get(0));
         bulletPoolController.removeInactiveBullets();
-        Assertions.assertEquals(0, list.size());
+        Assertions.assertEquals(2, list.size());
 
     }
 }
