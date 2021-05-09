@@ -16,14 +16,13 @@ public class EnemyView extends SpaceshipView {
         int size = element.getHeight();
         String color = element.getColor();
 
-        for (int i = 0; i < size; i++) {
-            int reverse = size - i - 1;
-            if (i < size - lineWidth) {
-                gui.drawLine(color, pos.getLeft(reverse).getDown(i), lineWidth);
-                gui.drawLine(color, pos.getRight(reverse-lineWidth).getDown(i), lineWidth);
+        for (int i = 0; i <= size; i++) {
+            if(i > lineWidth-1) {
+                gui.drawLine(color, pos.getLeft(i).getUp(i), lineWidth);
+                gui.drawLine(color, pos.getRight(i-lineWidth).getUp(i), lineWidth);
+            } else {
+                gui.drawLine(color, pos.getLeft(i).getUp(i), i*2);
             }
-            else
-                gui.drawLine(color, pos.getLeft(reverse).getDown(i), reverse*2);
         }
     }
 }

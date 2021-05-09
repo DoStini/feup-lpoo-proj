@@ -1,10 +1,5 @@
 package com.shootemup.g53;
 
-import com.shootemup.g53.controller.input.Action;
-import com.shootemup.g53.controller.movement.DiagonalDownRightMovement;
-import com.shootemup.g53.controller.spaceship.AIShootingController;
-import com.shootemup.g53.controller.spaceship.PlayerController;
-import com.shootemup.g53.controller.spaceship.SpaceshipController;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
@@ -14,6 +9,8 @@ import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.ui.Gui;
 import com.shootemup.g53.ui.LanternaGui;
 import com.shootemup.g53.view.element.*;
+import com.shootemup.g53.view.element.spaceship.EnemyView;
+import com.shootemup.g53.view.element.spaceship.PlayerView;
 
 import java.util.Arrays;
 import java.util.List;
