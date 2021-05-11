@@ -27,6 +27,10 @@ public abstract class BodyCollider {
         else return innerVisit(other);
     }
 
+    public Element getElement() {
+        return element;
+    }
+
     abstract protected boolean innerVisit(BodyCollider other);
     abstract protected boolean collidesLine(LineCollider other);
     abstract protected boolean collidesLineComposite(LineCompositeCollider other);
