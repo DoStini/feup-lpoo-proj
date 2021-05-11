@@ -48,16 +48,12 @@ public class PlayState extends State<GameModel> {
         try{
             while(true){
                 Thread.sleep(50);
-                gameController.handleKeyPress(gui);
-                gameController.handlePlayerInput(gui);
-
+                gameController.handle(gui);
                 if(gameModel.isGameFinished()){
                     game.changeState(new GameOverState(this.game,new GameOverModel(),this.gui));
                     return;
                 }
-                gameController.handleEnemies();
-                gameController.handleBullets();
-                gameController.handleCoins();
+
                 gameViewer.draw(gameModel);
 
             }

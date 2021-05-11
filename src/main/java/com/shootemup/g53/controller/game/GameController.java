@@ -1,10 +1,12 @@
 package com.shootemup.g53.controller.game;
 
+import com.shootemup.g53.controller.gameBuilder.GameBuilder;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.GenericController;
 import com.shootemup.g53.controller.element.AIFiringController;
 import com.shootemup.g53.controller.element.MovableElementController;
 import com.shootemup.g53.controller.player.PlayerController;
+import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
@@ -19,7 +21,8 @@ public class GameController extends GenericController {
     private PlayerController playerController;
     private AIFiringController firingController;
     private MovableElementController movableElementController;
-
+    private GameBuilder gameBuilder;
+    private long frame;
 
     public GameController(GameModel gameModel) {
         this(gameModel, new BulletPoolController(gameModel, 30));
@@ -28,10 +31,11 @@ public class GameController extends GenericController {
     public GameController(GameModel gameModel, BulletPoolController bulletPoolController) {
         this.gameModel = gameModel;
         this.bulletPoolController = bulletPoolController;
+        this.gameBuilder = new GameBuilder(gameModel, 10);
+        this.frame = 0;
         playerController = new PlayerController(gameModel.getPlayer());
         firingController = new AIFiringController(null);
         movableElementController = new MovableElementController(null);
-
     }
 
     public void handleKeyPress(Gui gui) {
@@ -78,12 +82,7 @@ public class GameController extends GenericController {
 
             Position desiredEnemyPosition = movableElementController.move();
             firingController.fire(bulletPoolController);
-            if(insideBounds(desiredEnemyPosition)){
                 movableElementController.setPosition(desiredEnemyPosition);
-            }else{
-                movableElementController.handleFailedMovement();
-                movableElementController.move();
-            }
         }
     }
 
@@ -91,14 +90,27 @@ public class GameController extends GenericController {
         for(Coin coin: gameModel.getCoins()) {
             movableElementController.setMovableElement(coin);
             Position desiredEnemyPosition = movableElementController.move();
-            if(insideBounds(desiredEnemyPosition)){
-                movableElementController.setPosition(desiredEnemyPosition);
-            }else{
-                movableElementController.handleFailedMovement();
-                movableElementController.move();
-            }
+            movableElementController.setPosition(desiredEnemyPosition);
         }
     }
 
-   
+    public void handleAsteroids(){
+        for(Asteroid asteroid: gameModel.getAsteroids()) {
+            movableElementController.setMovableElement(asteroid);
+            Position desiredEnemyPosition = movableElementController.move();
+            movableElementController.setPosition(desiredEnemyPosition);
+        }
+    }
+
+
+    public void handle(Gui gui) {
+        frame++;
+        gameBuilder.handle(gameModel, frame);
+        handleKeyPress(gui);
+        handlePlayerInput(gui);
+        handleEnemies();
+        handleBullets();
+        handleCoins();
+        handleAsteroids();
+    }
 }

@@ -1,31 +1,77 @@
 package com.shootemup.g53.controller.gameBuilder;
 
+import com.shootemup.g53.controller.Game;
 import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.firing.StraightBulletStrategy;
 import com.shootemup.g53.controller.movement.*;
+import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Coin;
+import com.shootemup.g53.model.element.Element;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Direction;
 import com.shootemup.g53.model.util.Position;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class GameBuilder {
+    private final GameModel gameModel;
+    private long nextGeneration;
+    private long baseSkip;
     private Random rand;
+    private List<ElementGenerator> generators;
 
-    public GameBuilder(){
-        rand = new Random();
+    public GameBuilder(GameModel gameModel, long baseSkip){
+        this(new Random(), gameModel, baseSkip);
     }
 
-    public GameBuilder(Random rand) {
+    public GameBuilder(Random rand, GameModel gameModel, long baseSkip) {
         this.rand = rand;
+        this.gameModel = gameModel;
+        this.baseSkip = baseSkip;
+        setupGame();
+        setNextGeneration();
+        setupGenerators();
     }
 
-    public GameModel buildGame(int numOfEnemies, int numOfCoins, int width, int height){
+    private void setupGame() {
+        Spaceship player = new Spaceship(new Position(20, 35), 3, "#aae243", 2, 2, null, new StraightBulletStrategy(new MoveUpwardsMovement(), 4));
+        gameModel.setPlayer(player);
+        gameModel.setCoins(new ArrayList<>());
+        gameModel.setBulletList(new ArrayList<>());
+        gameModel.setEnemySpaceships(new ArrayList<>());
+        gameModel.setAsteroids(new ArrayList<>());
+    }
+
+    private void setupGenerators() {
+        generators = Arrays.asList(
+                new AsteroidGenerator(0, gameModel.getWidth(), 1, 5, 10),
+                new CoinGenerator(0, gameModel.getWidth(), 1, 5, 4, -1, -1),
+                new SpaceshipGenerator(0, gameModel.getWidth(), 1, 5, 10, 10)
+                );
+    }
+
+    private void setNextGeneration() {
+        nextGeneration = nextGeneration + baseSkip + rand.nextInt((int) baseSkip);
+    }
+
+    public void handle(GameModel game, long time) {
+        if (time < nextGeneration) return;
+
+        setNextGeneration();
+
+        Element element = generators.get(rand.nextInt(generators.size())).generateElement();
+
+        if (element instanceof Spaceship) {
+            gameModel.addEnemy(element);
+        }
+        else if (element instanceof Asteroid)
+            gameModel.addAsteroid(element);
+        else if (element instanceof Coin)
+            gameModel.addCoin(element);
+    }
+
+   /* public GameModel buildGame(int numOfEnemies, int numOfCoins, int width, int height){
         GameModel gameModel = new GameModel(width,height);
 
         //generate some enemies first
@@ -66,5 +112,5 @@ public class GameBuilder {
         gameModel.setBulletList(new ArrayList<>());
         return gameModel;
 
-    }
+    }*/
 }

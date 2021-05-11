@@ -28,7 +28,7 @@ public class Application {
 
         Gui gui = new LanternaGui(height,width, 15);
 
-        GameModel gameModel = new GameBuilder().buildGame(5,3,width,height);
+        GameModel gameModel = new GameModel(width, height);
         Game game = new Game(gui,gameModel);
         game.run();
       
