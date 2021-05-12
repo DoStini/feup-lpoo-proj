@@ -1,18 +1,10 @@
 package com.shootemup.g53;
 
-import com.shootemup.g53.controller.gameBuilder.GameBuilder;
 import com.shootemup.g53.controller.Game;
 
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.ui.Gui;
 import com.shootemup.g53.ui.LanternaGui;
-
-import com.shootemup.g53.view.element.*;
-import com.shootemup.g53.view.element.spaceship.EnemyView;
-import com.shootemup.g53.view.element.spaceship.PlayerView;
-
-import java.util.Arrays;
-import java.util.List;
 
 
 public class Application {

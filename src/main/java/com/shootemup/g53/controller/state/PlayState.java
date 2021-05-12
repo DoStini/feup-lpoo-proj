@@ -4,6 +4,7 @@ import com.shootemup.g53.controller.Game;
 import com.shootemup.g53.controller.GenericController;
 import com.shootemup.g53.controller.game.GameController;
 
+import com.shootemup.g53.controller.gamebuilder.GameBuilder;
 import com.shootemup.g53.controller.input.InputController;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.game.GameOverModel;
@@ -15,15 +16,17 @@ import java.io.IOException;
 
 public class PlayState extends State<GameModel> {
     private GameController gameController;
+    private GameBuilder gameBuilder;
     private GameModel gameModel;
     private Viewer<GameModel> gameViewer;
     private Gui gui;
-
+    private long frame;
 
     public PlayState(Game game, GameModel gameModel, Gui gui){
         this.game = game;
         this.gameModel = gameModel;
         this.gameController = new GameController(this.gameModel);
+        this.gameBuilder = new GameBuilder(this.gameController, 10);
         this.gameViewer = new GameViewer(gui);
         this.gui = gui;
     }
@@ -48,7 +51,9 @@ public class PlayState extends State<GameModel> {
         try{
             while(true){
                 Thread.sleep(50);
-                gameController.handle(gui);
+                frame++;
+                gameBuilder.handle(frame);
+                gameController.handle(gui, frame);
                 if(gameModel.isGameFinished()){
                     game.changeState(new GameOverState(this.game,new GameOverModel(),this.gui));
                     return;

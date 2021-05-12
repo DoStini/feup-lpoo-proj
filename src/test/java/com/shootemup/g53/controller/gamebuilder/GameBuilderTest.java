@@ -1,4 +1,4 @@
-package com.shootemup.g53.controller.gameBuilder;
+package com.shootemup.g53.controller.gamebuilder;
 
 import com.shootemup.g53.model.game.GameModel;
 import org.junit.jupiter.api.BeforeEach;

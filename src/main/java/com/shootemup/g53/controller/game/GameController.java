@@ -1,6 +1,6 @@
 package com.shootemup.g53.controller.game;
 
-import com.shootemup.g53.controller.gameBuilder.GameBuilder;
+import com.shootemup.g53.controller.gamebuilder.GameBuilder;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.GenericController;
 import com.shootemup.g53.controller.element.AIFiringController;
@@ -21,8 +21,6 @@ public class GameController extends GenericController {
     private PlayerController playerController;
     private AIFiringController firingController;
     private MovableElementController movableElementController;
-    private GameBuilder gameBuilder;
-    private long frame;
 
     public GameController(GameModel gameModel) {
         this(gameModel, new BulletPoolController(gameModel, 30));
@@ -31,9 +29,6 @@ public class GameController extends GenericController {
     public GameController(GameModel gameModel, BulletPoolController bulletPoolController) {
         this.gameModel = gameModel;
         this.bulletPoolController = bulletPoolController;
-        this.gameBuilder = new GameBuilder(gameModel, 10);
-        this.frame = 0;
-        playerController = new PlayerController(gameModel.getPlayer());
         firingController = new AIFiringController(null);
         movableElementController = new MovableElementController(null);
     }
@@ -103,14 +98,20 @@ public class GameController extends GenericController {
     }
 
 
-    public void handle(Gui gui) {
-        frame++;
-        gameBuilder.handle(gameModel, frame);
+    public void handle(Gui gui, long frame) {
         handleKeyPress(gui);
         handlePlayerInput(gui);
         handleEnemies();
         handleBullets();
         handleCoins();
         handleAsteroids();
+    }
+
+    public void setPlayerController(PlayerController playerController) {
+        this.playerController = playerController;
+    }
+
+    public GameModel getGameModel() {
+        return gameModel;
     }
 }

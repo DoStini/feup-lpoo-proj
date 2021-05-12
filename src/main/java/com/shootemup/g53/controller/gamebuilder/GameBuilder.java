@@ -1,33 +1,38 @@
-package com.shootemup.g53.controller.gameBuilder;
+package com.shootemup.g53.controller.gamebuilder;
 
-import com.shootemup.g53.controller.Game;
-import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.firing.StraightBulletStrategy;
+import com.shootemup.g53.controller.game.GameController;
+import com.shootemup.g53.controller.gamebuilder.element.AsteroidGenerator;
+import com.shootemup.g53.controller.gamebuilder.element.CoinGenerator;
+import com.shootemup.g53.controller.gamebuilder.element.ElementGenerator;
+import com.shootemup.g53.controller.gamebuilder.element.SpaceshipGenerator;
 import com.shootemup.g53.controller.movement.*;
+import com.shootemup.g53.controller.player.PlayerController;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Element;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
-import com.shootemup.g53.model.util.Direction;
 import com.shootemup.g53.model.util.Position;
 
 import java.util.*;
 
 public class GameBuilder {
     private final GameModel gameModel;
+    private final GameController gameController;
     private long nextGeneration;
     private long baseSkip;
     private Random rand;
     private List<ElementGenerator> generators;
 
-    public GameBuilder(GameModel gameModel, long baseSkip){
-        this(new Random(), gameModel, baseSkip);
+    public GameBuilder(GameController gameController, long baseSkip){
+        this(new Random(), gameController, baseSkip);
     }
 
-    public GameBuilder(Random rand, GameModel gameModel, long baseSkip) {
+    public GameBuilder(Random rand, GameController gameController, long baseSkip) {
         this.rand = rand;
-        this.gameModel = gameModel;
+        this.gameController = gameController;
+        this.gameModel = gameController.getGameModel();
         this.baseSkip = baseSkip;
         setupGame();
         setNextGeneration();
@@ -35,7 +40,8 @@ public class GameBuilder {
     }
 
     private void setupGame() {
-        Spaceship player = new Spaceship(new Position(20, 35), 3, "#aae243", 2, 2, null, new StraightBulletStrategy(new MoveUpwardsMovement(), 4));
+        Spaceship player = new Spaceship(new Position(20, 35), 3, "#aae243", 2, 15, null, new StraightBulletStrategy(new MoveUpwardsMovement(), 4));
+        gameController.setPlayerController(new PlayerController(player));
         gameModel.setPlayer(player);
         gameModel.setCoins(new ArrayList<>());
         gameModel.setBulletList(new ArrayList<>());
@@ -45,9 +51,9 @@ public class GameBuilder {
 
     private void setupGenerators() {
         generators = Arrays.asList(
-                new AsteroidGenerator(0, gameModel.getWidth(), 1, 5, 10),
-                new CoinGenerator(0, gameModel.getWidth(), 1, 5, 4, -1, -1),
-                new SpaceshipGenerator(0, gameModel.getWidth(), 1, 5, 10, 10)
+                new AsteroidGenerator(gameController, 0, gameModel.getWidth(), 1, 5, 10),
+                new CoinGenerator(gameController, 0, gameModel.getWidth(), 1, 5, 4, -1, -1),
+                new SpaceshipGenerator(gameController, 0, gameModel.getWidth(), 1, 5, 10, 10)
                 );
     }
 
@@ -55,20 +61,13 @@ public class GameBuilder {
         nextGeneration = nextGeneration + baseSkip + rand.nextInt((int) baseSkip);
     }
 
-    public void handle(GameModel game, long time) {
+    public void handle(long time) {
         if (time < nextGeneration) return;
 
         setNextGeneration();
 
-        Element element = generators.get(rand.nextInt(generators.size())).generateElement();
+        generators.get(rand.nextInt(generators.size())).generateElement();
 
-        if (element instanceof Spaceship) {
-            gameModel.addEnemy(element);
-        }
-        else if (element instanceof Asteroid)
-            gameModel.addAsteroid(element);
-        else if (element instanceof Coin)
-            gameModel.addCoin(element);
     }
 
    /* public GameModel buildGame(int numOfEnemies, int numOfCoins, int width, int height){
