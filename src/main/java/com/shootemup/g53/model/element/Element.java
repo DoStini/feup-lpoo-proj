@@ -6,6 +6,7 @@ abstract public class Element {
     protected Position position;
     private String color;
 
+
     public Element(Position position, String color) {
         this.position = position;
         this.color = color;

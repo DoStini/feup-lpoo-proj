@@ -15,8 +15,8 @@ public class Coin extends MovableElement {
         this.radius = radius;
     }
 
-    public Coin(Position position, int radius, MovementStrategy movementStrategy) {
-        super(position, "#cc9900", 5, movementStrategy);
+    public Coin(Position position, int radius) {
+        super(position, "#cc9900", 5);
         this.radius = radius;
     }
 

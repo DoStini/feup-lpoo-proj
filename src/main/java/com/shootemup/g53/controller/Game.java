@@ -15,9 +15,9 @@ public class Game {
     private Gui gui;
     private boolean toExit = false;
 
-    public Game(Gui gui, GameModel gameModel){
+    public Game(Gui gui){
         this.gui = gui;
-        this.state = new PlayState(this,gameModel,gui);
+        this.state = new PlayState(this,gui);
     }
 
     public void changeState(State state){

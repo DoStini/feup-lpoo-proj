@@ -1,13 +1,18 @@
 package com.shootemup.g53.model.game;
 
 
+import com.shootemup.g53.controller.element.CoinController;
+import com.shootemup.g53.controller.element.SpaceshipController;
+import com.shootemup.g53.controller.player.PlayerController;
 import com.shootemup.g53.model.Model;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
+import com.shootemup.g53.model.element.Element;
 import com.shootemup.g53.model.element.Spaceship;
-import com.shootemup.g53.model.util.objectpool.ObjectPool;
+
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class GameModel extends Model {
@@ -15,6 +20,7 @@ public class GameModel extends Model {
     private int height;
     private boolean isGameFinished = false;
     private Spaceship player;
+
     private List<Coin> coins;
     private List<Spaceship> enemySpaceships;
     private List<Bullet> bulletList;

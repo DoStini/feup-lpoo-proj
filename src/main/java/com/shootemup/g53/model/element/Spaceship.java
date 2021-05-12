@@ -7,14 +7,13 @@ import com.shootemup.g53.model.util.Position;
 
 public class Spaceship extends MovableElement {
     private int height;
-    private FiringStrategy firingStrategy;
-
-    public Spaceship(Position position, int height, String color, int speed, MovementStrategy movementStrategy, FiringStrategy firingStrategy) {
-        super(position, color, speed, movementStrategy);
+    private int health;
+    public Spaceship(Position position, int height,int health, String color, int speed) {
+        super(position, color, speed);
         this.height = height;
-        this.firingStrategy = firingStrategy;
-    }
+        this.health = health;
 
+    }
 
     public int getHeight() {
         return height;
@@ -25,15 +24,11 @@ public class Spaceship extends MovableElement {
     }
 
 
-    public FiringStrategy getFiringController() {
-        return firingStrategy;
+    public int getHealth() {
+        return health;
     }
 
-    public void fire(BulletPoolController bulletPoolController){
-        firingStrategy.fire(this, bulletPoolController );
-    }
-
-    public void setFiringController(FiringStrategy firingStrategy) {
-        this.firingStrategy = firingStrategy;
+    public void setHealth(int health) {
+        this.health = health;
     }
 }

@@ -15,8 +15,8 @@ public class Asteroid extends MovableElement {
         this.radius = radius;
     }
 
-    public Asteroid(Position position, int radius, MovementStrategy movementStrategy) {
-        super(position, "#555555", 5, movementStrategy);
+    public Asteroid(Position position, int radius) {
+        super(position, "#555555", 5);
         this.radius = radius;
     }
 }
