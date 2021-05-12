@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CollisionControllerTest {
     List<BodyCollider> colliders;
     Element element1;
-    Spaceship spaceship;
+    Element spaceship;
     Asteroid asteroid;
     Bullet bullet;
     Element element2;
@@ -61,6 +61,8 @@ class CollisionControllerTest {
         Mockito.when(collider3.getElement()).thenReturn(asteroid);
         Mockito.when(collider4.getElement()).thenReturn(bullet);
         Mockito.when(collider5.getElement()).thenReturn(element2);
+
+        System.out.println(collider2.getElement().getClass());
     }
 
     @Test

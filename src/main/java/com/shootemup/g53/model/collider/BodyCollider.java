@@ -45,16 +45,12 @@ public abstract class BodyCollider {
         return element;
     }
 
-    public short getCategoryMask() {
-        return categoryMask;
-    }
-
     public void setCategoryMask(short categoryMask) {
         this.categoryMask = categoryMask;
     }
 
-    public ColliderCategory getCategory() {
-        return category;
+    public Class<?> getElementClass() {
+        return element.getClass();
     }
 
     public void setCategory(ColliderCategory category) {
