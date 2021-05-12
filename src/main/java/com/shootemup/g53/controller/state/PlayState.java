@@ -58,6 +58,7 @@ public class PlayState extends State<GameModel> {
                 gameController.handleEnemies();
                 gameController.handleBullets();
                 gameController.handleCoins();
+                gameController.handleCollision();
                 gameViewer.draw(gameModel);
 
             }

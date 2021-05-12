@@ -1,22 +1,17 @@
 package com.shootemup.g53.controller.collision;
 
-import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Element;
 import com.shootemup.g53.model.element.Spaceship;
-import com.shootemup.g53.model.util.Position;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CollisionControllerTest {
     List<BodyCollider> colliders;
@@ -61,8 +56,6 @@ class CollisionControllerTest {
         Mockito.when(collider3.getElement()).thenReturn(asteroid);
         Mockito.when(collider4.getElement()).thenReturn(bullet);
         Mockito.when(collider5.getElement()).thenReturn(element2);
-
-        System.out.println(collider2.getElement().getClass());
     }
 
     @Test
@@ -73,19 +66,35 @@ class CollisionControllerTest {
     }
 
     @Test
+    void removeCollider() {
+        CollisionController controller = new CollisionController(colliders);
+        BodyCollider removed = colliders.get(1);
+
+        controller.removeCollider(spaceship);
+
+        Assertions.assertEquals(4, controller.colliders.size());
+        Assertions.assertFalse(controller.colliders.contains(removed));
+
+        controller.addCollider(removed);
+
+        Assertions.assertEquals(5, controller.colliders.size());
+        Assertions.assertTrue(controller.colliders.contains(removed));
+    }
+
+    @Test
     void handlerCall() {
         CollisionController controller = new CollisionController(colliders);
         CollisionHandler<Element> handler = (CollisionHandler<Element>) Mockito.mock(CollisionHandler.class, Mockito.CALLS_REAL_METHODS);
         Mockito.when(handler.getElement()).thenReturn(element1);
-        Mockito.doNothing().when(handler).handleCollision(Mockito.any());
+        Mockito.doNothing().when(handler).handleCollision(Mockito.any(), Mockito.any());
 
         CollisionHandler<Element> handler2 = (CollisionHandler<Element>) Mockito.mock(CollisionHandler.class, Mockito.CALLS_REAL_METHODS);
         Mockito.when(handler2.getElement()).thenReturn(element2);
-        Mockito.doNothing().when(handler2).handleCollision(Mockito.any());
+        Mockito.doNothing().when(handler2).handleCollision(Mockito.any(), Mockito.any());
 
         CollisionHandler<Element> handler3 = (CollisionHandler<Element>) Mockito.mock(CollisionHandler.class, Mockito.CALLS_REAL_METHODS);
         Mockito.when(handler3.getElement()).thenReturn(asteroid);
-        Mockito.doNothing().when(handler3).handleCollision(Mockito.any());
+        Mockito.doNothing().when(handler3).handleCollision(Mockito.any(), Mockito.any());
 
         controller.addHandler(handler);
         controller.addHandler(handler2);
@@ -93,8 +102,8 @@ class CollisionControllerTest {
 
         controller.checkCollisions();
 
-        Mockito.verify(handler, Mockito.times(1)).handleCollision(Mockito.any());
-        Mockito.verify(handler2, Mockito.times(0)).handleCollision(Mockito.any());
-        Mockito.verify(handler3, Mockito.times(1)).handleCollision(Mockito.any());
+        Mockito.verify(handler, Mockito.times(1)).handleCollision(Mockito.any(), Mockito.any());
+        Mockito.verify(handler2, Mockito.times(0)).handleCollision(Mockito.any(), Mockito.any());
+        Mockito.verify(handler3, Mockito.times(1)).handleCollision(Mockito.any(), Mockito.any());
     }
 }

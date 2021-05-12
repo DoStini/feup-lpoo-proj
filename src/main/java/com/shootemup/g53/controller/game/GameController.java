@@ -1,5 +1,7 @@
 package com.shootemup.g53.controller.game;
 
+import com.shootemup.g53.controller.collision.CollisionController;
+import com.shootemup.g53.controller.collision.PlayerCoinHandler;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.GenericController;
 import com.shootemup.g53.controller.element.AIFiringController;
@@ -19,6 +21,7 @@ public class GameController extends GenericController {
     private PlayerController playerController;
     private AIFiringController firingController;
     private MovableElementController movableElementController;
+    private CollisionController collisionController;
 
 
     public GameController(GameModel gameModel) {
@@ -31,7 +34,8 @@ public class GameController extends GenericController {
         playerController = new PlayerController(gameModel.getPlayer());
         firingController = new AIFiringController(null);
         movableElementController = new MovableElementController(null);
-
+        this.collisionController = new CollisionController(gameModel);
+        collisionController.addHandler(new PlayerCoinHandler(gameModel.getPlayer(), collisionController));
     }
 
     public void handleKeyPress(Gui gui) {
@@ -100,5 +104,7 @@ public class GameController extends GenericController {
         }
     }
 
-   
+   public void handleCollision() {
+        collisionController.checkCollisions();
+   }
 }

@@ -2,13 +2,13 @@ package com.shootemup.g53.controller.collision;
 
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.element.Element;
+import com.shootemup.g53.model.game.GameModel;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class CollisionController {
-    private List<BodyCollider> colliders;
+    protected List<BodyCollider> colliders;
     private List<CollisionHandler<? extends Element>> handlers;
 
     public CollisionController(List<BodyCollider> colliders) {
@@ -16,12 +16,16 @@ public class CollisionController {
         this.handlers = new ArrayList<>();
     }
 
-    public CollisionController() {
-        this(new ArrayList<>());
+    public CollisionController(GameModel model) {
+        this(model.getColliders());
     }
 
     public void addCollider(BodyCollider collider) {
         colliders.add(collider);
+    }
+
+    public void removeCollider(Element element) {
+        colliders.removeIf(collider -> collider.getElement() == element);
     }
 
     public boolean checkCollisions() {
@@ -50,9 +54,9 @@ public class CollisionController {
     private void notify(BodyCollider first, BodyCollider second) {
         for(CollisionHandler<? extends Element> handler : handlers) {
             if(first.getElement() == handler.getElement()) {
-                handler.handleCollision(second);
+                handler.handleCollision(first, second);
             } else if(second.getElement() == handler.getElement()) {
-                handler.handleCollision(first);
+                handler.handleCollision(second, first);
             }
         }
     }

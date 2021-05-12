@@ -2,6 +2,7 @@ package com.shootemup.g53.model.game;
 
 
 import com.shootemup.g53.model.Model;
+import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
@@ -18,6 +19,7 @@ public class GameModel extends Model {
     private List<Coin> coins;
     private List<Spaceship> enemySpaceships;
     private List<Bullet> bulletList;
+    private List<BodyCollider> colliders;
 
     public GameModel(int width, int height) {
         this.width = width;
@@ -88,5 +90,13 @@ public class GameModel extends Model {
 
     public void removeBullet(Bullet bullet){
         this.bulletList.remove(bullet);
+    }
+
+    public List<BodyCollider> getColliders() {
+        return colliders;
+    }
+
+    public void setColliders(List<BodyCollider> colliders) {
+        this.colliders = colliders;
     }
 }
