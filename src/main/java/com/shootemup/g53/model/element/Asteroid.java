@@ -23,9 +23,4 @@ public class Asteroid extends MovableElement {
         super(position, "#555555", 5, movementStrategy);
         this.radius = radius;
     }
-
-    @Override
-    public Element copy() {
-        return new Asteroid(position, radius, movementStrategy);
-    }
 }

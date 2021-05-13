@@ -49,9 +49,4 @@ public class Spaceship extends MovableElement {
     public void setFireRate(int fireRate) {
         this.fireRate = fireRate;
     }
-
-    @Override
-    public Element copy() {
-        return new Spaceship(position, height, getColor(), getSpeed(), fireRate, movementStrategy, firingStrategy);
-    }
 }

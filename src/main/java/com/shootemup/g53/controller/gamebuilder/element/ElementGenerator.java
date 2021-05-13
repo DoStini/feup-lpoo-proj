@@ -35,6 +35,5 @@ public abstract class ElementGenerator {
         element.setColor("#ffffff");
     }
 
-
     public abstract void generateElement();
 }

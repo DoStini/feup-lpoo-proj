@@ -24,10 +24,4 @@ public class Coin extends MovableElement {
         super(position, "#cc9900", 5, movementStrategy);
         this.radius = radius;
     }
-
-
-    @Override
-    public Element copy() {
-        return new Coin(position, radius, movementStrategy);
-    }
 }

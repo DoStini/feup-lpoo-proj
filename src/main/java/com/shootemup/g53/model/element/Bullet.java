@@ -35,7 +35,7 @@ public class Bullet extends MovableElement implements PoolableObject {
 
     @Override
     public PoolableObject clone() {
-        return (PoolableObject) copy();
+        return new Bullet(position, getColor(), getSpeed(), size, movementStrategy);
     }
 
     public void init(int x, int y, String color, int size,int speed, MovementStrategy movementStrategy) {
@@ -45,10 +45,5 @@ public class Bullet extends MovableElement implements PoolableObject {
         this.size = size;
         setSpeed(speed);
         setMovementController(movementStrategy);
-    }
-
-    @Override
-    public Element copy() {
-        return new Bullet(position, getColor(), getSpeed(), size, movementStrategy);
     }
 }

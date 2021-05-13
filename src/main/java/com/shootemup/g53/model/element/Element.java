@@ -23,8 +23,6 @@ abstract public class Element {
         return color;
     }
 
-    public abstract Element copy();
-
     public void setColor(String color) {
         this.color = color;
     }
