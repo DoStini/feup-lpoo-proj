@@ -38,10 +38,9 @@ public class CoinGenerator extends MovableElementGenerator {
     public void generateElement() {
         Coin coin = new Coin();
         setPosition(coin);
-        setColor(coin);
-        setSpeed(coin);
         setRadius(coin);
         setValue(coin);
         setMovement(coin);
+        gameModel.addCoin(coin);
     }
 }

@@ -1,10 +1,12 @@
 package com.shootemup.g53.controller.gamebuilder.element;
 
+import com.googlecode.lanterna.TextColor;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.model.element.Element;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 
+import java.awt.*;
 import java.util.Random;
 
 public abstract class ElementGenerator {
@@ -32,7 +34,10 @@ public abstract class ElementGenerator {
     }
 
     protected void setColor(Element element) {
-        element.setColor("#ffffff");
+        int r = rand.nextInt(255);
+        int g = rand.nextInt(255);
+        int b = rand.nextInt(255);
+        element.setColor(String.format("#%02x%02x%02x", r, g, b));
     }
 
     public abstract void generateElement();

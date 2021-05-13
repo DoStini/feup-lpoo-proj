@@ -2,8 +2,11 @@ package com.shootemup.g53.controller.gamebuilder.element;
 
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.gamebuilder.GameBuilder;
+import com.shootemup.g53.controller.movement.FallDownMovement;
+import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
+import com.shootemup.g53.model.util.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -70,8 +73,16 @@ class SpaceshipGeneratorTest {
     @Test
     void generateElement() {
         int randomVal = 2;
+        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(randomVal);
+
+        String color = String.format("#%02x%02x%02x", randomVal, randomVal, randomVal);
+
         spaceshipGenerator.generateElement();
 
-        Mockito.verify(gameModel, Mockito.times(1)).addEnemy(Mockito.any());
+        Mockito.verify(gameModel, Mockito.times(1)).addEnemy(
+                new Spaceship(new Position(randomVal, 0),
+                        randomVal+2, color,
+                        randomVal+minSpeed, randomVal+1,
+                        null, null));
     }
 }

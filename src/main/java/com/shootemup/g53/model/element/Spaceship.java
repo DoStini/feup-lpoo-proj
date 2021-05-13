@@ -18,6 +18,7 @@ public class Spaceship extends MovableElement {
         super(position, color, speed, movementStrategy);
         this.height = height;
         this.firingStrategy = firingStrategy;
+        this.fireRate = fireRate;
     }
 
 
@@ -49,4 +50,16 @@ public class Spaceship extends MovableElement {
     public void setFireRate(int fireRate) {
         this.fireRate = fireRate;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Spaceship)) return false;
+        Spaceship other = (Spaceship) o;
+        return super.equals(o)
+                && other.height == this.height
+                && other.fireRate == this.fireRate
+                && other.getSpeed() == this.getSpeed();
+    }
+
 }

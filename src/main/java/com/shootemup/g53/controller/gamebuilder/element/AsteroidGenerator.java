@@ -28,9 +28,7 @@ public class AsteroidGenerator extends MovableElementGenerator {
     @Override
     public void generateElement() {
         Asteroid asteroid = new Asteroid();
-        setColor(asteroid);
         setPosition(asteroid);
-        setSpeed(asteroid);
         setRadius(asteroid);
         setMovement(asteroid);
         gameModel.addAsteroid(asteroid);

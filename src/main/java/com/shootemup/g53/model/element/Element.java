@@ -23,6 +23,14 @@ abstract public class Element {
         return color;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        Element other = (Element) o;
+        return other.position.equals(this.position)
+                && other.getColor().equals(this.getColor());
+    }
+
     public void setColor(String color) {
         this.color = color;
     }

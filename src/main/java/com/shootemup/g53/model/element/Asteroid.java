@@ -23,4 +23,13 @@ public class Asteroid extends MovableElement {
         super(position, "#555555", 5, movementStrategy);
         this.radius = radius;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Asteroid)) return false;
+        Asteroid other = (Asteroid) o;
+        return super.equals(o)
+                && other.radius == this.radius;
+    }
 }

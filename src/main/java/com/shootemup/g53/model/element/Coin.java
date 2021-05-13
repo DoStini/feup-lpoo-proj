@@ -24,4 +24,13 @@ public class Coin extends MovableElement {
         super(position, "#cc9900", 5, movementStrategy);
         this.radius = radius;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Coin)) return false;
+        Coin other = (Coin) o;
+        return super.equals(o)
+                && other.radius == this.radius;
+    }
 }

@@ -2,8 +2,8 @@ package com.shootemup.g53.controller.gamebuilder.element;
 
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.movement.FallDownMovement;
+import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Coin;
-import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import org.junit.jupiter.api.Assertions;
@@ -13,14 +13,15 @@ import org.mockito.Mockito;
 
 import java.util.Random;
 
-class CoinGeneratorTest {
+class AsteroidGeneratorTest {
+
     private Random random;
-    private Coin coin;
-    private CoinGenerator coinGenerator;
+    private Asteroid asteroid;
+    private AsteroidGenerator asteroidGenerator;
     private GameController gameController;
     private GameModel gameModel;
 
-    private int xMinPos = 0,
+    private int xMinPos = 3,
             xMaxPos = 10,
             minSpeed = 2,
             maxSpeed = 10,
@@ -32,58 +33,57 @@ class CoinGeneratorTest {
     void setup() {
         random = Mockito.mock(Random.class);
         gameController = Mockito.mock(GameController.class);
-        coin = Mockito.mock(Coin.class);
+        asteroid = Mockito.mock(Asteroid.class);
         gameModel = Mockito.mock(GameModel.class);
 
         Mockito.when(gameController.getGameModel()).thenReturn(gameModel);
 
-        coinGenerator = new CoinGenerator(random, gameController,
-                xMinPos, xMaxPos, minSpeed, maxSpeed, maxRadius, minVal, maxVal);
+        asteroidGenerator = new AsteroidGenerator(random, gameController,
+                xMinPos, xMaxPos, minSpeed, maxSpeed, maxRadius);
     }
 
     @Test
-    void setMovementController() {
-        int randomVal = 2;
-
-        coinGenerator.setMovement(coin);
-
-        Mockito.verify(coin, Mockito.times(1)).setMovementController(Mockito.any());
-    }
-
-
-    @Test
-    void setSpeed() {
+    void setPosition() {
         int randomVal = 2;
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(randomVal);
 
-        coinGenerator.setSpeed(coin);
+        asteroidGenerator.setPosition(asteroid);
 
-        Mockito.verify(random, Mockito.times(1)).nextInt(maxSpeed-minSpeed);
-        Mockito.verify(coin, Mockito.times(1)).setSpeed(randomVal + minSpeed);
+        Mockito.verify(random, Mockito.times(1)).nextInt(xMaxPos - xMinPos); // Min Height is 2
+        Mockito.verify(asteroid, Mockito.times(1)).setPosition(new Position(randomVal+xMinPos, 0));
+    }
+
+    @Test
+    void setColor() {
+        int randomVal = 255;
+        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(randomVal);
+
+        asteroidGenerator.setColor(asteroid);
+
+        Mockito.verify(random, Mockito.times(3)).nextInt( 255); // Min Height is 2
+        Mockito.verify(asteroid, Mockito.times(1)).setColor("#ffffff");
     }
 
     @Test
     void setRadius() {
-        int randomVal = 2;
+        int randomVal = 6;
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(randomVal);
 
-        coinGenerator.setRadius(coin);
+        asteroidGenerator.setRadius(asteroid);
 
-        Mockito.verify(random, Mockito.times(1)).nextInt(maxRadius-1);
-        Mockito.verify(coin, Mockito.times(1)).setRadius(randomVal + 1);
+        Mockito.verify(random, Mockito.times(1)).nextInt( maxRadius-1);
+        Mockito.verify(asteroid, Mockito.times(1)).setRadius(randomVal+1);
     }
-
 
     @Test
     void generateElement() {
         int randomVal = 2;
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(randomVal);
 
-        coinGenerator.generateElement();
+        asteroidGenerator.generateElement();
 
-        Mockito.verify(gameModel, Mockito.times(1)).addCoin(
-                new Coin(new Position(randomVal, 0), randomVal+1, new FallDownMovement())
+        Mockito.verify(gameModel, Mockito.times(1)).addAsteroid(
+                new Asteroid(new Position(randomVal+xMinPos, 0), randomVal+1, new FallDownMovement())
         );
-
     }
 }

@@ -46,4 +46,14 @@ public class Bullet extends MovableElement implements PoolableObject {
         setSpeed(speed);
         setMovementController(movementStrategy);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Bullet)) return false;
+        Bullet other = (Bullet) o;
+        return super.equals(o)
+                && other.getSpeed() == this.getSpeed()
+                && other.getSize() == this.getSize();
+    }
 }
