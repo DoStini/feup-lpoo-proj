@@ -15,8 +15,7 @@ import com.shootemup.g53.view.game.GameViewer;
 import java.io.IOException;
 
 public class PlayState extends State<GameModel> {
-    private GameController gameController = new GameController(null);
-    private GameModel gameModel;
+    private GameController gameController;
     private GameBuilder gameBuilder;
     private Viewer<GameModel> gameViewer;
     private Gui gui;
@@ -24,14 +23,15 @@ public class PlayState extends State<GameModel> {
 
     public PlayState(Game game, Gui gui){
         this.game = game;
-        this.gameBuilder = new GameBuilder(this.gameController);
+        this.gameBuilder = new GameBuilder();
         this.gameViewer = new GameViewer(gui);
         this.gui = gui;
     }
 
+
     @Override
     public GameModel getStateModel() {
-        return this.gameModel;
+        return gameController.getGameModel();
     }
 
     @Override
@@ -46,8 +46,7 @@ public class PlayState extends State<GameModel> {
 
     @Override
     public void run(){
-        this.gameModel = this.gameBuilder.buildGame(5,3,100,50, gui);
-        this.gameController.setGameModel(this.gameModel);
+        this.gameController = this.gameBuilder.buildGame(5,3,100,50, gui);
 
         try{
             while(true){
@@ -55,14 +54,14 @@ public class PlayState extends State<GameModel> {
                 gameController.handleKeyPress(gui);
                 gameController.handlePlayerInput(gui);
 
-                if(gameModel.isGameFinished()){
+                if(gameController.isGameFinished()){
                     game.changeState(new GameOverState(this.game,new GameOverModel(),this.gui));
                     return;
                 }
                 gameController.handleEnemies();
                 gameController.handleBullets();
                 gameController.handleCoins();
-                gameViewer.draw(gameModel);
+                gameViewer.draw(gameController.getGameModel());
 
             }
 

@@ -1,5 +1,6 @@
 package com.shootemup.g53.controller.gameBuilder;
 
+import com.shootemup.g53.controller.Game;
 import com.shootemup.g53.controller.element.CoinController;
 import com.shootemup.g53.controller.element.SpaceshipController;
 import com.shootemup.g53.controller.firing.FiringStrategy;
@@ -22,20 +23,18 @@ import java.util.Random;
 
 public class GameBuilder {
     private Random rand;
-    private GameController gameController;
 
-    public GameBuilder(GameController gameController){
+    public GameBuilder(){
         rand = new Random();
-        this.gameController = gameController;
     }
 
-    public GameBuilder(Random rand,GameController gameController) {
+    public GameBuilder(Random rand) {
         this.rand = rand;
-        this.gameController = gameController;
     }
 
-    public GameModel buildGame(int numOfEnemies, int numOfCoins, int width, int height, Gui gui){
+    public GameController buildGame(int numOfEnemies, int numOfCoins, int width, int height, Gui gui){
         GameModel gameModel = new GameModel(width,height);
+        GameController gameController = new GameController(gameModel);
         BulletPoolController bulletPoolController = gameController.getBulletPoolController();
         //generate some enemies first
         List<Spaceship> enemiesList = new ArrayList<>();
@@ -78,6 +77,6 @@ public class GameBuilder {
         }
         gameModel.setCoins(coinList);
         gameModel.setBulletList(new ArrayList<>());
-        return gameModel;
+        return gameController;
     }
 }
