@@ -52,7 +52,6 @@ public class SpaceshipController extends MovableElementController implements Col
 
     @Override
     public void handleCoin(Coin coin) {
-        //adicionar score ao jogador ?
     }
 
     @Override
@@ -60,12 +59,6 @@ public class SpaceshipController extends MovableElementController implements Col
         fire(bulletPoolController);
         Position newPosition = move();
 
-        /*
-        if(outOfBounds || positionIsInvalid){
-            handleFailedMovement();
-            newPosition = move();
-        }
-        */
 
         spaceship.setPosition(newPosition);
     }

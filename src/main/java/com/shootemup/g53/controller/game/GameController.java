@@ -3,15 +3,13 @@ package com.shootemup.g53.controller.game;
 import com.shootemup.g53.controller.element.ElementInterface;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.GenericController;
-import com.shootemup.g53.model.element.Bullet;
-import com.shootemup.g53.model.element.Coin;
-import com.shootemup.g53.model.element.Element;
-import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 
 public class GameController extends GenericController {
@@ -21,11 +19,12 @@ public class GameController extends GenericController {
 
     public GameController(GameModel gameModel) {
         this(gameModel, new BulletPoolController(gameModel, 30));
-        //esparguetada do século holy shit mas o bulletPoolController precisa do gameController para adicionar um controller
-        // novo quando tem de spawnar nova bala :sob: vou mas é almoçar
         this.bulletPoolController.setGameController(this);
     }
 
+    public int numOfControllers(){
+        return controllerHashMap.size();
+    }
 
 
     public GameController(GameModel gameModel, BulletPoolController bulletPoolController) {
@@ -54,6 +53,11 @@ public class GameController extends GenericController {
         }
     }
 
+    public void removeInactiveElements(){
+        controllerHashMap.entrySet().removeIf(e -> !e.getKey().isActive());
+
+    }
+
     public boolean insideBounds(Position pos) {
         if(pos == null){
             return false;
@@ -62,9 +66,8 @@ public class GameController extends GenericController {
                 pos.getY() > 0 && pos.getY() < gameModel.getHeight();
     }
 
-    public void handlePlayerInput(Gui gui) {
-        getElementController(gameModel.getPlayer()).handle();
-
+    public void handlePlayerInput() {
+        getElementController(getGameModel().getPlayer()).handle();
     }
 
     public void handleBullets(){
@@ -83,6 +86,12 @@ public class GameController extends GenericController {
     public void handleCoins() {
         for (Coin coin : gameModel.getCoins()) {
             getElementController(coin).handle();
+        }
+    }
+
+    public void handleAsteroids() {
+        for (Asteroid asteroid : gameModel.getAsteroids()) {
+            getElementController(asteroid).handle();
         }
     }
 

@@ -19,16 +19,6 @@ public class Bullet extends MovableElement implements PoolableObject {
         return size;
     }
 
-
-    @Override
-    public boolean isActive() { return active; }
-
-    @Override
-    public void activate() { active = true; }
-
-    @Override
-    public void deactivate() { active = false; }
-
     @Override
     public PoolableObject clone() {
         return new Bullet(getPosition(), getColor(),getSpeed(), size);

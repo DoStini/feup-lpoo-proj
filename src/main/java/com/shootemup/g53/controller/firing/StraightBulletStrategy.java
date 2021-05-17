@@ -35,4 +35,20 @@ public class StraightBulletStrategy implements FiringStrategy {
         }
 
     }
+
+    public int getBulletSpeed() {
+        return bulletSpeed;
+    }
+
+    public int getFireRate() {
+        return fireRate;
+    }
+
+    public int getLastFire() {
+        return lastFire;
+    }
+
+    public int getFrame() {
+        return frame;
+    }
 }

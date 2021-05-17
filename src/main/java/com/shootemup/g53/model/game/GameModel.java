@@ -5,10 +5,7 @@ import com.shootemup.g53.controller.element.CoinController;
 import com.shootemup.g53.controller.element.SpaceshipController;
 import com.shootemup.g53.controller.player.PlayerController;
 import com.shootemup.g53.model.Model;
-import com.shootemup.g53.model.element.Bullet;
-import com.shootemup.g53.model.element.Coin;
-import com.shootemup.g53.model.element.Element;
-import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.model.element.*;
 
 
 import java.util.ArrayList;
@@ -22,6 +19,7 @@ public class GameModel extends Model {
     private Spaceship player;
 
     private List<Coin> coins;
+    private List<Asteroid> asteroids;
     private List<Spaceship> enemySpaceships;
     private List<Bullet> bulletList;
 
@@ -94,5 +92,13 @@ public class GameModel extends Model {
 
     public void removeBullet(Bullet bullet){
         this.bulletList.remove(bullet);
+    }
+
+    public List<Asteroid> getAsteroids() {
+        return asteroids;
+    }
+
+    public void setAsteroids(List<Asteroid> asteroids) {
+        this.asteroids = asteroids;
     }
 }

@@ -4,6 +4,7 @@ import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.util.Position;
+import com.shootemup.g53.model.util.objectpool.PoolableObject;
 
 public class Spaceship extends MovableElement {
     private int height;
@@ -13,6 +14,11 @@ public class Spaceship extends MovableElement {
         this.height = height;
         this.health = health;
 
+    }
+
+    @Override
+    public PoolableObject clone() {
+        return new Spaceship(getPosition(), height,health,getColor(),getSpeed());
     }
 
     public int getHeight() {

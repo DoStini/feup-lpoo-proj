@@ -30,6 +30,7 @@ public class GameBuilderTest {
         GameController gameController = gameBuilder.buildGame(5,0,50,50, gui);
 
         Mockito.verify(random, Mockito.times(5 * 3)).nextInt(Mockito.anyInt());
+
         assertEquals(gameController.getGameModel().getEnemySpaceships().size(),5);
     }
 

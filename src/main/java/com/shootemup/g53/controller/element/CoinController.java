@@ -26,7 +26,7 @@ public class CoinController extends MovableElementController implements Collisio
 
     @Override
     public void handleSpaceship(Spaceship spaceship) {
-        //destruir a coin
+        coin.deactivate();
     }
 
     @Override

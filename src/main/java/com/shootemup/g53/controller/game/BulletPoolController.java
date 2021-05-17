@@ -49,7 +49,6 @@ public class BulletPoolController {
 
     public void removeInactiveBullets() {
         gameModel.getBulletList().removeIf(b -> !b.isActive());
-
     }
 
     public GameController getGameController() {

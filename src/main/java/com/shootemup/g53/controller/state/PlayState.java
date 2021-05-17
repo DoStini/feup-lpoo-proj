@@ -21,9 +21,9 @@ public class PlayState extends State<GameModel> {
     private Gui gui;
 
 
-    public PlayState(Game game, Gui gui){
+    public PlayState(Game game, Gui gui, GameBuilder gameBuilder){
         this.game = game;
-        this.gameBuilder = new GameBuilder();
+        this.gameBuilder = gameBuilder;
         this.gameViewer = new GameViewer(gui);
         this.gui = gui;
     }
@@ -52,16 +52,18 @@ public class PlayState extends State<GameModel> {
             while(true){
                 Thread.sleep(50);
                 gameController.handleKeyPress(gui);
-                gameController.handlePlayerInput(gui);
+                gameController.handlePlayerInput();
+                gameController.handleEnemies();
+                gameController.handleBullets();
+                gameController.handleCoins();
+                gameController.removeInactiveElements();
+                gameViewer.draw(gameController.getGameModel());
 
                 if(gameController.isGameFinished()){
                     game.changeState(new GameOverState(this.game,new GameOverModel(),this.gui));
                     return;
                 }
-                gameController.handleEnemies();
-                gameController.handleBullets();
-                gameController.handleCoins();
-                gameViewer.draw(gameController.getGameModel());
+
 
             }
 

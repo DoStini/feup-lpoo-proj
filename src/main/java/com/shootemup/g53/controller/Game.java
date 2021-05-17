@@ -1,6 +1,7 @@
 package com.shootemup.g53.controller;
 
 import com.shootemup.g53.controller.game.GameController;
+import com.shootemup.g53.controller.gameBuilder.GameBuilder;
 import com.shootemup.g53.controller.state.PlayState;
 import com.shootemup.g53.controller.state.State;
 import com.shootemup.g53.model.game.GameModel;
@@ -17,7 +18,7 @@ public class Game {
 
     public Game(Gui gui){
         this.gui = gui;
-        this.state = new PlayState(this,gui);
+        this.state = new PlayState(this,gui, new GameBuilder());
     }
 
     public void changeState(State state){

@@ -1,11 +1,16 @@
 package com.shootemup.g53.model.element;
 
-import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.util.Position;
+import com.shootemup.g53.model.util.objectpool.PoolableObject;
 
 public class Asteroid extends MovableElement {
 
     int radius;
+
+    @Override
+    public PoolableObject clone() {
+        return new Asteroid(getPosition(), radius);
+    }
 
     public int getRadius() {
         return radius;
