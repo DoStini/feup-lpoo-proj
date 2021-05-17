@@ -13,14 +13,14 @@ public class BulletPoolController {
     private GameModel gameModel;
     private GameController gameController;
 
-    public BulletPoolController(GameModel gameModel, ObjectPool<Bullet> objectPool, GameController gameController) {
+    public BulletPoolController(GameModel gameModel, ObjectPool<Bullet> objectPool) {
         this.gameModel = gameModel;
         bulletPool = objectPool;
-        this.gameController = gameController;
+
     }
 
-    public BulletPoolController(GameModel gameModel, int cacheSize, GameController gameController) {
-        this(gameModel, new ObjectPool<>(cacheSize, new Bullet(new Position(0,0), "", 0,0)),gameController);
+    public BulletPoolController(GameModel gameModel, int cacheSize) {
+        this(gameModel, new ObjectPool<>(cacheSize, new Bullet(new Position(0,0), "", 0,0)));
 
     }
 

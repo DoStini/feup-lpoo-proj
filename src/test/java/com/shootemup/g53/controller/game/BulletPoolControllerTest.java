@@ -20,13 +20,17 @@ class BulletPoolControllerTest {
 
     BulletPoolController bulletPoolController;
     ObjectPool<Bullet> objectPool;
+    GameController gameController;
     GameModel gameModel;
 
     @BeforeEach
     void setup() {
         gameModel = Mockito.mock(GameModel.class);
+        gameController = Mockito.mock(GameController.class);
         objectPool = Mockito.mock(ObjectPool.class);
         bulletPoolController = new BulletPoolController(gameModel, objectPool);
+        gameController.setBulletPoolController(bulletPoolController);
+        bulletPoolController.setGameController(gameController);
     }
 
     @Test
@@ -37,7 +41,7 @@ class BulletPoolControllerTest {
         bulletPoolController.addBullet(5,5,"color", 5,0,null);
 
         Mockito.verify(gameModel, Mockito.times(1)).addBullet(bullet);
-        Mockito.verify(bullet, Mockito.times(1)).init(5,5,"color", 5,0,null);
+        Mockito.verify(bullet, Mockito.times(1)).init(5,5,"color", 5,0);
 
         bulletPoolController.restoreBullet(bullet);
         Assertions.assertFalse(bullet.isActive());
@@ -52,7 +56,7 @@ class BulletPoolControllerTest {
         bulletPoolController.addBullet(5,5,"", 5,0, null);
 
         Mockito.verify(bullet, Mockito.times(0))
-                .init(Mockito.anyInt(),Mockito.anyInt(),Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt(),Mockito.any());
+                .init(Mockito.anyInt(),Mockito.anyInt(),Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt());
         Mockito.verify(gameModel, Mockito.times(1))
                 .addBullet(Mockito.any());
 
@@ -65,9 +69,9 @@ class BulletPoolControllerTest {
 
     void removeBullets() {
         List<Bullet> list = new ArrayList<>();
-        list.add(new Bullet(new Position(0,0), "", 0,0, new FallDownMovement()));
-        list.add(new Bullet(new Position(0,0), "", 0,0, new FallDownMovement()));
-        list.add(new Bullet(new Position(0,0), "", 0,0, new FallDownMovement()));
+        list.add(new Bullet(new Position(0,0), "", 0,0));
+        list.add(new Bullet(new Position(0,0), "", 0,0));
+        list.add(new Bullet(new Position(0,0), "", 0,0));
         Mockito.when(gameModel.getBulletList()).thenReturn(list);
 
         Assertions.assertTrue(list.get(0).isActive());

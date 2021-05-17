@@ -20,7 +20,7 @@ public class GameController extends GenericController {
     private HashMap<Element, ElementInterface> controllerHashMap = new HashMap<Element,ElementInterface>();
 
     public GameController(GameModel gameModel) {
-        this(gameModel, new BulletPoolController(gameModel, 30,null));
+        this(gameModel, new BulletPoolController(gameModel, 30));
         //esparguetada do século holy shit mas o bulletPoolController precisa do gameController para adicionar um controller
         // novo quando tem de spawnar nova bala :sob: vou mas é almoçar
         this.bulletPoolController.setGameController(this);
