@@ -29,6 +29,11 @@ public class GameOverState extends State<GameOverModel> {
     }
 
     @Override
+    public void exit() {
+
+    }
+
+    @Override
     public Viewer<GameOverModel> getStateView() {
         return null;
     }
@@ -40,6 +45,6 @@ public class GameOverState extends State<GameOverModel> {
 
     @Override
     public void run() {
-        game.setToExit(true);
+        game.setToExit();
     }
 }

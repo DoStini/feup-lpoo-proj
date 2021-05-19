@@ -16,6 +16,7 @@ public class GameModel extends Model {
     private int width;
     private int height;
     private boolean isGameFinished = false;
+    private boolean paused = false;
     private Spaceship player;
 
     private List<Coin> coins;
@@ -100,5 +101,13 @@ public class GameModel extends Model {
 
     public void setAsteroids(List<Asteroid> asteroids) {
         this.asteroids = asteroids;
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
     }
 }

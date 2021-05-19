@@ -35,6 +35,11 @@ public class PlayState extends State<GameModel> {
     }
 
     @Override
+    public void exit() {
+        gameController.finishGame();
+    }
+
+    @Override
     public Viewer<GameModel> getStateView() {
         return this.gameViewer;
     }
@@ -57,6 +62,9 @@ public class PlayState extends State<GameModel> {
 
                 if(gameController.isGameFinished()){
                     game.changeState(new GameOverState(this.game,new GameOverModel(),this.gui));
+                    return;
+                }else if(gameController.isPaused()){
+                    game.changeState(new PauseState(game,gui,this));
                     return;
                 }
 

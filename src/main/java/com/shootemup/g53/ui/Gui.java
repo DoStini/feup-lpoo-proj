@@ -7,8 +7,10 @@ public interface Gui<T> {
     void drawColor(String color, Position pos);
     void drawLine(String color, Position pos, int width);
     void drawCharacter(String color, Character c, Position pos);
+    void drawText(String color, String text, Position pos, String backgroundColor);
     boolean isActionActive(Action act);
     void refresh();
+    int getWidth();
     void close();
     void clear();
 }

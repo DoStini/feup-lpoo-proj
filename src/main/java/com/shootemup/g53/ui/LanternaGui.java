@@ -24,6 +24,8 @@ public class LanternaGui implements Gui {
 
     Screen screen;
     TerminalSize terminalSize;
+    private int fontSize;
+    private int width;
     private InputController<KeyEvent> inputController;
 
     private AWTTerminalFontConfiguration loadFont(int fontSize) throws URISyntaxException, IOException, FontFormatException {
@@ -33,7 +35,7 @@ public class LanternaGui implements Gui {
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
-
+        this.fontSize = fontSize;
         Font loadedFont = font.deriveFont(Font.PLAIN, fontSize);
         return AWTTerminalFontConfiguration.newInstance(loadedFont);
     }
@@ -75,6 +77,7 @@ public class LanternaGui implements Gui {
         try {
             AWTTerminalFontConfiguration font = loadFont(fontSize);
             screen = loadTerminal(hSize, vSize, font);
+            this.width = hSize;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (FontFormatException e) {
@@ -110,9 +113,19 @@ public class LanternaGui implements Gui {
     }
 
     @Override
+    public void drawText(String color, String text, Position pos, String backgroundColor) {
+        TextGraphics graphics = screen.newTextGraphics();
+        graphics.setForegroundColor(TextColor.Factory.fromString(color));
+        graphics.setBackgroundColor(TextColor.Factory.fromString(backgroundColor));
+        graphics.putString(pos.getX() - text.length()/ 2, pos.getY(), text);
+    }
+
+    @Override
     public boolean isActionActive(Action act) {
         return inputController.isActionActive(act);
     }
+
+
 
     @Override
     public void refresh() {
@@ -121,6 +134,11 @@ public class LanternaGui implements Gui {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
     }
 
     @Override

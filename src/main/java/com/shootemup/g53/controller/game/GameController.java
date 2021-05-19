@@ -36,6 +36,10 @@ public class GameController extends GenericController {
         controllerHashMap.put(element,elementController);
     }
 
+    public void finishGame(){
+        gameModel.setGameFinished(true);
+    }
+
     public boolean isGameFinished(){
         return gameModel.isGameFinished();
     }
@@ -50,6 +54,9 @@ public class GameController extends GenericController {
     public void handleKeyPress(Gui gui) {
         if(gui.isActionActive(Action.ESC)){
             gameModel.setGameFinished(true);
+        }
+        if(gui.isActionActive(Action.Q)){
+            gameModel.setPaused(true);
         }
     }
 
@@ -115,6 +122,9 @@ public class GameController extends GenericController {
     public void setGameModel(GameModel gameModel) {
         this.gameModel = gameModel;
         this.bulletPoolController.setGameModel(this.gameModel);
+    }
+    public boolean isPaused(){
+        return gameModel.isPaused();
     }
 
     public GameModel getGameModel() {

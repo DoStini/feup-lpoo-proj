@@ -13,7 +13,6 @@ import com.shootemup.g53.view.element.spaceship.PlayerView;
 import com.shootemup.g53.view.element.spaceship.SpaceshipView;
 
 public class GameViewer extends Viewer<GameModel> {
-    private Gui gui;
     private SpaceshipView spaceshipView;
     private SpaceshipView enemyView;
     private CoinView coinView;
