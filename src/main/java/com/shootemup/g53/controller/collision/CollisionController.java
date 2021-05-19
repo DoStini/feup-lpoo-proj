@@ -26,11 +26,12 @@ public class CollisionController {
                 if(firstCollider.collides(secondCollider)) {
                     CollisionHandlerController handlerFirst = controller.getCollisionHandler(firstCollider.getElement());
                     CollisionHandlerController handlerSecond = controller.getCollisionHandler(secondCollider.getElement());
+                    collision = true;
+
+                    if(handlerFirst == null || handlerSecond == null) continue;
 
                     handlerFirst.handleCollision(firstCollider, secondCollider, handlerSecond);
                     handlerSecond.handleCollision(secondCollider, firstCollider, handlerFirst);
-
-                    collision = true;
                 }
             }
         }

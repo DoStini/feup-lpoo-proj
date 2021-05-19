@@ -112,6 +112,7 @@ class CollisionControllerTest {
         Mockito.when(controller.getCollisionHandler(element1)).thenReturn(element1Controller);
         Mockito.when(controller.getCollisionHandler(element2)).thenReturn(element1Controller);
         Mockito.when(controller.getCollisionHandler(asteroid)).thenReturn(asteroidController);
+        Mockito.when(controller.getCollisionHandler(spaceship)).thenReturn(null);
 
         collisionController.checkCollisions();
         Mockito.verify(element1Controller, Mockito.times(1)).handleCollision(Mockito.any(), Mockito.any(), Mockito.any());
