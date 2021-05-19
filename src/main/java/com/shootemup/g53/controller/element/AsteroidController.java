@@ -28,7 +28,6 @@ public class AsteroidController extends MovableElementController implements Coll
 
     @Override
     public void handleBullet(Bullet bullet) {
-
     }
 
     @Override

@@ -32,7 +32,6 @@ public class BulletController extends MovableElementController implements Collis
 
     @Override
     public void handleBullet(Bullet bullet) {
-
     }
 
     @Override

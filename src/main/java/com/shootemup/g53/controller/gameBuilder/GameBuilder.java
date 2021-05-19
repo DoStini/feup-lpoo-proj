@@ -91,9 +91,11 @@ public class GameBuilder {
 
             Coin coin = new Coin( new Position(randomX,randomY), 2);
             CoinController cc = new CoinController(coin,new FallDownMovement());
+            coin.setSpeed(0);
             gameController.addToControllerMap(coin, cc);
             gameController.addToCollisionMap(coin, cc);
             BodyCollider coinCollider = new LineCompositeFactory().createFromCircle(coin, new Position(0,0), coin.getRadius());
+            coinCollider.setCategory(ColliderCategory.PICKUP);
             coinList.add(coin);
             colliders.add(coinCollider);
         }
