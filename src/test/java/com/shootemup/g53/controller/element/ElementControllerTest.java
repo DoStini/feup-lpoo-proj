@@ -110,7 +110,7 @@ public class ElementControllerTest {
         spaceshipController.handle();
 
         Mockito.verify(spaceship,Mockito.times(1)).setPosition(position);
-        Mockito.verify(firingStrategy,Mockito.times(1)).fire(spaceship,bulletPoolController, "#ff0000");
+        Mockito.verify(firingStrategy,Mockito.times(1)).fire(spaceship.getPosition(),bulletPoolController, "#ffff00");
 
         spaceshipController.handleAsteroid(asteroid);
         Mockito.verify(spaceship,Mockito.times(1)).setHealth(0);

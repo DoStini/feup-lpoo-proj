@@ -116,7 +116,7 @@ class PlayerControllerTest {
         }
 
         Mockito.verify(firingController, Mockito.times(fireRate))
-                .fire(spaceship,bulletPoolController, "#ff0000");
+                .fire(spaceship.getPosition(),bulletPoolController, "#ff0000");
 
     }
 

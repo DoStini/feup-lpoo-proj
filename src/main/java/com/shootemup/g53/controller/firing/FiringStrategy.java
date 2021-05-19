@@ -1,7 +1,7 @@
 package com.shootemup.g53.controller.firing;
 
 import com.shootemup.g53.controller.game.BulletPoolController;
-import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.model.util.Position;
 
 public abstract class FiringStrategy {
     protected int bulletSpeed;
@@ -27,15 +27,15 @@ public abstract class FiringStrategy {
         return frame;
     }
 
-    public void fire(Spaceship spaceship, BulletPoolController bulletPoolController, String color) {
+    public void fire(Position position, BulletPoolController bulletPoolController, String color) {
         increaseFrame();
         if (frame > lastFire + fireRate) {
-            createBullets(spaceship, bulletPoolController, color);
+            createBullets(position, bulletPoolController, color);
 
             lastFire = frame;
         }
     }
 
-    abstract void createBullets(Spaceship spaceship, BulletPoolController bulletPoolController, String color);
+    abstract void createBullets(Position position, BulletPoolController bulletPoolController, String color);
 
 }
