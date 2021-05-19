@@ -2,7 +2,6 @@ package com.shootemup.g53.controller.game;
 
 import com.shootemup.g53.controller.GenericController;
 import com.shootemup.g53.controller.collision.CollisionController;
-import com.shootemup.g53.controller.collision.PlayerCoinHandler;
 import com.shootemup.g53.controller.element.ElementInterface;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.model.element.*;
@@ -33,7 +32,6 @@ public class GameController extends GenericController {
         this.gameModel = gameModel;
         this.bulletPoolController = bulletPoolController;
         this.collisionController = new CollisionController(gameModel);
-        collisionController.addHandler(new PlayerCoinHandler(gameModel.getPlayer(), collisionController));
     }
 
     public void addToControllerMap(Element element, ElementInterface elementController){
