@@ -8,18 +8,19 @@ import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 
 public class GameController extends GenericController {
     private GameModel gameModel;
     private BulletPoolController bulletPoolController;
-    private HashMap<Element, ElementInterface> controllerHashMap = new HashMap<Element,ElementInterface>();
+    private List<ElementInterface> controllerCopy;
+    private HashMap<Element, ElementInterface> controllerHashMap = new HashMap<>();
 
     public GameController(GameModel gameModel) {
         this(gameModel, new BulletPoolController(gameModel, 30));
         this.bulletPoolController.setGameController(this);
+        this.controllerCopy = new ArrayList<>();
     }
 
     public int numOfControllers(){
@@ -30,6 +31,7 @@ public class GameController extends GenericController {
     public GameController(GameModel gameModel, BulletPoolController bulletPoolController) {
         this.gameModel = gameModel;
         this.bulletPoolController = bulletPoolController;
+        this.controllerCopy = new ArrayList<>();
     }
 
     public void addToControllerMap(Element element, ElementInterface elementController){
@@ -55,16 +57,20 @@ public class GameController extends GenericController {
 
     @Override
     public void handle(){
-        handlePlayerInput();
-        handleEnemies();
-        handleBullets();
-        handleCoins();
+        controllerCopy.clear();
+        controllerCopy.addAll(controllerHashMap.values());
+
+        for(ElementInterface elementInterface : controllerCopy) {
+            elementInterface.handle();
+        }
+
         removeInactiveElements();
     }
 
     public void removeInactiveElements(){
-        controllerHashMap.entrySet().removeIf(e -> !e.getKey().isActive());
+        bulletPoolController.removeInactiveBullets();
 
+        controllerHashMap.entrySet().removeIf(e -> !e.getKey().isActive());
     }
 
     public boolean insideBounds(Position pos) {
@@ -73,35 +79,6 @@ public class GameController extends GenericController {
         }
         return pos.getX()> 0 && pos.getX() < gameModel.getWidth() &&
                 pos.getY() > 0 && pos.getY() < gameModel.getHeight();
-    }
-
-    public void handlePlayerInput() {
-        getElementController(getGameModel().getPlayer()).handle();
-    }
-
-    public void handleBullets(){
-        for(Bullet bullet: gameModel.getBulletList()) {
-            getElementController(bullet).handle();
-        }
-        bulletPoolController.removeInactiveBullets();
-    }
-
-    public void handleEnemies(){
-        for(Spaceship enemy: gameModel.getEnemySpaceships()) {
-            getElementController(enemy).handle();
-        }
-    }
-
-    public void handleCoins() {
-        for (Coin coin : gameModel.getCoins()) {
-            getElementController(coin).handle();
-        }
-    }
-
-    public void handleAsteroids() {
-        for (Asteroid asteroid : gameModel.getAsteroids()) {
-            getElementController(asteroid).handle();
-        }
     }
 
     public BulletPoolController getBulletPoolController() {
