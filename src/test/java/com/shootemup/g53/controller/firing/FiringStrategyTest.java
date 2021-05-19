@@ -3,9 +3,6 @@ package com.shootemup.g53.controller.firing;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.controller.movement.MovementStrategy;
-import com.shootemup.g53.model.element.Asteroid;
-import com.shootemup.g53.model.element.Bullet;
-import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,13 +40,13 @@ public class FiringStrategyTest {
 
     @Test
     void StraightBulletTest(){
-        StraightBulletStrategy straightBulletStrategy = new StraightBulletStrategy(movementStrategy,speed,fireRate);
+        MovingBulletStrategy movingBulletStrategy = new MovingBulletStrategy(movementStrategy,speed,fireRate);
         for(int i = 0; i < fireRate + 1; i++){
-            straightBulletStrategy.fire(spaceship,bulletPoolController);
+            movingBulletStrategy.fire(spaceship,bulletPoolController, "#ff0000");
         }
-        assertEquals(straightBulletStrategy.getFireRate(),fireRate);
-        assertEquals(straightBulletStrategy.getFrame(),fireRate + 1);
-        assertEquals(straightBulletStrategy.getLastFire(),11);
+        assertEquals(movingBulletStrategy.getFireRate(),fireRate);
+        assertEquals(movingBulletStrategy.getFrame(),fireRate + 1);
+        assertEquals(movingBulletStrategy.getLastFire(),11);
         Mockito.verify(bulletPoolController,Mockito.times(1)).addBullet(spaceship.getPosition().getX(),
                 spaceship.getPosition().getY(),"#ff0000", 3,speed,movementStrategy);
     }

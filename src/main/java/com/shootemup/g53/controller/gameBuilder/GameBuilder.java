@@ -1,10 +1,9 @@
 package com.shootemup.g53.controller.gameBuilder;
 
-import com.shootemup.g53.controller.Game;
 import com.shootemup.g53.controller.element.CoinController;
 import com.shootemup.g53.controller.element.SpaceshipController;
 import com.shootemup.g53.controller.firing.FiringStrategy;
-import com.shootemup.g53.controller.firing.StraightBulletStrategy;
+import com.shootemup.g53.controller.firing.MovingBulletStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.movement.*;
@@ -42,7 +41,7 @@ public class GameBuilder {
 
         Spaceship player = new Spaceship(new Position(20, 35), 3,3, "#aae243", 2);
         //create a playerController ?
-        PlayerController playerController = new PlayerController(player,gui, bulletPoolController, new StraightBulletStrategy(new MoveUpwardsMovement(),2,2));
+        PlayerController playerController = new PlayerController(player,gui, bulletPoolController, new MovingBulletStrategy(new MoveUpwardsMovement(),2,2));
         gameController.addToControllerMap(player,playerController);
 
         gameModel.setPlayer(player);
@@ -57,7 +56,7 @@ public class GameBuilder {
             controllers.add(new FallDownMovement());
             controllers.add(new ChangingMovement(20,controllers));
 
-            List<FiringStrategy> firingStrategies = Arrays.asList(new StraightBulletStrategy(new FallDownMovement(), 2, 10));
+            List<FiringStrategy> firingStrategies = Arrays.asList(new MovingBulletStrategy(new FallDownMovement(), 2, 10));
 
             MovementStrategy selectedMovementStrategy = controllers.get(0);
             FiringStrategy selectedFiringStrategy = firingStrategies.get(rand.nextInt(firingStrategies.size()));

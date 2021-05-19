@@ -1,0 +1,25 @@
+package com.shootemup.g53.controller.firing;
+
+import com.shootemup.g53.controller.game.BulletPoolController;
+import com.shootemup.g53.controller.movement.MovementStrategy;
+import com.shootemup.g53.model.element.Spaceship;
+
+
+public class MovingBulletStrategy extends FiringStrategy {
+    private MovementStrategy movementStrategy;
+
+
+    public MovingBulletStrategy(MovementStrategy movementStrategy, int speed, int fireRate) {
+        this.movementStrategy = movementStrategy;
+        this.bulletSpeed = speed;
+        this.fireRate = fireRate;
+    }
+
+
+    @Override
+    public void createBullets(Spaceship spaceship, BulletPoolController bulletPoolController, String color) {
+        bulletPoolController.addBullet(spaceship.getPosition().getX(), spaceship.getPosition().getY(),
+                    color, 3, bulletSpeed, this.movementStrategy);
+
+    }
+}
