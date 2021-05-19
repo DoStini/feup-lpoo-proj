@@ -50,4 +50,45 @@ public class FiringStrategyTest {
         Mockito.verify(bulletPoolController,Mockito.times(1)).addBullet(spaceship.getPosition().getX(),
                 spaceship.getPosition().getY(),"#ff0000", 3,speed,movementStrategy);
     }
+
+    @Test
+    void multipleBulletTest() {
+        MultipleMovingBulletStrategy bulletStrategy = new MultipleMovingBulletStrategy(movementStrategy, 4, 2, speed, fireRate);
+
+        for(int i = 0; i < fireRate + 1; i++){
+            bulletStrategy.fire(spaceship, spaceship.getPosition(), bulletPoolController, "#ff0000");
+        }
+
+        assertEquals(bulletStrategy.getFireRate(),fireRate);
+        assertEquals(bulletStrategy.getFrame(),fireRate + 1);
+        assertEquals(bulletStrategy.getLastFire(),11);
+        Mockito.verify(bulletPoolController,Mockito.times(4)).addBullet(Mockito.anyInt(),
+                Mockito.anyInt(),Mockito.anyString(), Mockito.anyInt(),Mockito.anyInt(), Mockito.any());
+
+        bulletStrategy = new MultipleMovingBulletStrategy(movementStrategy, 5, 2, speed, fireRate);
+
+        for(int i = 0; i < fireRate + 1; i++){
+            bulletStrategy.fire(spaceship, spaceship.getPosition(), bulletPoolController, "#ff0000");
+        }
+
+        assertEquals(bulletStrategy.getFireRate(),fireRate);
+        assertEquals(bulletStrategy.getFrame(),fireRate + 1);
+        assertEquals(bulletStrategy.getLastFire(),11);
+        Mockito.verify(bulletPoolController,Mockito.times(9)).addBullet(Mockito.anyInt(),
+                Mockito.anyInt(),Mockito.anyString(), Mockito.anyInt(),Mockito.anyInt(), Mockito.any());
+        Mockito.verify(bulletPoolController,Mockito.times(1)).addBullet(spaceship.getPosition().getX(),
+                spaceship.getPosition().getY(),"#ff0000", 3,speed, movementStrategy);
+        Mockito.verify(bulletPoolController,Mockito.times(1)).addBullet(spaceship.getPosition().getX()-1,
+                spaceship.getPosition().getY(),"#ff0000", 3,speed, movementStrategy);
+        Mockito.verify(bulletPoolController,Mockito.times(1)).addBullet(spaceship.getPosition().getX()+1,
+                spaceship.getPosition().getY(),"#ff0000", 3,speed, movementStrategy);
+        Mockito.verify(bulletPoolController,Mockito.times(2)).addBullet(spaceship.getPosition().getX()+3,
+                spaceship.getPosition().getY()+2*2,"#ff0000", 3,speed, movementStrategy);
+        Mockito.verify(bulletPoolController,Mockito.times(2)).addBullet(spaceship.getPosition().getX()-3,
+                spaceship.getPosition().getY()+2*2,"#ff0000", 3,speed, movementStrategy);
+        Mockito.verify(bulletPoolController,Mockito.times(1)).addBullet(spaceship.getPosition().getX()-6,
+                spaceship.getPosition().getY()+2*4,"#ff0000", 3,speed, movementStrategy);
+        Mockito.verify(bulletPoolController,Mockito.times(1)).addBullet(spaceship.getPosition().getX()+6,
+                spaceship.getPosition().getY()+2*4,"#ff0000", 3,speed, movementStrategy);
+    }
 }
