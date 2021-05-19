@@ -82,7 +82,9 @@ public class GameController extends GenericController {
 
     public void removeInactiveElements(){
         controllerHashMap.entrySet().removeIf(e -> !e.getKey().isActive());
+        collisionHashMap.entrySet().removeIf(e -> !e.getKey().isActive());
 
+        gameModel.removeInactive();
     }
 
     public boolean insideBounds(Position pos) {

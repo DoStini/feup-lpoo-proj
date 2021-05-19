@@ -93,6 +93,7 @@ public class GameBuilder {
         gameModel.setCoins(coinList);
         gameModel.setBulletList(new ArrayList<>());
         gameModel.setColliders(colliders);
+        gameModel.setAsteroids(new ArrayList<>());
 
         return gameController;
     }

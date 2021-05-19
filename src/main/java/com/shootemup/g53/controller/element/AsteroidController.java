@@ -23,7 +23,7 @@ public class AsteroidController extends MovableElementController implements Coll
 
     @Override
     public void handleCollision(BodyCollider thisCollider, BodyCollider otherCollider, CollisionHandlerController otherController) {
-
+        otherController.handleAsteroid(this.asteroid);
     }
 
     @Override

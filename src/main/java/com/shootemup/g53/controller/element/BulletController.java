@@ -27,7 +27,7 @@ public class BulletController extends MovableElementController implements Collis
 
     @Override
     public void handleCollision(BodyCollider thisCollider, BodyCollider otherCollider, CollisionHandlerController otherController) {
-
+        otherController.handleBullet(this.bullet);
     }
 
     @Override

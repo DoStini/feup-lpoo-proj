@@ -22,7 +22,7 @@ public class CoinController extends MovableElementController implements Collisio
 
     @Override
     public void handleCollision(BodyCollider thisCollider, BodyCollider otherCollider, CollisionHandlerController otherController) {
-
+        otherController.handleCoin(this.coin);
     }
 
     @Override

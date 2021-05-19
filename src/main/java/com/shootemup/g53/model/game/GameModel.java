@@ -58,6 +58,13 @@ public class GameModel extends Model {
         this.player = player;
     }
 
+    public void removeInactive() {
+        colliders.removeIf(collider -> !collider.getElement().isActive());
+        coins.removeIf(coin -> !coin.isActive());
+        enemySpaceships.removeIf(enemy -> !enemy.isActive());
+        asteroids.removeIf(asteroid -> !asteroid.isActive());
+        bulletList.removeIf(bullet -> !bullet.isActive());
+    }
 
     public void addCollider(BodyCollider collider) {
         colliders.add(collider);
