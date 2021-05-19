@@ -2,6 +2,7 @@ package com.shootemup.g53.controller.game;
 
 import com.shootemup.g53.controller.GenericController;
 import com.shootemup.g53.controller.collision.CollisionController;
+import com.shootemup.g53.controller.element.CollisionHandlerController;
 import com.shootemup.g53.controller.element.ElementInterface;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.model.element.*;
@@ -17,6 +18,7 @@ public class GameController extends GenericController {
     private BulletPoolController bulletPoolController;
     private CollisionController collisionController;
     private HashMap<Element, ElementInterface> controllerHashMap = new HashMap<>();
+    private HashMap<Element, CollisionHandlerController> collisionHashMap = new HashMap<>();
 
     public GameController(GameModel gameModel) {
         this(gameModel, new BulletPoolController(gameModel, 30));
@@ -31,22 +33,35 @@ public class GameController extends GenericController {
     public GameController(GameModel gameModel, BulletPoolController bulletPoolController) {
         this.gameModel = gameModel;
         this.bulletPoolController = bulletPoolController;
-        this.collisionController = new CollisionController(gameModel);
+        this.collisionController = new CollisionController(this);
+    }
+
+    public boolean isGameFinished(){
+        return gameModel.isGameFinished();
     }
 
     public void addToControllerMap(Element element, ElementInterface elementController){
         controllerHashMap.put(element,elementController);
     }
 
-    public boolean isGameFinished(){
-        return gameModel.isGameFinished();
+    public void removeFromControllerMap(Element element){
+        controllerHashMap.remove(element);
     }
+
     public ElementInterface getElementController(Element element){
         return controllerHashMap.get(element);
     }
 
-    public void removeFromControllerMap(Element element){
-        controllerHashMap.remove(element);
+    public void addToCollisionMap(Element element, CollisionHandlerController elementController){
+        collisionHashMap.put(element, elementController);
+    }
+
+    public void removeFromCollisionMap(Element element){
+        collisionHashMap.remove(element);
+    }
+
+    public CollisionHandlerController getCollisionHandler(Element element){
+        return collisionHashMap.get(element);
     }
 
     public void handleKeyPress(Gui gui) {

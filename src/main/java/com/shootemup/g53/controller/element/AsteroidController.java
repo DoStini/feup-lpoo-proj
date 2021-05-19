@@ -1,10 +1,11 @@
 package com.shootemup.g53.controller.element;
 
 import com.shootemup.g53.controller.movement.MovementStrategy;
+import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.util.Position;
 
-public class AsteroidController extends MovableElementController implements CollisionController, ElementInterface{
+public class AsteroidController extends MovableElementController implements CollisionHandlerController, ElementInterface{
     private Asteroid asteroid;
     public AsteroidController(Asteroid asteroid, MovementStrategy movementStrategy) {
         super(asteroid, movementStrategy);
@@ -18,6 +19,11 @@ public class AsteroidController extends MovableElementController implements Coll
 
     public void setAsteroid(Asteroid asteroid) {
         this.asteroid = asteroid;
+    }
+
+    @Override
+    public void handleCollision(BodyCollider other) {
+
     }
 
     @Override

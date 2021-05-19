@@ -46,6 +46,7 @@ public class GameBuilder {
         //create a playerController ?
         PlayerController playerController = new PlayerController(player,gui, bulletPoolController, new StraightBulletStrategy(new MoveUpwardsMovement(),2,2));
         gameController.addToControllerMap(player,playerController);
+        gameController.addToCollisionMap(player, playerController);
         BodyCollider playerCollider = new LineCompositeFactory().createFromIsoscelesTriangle(player, new Position(0,0), 3);
         colliders.add(playerCollider);
         gameModel.setPlayer(player);
@@ -66,7 +67,9 @@ public class GameBuilder {
             FiringStrategy selectedFiringStrategy = firingStrategies.get(rand.nextInt(firingStrategies.size()));
 
             Spaceship s = new Spaceship(new Position(randomX, randomY), 3, 3, "#1212ee", 1);
-            gameController.addToControllerMap(s,new SpaceshipController(s,selectedFiringStrategy,selectedMovementStrategy,bulletPoolController ));
+            SpaceshipController sc = new SpaceshipController(s,selectedFiringStrategy,selectedMovementStrategy,bulletPoolController );
+            gameController.addToControllerMap(s, sc);
+            gameController.addToCollisionMap(s, sc);
             BodyCollider enemyCollider = new LineCompositeFactory().createFromInvertedIsoscelesTriangle(s, new Position(0,0), 3);
 
             colliders.add(enemyCollider);
@@ -80,7 +83,9 @@ public class GameBuilder {
             int randomY = rand.nextInt(height - 10) + 5;
 
             Coin coin = new Coin( new Position(randomX,randomY), 2);
-            gameController.addToControllerMap(coin, new CoinController(coin,new FallDownMovement()));
+            CoinController cc = new CoinController(coin,new FallDownMovement());
+            gameController.addToControllerMap(coin, cc);
+            gameController.addToCollisionMap(coin, cc);
             BodyCollider coinCollider = new LineCompositeFactory().createFromCircle(coin, new Position(0,0), coin.getRadius());
             coinList.add(coin);
             colliders.add(coinCollider);

@@ -13,6 +13,7 @@ import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -155,6 +156,28 @@ public class GameControllerTest {
 
         gameController.handleEnemies();
         Mockito.verify(spaceshipController,Mockito.times(1)).handle();
-
     }
+
+    @Test
+    void addRemoveGetCollisionHandler() {
+        GameController gameController = new GameController(gameModel, bulletPoolController);
+
+        Assertions.assertNull(gameController.getCollisionHandler(spaceship));
+
+        gameController.addToCollisionMap(spaceship, spaceshipController);
+
+        Assertions.assertEquals(spaceshipController, gameController.getCollisionHandler(spaceship));
+
+        gameController.addToCollisionMap(coin, coinController);
+
+        Assertions.assertEquals(spaceshipController, gameController.getCollisionHandler(spaceship));
+        Assertions.assertEquals(coinController, gameController.getCollisionHandler(coin));
+
+
+        gameController.removeFromCollisionMap(coin);
+
+        Assertions.assertEquals(spaceshipController, gameController.getCollisionHandler(spaceship));
+        Assertions.assertNull(gameController.getCollisionHandler(coin));
+    }
+
 }

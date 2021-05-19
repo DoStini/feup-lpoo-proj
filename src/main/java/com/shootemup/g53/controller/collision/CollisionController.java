@@ -1,21 +1,22 @@
 package com.shootemup.g53.controller.collision;
 
+import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.game.GameModel;
 
 import java.util.List;
 
 public class CollisionController {
-    protected GameModel model;
+    protected GameController controller;
 
-    public CollisionController(GameModel model) {
-        this.model = model;
+    public CollisionController(GameController controller) {
+        this.controller = controller;
     }
 
     public boolean checkCollisions() {
         boolean collision = false;
         BodyCollider firstCollider, secondCollider;
-        List<BodyCollider> colliders = model.getColliders();
+        List<BodyCollider> colliders = controller.getGameModel().getColliders();
 
         for(int i = 0; i < colliders.size(); i++) {
             firstCollider = colliders.get(i);
@@ -23,6 +24,8 @@ public class CollisionController {
                 secondCollider = colliders.get(j);
 
                 if(firstCollider.collides(secondCollider)) {
+                    controller.getCollisionHandler(firstCollider.getElement()).handleCollision(secondCollider);
+                    controller.getCollisionHandler(secondCollider.getElement()).handleCollision(firstCollider);
                     collision = true;
                 }
             }

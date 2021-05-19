@@ -1,5 +1,7 @@
 package com.shootemup.g53.controller.collision;
 
+import com.shootemup.g53.controller.element.CollisionHandlerController;
+import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
@@ -22,6 +24,7 @@ class CollisionControllerTest {
     Bullet bullet;
     Element element2;
     GameModel model;
+    GameController controller;
 
     @BeforeEach
     void setUp() {
@@ -33,6 +36,7 @@ class CollisionControllerTest {
         bullet = Mockito.mock(Bullet.class);
         element2 = Mockito.mock(Element.class);
         model = Mockito.mock(GameModel.class, Mockito.CALLS_REAL_METHODS);
+        controller = Mockito.mock(GameController.class);
 
         BodyCollider collider1 = Mockito.mock(BodyCollider.class);
         colliders.add(collider1);
@@ -62,18 +66,19 @@ class CollisionControllerTest {
 
         Mockito.when(model.getColliders()).thenReturn(colliders);
         model.setColliders(colliders);
+        Mockito.when(controller.getGameModel()).thenReturn(model);
     }
 
     @Test
     void checkCollision() {
-        CollisionController controller = new CollisionController(model);
+        CollisionController collisionController = new CollisionController(controller);
+        Mockito.when(controller.getCollisionHandler(Mockito.any())).thenReturn(Mockito.mock(CollisionHandlerController.class));
 
-        Assertions.assertTrue(controller.checkCollisions());
+        Assertions.assertTrue(collisionController.checkCollisions());
     }
 
     @Test
     void removeCollider() {
-        CollisionController controller = new CollisionController(model);
         BodyCollider removed = colliders.get(1);
 
         model.removeCollider(spaceship);
@@ -89,7 +94,7 @@ class CollisionControllerTest {
 
     @Test
     void handlerCall() {
-        CollisionController controller = new CollisionController(model);
+        CollisionController collisionController = new CollisionController(controller);
 //        CollisionHandler<Element> handler = (CollisionHandler<Element>) Mockito.mock(CollisionHandler.class, Mockito.CALLS_REAL_METHODS);
 //        Mockito.when(handler.getElement()).thenReturn(element1);
 //        Mockito.doNothing().when(handler).handleCollision(Mockito.any(), Mockito.any());

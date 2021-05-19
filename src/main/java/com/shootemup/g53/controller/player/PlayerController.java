@@ -1,10 +1,11 @@
 package com.shootemup.g53.controller.player;
 
-import com.shootemup.g53.controller.element.CollisionController;
+import com.shootemup.g53.controller.element.CollisionHandlerController;
 import com.shootemup.g53.controller.element.ElementInterface;
 import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
+import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
@@ -13,7 +14,7 @@ import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 
-public class PlayerController implements CollisionController, ElementInterface {
+public class PlayerController implements CollisionHandlerController, ElementInterface {
     private Spaceship spaceship;
     private FiringStrategy firingStrategy;
     private BulletPoolController bulletPoolController;
@@ -52,6 +53,11 @@ public class PlayerController implements CollisionController, ElementInterface {
             newPosition = newPosition.getRight(speed);
         }
         return newPosition;
+    }
+
+    @Override
+    public void handleCollision(BodyCollider other) {
+
     }
 
     @Override
