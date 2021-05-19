@@ -42,7 +42,7 @@ public class FiringStrategyTest {
     void StraightBulletTest(){
         MovingBulletStrategy movingBulletStrategy = new MovingBulletStrategy(movementStrategy,speed,fireRate);
         for(int i = 0; i < fireRate + 1; i++){
-            movingBulletStrategy.fire(spaceship.getPosition(),bulletPoolController, "#ff0000");
+            movingBulletStrategy.fire(spaceship, spaceship.getPosition(), bulletPoolController, "#ff0000");
         }
         assertEquals(movingBulletStrategy.getFireRate(),fireRate);
         assertEquals(movingBulletStrategy.getFrame(),fireRate + 1);

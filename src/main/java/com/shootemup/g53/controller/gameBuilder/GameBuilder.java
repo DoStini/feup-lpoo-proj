@@ -4,6 +4,7 @@ import com.shootemup.g53.controller.element.CoinController;
 import com.shootemup.g53.controller.element.SpaceshipController;
 import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.firing.MovingBulletStrategy;
+import com.shootemup.g53.controller.firing.MultipleMovingBulletStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.movement.*;
@@ -41,7 +42,7 @@ public class GameBuilder {
 
         Spaceship player = new Spaceship(new Position(20, 35), 3,3, "#aae243", 2);
         //create a playerController ?
-        PlayerController playerController = new PlayerController(player,gui, bulletPoolController, new MovingBulletStrategy(new MoveUpwardsMovement(),2,2));
+        PlayerController playerController = new PlayerController(player,gui, bulletPoolController, new MovingBulletStrategy(new MoveUpwardsMovement(), 2, 5));
         gameController.addToControllerMap(player,playerController);
 
         gameModel.setPlayer(player);
