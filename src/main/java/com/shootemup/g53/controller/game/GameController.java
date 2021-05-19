@@ -1,6 +1,5 @@
 package com.shootemup.g53.controller.game;
 
-import com.shootemup.g53.controller.gamebuilder.GameBuilder;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.GenericController;
 import com.shootemup.g53.controller.element.AIFiringController;

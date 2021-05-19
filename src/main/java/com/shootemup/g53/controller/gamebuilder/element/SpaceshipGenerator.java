@@ -14,14 +14,16 @@ public class SpaceshipGenerator extends MovableElementGenerator {
 
     private final int maxFireRate;
     private final int maxSize;
+    private final int minSize;
 
-    public SpaceshipGenerator(GameController gameController, int xMinPos, int xMaxPos, int minSpeed, int maxSpeed, int maxSize, int maxFireRate) {
-        this(new Random(), gameController, xMinPos, xMaxPos, minSpeed, maxSpeed, maxSize, maxFireRate);
+    public SpaceshipGenerator(GameController gameController, int xMinPos, int xMaxPos, int minSpeed, int maxSpeed, int minSize, int maxSize, int maxFireRate) {
+        this(new Random(), gameController, xMinPos, xMaxPos, minSpeed, maxSpeed, minSize, maxSize, maxFireRate);
     }
 
-    SpaceshipGenerator(Random rand, GameController gameController,  int xMinPos, int xMaxPos, int minSpeed, int maxSpeed, int maxSize, int maxFireRate) {
+    SpaceshipGenerator(Random rand, GameController gameController,  int xMinPos, int xMaxPos, int minSpeed, int maxSpeed, int minSize, int maxSize, int maxFireRate) {
         super(rand, gameController, xMinPos, xMaxPos, minSpeed, maxSpeed);
         this.maxFireRate = maxFireRate;
+        this.minSize = minSize;
         this.maxSize = maxSize;
     }
 
@@ -34,7 +36,7 @@ public class SpaceshipGenerator extends MovableElementGenerator {
     }
 
     protected void setSize(Spaceship spaceship) {
-        spaceship.setHeight(rand.nextInt(maxSize-2)+2);
+        spaceship.setHeight(rand.nextInt(maxSize-minSize)+minSize);
     }
 
     @Override

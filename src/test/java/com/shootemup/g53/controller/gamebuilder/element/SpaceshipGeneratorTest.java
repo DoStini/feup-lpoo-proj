@@ -1,9 +1,6 @@
 package com.shootemup.g53.controller.gamebuilder.element;
 
 import com.shootemup.g53.controller.game.GameController;
-import com.shootemup.g53.controller.gamebuilder.GameBuilder;
-import com.shootemup.g53.controller.movement.FallDownMovement;
-import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
@@ -12,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.Random;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class SpaceshipGeneratorTest {
 

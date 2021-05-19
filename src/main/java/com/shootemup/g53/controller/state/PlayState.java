@@ -5,22 +5,19 @@ import com.shootemup.g53.controller.GenericController;
 import com.shootemup.g53.controller.game.GameController;
 
 import com.shootemup.g53.controller.gamebuilder.GameBuilder;
-import com.shootemup.g53.controller.input.InputController;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.game.GameOverModel;
 import com.shootemup.g53.ui.Gui;
 import com.shootemup.g53.view.Viewer;
 import com.shootemup.g53.view.game.GameViewer;
 
-import java.io.IOException;
-
 public class PlayState extends State<GameModel> {
     private GameController gameController;
-    private GameBuilder gameBuilder;
     private GameModel gameModel;
+    private GameBuilder gameBuilder;
     private Viewer<GameModel> gameViewer;
     private Gui gui;
-    private long frame;
+
 
     public PlayState(Game game, GameModel gameModel, Gui gui){
         this.game = game;
@@ -49,6 +46,7 @@ public class PlayState extends State<GameModel> {
     @Override
     public void run(){
         try{
+            long frame = 0;
             while(true){
                 Thread.sleep(50);
                 frame++;
@@ -60,7 +58,6 @@ public class PlayState extends State<GameModel> {
                 }
 
                 gameViewer.draw(gameModel);
-
             }
 
         }
