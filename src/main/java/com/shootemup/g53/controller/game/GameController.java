@@ -53,6 +53,15 @@ public class GameController extends GenericController {
         }
     }
 
+    @Override
+    public void handle(){
+        handlePlayerInput();
+        handleEnemies();
+        handleBullets();
+        handleCoins();
+        removeInactiveElements();
+    }
+
     public void removeInactiveElements(){
         controllerHashMap.entrySet().removeIf(e -> !e.getKey().isActive());
 

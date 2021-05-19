@@ -52,13 +52,10 @@ public class StateTest {
         playState.run();
 
         Mockito.verify(gameBuilder, Mockito.times(1)).buildGame(Mockito.anyInt(),Mockito.anyInt(),Mockito.anyInt(),Mockito.anyInt(),Mockito.any());
-        Mockito.verify(gameController,Mockito.times(1)).handlePlayerInput();
+        Mockito.verify(gameController,Mockito.times(1)).handle();
         Mockito.verify(gameController,Mockito.times(1)).handleKeyPress(gui);
-        Mockito.verify(gameController,Mockito.times(1)).handleEnemies();
-        Mockito.verify(gameController,Mockito.times(1)).handleBullets();
-        Mockito.verify(gameController,Mockito.times(1)).handleCoins();
 
-
+        
 
     }
 

@@ -10,4 +10,9 @@ public class PauseStateController extends GenericController {
     public void handleKeyPress(Gui gui) {
 
     }
+
+    @Override
+    public void handle() {
+
+    }
 }

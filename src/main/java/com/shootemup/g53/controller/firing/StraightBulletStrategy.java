@@ -5,12 +5,9 @@ import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.element.Spaceship;
 
 
-public class StraightBulletStrategy implements FiringStrategy {
+public class StraightBulletStrategy extends FiringStrategy {
     private MovementStrategy movementStrategy;
-    private int bulletSpeed;
-    private int fireRate;
-    private int lastFire = 0;
-    private int frame = 0;
+
 
     public StraightBulletStrategy(MovementStrategy movementStrategy, int speed, int fireRate) {
         this.movementStrategy = movementStrategy;
@@ -18,10 +15,6 @@ public class StraightBulletStrategy implements FiringStrategy {
         this.fireRate = fireRate;
     }
 
-    @Override
-    public void increaseFrame(){
-        frame++;
-    }
 
     @Override
     public void fire(Spaceship spaceship, BulletPoolController bulletPoolController) {
@@ -34,21 +27,5 @@ public class StraightBulletStrategy implements FiringStrategy {
 
         }
 
-    }
-
-    public int getBulletSpeed() {
-        return bulletSpeed;
-    }
-
-    public int getFireRate() {
-        return fireRate;
-    }
-
-    public int getLastFire() {
-        return lastFire;
-    }
-
-    public int getFrame() {
-        return frame;
     }
 }
