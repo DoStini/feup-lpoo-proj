@@ -2,10 +2,16 @@ package com.shootemup.g53.model.element;
 
 import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.util.Position;
+import com.shootemup.g53.model.util.objectpool.PoolableObject;
 
 public class Coin extends MovableElement {
 
     private int radius;
+
+    @Override
+    public PoolableObject clone() {
+        return new Coin(getPosition(), radius);
+    }
 
     public int getRadius() {
         return radius;
@@ -15,8 +21,8 @@ public class Coin extends MovableElement {
         this.radius = radius;
     }
 
-    public Coin(Position position, int radius, MovementStrategy movementStrategy) {
-        super(position, "#cc9900", 5, movementStrategy);
+    public Coin(Position position, int radius) {
+        super(position, "#cc9900", 5);
         this.radius = radius;
     }
 

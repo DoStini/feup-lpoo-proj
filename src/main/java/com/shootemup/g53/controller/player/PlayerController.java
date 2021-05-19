@@ -1,22 +1,34 @@
 package com.shootemup.g53.controller.player;
 
+import com.shootemup.g53.controller.element.CollisionController;
+import com.shootemup.g53.controller.element.ElementInterface;
+import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
+import com.shootemup.g53.model.element.Asteroid;
+import com.shootemup.g53.model.element.Bullet;
+import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 
-public class PlayerController {
+public class PlayerController implements CollisionController, ElementInterface {
     private Spaceship spaceship;
-    public PlayerController(Spaceship spaceship) {
+    private FiringStrategy firingStrategy;
+    private BulletPoolController bulletPoolController;
+    private Gui gui;
+    public PlayerController(Spaceship spaceship, Gui gui, BulletPoolController bulletPoolController, FiringStrategy firingStrategy) {
         this.spaceship = spaceship;
+        this.gui = gui;
+        this.bulletPoolController = bulletPoolController;
+        this.firingStrategy = firingStrategy;
     }
 
     public void fire(Gui gui, BulletPoolController bulletPoolController) {
-        spaceship.getFiringController().increaseFrame();
+        firingStrategy.increaseFrame();
         if (gui.isActionActive(Action.SPACE)) {
-            spaceship.fire(bulletPoolController);
+            firingStrategy.fire(spaceship, bulletPoolController);
         }
     }
 
@@ -42,4 +54,30 @@ public class PlayerController {
         return newPosition;
     }
 
+    @Override
+    public void handleBullet(Bullet bullet) {
+
+    }
+
+    @Override
+    public void handleSpaceship(Spaceship spaceship) {
+
+    }
+
+    @Override
+    public void handleAsteroid(Asteroid asteroid) {
+
+    }
+
+    @Override
+    public void handleCoin(Coin coin) {
+
+    }
+
+    @Override
+    public void handle() {
+        Position newPosition = move(gui);
+        setPosition(newPosition);
+        fire(gui,bulletPoolController);
+    }
 }

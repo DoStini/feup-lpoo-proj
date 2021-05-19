@@ -4,6 +4,7 @@ import com.shootemup.g53.controller.Game;
 import com.shootemup.g53.controller.GenericController;
 import com.shootemup.g53.controller.game.GameController;
 
+import com.shootemup.g53.controller.gameBuilder.GameBuilder;
 import com.shootemup.g53.controller.input.InputController;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.game.GameOverModel;
@@ -15,22 +16,22 @@ import java.io.IOException;
 
 public class PlayState extends State<GameModel> {
     private GameController gameController;
-    private GameModel gameModel;
+    private GameBuilder gameBuilder;
     private Viewer<GameModel> gameViewer;
     private Gui gui;
 
 
-    public PlayState(Game game, GameModel gameModel, Gui gui){
+    public PlayState(Game game, Gui gui, GameBuilder gameBuilder){
         this.game = game;
-        this.gameModel = gameModel;
-        this.gameController = new GameController(this.gameModel);
+        this.gameBuilder = gameBuilder;
         this.gameViewer = new GameViewer(gui);
         this.gui = gui;
     }
 
+
     @Override
     public GameModel getStateModel() {
-        return this.gameModel;
+        return gameController.getGameModel();
     }
 
     @Override
@@ -45,20 +46,20 @@ public class PlayState extends State<GameModel> {
 
     @Override
     public void run(){
+        this.gameController = this.gameBuilder.buildGame(5,3,100,50, gui);
+
         try{
             while(true){
                 Thread.sleep(50);
                 gameController.handleKeyPress(gui);
-                gameController.handlePlayerInput(gui);
+                gameController.handle();
+                gameViewer.draw(gameController.getGameModel());
 
-                if(gameModel.isGameFinished()){
+                if(gameController.isGameFinished()){
                     game.changeState(new GameOverState(this.game,new GameOverModel(),this.gui));
                     return;
                 }
-                gameController.handleEnemies();
-                gameController.handleBullets();
-                gameController.handleCoins();
-                gameViewer.draw(gameModel);
+
 
             }
 
