@@ -49,10 +49,6 @@ public abstract class BodyCollider {
         this.categoryMask = categoryMask;
     }
 
-    public Class<?> getElementClass() {
-        return element.getClass();
-    }
-
     public void setCategory(ColliderCategory category) {
         this.category = category;
     }

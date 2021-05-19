@@ -25,6 +25,9 @@ class CollisionControllerTest {
     Element element2;
     GameModel model;
     GameController controller;
+    CollisionHandlerController element1Controller;
+    CollisionHandlerController element2Controller;
+    CollisionHandlerController asteroidController;
 
     @BeforeEach
     void setUp() {
@@ -37,6 +40,9 @@ class CollisionControllerTest {
         element2 = Mockito.mock(Element.class);
         model = Mockito.mock(GameModel.class, Mockito.CALLS_REAL_METHODS);
         controller = Mockito.mock(GameController.class);
+        element1Controller = Mockito.mock(CollisionHandlerController.class);
+        element2Controller = Mockito.mock(CollisionHandlerController.class);
+        asteroidController = Mockito.mock(CollisionHandlerController.class);
 
         BodyCollider collider1 = Mockito.mock(BodyCollider.class);
         colliders.add(collider1);
@@ -75,6 +81,13 @@ class CollisionControllerTest {
         Mockito.when(controller.getCollisionHandler(Mockito.any())).thenReturn(Mockito.mock(CollisionHandlerController.class));
 
         Assertions.assertTrue(collisionController.checkCollisions());
+
+        colliders.remove(0);
+        colliders.remove(0);
+        colliders.remove(0);
+        colliders.remove(0);
+
+        Assertions.assertFalse(collisionController.checkCollisions());
     }
 
     @Test
@@ -95,26 +108,14 @@ class CollisionControllerTest {
     @Test
     void handlerCall() {
         CollisionController collisionController = new CollisionController(controller);
-//        CollisionHandler<Element> handler = (CollisionHandler<Element>) Mockito.mock(CollisionHandler.class, Mockito.CALLS_REAL_METHODS);
-//        Mockito.when(handler.getElement()).thenReturn(element1);
-//        Mockito.doNothing().when(handler).handleCollision(Mockito.any(), Mockito.any());
-//
-//        CollisionHandler<Element> handler2 = (CollisionHandler<Element>) Mockito.mock(CollisionHandler.class, Mockito.CALLS_REAL_METHODS);
-//        Mockito.when(handler2.getElement()).thenReturn(element2);
-//        Mockito.doNothing().when(handler2).handleCollision(Mockito.any(), Mockito.any());
-//
-//        CollisionHandler<Element> handler3 = (CollisionHandler<Element>) Mockito.mock(CollisionHandler.class, Mockito.CALLS_REAL_METHODS);
-//        Mockito.when(handler3.getElement()).thenReturn(asteroid);
-//        Mockito.doNothing().when(handler3).handleCollision(Mockito.any(), Mockito.any());
-//
-//        controller.addHandler(handler);
-//        controller.addHandler(handler2);
-//        controller.addHandler(handler3);
-//
-//        controller.checkCollisions();
-//
-//        Mockito.verify(handler, Mockito.times(1)).handleCollision(Mockito.any(), Mockito.any());
-//        Mockito.verify(handler2, Mockito.times(0)).handleCollision(Mockito.any(), Mockito.any());
-//        Mockito.verify(handler3, Mockito.times(1)).handleCollision(Mockito.any(), Mockito.any());
+
+        Mockito.when(controller.getCollisionHandler(element1)).thenReturn(element1Controller);
+        Mockito.when(controller.getCollisionHandler(element2)).thenReturn(element1Controller);
+        Mockito.when(controller.getCollisionHandler(asteroid)).thenReturn(asteroidController);
+
+        collisionController.checkCollisions();
+        Mockito.verify(element1Controller, Mockito.times(1)).handleCollision(Mockito.any());
+        Mockito.verify(element2Controller, Mockito.times(0)).handleCollision(Mockito.any());
+        Mockito.verify(asteroidController, Mockito.times(1)).handleCollision(Mockito.any());
     }
 }
