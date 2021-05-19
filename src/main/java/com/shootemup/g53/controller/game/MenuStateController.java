@@ -11,4 +11,9 @@ public class MenuStateController extends GenericController {
     public void handleKeyPress(Gui gui) {
 
     }
+
+    @Override
+    public void handle() {
+
+    }
 }

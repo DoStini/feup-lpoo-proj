@@ -1,6 +1,9 @@
 package com.shootemup.g53.controller.gamebuilder.element;
 
+import com.shootemup.g53.controller.element.AsteroidController;
+import com.shootemup.g53.controller.element.CoinController;
 import com.shootemup.g53.controller.game.GameController;
+import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Element;
 import com.shootemup.g53.model.game.GameModel;
@@ -23,6 +26,11 @@ public class AsteroidGenerator extends MovableElementGenerator {
 
     protected void setRadius(Asteroid asteroid) {
         asteroid.setRadius(rand.nextInt(maxRadius-1)+1);
+    }
+
+
+    private void setMovement(Asteroid asteroid) {
+        gameController.addToControllerMap(asteroid, new AsteroidController(asteroid, new FallDownMovement()));
     }
 
     @Override

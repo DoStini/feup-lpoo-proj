@@ -1,6 +1,10 @@
 package com.shootemup.g53.controller.gamebuilder.element;
 
+import com.shootemup.g53.controller.element.CoinController;
+import com.shootemup.g53.controller.element.ElementInterface;
+import com.shootemup.g53.controller.element.MovableElementController;
 import com.shootemup.g53.controller.game.GameController;
+import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Element;
 import com.shootemup.g53.model.game.GameModel;
@@ -32,6 +36,10 @@ public class CoinGenerator extends MovableElementGenerator {
 
     protected void setValue(Coin coin) {
         // coin.setValue(rand.nextInt(maxVal - minVal)+minVal);
+    }
+
+    private void setMovement(Coin coin) {
+        gameController.addToControllerMap(coin, new CoinController(coin, new FallDownMovement()));
     }
 
     @Override

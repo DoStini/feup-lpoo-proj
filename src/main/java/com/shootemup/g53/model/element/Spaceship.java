@@ -4,23 +4,26 @@ import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.util.Position;
+import com.shootemup.g53.model.util.objectpool.PoolableObject;
 
 public class Spaceship extends MovableElement {
     private int height;
-    private FiringStrategy firingStrategy;
-    private int fireRate;
+    private int health;
+    public Spaceship(Position position, int height,int health, String color, int speed) {
+        super(position, color, speed);
+        this.height = height;
+        this.health = health;
+
+    }
 
     public Spaceship() {
-        this(new Position(0,0), 0, "", 0, 0, null, null);
+        this(new Position(0,0), 0, 0, "", 0);
     }
 
-    public Spaceship(Position position, int height, String color, int speed, int fireRate, MovementStrategy movementStrategy, FiringStrategy firingStrategy) {
-        super(position, color, speed, movementStrategy);
-        this.height = height;
-        this.firingStrategy = firingStrategy;
-        this.fireRate = fireRate;
+    @Override
+    public PoolableObject clone() {
+        return new Spaceship(getPosition(), height,health,getColor(),getSpeed());
     }
-
 
     public int getHeight() {
         return height;
@@ -31,24 +34,12 @@ public class Spaceship extends MovableElement {
     }
 
 
-    public FiringStrategy getFiringController() {
-        return firingStrategy;
+    public int getHealth() {
+        return health;
     }
 
-    public void fire(BulletPoolController bulletPoolController){
-        firingStrategy.fire(this, bulletPoolController );
-    }
-
-    public void setFiringController(FiringStrategy firingStrategy) {
-        this.firingStrategy = firingStrategy;
-    }
-
-    public int getFireRate() {
-        return fireRate;
-    }
-
-    public void setFireRate(int fireRate) {
-        this.fireRate = fireRate;
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     @Override
@@ -58,7 +49,6 @@ public class Spaceship extends MovableElement {
         Spaceship other = (Spaceship) o;
         return super.equals(o)
                 && other.height == this.height
-                && other.fireRate == this.fireRate
                 && other.getSpeed() == this.getSpeed();
     }
 

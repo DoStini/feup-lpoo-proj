@@ -1,11 +1,15 @@
 package com.shootemup.g53.model.game;
 
 
+import com.shootemup.g53.controller.element.CoinController;
+import com.shootemup.g53.controller.element.SpaceshipController;
+import com.shootemup.g53.controller.player.PlayerController;
 import com.shootemup.g53.model.Model;
 import com.shootemup.g53.model.element.*;
-import com.shootemup.g53.model.util.objectpool.ObjectPool;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import java.util.List;
 
 public class GameModel extends Model {
@@ -13,9 +17,10 @@ public class GameModel extends Model {
     private int height;
     private boolean isGameFinished = false;
     private Spaceship player;
+
     private List<Coin> coins;
-    private List<Spaceship> enemySpaceships;
     private List<Asteroid> asteroids;
+    private List<Spaceship> enemySpaceships;
     private List<Bullet> bulletList;
 
     public GameModel(int width, int height) {
@@ -98,15 +103,15 @@ public class GameModel extends Model {
         this.asteroids = asteroids;
     }
 
-    public void addAsteroid(Element element) {
-        asteroids.add((Asteroid) element);
+    public void addCoin(Coin coin) {
+        coins.add(coin);
     }
 
-    public void addCoin(Element element) {
-        coins.add((Coin) element);
+    public void addEnemy(Spaceship spaceship) {
+        enemySpaceships.add(spaceship);
     }
 
-    public void addEnemy(Element element) {
-        enemySpaceships.add((Spaceship) element);
+    public void addAsteroid(Asteroid asteroid) {
+        asteroids.add(asteroid);
     }
 }

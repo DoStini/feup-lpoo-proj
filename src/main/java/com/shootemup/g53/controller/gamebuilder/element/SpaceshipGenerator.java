@@ -1,8 +1,11 @@
 package com.shootemup.g53.controller.gamebuilder.element;
 
+import com.shootemup.g53.controller.element.SpaceshipController;
+import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.firing.StraightBulletStrategy;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.movement.FallDownMovement;
+import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.element.Element;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
@@ -27,12 +30,16 @@ public class SpaceshipGenerator extends MovableElementGenerator {
         this.maxSize = maxSize;
     }
 
-    protected void setFireRate(Spaceship element) {
-        element.setFireRate(rand.nextInt(maxFireRate-1)+1);
+    protected FiringStrategy setFiringStrategy(Spaceship spaceship) {
+        return new StraightBulletStrategy(new FallDownMovement(),
+                        2*spaceship.getSpeed(), rand.nextInt(maxFireRate-1)+1);
     }
 
-    protected void setFireController(Spaceship spaceship) {
-        spaceship.setFiringController(new StraightBulletStrategy(new FallDownMovement(), 2*spaceship.getSpeed()));
+    protected void setController(Spaceship spaceship) {
+        MovementStrategy strategy = new FallDownMovement();
+        FiringStrategy firingStrategy = setFiringStrategy(spaceship);
+        gameController.addToControllerMap(spaceship, new SpaceshipController(spaceship, firingStrategy, strategy,
+                gameController.getBulletPoolController()));
     }
 
     protected void setSize(Spaceship spaceship) {
@@ -45,10 +52,8 @@ public class SpaceshipGenerator extends MovableElementGenerator {
         setPosition(spaceship);
         setColor(spaceship);
         setSpeed(spaceship);
-        setFireRate(spaceship);
-        setMovement(spaceship);
+        setController(spaceship);
         setSize(spaceship);
-        setFireController(spaceship);
         gameModel.addEnemy(spaceship);
     }
 }

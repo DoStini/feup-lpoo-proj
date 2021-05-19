@@ -19,10 +19,9 @@ public class Application {
         int height = 50, width = 100;
 
         Gui gui = new LanternaGui(height,width, 15);
-
         GameModel gameModel = new GameModel(width, height);
-        Game game = new Game(gui,gameModel);
+        Game game = new Game(gui, gameModel);
         game.run();
-      
+
     }
 }

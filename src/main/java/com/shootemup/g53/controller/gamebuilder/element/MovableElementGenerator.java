@@ -1,5 +1,7 @@
 package com.shootemup.g53.controller.gamebuilder.element;
 
+import com.shootemup.g53.controller.element.ElementInterface;
+import com.shootemup.g53.controller.element.MovableElementController;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.model.element.MovableElement;
@@ -25,8 +27,5 @@ public abstract class MovableElementGenerator extends ElementGenerator {
     protected void setSpeed(MovableElement element) {
         element.setSpeed(rand.nextInt(maxSpeed-minSpeed)+minSpeed);
     }
-
-    protected void setMovement(MovableElement element) {
-        element.setMovementController(new FallDownMovement());
-    }
+    
 }

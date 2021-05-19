@@ -10,12 +10,14 @@ import com.shootemup.g53.controller.player.PlayerController;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
+import com.shootemup.g53.ui.Gui;
 
 import java.util.*;
 
 public class GameBuilder {
     private final GameModel gameModel;
     private final GameController gameController;
+    private final Gui gui;
     private long nextGeneration;
     private long baseSkip;
     private Random rand;
@@ -23,28 +25,31 @@ public class GameBuilder {
     private final WaveFactory waveFactory;
     Wave currentWave;
 
-    public GameBuilder(GameController gameController, long baseSkip){
-        this(new Random(), gameController, baseSkip);
+    public GameBuilder(Gui gui, GameController gameController, long baseSkip){
+        this(new Random(), gui, gameController, baseSkip);
     }
 
-    public GameBuilder(Random rand, GameController gameController, long baseSkip) {
+    public GameBuilder(Random rand, Gui gui, GameController gameController, long baseSkip) {
         this.rand = rand;
         this.gameController = gameController;
         this.gameModel = gameController.getGameModel();
         this.baseSkip = baseSkip;
-        this.waveFactory = new WaveFactory(1, 1, 5, 20, 0.05f);
+        this.waveFactory = new WaveFactory(1, 0.5f, 5, 60, 0.08f);
+        this.gui = gui;
         setupGame();
     }
 
     private void setupGame() {
-        Spaceship player = new Spaceship(new Position(20, 35), 3, "#aae243", 2, 15,
-                null, new StraightBulletStrategy(new MoveUpwardsMovement(), 4));
-        gameController.setPlayerController(new PlayerController(player));
-        gameModel.setPlayer(player);
+        Spaceship spaceship = new Spaceship(new Position(20, 35), 3, 20, "#aae253", 2);
+        gameModel.setPlayer(spaceship);
         gameModel.setCoins(new ArrayList<>());
         gameModel.setBulletList(new ArrayList<>());
         gameModel.setEnemySpaceships(new ArrayList<>());
         gameModel.setAsteroids(new ArrayList<>());
+        gameController.addToControllerMap(
+                spaceship,
+                new PlayerController(spaceship, gui, gameController.getBulletPoolController(),
+                        new StraightBulletStrategy(new MoveUpwardsMovement(), 3, 5)));
         setupElementGenerators();
         this.currentWave = waveFactory.getNextWave(gameController);
     }

@@ -25,20 +25,40 @@ public class WaveFactory {
         ElementGenerator generator;
         Wave result;
         int gameWidth = gameController.getGameModel().getWidth();
-        if (wave % bossWaveFactor == 0) {
-            generator = new SpaceshipGenerator(gameController, 0, gameWidth , 1, 2,
-                    25, 30, 5);
-            result = new Wave(gameController, 1, generator,
-                    wave/bossWaveFactor);
+        if (isBossWave()) {
+            result = getBossWave(gameController, gameWidth);
         } else {
-            generator = new SpaceshipGenerator(gameController, 0, gameWidth, 4, 8,
-                    2, 10, 10);
-
-            result = new Wave(gameController, (long) (baseSkip*(1-timeFactor*wave)),
-                    generator, Math.round(baseEnemies+wave*enemiesFactor));
+            result = getNormalWave(gameController, gameWidth);
         }
 
         wave++;
         return result;
+    }
+
+    private Wave getNormalWave(GameController gameController, int gameWidth) {
+        Wave result;
+        ElementGenerator generator;
+        generator = new SpaceshipGenerator(gameController, 0, gameWidth, 3, 6,
+                2, 5, 10);
+
+        float skip = Math.max(1, baseSkip*(1-timeFactor*wave));
+
+        result = new Wave(gameController, (long) skip,
+                generator, Math.round(baseEnemies+wave*enemiesFactor));
+        return result;
+    }
+
+    private Wave getBossWave(GameController gameController, int gameWidth) {
+        Wave result;
+        ElementGenerator generator;
+        generator = new SpaceshipGenerator(gameController, 0, gameWidth, 1, 2,
+                25, 30, 5);
+        result = new Wave(gameController, 1, generator,
+                wave/bossWaveFactor);
+        return result;
+    }
+
+    private boolean isBossWave() {
+        return wave % bossWaveFactor == 0;
     }
 }

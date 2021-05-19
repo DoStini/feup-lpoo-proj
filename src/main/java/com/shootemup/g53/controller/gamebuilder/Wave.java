@@ -41,6 +41,7 @@ public class Wave {
     }
 
     public void setNextGeneration() {
+        System.out.println(baseSkip);
         nextGeneration = nextGeneration + baseSkip + rand.nextInt((int) baseSkip);
     }
 
