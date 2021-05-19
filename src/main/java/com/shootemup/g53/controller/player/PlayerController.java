@@ -56,7 +56,7 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     }
 
     @Override
-    public void handleCollision(BodyCollider other) {
+    public void handleCollision(BodyCollider thisCollider, BodyCollider otherCollider, CollisionHandlerController otherController) {
 
     }
 

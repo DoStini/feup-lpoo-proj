@@ -37,7 +37,7 @@ public class SpaceshipController extends MovableElementController implements Col
     }
 
     @Override
-    public void handleCollision(BodyCollider other) {
+    public void handleCollision(BodyCollider thisCollider, BodyCollider otherCollider, CollisionHandlerController otherController) {
 
     }
 

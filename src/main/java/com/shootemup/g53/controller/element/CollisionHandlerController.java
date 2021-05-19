@@ -7,7 +7,7 @@ import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 
 public interface CollisionHandlerController {
-    void handleCollision(BodyCollider other);
+    void handleCollision(BodyCollider thisCollider, BodyCollider otherCollider, CollisionHandlerController otherController);
     void handleBullet(Bullet bullet);
     void handleSpaceship(Spaceship spaceship);
     void handleAsteroid(Asteroid asteroid);

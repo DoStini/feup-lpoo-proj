@@ -114,8 +114,8 @@ class CollisionControllerTest {
         Mockito.when(controller.getCollisionHandler(asteroid)).thenReturn(asteroidController);
 
         collisionController.checkCollisions();
-        Mockito.verify(element1Controller, Mockito.times(1)).handleCollision(Mockito.any());
-        Mockito.verify(element2Controller, Mockito.times(0)).handleCollision(Mockito.any());
-        Mockito.verify(asteroidController, Mockito.times(1)).handleCollision(Mockito.any());
+        Mockito.verify(element1Controller, Mockito.times(1)).handleCollision(Mockito.any(), Mockito.any(), Mockito.any());
+        Mockito.verify(element2Controller, Mockito.times(0)).handleCollision(Mockito.any(), Mockito.any(), Mockito.any());
+        Mockito.verify(asteroidController, Mockito.times(1)).handleCollision(Mockito.any(), Mockito.any(), Mockito.any());
     }
 }
