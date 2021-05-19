@@ -6,6 +6,7 @@ import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.model.collider.BodyCollider;
+import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
@@ -29,7 +30,7 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     public void fire(Gui gui, BulletPoolController bulletPoolController) {
         firingStrategy.increaseFrame();
         if (gui.isActionActive(Action.SPACE)) {
-            firingStrategy.fire(spaceship, bulletPoolController);
+            firingStrategy.fire(spaceship, bulletPoolController, ColliderCategory.PLAYER_BULLET);
         }
     }
 

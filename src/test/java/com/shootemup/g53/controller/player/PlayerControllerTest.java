@@ -4,6 +4,7 @@ import com.shootemup.g53.controller.firing.StraightBulletStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.movement.MoveUpwardsMovement;
+import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Direction;
 import com.shootemup.g53.model.util.Position;
@@ -118,7 +119,7 @@ class PlayerControllerTest {
         }
 
         Mockito.verify(firingController, Mockito.times(fireRate))
-                .fire(spaceship,bulletPoolController);
+                .fire(spaceship,bulletPoolController, ColliderCategory.PLAYER_BULLET);
 
     }
 

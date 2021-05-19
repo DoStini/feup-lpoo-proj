@@ -3,6 +3,7 @@ package com.shootemup.g53.controller.firing;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.controller.movement.MovementStrategy;
+import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
@@ -45,12 +46,12 @@ public class FiringStrategyTest {
     void StraightBulletTest(){
         StraightBulletStrategy straightBulletStrategy = new StraightBulletStrategy(movementStrategy,speed,fireRate);
         for(int i = 0; i < fireRate + 1; i++){
-            straightBulletStrategy.fire(spaceship,bulletPoolController);
+            straightBulletStrategy.fire(spaceship,bulletPoolController, ColliderCategory.ENEMY_BULLET);
         }
         assertEquals(straightBulletStrategy.getFireRate(),fireRate);
         assertEquals(straightBulletStrategy.getFrame(),fireRate + 1);
         assertEquals(straightBulletStrategy.getLastFire(),11);
         Mockito.verify(bulletPoolController,Mockito.times(1)).addBullet(spaceship.getPosition().getX(),
-                spaceship.getPosition().getY(),"#ff0000", 3,speed,movementStrategy);
+                spaceship.getPosition().getY(),"#ff0000", 3,speed,movementStrategy, ColliderCategory.ENEMY_BULLET);
     }
 }

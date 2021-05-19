@@ -1,6 +1,7 @@
 package com.shootemup.g53.controller.firing;
 
 import com.shootemup.g53.controller.game.BulletPoolController;
+import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
@@ -29,6 +30,6 @@ public abstract class FiringStrategy {
         return frame;
     }
 
-    abstract public void fire(Spaceship spaceship, BulletPoolController bulletPoolController);
+    abstract public void fire(Spaceship spaceship, BulletPoolController bulletPoolController, ColliderCategory category);
 
 }
