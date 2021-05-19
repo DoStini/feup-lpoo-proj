@@ -1,0 +1,55 @@
+package com.shootemup.g53.controller.element;
+
+import com.shootemup.g53.controller.firing.FiringStrategy;
+import com.shootemup.g53.controller.game.BulletPoolController;
+import com.shootemup.g53.controller.movement.MovementStrategy;
+import com.shootemup.g53.model.element.*;
+import com.shootemup.g53.model.util.Position;
+
+public class BulletController extends MovableElementController implements CollisionController, ElementInterface{
+    private Bullet bullet;
+    public BulletController(Bullet bullet, MovementStrategy movementStrategy) {
+        super(bullet, movementStrategy);
+        this.bullet = bullet;
+    }
+
+    public Bullet getBullet() {
+        return bullet;
+    }
+
+    public void setBullet(Bullet bullet) {
+        this.bullet = bullet;
+    }
+
+    public void setPosition(Position position){
+        bullet.setPosition(position);
+    }
+
+
+    @Override
+    public void handleBullet(Bullet bullet) {
+
+    }
+
+    @Override
+    public void handleSpaceship(Spaceship spaceship) {
+        bullet.deactivate();
+    }
+
+    @Override
+    public void handleAsteroid(Asteroid asteroid) {
+
+    }
+
+    @Override
+    public void handleCoin(Coin coin) {
+
+    }
+
+    @Override
+    public void handle() {
+         Position newPosition = move();
+         bullet.setPosition(newPosition);
+         //if(outOfBounds) bullet.deactivate();
+    }
+}

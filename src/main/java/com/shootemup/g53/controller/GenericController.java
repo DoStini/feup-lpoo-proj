@@ -6,4 +6,5 @@ import java.util.List;
 
 abstract public class GenericController {
     public abstract void handleKeyPress(Gui gui);
+    public abstract void handle();
 }

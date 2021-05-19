@@ -8,29 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CollisionController {
-    protected List<BodyCollider> colliders;
+    protected GameModel model;
     private List<CollisionHandler<? extends Element>> handlers;
 
-    public CollisionController(List<BodyCollider> colliders) {
-        this.colliders = colliders;
-        this.handlers = new ArrayList<>();
-    }
-
     public CollisionController(GameModel model) {
-        this(model.getColliders());
-    }
-
-    public void addCollider(BodyCollider collider) {
-        colliders.add(collider);
-    }
-
-    public void removeCollider(Element element) {
-        colliders.removeIf(collider -> collider.getElement() == element);
+        this.model = model;
+        this.handlers = new ArrayList<>();
     }
 
     public boolean checkCollisions() {
         boolean collision = false;
         BodyCollider firstCollider, secondCollider;
+        List<BodyCollider> colliders = model.getColliders();
 
         for(int i = 0; i < colliders.size(); i++) {
             firstCollider = colliders.get(i);

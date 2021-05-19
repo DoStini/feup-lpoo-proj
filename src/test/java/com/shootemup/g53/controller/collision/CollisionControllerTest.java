@@ -5,6 +5,7 @@ import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Element;
 import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.model.game.GameModel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ class CollisionControllerTest {
     Asteroid asteroid;
     Bullet bullet;
     Element element2;
+    GameModel model;
 
     @BeforeEach
     void setUp() {
@@ -30,6 +32,7 @@ class CollisionControllerTest {
         asteroid = Mockito.mock(Asteroid.class);
         bullet = Mockito.mock(Bullet.class);
         element2 = Mockito.mock(Element.class);
+        model = Mockito.mock(GameModel.class, Mockito.CALLS_REAL_METHODS);
 
         BodyCollider collider1 = Mockito.mock(BodyCollider.class);
         colliders.add(collider1);
@@ -56,34 +59,37 @@ class CollisionControllerTest {
         Mockito.when(collider3.getElement()).thenReturn(asteroid);
         Mockito.when(collider4.getElement()).thenReturn(bullet);
         Mockito.when(collider5.getElement()).thenReturn(element2);
+
+        Mockito.when(model.getColliders()).thenReturn(colliders);
+        model.setColliders(colliders);
     }
 
     @Test
     void checkCollision() {
-        CollisionController controller = new CollisionController(colliders);
+        CollisionController controller = new CollisionController(model);
 
         Assertions.assertTrue(controller.checkCollisions());
     }
 
     @Test
     void removeCollider() {
-        CollisionController controller = new CollisionController(colliders);
+        CollisionController controller = new CollisionController(model);
         BodyCollider removed = colliders.get(1);
 
-        controller.removeCollider(spaceship);
+        model.removeCollider(spaceship);
 
-        Assertions.assertEquals(4, controller.colliders.size());
-        Assertions.assertFalse(controller.colliders.contains(removed));
+        Assertions.assertEquals(4, model.getColliders().size());
+        Assertions.assertFalse(model.getColliders().contains(removed));
 
-        controller.addCollider(removed);
+        model.addCollider(removed);
 
-        Assertions.assertEquals(5, controller.colliders.size());
-        Assertions.assertTrue(controller.colliders.contains(removed));
+        Assertions.assertEquals(5, model.getColliders().size());
+        Assertions.assertTrue(model.getColliders().contains(removed));
     }
 
     @Test
     void handlerCall() {
-        CollisionController controller = new CollisionController(colliders);
+        CollisionController controller = new CollisionController(model);
         CollisionHandler<Element> handler = (CollisionHandler<Element>) Mockito.mock(CollisionHandler.class, Mockito.CALLS_REAL_METHODS);
         Mockito.when(handler.getElement()).thenReturn(element1);
         Mockito.doNothing().when(handler).handleCollision(Mockito.any(), Mockito.any());

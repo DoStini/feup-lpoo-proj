@@ -1,8 +1,13 @@
 package com.shootemup.g53.controller.gameBuilder;
 
+import com.shootemup.g53.controller.element.CoinController;
+import com.shootemup.g53.controller.element.SpaceshipController;
 import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.firing.StraightBulletStrategy;
+import com.shootemup.g53.controller.game.BulletPoolController;
+import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.movement.*;
+import com.shootemup.g53.controller.player.PlayerController;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.LineCompositeFactory;
 import com.shootemup.g53.model.element.Coin;
@@ -10,6 +15,7 @@ import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Direction;
 import com.shootemup.g53.model.util.Position;
+import com.shootemup.g53.ui.Gui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,22 +33,26 @@ public class GameBuilder {
         this.rand = rand;
     }
 
-    public GameModel buildGame(int numOfEnemies, int numOfCoins, int width, int height){
+    public GameController buildGame(int numOfEnemies, int numOfCoins, int width, int height, Gui gui){
         GameModel gameModel = new GameModel(width,height);
-
+        GameController gameController = new GameController(gameModel);
+        BulletPoolController bulletPoolController = gameController.getBulletPoolController();
         //generate some enemies first
         List<Spaceship> enemiesList = new ArrayList<>();
         List<Coin> coinList = new ArrayList<>();
         List<BodyCollider> colliders = new ArrayList<>();
 
-        Spaceship player = new Spaceship(new Position(20, 35), 3, "#aae243", 2, null, new StraightBulletStrategy(new MoveUpwardsMovement(), 2, 8));
+        Spaceship player = new Spaceship(new Position(20, 35), 3,3, "#aae243", 2);
+        //create a playerController ?
+        PlayerController playerController = new PlayerController(player,gui, bulletPoolController, new StraightBulletStrategy(new MoveUpwardsMovement(),2,2));
+        gameController.addToControllerMap(player,playerController);
         BodyCollider playerCollider = new LineCompositeFactory().createFromIsoscelesTriangle(player, new Position(0,0), 3);
         colliders.add(playerCollider);
         gameModel.setPlayer(player);
 
         for(int i = 0; i < numOfEnemies; i++){
-            int randomX = rand.nextInt(width - 10) + 5;
-            int randomY = rand.nextInt(height - 10) + 5;
+            int randomX = 10 + rand.nextInt(width - 15);
+            int randomY = 10 + rand.nextInt(height - 15);
 
             List<MovementStrategy> controllers = new ArrayList<MovementStrategy>();
             controllers.add(new CircularMovement(5, 0, 30));
@@ -52,12 +62,14 @@ public class GameBuilder {
 
             List<FiringStrategy> firingStrategies = Arrays.asList(new StraightBulletStrategy(new FallDownMovement(), 2, 10));
 
-            MovementStrategy selectedMovementStrategy = controllers.get(rand.nextInt(controllers.size()));
+            MovementStrategy selectedMovementStrategy = controllers.get(0);
             FiringStrategy selectedFiringStrategy = firingStrategies.get(rand.nextInt(firingStrategies.size()));
-            Spaceship s = new Spaceship(new Position(randomX, randomY), 3, "#1212ee", 1,selectedMovementStrategy, selectedFiringStrategy);
-            BodyCollider enemyCollider = new LineCompositeFactory().createFromInvertedIsoscelesTriangle(s, new Position(0,0), 3);
-            colliders.add(enemyCollider);
 
+            Spaceship s = new Spaceship(new Position(randomX, randomY), 3, 3, "#1212ee", 1);
+            gameController.addToControllerMap(s,new SpaceshipController(s,selectedFiringStrategy,selectedMovementStrategy,bulletPoolController ));
+            BodyCollider enemyCollider = new LineCompositeFactory().createFromInvertedIsoscelesTriangle(s, new Position(0,0), 3);
+
+            colliders.add(enemyCollider);
             enemiesList.add(s);
         }
 
@@ -66,7 +78,9 @@ public class GameBuilder {
         for(int i = 0; i < numOfCoins; i++){
             int randomX = rand.nextInt(width - 10) + 5;
             int randomY = rand.nextInt(height - 10) + 5;
-            Coin coin = new Coin( new Position(randomX,randomY), 2, new FallDownMovement() );
+
+            Coin coin = new Coin( new Position(randomX,randomY), 2);
+            gameController.addToControllerMap(coin, new CoinController(coin,new FallDownMovement()));
             BodyCollider coinCollider = new LineCompositeFactory().createFromCircle(coin, new Position(0,0), coin.getRadius());
             coinList.add(coin);
             colliders.add(coinCollider);
@@ -74,7 +88,7 @@ public class GameBuilder {
         gameModel.setCoins(coinList);
         gameModel.setBulletList(new ArrayList<>());
         gameModel.setColliders(colliders);
-        return gameModel;
 
+        return gameController;
     }
 }
