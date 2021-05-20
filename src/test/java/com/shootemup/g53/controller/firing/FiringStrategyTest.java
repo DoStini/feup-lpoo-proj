@@ -162,4 +162,50 @@ public class FiringStrategyTest {
         Mockito.verify(bulletPoolController,Mockito.times(2)).addBullet(Mockito.eq(x+3),
                 Mockito.eq(y),Mockito.eq("#ff0000"), Mockito.eq(3), Mockito.eq(speed/2), Mockito.any(CompositeMovement.class));
     }
+    @Test
+    void spreadAllTest() {
+        SpreadAllStrategy bulletStrategy = new SpreadAllStrategy(speed, fireRate);
+
+        for(int i = 0; i < fireRate + 1; i++){
+            bulletStrategy.fire(spaceship, spaceship.getPosition(), bulletPoolController, "#ff0000");
+        }
+
+        assertEquals(bulletStrategy.getFireRate(),fireRate);
+        assertEquals(bulletStrategy.getFrame(),fireRate + 1);
+        assertEquals(bulletStrategy.getLastFire(),11);
+        Mockito.verify(bulletPoolController,Mockito.times(8)).addBullet(Mockito.anyInt(),
+                Mockito.anyInt(),Mockito.anyString(), Mockito.anyInt(),Mockito.anyInt(), Mockito.any());
+
+        bulletStrategy = new SpreadAllStrategy(speed, fireRate);
+
+        for(int i = 0; i < fireRate + 1; i++){
+            bulletStrategy.fire(spaceship, spaceship.getPosition(), bulletPoolController, "#ff0000");
+        }
+
+        int x = spaceship.getPosition().getX();
+        int y = spaceship.getPosition().getY();
+
+        assertEquals(bulletStrategy.getFireRate(),fireRate);
+        assertEquals(bulletStrategy.getFrame(),fireRate + 1);
+        assertEquals(bulletStrategy.getLastFire(),11);
+        Mockito.verify(bulletPoolController,Mockito.times(16)).addBullet(Mockito.anyInt(),
+                Mockito.anyInt(),Mockito.anyString(), Mockito.anyInt(),Mockito.anyInt(), Mockito.any());
+        Mockito.verify(bulletPoolController,Mockito.times(2)).addBullet(Mockito.eq(x),
+                Mockito.eq(y),Mockito.eq("#ff0000"), Mockito.eq(3), Mockito.eq(speed), Mockito.any(MoveUpwardsMovement.class));
+        Mockito.verify(bulletPoolController,Mockito.times(2)).addBullet(Mockito.eq(x),
+                Mockito.eq(y),Mockito.eq("#ff0000"), Mockito.eq(3), Mockito.eq(speed), Mockito.any(FallDownMovement.class));
+        Mockito.verify(bulletPoolController,Mockito.times(2)).addBullet(Mockito.eq(x+3),
+                Mockito.eq(y),Mockito.eq("#ff0000"), Mockito.eq(3), Mockito.eq(speed/2), Mockito.any(RightMovement.class));
+        Mockito.verify(bulletPoolController,Mockito.times(2)).addBullet(Mockito.eq(x+3),
+                Mockito.eq(y),Mockito.eq("#ff0000"), Mockito.eq(3), Mockito.eq(speed/2), Mockito.any(DiagonalDownRightMovement.class));
+        Mockito.verify(bulletPoolController,Mockito.times(2)).addBullet(Mockito.eq(x+3),
+                Mockito.eq(y),Mockito.eq("#ff0000"), Mockito.eq(3), Mockito.eq(speed/2), Mockito.any(CompositeMovement.class));
+        Mockito.verify(bulletPoolController,Mockito.times(2)).addBullet(Mockito.eq(x-3),
+                Mockito.eq(y),Mockito.eq("#ff0000"), Mockito.eq(3), Mockito.eq(speed/2), Mockito.any(LeftMovement.class));
+        Mockito.verify(bulletPoolController,Mockito.times(2)).addBullet(Mockito.eq(x-3),
+                Mockito.eq(y),Mockito.eq("#ff0000"), Mockito.eq(3), Mockito.eq(speed/2), Mockito.any(DiagonalDownLeftMovement.class));
+        Mockito.verify(bulletPoolController,Mockito.times(2)).addBullet(Mockito.eq(x-3),
+                Mockito.eq(y),Mockito.eq("#ff0000"), Mockito.eq(3), Mockito.eq(speed/2), Mockito.any(CompositeMovement.class));
+
+    }
 }

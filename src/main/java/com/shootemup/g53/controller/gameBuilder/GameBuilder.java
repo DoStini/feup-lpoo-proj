@@ -63,8 +63,8 @@ public class GameBuilder {
 
             //MovementStrategy selectedMovementStrategy = controllers.get(0);
             MovementStrategy selectedMovementStrategy = new CompositeMovement();
-            //FiringStrategy selectedFiringStrategy = firingStrategies.get(rand.nextInt(firingStrategies.size()));
-            FiringStrategy selectedFiringStrategy = new SpreadAllStrategy(2, 10);
+            FiringStrategy selectedFiringStrategy = firingStrategies.get(rand.nextInt(firingStrategies.size()));
+            //FiringStrategy selectedFiringStrategy = new SpreadAllStrategy(2, 10);
 
             Spaceship s = new Spaceship(new Position(randomX, randomY), 3, 3, "#1212ee", 1);
             gameController.addToControllerMap(s,new SpaceshipController(s,selectedFiringStrategy,selectedMovementStrategy,bulletPoolController ));
