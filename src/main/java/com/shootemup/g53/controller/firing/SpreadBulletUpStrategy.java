@@ -1,26 +1,27 @@
 package com.shootemup.g53.controller.firing;
 
 import com.shootemup.g53.controller.game.BulletPoolController;
-import com.shootemup.g53.controller.movement.DiagonalDownLeftMovement;
-import com.shootemup.g53.controller.movement.DiagonalDownRightMovement;
-import com.shootemup.g53.controller.movement.FallDownMovement;
-import com.shootemup.g53.controller.movement.MovementStrategy;
+import com.shootemup.g53.controller.movement.*;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 
 
-public class SpreadBulletDownStrategy extends FiringStrategy {
+public class SpreadBulletUpStrategy extends FiringStrategy {
     MovementStrategy middleStrategy;
-    MovementStrategy leftMovement;
-    MovementStrategy rightMovement;
+    CompositeMovement leftMovement;
+    CompositeMovement rightMovement;
 
-    public SpreadBulletDownStrategy(int speed, int fireRate) {
+    public SpreadBulletUpStrategy(int speed, int fireRate) {
         super();
         this.bulletSpeed = speed;
         this.fireRate = fireRate;
-        middleStrategy = new FallDownMovement();
-        leftMovement = new DiagonalDownLeftMovement();
-        rightMovement = new DiagonalDownRightMovement();
+        middleStrategy = new MoveUpwardsMovement();
+        leftMovement = new CompositeMovement();
+        leftMovement.addMovement(new MoveUpwardsMovement());
+        leftMovement.addMovement(new LeftMovement());
+        rightMovement = new CompositeMovement();
+        rightMovement.addMovement(new MoveUpwardsMovement());
+        rightMovement.addMovement(new RightMovement());
     }
 
 
