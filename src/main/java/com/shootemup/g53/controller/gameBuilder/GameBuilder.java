@@ -4,6 +4,7 @@ import com.shootemup.g53.controller.element.CoinController;
 import com.shootemup.g53.controller.element.SpaceshipController;
 import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.firing.MovingBulletStrategy;
+import com.shootemup.g53.controller.firing.SpreadAllStrategy;
 import com.shootemup.g53.controller.firing.SpreadBulletUpStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.game.GameController;
@@ -42,8 +43,8 @@ public class GameBuilder {
 
         Spaceship player = new Spaceship(new Position(20, 35), 3,3, "#aae243", 2);
         //create a playerController ?
-        //PlayerController playerController = new PlayerController(player,gui, bulletPoolController, new MovingBulletStrategy(new MoveUpwardsMovement(), 2, 5));
-        PlayerController playerController = new PlayerController(player,gui, bulletPoolController, new SpreadBulletUpStrategy(2,5));
+        PlayerController playerController = new PlayerController(player,gui, bulletPoolController, new MovingBulletStrategy(new MoveUpwardsMovement(), 2, 5));
+        //PlayerController playerController = new PlayerController(player,gui, bulletPoolController, new SpreadAllStrategy(2,5));
         gameController.addToControllerMap(player,playerController);
 
         gameModel.setPlayer(player);
@@ -60,8 +61,10 @@ public class GameBuilder {
 
             List<FiringStrategy> firingStrategies = Arrays.asList(new MovingBulletStrategy(new FallDownMovement(), 2, 10));
 
-            MovementStrategy selectedMovementStrategy = controllers.get(0);
-            FiringStrategy selectedFiringStrategy = firingStrategies.get(rand.nextInt(firingStrategies.size()));
+            //MovementStrategy selectedMovementStrategy = controllers.get(0);
+            MovementStrategy selectedMovementStrategy = new CompositeMovement();
+            //FiringStrategy selectedFiringStrategy = firingStrategies.get(rand.nextInt(firingStrategies.size()));
+            FiringStrategy selectedFiringStrategy = new SpreadAllStrategy(2, 10);
 
             Spaceship s = new Spaceship(new Position(randomX, randomY), 3, 3, "#1212ee", 1);
             gameController.addToControllerMap(s,new SpaceshipController(s,selectedFiringStrategy,selectedMovementStrategy,bulletPoolController ));
