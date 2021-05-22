@@ -35,16 +35,6 @@ public class GameViewer extends Viewer<GameModel> {
         //for now we only have enemies to draw
         gui.clear();
 
-
-        starView.draw(gui, new Star(new Position(10, 10),0));
-        starView.draw(gui, new Star(new Position(12, 10),5));
-        starView.draw(gui, new Star(new Position(14, 10),10));
-        starView.draw(gui, new Star(new Position(16, 10),15));
-        starView.draw(gui, new Star(new Position(18, 10),20));
-        starView.draw(gui, new Star(new Position(20, 10),25));
-        starView.draw(gui, new Star(new Position(22, 10),30));
-        starView.draw(gui, new Star(new Position(24, 10),35));
-
         spaceshipView.draw(gui, model.getPlayer());
         for(Spaceship enemy: model.getEnemySpaceships()){
             enemyView.draw(gui,enemy);

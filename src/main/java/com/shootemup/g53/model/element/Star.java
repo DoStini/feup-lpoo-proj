@@ -14,7 +14,7 @@ public class Star extends MovableElement {
     public int getDistance() { return distance; }
 
     public Star(Position position, int distance) {
-        super(position, "#555555", 5);
+        super(position, "#555555", 5/(1+distance));
         this.distance = Math.max(distance, 0);
     }
 }

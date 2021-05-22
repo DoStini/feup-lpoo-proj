@@ -13,6 +13,7 @@ class StarTest {
 
         Assertions.assertEquals(new Position(1, 2), star.getPosition());
         Assertions.assertEquals(10, star.getDistance());
+        Assertions.assertEquals(5/(10+1), star.getSpeed());
     }
 
     @Test
@@ -22,5 +23,6 @@ class StarTest {
 
         Assertions.assertEquals(star.getPosition(), clone.getPosition());
         Assertions.assertEquals(star.getDistance(), clone.getDistance());
+        Assertions.assertEquals(5/(15+1), star.getSpeed());
     }
 }
