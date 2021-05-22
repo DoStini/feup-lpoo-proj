@@ -38,13 +38,13 @@ public class WaveFactory {
     private Wave getNormalWave(GameController gameController, int gameWidth) {
         Wave result;
         ElementGenerator generator;
-        generator = new SpaceshipGenerator(gameController, 0, gameWidth, 3, 6,
+        generator = new SpaceshipGenerator(gameController, 0, gameWidth, 2, 4,
                 2, 5, 10);
 
-        float skip = Math.max(1, baseSkip*(1-timeFactor*wave));
+        float skip = Math.max(1, baseSkip*(1-timeFactor*(wave-1)));
 
         result = new Wave(gameController, (long) skip,
-                generator, Math.round(baseEnemies+wave*enemiesFactor));
+                generator, Math.round(baseEnemies+(wave-1)*enemiesFactor));
         return result;
     }
 

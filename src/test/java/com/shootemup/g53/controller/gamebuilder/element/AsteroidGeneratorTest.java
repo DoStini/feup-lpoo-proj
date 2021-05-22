@@ -83,7 +83,6 @@ class AsteroidGeneratorTest {
         asteroidGenerator.generateElement();
 
         Mockito.verify(gameModel, Mockito.times(1)).addAsteroid(
-                new Asteroid(new Position(randomVal+xMinPos, 0), randomVal+1, new FallDownMovement())
-        );
+                new Asteroid(new Position(randomVal+xMinPos, 0), randomVal+1));
     }
 }

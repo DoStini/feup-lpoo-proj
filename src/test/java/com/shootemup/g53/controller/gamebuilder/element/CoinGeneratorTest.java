@@ -44,10 +44,6 @@ class CoinGeneratorTest {
     @Test
     void setMovementController() {
         int randomVal = 2;
-
-        coinGenerator.setMovement(coin);
-
-        Mockito.verify(coin, Mockito.times(1)).setMovementController(Mockito.any());
     }
 
 
@@ -82,7 +78,7 @@ class CoinGeneratorTest {
         coinGenerator.generateElement();
 
         Mockito.verify(gameModel, Mockito.times(1)).addCoin(
-                new Coin(new Position(randomVal, 0), randomVal+1, new FallDownMovement())
+                new Coin(new Position(randomVal, 0), randomVal+1)
         );
 
     }

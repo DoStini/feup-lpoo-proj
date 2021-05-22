@@ -22,6 +22,7 @@ class SpaceshipGeneratorTest {
             xMaxPos = 10,
             minSpeed = 2,
             maxSpeed = 10,
+            minSize = 2,
             maxSize = 4,
             maxFireRate = 5;
 
@@ -35,18 +36,13 @@ class SpaceshipGeneratorTest {
         Mockito.when(gameController.getGameModel()).thenReturn(gameModel);
 
         spaceshipGenerator = new SpaceshipGenerator(random, gameController,
-            xMinPos, xMaxPos, minSpeed, maxSpeed, maxSize, maxFireRate);
+            xMinPos, xMaxPos, minSpeed, maxSpeed, minSize, maxSize, maxFireRate);
     }
 
     @Test
     void setFireRate() {
         int randomVal = 2;
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(randomVal);
-
-        spaceshipGenerator.setFireRate(spaceship);
-
-        Mockito.verify(random, Mockito.times(1)).nextInt(maxFireRate-1);
-        Mockito.verify(spaceship, Mockito.times(1)).setFireRate(randomVal + 1);
     }
 
     @Test
@@ -61,8 +57,8 @@ class SpaceshipGeneratorTest {
 
         spaceshipGenerator.setSize(spaceship);
 
-        Mockito.verify(random, Mockito.times(1)).nextInt(maxSize-2); // Min Height is 2
-        Mockito.verify(spaceship, Mockito.times(1)).setHeight(randomVal + 2);
+        Mockito.verify(random, Mockito.times(1)).nextInt(maxSize-minSize);
+        Mockito.verify(spaceship, Mockito.times(1)).setHeight(randomVal + minSize);
     }
 
     @Test
@@ -76,8 +72,6 @@ class SpaceshipGeneratorTest {
 
         Mockito.verify(gameModel, Mockito.times(1)).addEnemy(
                 new Spaceship(new Position(randomVal, 0),
-                        randomVal+2, color,
-                        randomVal+minSpeed, randomVal+1,
-                        null, null));
+                        randomVal+minSize, 100, color, randomVal+minSpeed));
     }
 }

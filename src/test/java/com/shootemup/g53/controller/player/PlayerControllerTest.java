@@ -30,14 +30,9 @@ class PlayerControllerTest {
         position = Mockito.mock(Position.class);
         spaceship = Mockito.mock(Spaceship.class);
         bulletPoolController = Mockito.mock(BulletPoolController.class);
-<<<<<<< HEAD
-        firingController = new StraightBulletStrategy(new MoveUpwardsMovement(), 2);
-=======
->>>>>>> develop
 
         firingController = Mockito.mock(StraightBulletStrategy.class);
         Mockito.when(spaceship.getSpeed()).thenReturn(speed);
-        Mockito.when(spaceship.getFireRate()).thenReturn(fireRate);
         Mockito.when(spaceship.getPosition()).thenReturn(position);
 
 

@@ -18,7 +18,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -61,11 +63,20 @@ public class GameControllerTest {
         bullet2 = Mockito.mock(Bullet.class);
         Mockito.when(gameModel.getWidth()).thenReturn(50);
         Mockito.when(gameModel.getHeight()).thenReturn(50);
-        Mockito.when(gameModel.getBulletList()).thenReturn(Arrays.asList(bullet, bullet2));
-        Mockito.when(gameModel.getAsteroids()).thenReturn(Arrays.asList(asteroid));
-        Mockito.when(gameModel.getEnemySpaceships()).thenReturn(Arrays.asList(spaceship));
+
+        List<Bullet> bullets = new ArrayList<>(); bullets.add(bullet); bullets.add(bullet2);
+        Mockito.when(gameModel.getBulletList()).thenReturn(bullets);
+
+        List<Asteroid> asteroids = new ArrayList<>(); asteroids.add(asteroid);
+        Mockito.when(gameModel.getAsteroids()).thenReturn(asteroids);
+
+        List<Spaceship> spaceships = new ArrayList<>(); spaceships.add(spaceship);
+        Mockito.when(gameModel.getEnemySpaceships()).thenReturn(spaceships);
+
         Mockito.when(gameModel.getPlayer()).thenReturn(player);
-        Mockito.when(gameModel.getCoins()).thenReturn(Arrays.asList(coin));
+
+        List<Coin> coins = new ArrayList<>(); coins.add(coin);
+        Mockito.when(gameModel.getCoins()).thenReturn(coins);
         Mockito.when(position.getX()).thenReturn(5);
         Mockito.when(position.getY()).thenReturn(5);
         Mockito.when(position2.getX()).thenReturn(55);

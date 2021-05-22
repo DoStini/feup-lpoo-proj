@@ -57,8 +57,8 @@ public class GameBuilder {
     private void setupElementGenerators() {
         generators = Arrays.asList(
                 new AsteroidGenerator(gameController, 0, gameModel.getWidth(), 1,
-                        5, 10),
-                new CoinGenerator(gameController, 0, gameModel.getWidth(), 1, 5,
+                        1, 10),
+                new CoinGenerator(gameController, 0, gameModel.getWidth(), 1, 1,
                         4, -1, -1));
     }
 

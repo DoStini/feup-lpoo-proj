@@ -66,4 +66,12 @@ public class PlayState extends State<GameModel> {
             e.printStackTrace();
         }
     }
+
+    public void setGameController(GameController gameController) {
+        this.gameController = gameController;
+    }
+
+    public void setGameBuilder(GameBuilder gameBuilder) {
+        this.gameBuilder = gameBuilder;
+    }
 }
