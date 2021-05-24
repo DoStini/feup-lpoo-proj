@@ -55,10 +55,12 @@ public class GameBuilder {
     }
 
     private void setupElementGenerators() {
+        MovementStrategyFactory movementStrategyFactory =
+                new MovementStrategyFactory(Arrays.asList(MovementStrategyFactory.Strategy.DOWN));
         generators = Arrays.asList(
-                new AsteroidGenerator(gameController, 0, gameModel.getWidth(), 1,
+                new AsteroidGenerator(gameController, movementStrategyFactory, 0, gameModel.getWidth(), 1,
                         1, 10),
-                new CoinGenerator(gameController, 0, gameModel.getWidth(), 1, 1,
+                new CoinGenerator(gameController, movementStrategyFactory,0, gameModel.getWidth(), 1, 1,
                         4, -1, -1));
     }
 

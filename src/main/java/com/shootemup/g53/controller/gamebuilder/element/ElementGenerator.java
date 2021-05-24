@@ -1,12 +1,11 @@
 package com.shootemup.g53.controller.gamebuilder.element;
 
-import com.googlecode.lanterna.TextColor;
 import com.shootemup.g53.controller.game.GameController;
+import com.shootemup.g53.controller.gamebuilder.MovementStrategyFactory;
 import com.shootemup.g53.model.element.Element;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 
-import java.awt.*;
 import java.util.Random;
 
 public abstract class ElementGenerator {
@@ -16,17 +15,20 @@ public abstract class ElementGenerator {
     protected final Random rand;
     protected final GameModel gameModel;
     protected final GameController gameController;
-
-    ElementGenerator(GameController gameController, int xMinPos, int xMaxPos) {
-        this(new Random(), gameController, xMinPos, xMaxPos);
+    protected final MovementStrategyFactory movementStrategyFactory;
+    
+    ElementGenerator(GameController gameController, MovementStrategyFactory movementStrategyFactory, int xMinPos, int xMaxPos) {
+        this(new Random(), gameController, movementStrategyFactory, xMinPos, xMaxPos);
     }
 
-    ElementGenerator(Random rand, GameController gameController, int xMinPos, int xMaxPos) {
+    ElementGenerator(Random rand, GameController gameController, MovementStrategyFactory movementStrategyFactory,
+                     int xMinPos, int xMaxPos) {
         this.rand = rand;
         this.xMinPos = xMinPos;
         this.xMaxPos = xMaxPos;
         this.gameController = gameController;
         this.gameModel = gameController.getGameModel();
+        this.movementStrategyFactory = movementStrategyFactory;
     }
 
     protected void setPosition(Element element) {

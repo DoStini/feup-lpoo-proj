@@ -15,7 +15,8 @@ public class SpaceshipController extends MovableElementController implements Col
     private FiringStrategy firingStrategy;
     private BulletPoolController bulletPoolController;
 
-    public SpaceshipController(Spaceship spaceship, FiringStrategy firingStrategy, MovementStrategy movementStrategy, BulletPoolController bulletPoolController) {
+    public SpaceshipController(Spaceship spaceship, FiringStrategy firingStrategy, MovementStrategy movementStrategy,
+                               BulletPoolController bulletPoolController) {
         super(spaceship, movementStrategy);
         this.spaceship = spaceship;
         this.firingStrategy = firingStrategy;

@@ -4,6 +4,9 @@ import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.gamebuilder.element.ElementGenerator;
 import com.shootemup.g53.controller.gamebuilder.element.SpaceshipGenerator;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class WaveFactory {
     int wave;
     private final int baseEnemies;
@@ -11,6 +14,7 @@ public class WaveFactory {
     private final int bossWaveFactor;
     private final long baseSkip;
     private final float timeFactor;
+    private final MovementStrategyFactory movementStrategyFactory;
 
     public WaveFactory(int baseEnemies, float enemiesFactor, int bossWaveFactor, int baseSkip, float timeFactor) {
         this.baseEnemies = baseEnemies;
@@ -19,10 +23,16 @@ public class WaveFactory {
         this.baseSkip = baseSkip;
         this.timeFactor = timeFactor;
         this.wave = 1;
+        List<MovementStrategyFactory.Strategy> strategies = Arrays.asList(MovementStrategyFactory.Strategy.CHANGING,
+                                            MovementStrategyFactory.Strategy.COMPOSITE,
+                                            MovementStrategyFactory.Strategy.DOWN,
+                                            MovementStrategyFactory.Strategy.DIAGONAL_BOUNCE,
+                                            MovementStrategyFactory.Strategy.CIRCULAR,
+                                            MovementStrategyFactory.Strategy.DIAGONAL_DOWN);
+        movementStrategyFactory = new MovementStrategyFactory(strategies);
     }
 
     public Wave getNextWave(GameController gameController) {
-        ElementGenerator generator;
         Wave result;
         int gameWidth = gameController.getGameModel().getWidth();
         if (isBossWave()) {
@@ -38,8 +48,8 @@ public class WaveFactory {
     private Wave getNormalWave(GameController gameController, int gameWidth) {
         Wave result;
         ElementGenerator generator;
-        generator = new SpaceshipGenerator(gameController, 0, gameWidth, 2, 4,
-                2, 5, 10);
+        generator = new SpaceshipGenerator(gameController, movementStrategyFactory, 0, gameWidth, 1,
+                3, 2, 5, 10);
 
         float skip = Math.max(1, baseSkip*(1-timeFactor*(wave-1)));
 
@@ -51,8 +61,8 @@ public class WaveFactory {
     private Wave getBossWave(GameController gameController, int gameWidth) {
         Wave result;
         ElementGenerator generator;
-        generator = new SpaceshipGenerator(gameController, 0, gameWidth, 1, 2,
-                25, 30, 5);
+        generator = new SpaceshipGenerator(gameController, movementStrategyFactory, 0, gameWidth, 1,
+                2, 15, 25, 5);
         result = new Wave(gameController, 1, generator,
                 wave/bossWaveFactor);
         return result;

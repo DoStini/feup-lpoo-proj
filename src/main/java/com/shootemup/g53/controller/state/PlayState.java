@@ -49,7 +49,7 @@ public class PlayState extends State<GameModel> {
         try{
             long frame = 0;
             while(true){
-                Thread.sleep(50);
+                Thread.sleep(60);
                 frame++;
                 gameBuilder.handle(frame);
                 gameController.handle();

@@ -4,6 +4,7 @@ import com.shootemup.g53.controller.element.CoinController;
 import com.shootemup.g53.controller.element.ElementInterface;
 import com.shootemup.g53.controller.element.MovableElementController;
 import com.shootemup.g53.controller.game.GameController;
+import com.shootemup.g53.controller.gamebuilder.MovementStrategyFactory;
 import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Element;
@@ -18,13 +19,17 @@ public class CoinGenerator extends MovableElementGenerator {
     private final int maxVal;
     private final int maxRadius;
 
-    public CoinGenerator(GameController gameController, int xMinPos, int xMaxPos, int minSpeed, int maxSpeed, int maxRadius, int minVal, int maxVal) {
-        this(new Random(), gameController, xMinPos, xMaxPos, minSpeed, maxSpeed, maxRadius, minVal, maxVal);
+    public CoinGenerator(GameController gameController, MovementStrategyFactory movementStrategyFactory,
+                         int xMinPos, int xMaxPos, int minSpeed, int maxSpeed,
+                         int maxRadius, int minVal, int maxVal) {
+        this(new Random(), gameController, movementStrategyFactory,
+                xMinPos, xMaxPos, minSpeed, maxSpeed, maxRadius, minVal, maxVal);
     }
 
-    CoinGenerator(Random rand, GameController gameController, int xMinPos, int xMaxPos, int minSpeed, int maxSpeed,
+    CoinGenerator(Random rand, GameController gameController, MovementStrategyFactory movementStrategyFactory,
+                  int xMinPos, int xMaxPos, int minSpeed, int maxSpeed,
                   int maxRadius, int minVal, int maxVal) {
-        super(rand, gameController, xMinPos, xMaxPos, minSpeed, maxSpeed);
+        super(rand, gameController, movementStrategyFactory, xMinPos, xMaxPos, minSpeed, maxSpeed);
         this.minVal = minVal;
         this.maxVal = maxVal;
         this.maxRadius = maxRadius;
@@ -39,7 +44,7 @@ public class CoinGenerator extends MovableElementGenerator {
     }
 
     private void setMovement(Coin coin) {
-        gameController.addToControllerMap(coin, new CoinController(coin, new FallDownMovement()));
+        gameController.addToControllerMap(coin, new CoinController(coin, generateMovementStrategy(coin)));
     }
 
     @Override
