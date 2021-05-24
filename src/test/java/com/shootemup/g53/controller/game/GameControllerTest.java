@@ -159,7 +159,7 @@ public class GameControllerTest {
         Mockito.verify(spaceshipController,Mockito.times(1)).handle();
 
         gameController.handle();
-        Mockito.verify(backgroundController,Mockito.times(1)).handle();
+        Mockito.verify(backgroundController,Mockito.times(2)).handle();
     }
 
     @Test
