@@ -76,7 +76,7 @@ public class GameBuilder {
             gameController.addToControllerMap(coin, new CoinController(coin,new FallDownMovement()));
             coinList.add(coin);
         }
-        Background background = new Background(30, 15);
+        Background background = new Background(25, 30);
 
         gameController.setBackgroundController(new BackgroundController(gameModel, background, 30));
         gameModel.setBackground(background);
