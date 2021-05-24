@@ -17,6 +17,7 @@ public class GameModel extends Model {
     private int height;
     private boolean isGameFinished = false;
     private Spaceship player;
+    private Background background;
 
     private List<Coin> coins;
     private List<Asteroid> asteroids;
@@ -27,7 +28,6 @@ public class GameModel extends Model {
         this.width = width;
         this.height = height;
     }
-
 
     public int getWidth() {
         return width;
@@ -44,7 +44,6 @@ public class GameModel extends Model {
     public void setHeight(int height) {
         this.height = height;
     }
-
 
     public boolean isGameFinished() {
         return isGameFinished;
@@ -88,6 +87,14 @@ public class GameModel extends Model {
 
     public void addBullet(Bullet bullet){
         this.bulletList.add(bullet);
+    }
+
+    public void setBackground(Background background) {
+        this.background = background;
+    }
+
+    public Background getBackground() {
+        return background;
     }
 
     public void removeBullet(Bullet bullet){

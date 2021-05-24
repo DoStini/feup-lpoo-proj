@@ -1,15 +1,15 @@
 package com.shootemup.g53.controller.gameBuilder;
 
+import com.shootemup.g53.controller.element.BackgroundController;
 import com.shootemup.g53.controller.element.CoinController;
 import com.shootemup.g53.controller.element.SpaceshipController;
 import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.firing.MovingBulletStrategy;
-import com.shootemup.g53.controller.firing.SpreadAllStrategy;
-import com.shootemup.g53.controller.firing.SpreadBulletUpStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.movement.*;
 import com.shootemup.g53.controller.player.PlayerController;
+import com.shootemup.g53.model.element.Background;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
@@ -80,6 +80,10 @@ public class GameBuilder {
             gameController.addToControllerMap(coin, new CoinController(coin,new FallDownMovement()));
             coinList.add(coin);
         }
+        Background background = new Background(25, 30);
+
+        gameController.setBackgroundController(new BackgroundController(gameModel, background, 30, 5));
+        gameModel.setBackground(background);
         gameModel.setCoins(coinList);
         gameModel.setBulletList(new ArrayList<>());
         return gameController;

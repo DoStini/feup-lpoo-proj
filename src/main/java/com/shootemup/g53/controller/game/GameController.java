@@ -1,5 +1,6 @@
 package com.shootemup.g53.controller.game;
 
+import com.shootemup.g53.controller.element.BackgroundController;
 import com.shootemup.g53.controller.element.ElementInterface;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.GenericController;
@@ -14,6 +15,7 @@ import java.util.*;
 public class GameController extends GenericController {
     private GameModel gameModel;
     private BulletPoolController bulletPoolController;
+    private BackgroundController backgroundController;
     private List<ElementInterface> controllerCopy;
     private HashMap<Element, ElementInterface> controllerHashMap = new HashMap<>();
 
@@ -57,6 +59,8 @@ public class GameController extends GenericController {
 
     @Override
     public void handle(){
+        if(backgroundController != null) backgroundController.handle();
+
         controllerCopy.clear();
         controllerCopy.addAll(controllerHashMap.values());
 
@@ -92,6 +96,14 @@ public class GameController extends GenericController {
     public void setGameModel(GameModel gameModel) {
         this.gameModel = gameModel;
         this.bulletPoolController.setGameModel(this.gameModel);
+    }
+
+    public void setBackgroundController(BackgroundController backgroundController) {
+        this.backgroundController = backgroundController;
+    }
+
+    public BackgroundController getBackgroundController() {
+        return backgroundController;
     }
 
     public GameModel getGameModel() {
