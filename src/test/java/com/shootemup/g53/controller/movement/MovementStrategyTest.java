@@ -164,4 +164,33 @@ class MovementStrategyTest {
         element.setPosition(circular.move(element.getPosition(), element.getSpeed()));
         Assertions.assertEquals(new Position(4, -1), element.getPosition());
     }
+
+    @Test
+    void leftMovement() {
+        MovementStrategy left = new LeftMovement();
+
+        int speed = 2;
+
+        Mockito.when(element.getSpeed()).thenReturn(speed);
+
+        element.setPosition(left.move(element.getPosition(), element.getSpeed()));
+        Assertions.assertEquals(new Position(-1, 1), element.getPosition());
+        element.setPosition(left.move(element.getPosition(), element.getSpeed()));
+
+        Assertions.assertEquals(new Position(-3, 1), element.getPosition());
+    }
+
+    @Test
+    void rightMovement() {
+        MovementStrategy right = new RightMovement();
+
+        int speed = 2;
+
+        Mockito.when(element.getSpeed()).thenReturn(speed);
+
+        element.setPosition(right.move(element.getPosition(), element.getSpeed()));
+        Assertions.assertEquals(new Position(3, 1), element.getPosition());
+        element.setPosition(right.move(element.getPosition(), element.getSpeed()));
+        Assertions.assertEquals(new Position(5, 1), element.getPosition());
+    }
 }
