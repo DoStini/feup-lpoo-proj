@@ -42,14 +42,19 @@ public class AWTInputController extends InputController<KeyEvent> {
             case KeyEvent.VK_ESCAPE:
                 return Action.ESC;
             case 'w':
+            case 'W':
                 return Action.W;
             case 'a':
+            case 'A':
                 return Action.A;
             case 's':
+            case 'S':
                 return Action.S;
             case 'd':
+            case 'D':
                 return Action.D;
             case 'q':
+            case 'Q':
                 return Action.Q;
         }
 
