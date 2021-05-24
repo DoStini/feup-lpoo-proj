@@ -110,7 +110,7 @@ public class GameControllerTest {
         gameController.addToControllerMap(bullet2,bulletController);
 
         bulletPoolController.setGameController(gameController);
-        gameController.handleBullets();
+        gameController.handle();
         Mockito.verify(bulletPoolController, Mockito.times(1)).removeInactiveBullets();
 
         Mockito.verify(bulletController, Mockito.times(2))
@@ -149,16 +149,13 @@ public class GameControllerTest {
         gameController.addToControllerMap(bullet2, bulletController);
         gameController.setBackgroundController(backgroundController);
 
-        gameController.handlePlayerInput();
+        gameController.handle();
         Mockito.verify(playerController,Mockito.times(1)).handle();
 
-        gameController.handleCoins();
         Mockito.verify(coinController,Mockito.times(1)).handle();
 
-        gameController.handleAsteroids();
         Mockito.verify(asteroidController,Mockito.times(1)).handle();
 
-        gameController.handleEnemies();
         Mockito.verify(spaceshipController,Mockito.times(1)).handle();
 
         gameController.handle();
