@@ -49,26 +49,28 @@ class BackgroundControllerTest {
 
     @Test
     void constructors() {
-        BackgroundController backgroundController = new BackgroundController(model, background, 30);
+        BackgroundController backgroundController = new BackgroundController(model, background, 30, 5);
 
         Assertions.assertEquals(model, backgroundController.model);
         Assertions.assertEquals(background, backgroundController.background);
         Assertions.assertEquals(30, backgroundController.maxDistance);
+        Assertions.assertEquals(5, backgroundController.maxSpeed);
         Assertions.assertEquals(ArrayList.class, backgroundController.starControllerList.getClass());
-        Assertions.assertEquals(0, backgroundController.starControllerList.size());
+        Assertions.assertEquals(1, backgroundController.starControllerList.size());
 
 
-        BackgroundController backgroundController1 = new BackgroundController(model, background, 15, rng);
+        BackgroundController backgroundController1 = new BackgroundController(model, background, 15, 5, rng);
 
         Assertions.assertEquals(rng, backgroundController1.rng);
         Assertions.assertEquals(model, backgroundController1.model);
         Assertions.assertEquals(background, backgroundController1.background);
+        Assertions.assertEquals(5, backgroundController.maxSpeed);
         Assertions.assertEquals(15, backgroundController1.maxDistance);
     }
 
     @Test
     void starControllers() {
-        BackgroundController backgroundController = new BackgroundController(model, background, 15, rng);
+        BackgroundController backgroundController = new BackgroundController(model, background, 15, 5, rng);
 
         backgroundController.setStarControllerList(controllers);
 
@@ -89,16 +91,16 @@ class BackgroundControllerTest {
 
     @Test
     void handle() {
-        BackgroundController backgroundController = Mockito.spy(new BackgroundController(model, background, 5, rng));
+        BackgroundController backgroundController = Mockito.spy(new BackgroundController(model, background, 5, 5, rng));
 
         backgroundController.handle();
 
-        Mockito.verify(rng, Mockito.times(2)).nextInt(Mockito.anyInt());
+        Mockito.verify(rng, Mockito.times(5)).nextInt(Mockito.anyInt());
 
         int top = model.getWidth();
 
-        Mockito.verify(rng, Mockito.times(1)).nextInt(top);
-        Mockito.verify(rng, Mockito.times(1)).nextInt(backgroundController.maxDistance);
+        Mockito.verify(rng, Mockito.times(2)).nextInt(top);
+        Mockito.verify(rng, Mockito.times(2)).nextInt(backgroundController.maxDistance);
 
         Star star = backgroundController.background.getStars().get(0);
 
@@ -123,7 +125,7 @@ class BackgroundControllerTest {
             Mockito.verify(controller1, Mockito.times(1)).handle();
         }
 
-        Mockito.verify(rng, Mockito.times(2)).nextInt(Mockito.anyInt());
+        Mockito.verify(rng, Mockito.times(5)).nextInt(Mockito.anyInt());
 
         Assertions.assertEquals(1, backgroundController.background.getStars().size());
 
@@ -132,8 +134,8 @@ class BackgroundControllerTest {
         backgroundController.handle();
 
 
-        Mockito.verify(background, Mockito.times(3)).removeStar(Mockito.any());
-        Mockito.verify(backgroundController, Mockito.times(3)).removeStarController(Mockito.any());
+        Mockito.verify(background, Mockito.times(4)).removeStar(Mockito.any());
+        Mockito.verify(backgroundController, Mockito.times(4)).removeStarController(Mockito.any());
 
 
         Assertions.assertEquals(1, backgroundController.background.getStars().size());

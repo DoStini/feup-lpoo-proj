@@ -25,7 +25,7 @@ public class GameViewer extends Viewer<GameModel> {
         enemyView = new EnemyView(2);
         coinView = new CoinView();
         bulletView = new BulletView();
-        starView = new StarView(0.1);
+        starView = new StarView(0.2);
         backgroundView = new BackgroundView(starView);
     }
 
