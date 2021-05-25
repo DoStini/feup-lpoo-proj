@@ -31,10 +31,6 @@ public class BulletController extends MovableElementController implements Collis
     }
 
     @Override
-    public void handleBullet(Bullet bullet) {
-    }
-
-    @Override
     public void handleSpaceship(Spaceship spaceship) {
         bullet.deactivate();
     }
@@ -50,14 +46,13 @@ public class BulletController extends MovableElementController implements Collis
     }
 
     @Override
-    public void handleCoin(Coin coin) {
-
+    public void handleShield(Shield shield) {
+        bullet.deactivate();
     }
 
     @Override
     public void handle() {
          Position newPosition = move();
          bullet.setPosition(newPosition);
-         //if(outOfBounds) bullet.deactivate();
     }
 }

@@ -17,11 +17,15 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     private FiringStrategy firingStrategy;
     private BulletPoolController bulletPoolController;
     private Gui gui;
-    public PlayerController(Player player, Gui gui, BulletPoolController bulletPoolController, FiringStrategy firingStrategy) {
+    private PowerupController powerupController;
+
+    public PlayerController(Player player, Gui gui, BulletPoolController bulletPoolController,
+                            PowerupController powerupController, FiringStrategy firingStrategy) {
         this.player = player;
         this.gui = gui;
         this.bulletPoolController = bulletPoolController;
         this.firingStrategy = firingStrategy;
+        this.powerupController = powerupController;
     }
 
     public void fire(Gui gui, BulletPoolController bulletPoolController) {
@@ -70,9 +74,9 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     }
 
     @Override
-    public void handlePlayer(Player player) {
-
-
+    public void handleEssence(Essence essence) {
+        this.player.addEssence(essence.getValue());
+        System.out.println(player.getEssence());
     }
 
     @Override
@@ -86,9 +90,19 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     }
 
     @Override
+    public void handleShield(Shield shield) {
+    }
+
+    @Override
     public void handle() {
         Position newPosition = move(gui);
         setPosition(newPosition);
         fire(gui,bulletPoolController);
+        usePowerups(gui);
+    }
+
+    private void usePowerups(Gui gui) {
+        if (gui.isActionActive(Action.POWER_1))
+            powerupController.spawnShield(player);
     }
 }

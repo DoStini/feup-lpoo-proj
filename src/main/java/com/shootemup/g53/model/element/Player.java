@@ -40,4 +40,8 @@ public class Player extends Spaceship{
     public PoolableObject clone() {
         return new Player(new Position(position.getX(), position.getY()), this.getHeight(),this.getHealth(),getColor(),getSpeed(),getBulletDamage());
     }
+
+    public void setEssence(int essence) {
+        this.essence = essence;
+    }
 }
