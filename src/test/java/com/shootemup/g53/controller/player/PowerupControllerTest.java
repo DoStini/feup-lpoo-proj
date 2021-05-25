@@ -63,8 +63,14 @@ class PowerupControllerTest {
 
         Shield shield = new Shield(player.getPosition().getUp(2), player.getColor(), 5, 5);
 
-        Assertions.assertEquals(ColliderCategory.SHIELD, gameModel.getColliders().get(0).getCategory());
-        Assertions.assertEquals(-1, gameModel.getColliders().get(0).getCategoryMask());
+        BodyCollider bodyCollider = gameModel.getColliders().get(0);
+        Assertions.assertEquals(5, bodyCollider.getBoundingBox().getWidth());
+        Assertions.assertEquals(2, bodyCollider.getBoundingBox().getHeight());
+        Assertions.assertEquals(new Position(-shield.getWidth()/2, 0),
+                bodyCollider.getBoundingBox().getTopLeft());
+
+        Assertions.assertEquals(ColliderCategory.SHIELD, bodyCollider.getCategory());
+        Assertions.assertEquals(-1, bodyCollider.getCategoryMask());
 
         Mockito.verify(gameModel, Mockito.times(1)).addShield(shield);
         Mockito.verify(gameModel, Mockito.times(1)).addCollider(Mockito.any(BodyCollider.class));

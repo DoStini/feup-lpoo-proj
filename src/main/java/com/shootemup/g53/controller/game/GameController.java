@@ -42,7 +42,6 @@ public class GameController extends GenericController {
         this.gameModel = gameModel;
         this.bulletPoolController = bulletPoolController;
         this.collisionController = new CollisionController(this);
-        this.powerupController = new PowerupController(this);
         this.controllerCopy = new ArrayList<>();
     }
 

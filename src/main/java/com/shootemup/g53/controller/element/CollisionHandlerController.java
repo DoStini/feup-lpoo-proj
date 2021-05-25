@@ -11,4 +11,5 @@ public interface CollisionHandlerController {
     default void handleAsteroid(Asteroid asteroid){};
     default void handleCoin(Coin coin){};
     default void handleShield(Shield shield){};
+    default void handleEssence(Essence essence){};
 }

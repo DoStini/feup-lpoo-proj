@@ -75,6 +75,12 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     }
 
     @Override
+    public void handleEssence(Essence essence) {
+        this.player.addEssence(essence.getValue());
+        System.out.println(player.getEssence());
+    }
+
+    @Override
     public void handlePlayer(Player player) {
     }
 

@@ -18,6 +18,7 @@ public class GameViewer extends Viewer<GameModel> {
     private BulletView bulletView;
     private ShieldView shieldView;
     private StarView starView;
+    private EssenceView essenceView;
     private BackgroundView backgroundView;
 
     public GameViewer(Gui gui) {
@@ -27,6 +28,7 @@ public class GameViewer extends Viewer<GameModel> {
         coinView = new CoinView();
         bulletView = new BulletView();
         shieldView = new ShieldView();
+        essenceView = new EssenceView();
         starView = new StarView(0.2);
         backgroundView = new BackgroundView(starView);
     }
@@ -50,7 +52,9 @@ public class GameViewer extends Viewer<GameModel> {
         for(Shield shield: model.getShieldList()){
             shieldView.draw(gui, shield);
         }
-
+        for(Essence essence: model.getEssenceList()){
+            essenceView.draw(gui, essence);
+        }
         gui.refresh();
     }
 }

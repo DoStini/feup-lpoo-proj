@@ -1,9 +1,6 @@
 package com.shootemup.g53.controller.gameBuilder;
 
-import com.shootemup.g53.controller.element.BackgroundController;
-import com.shootemup.g53.controller.element.CoinController;
-import com.shootemup.g53.controller.element.ShieldController;
-import com.shootemup.g53.controller.element.SpaceshipController;
+import com.shootemup.g53.controller.element.*;
 import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.firing.MovingBulletStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
@@ -40,12 +37,13 @@ public class GameBuilder {
         GameModel gameModel = new GameModel(width, height);
         GameController gameController = new GameController(gameModel);
         BulletPoolController bulletPoolController = gameController.getBulletPoolController();
-        PowerupController powerupController = gameController.getPowerupController();
         //generate some enemies first
         List<Spaceship> enemiesList = new ArrayList<>();
         List<Coin> coinList = new ArrayList<>();
         List<BodyCollider> colliders = new ArrayList<>();
 
+
+        PowerupController powerupController = new PowerupController(gameController);
         Player player = new Player(new Position(20, 35), 3, 3, "#aae243", 2);
         //create a playerController ?
 
@@ -120,6 +118,16 @@ public class GameBuilder {
         shields.add(shield);
         gameModel.setShields(shields);
 
+        Essence essence = new Essence(new Position(10, 10), 10);
+        collider = new LineCompositeFactory()
+                .createFromCircle(essence, new Position(0,0), 1);
+        collider.setCategory(ColliderCategory.PICKUP);
+        colliders.add(collider);
+        gameModel.setEssences(new ArrayList<>());
+        gameModel.addEssence(essence);
+        EssenceController essenceController = new EssenceController(essence, new FallDownMovement());
+        gameController.addToControllerMap(essence, essenceController);
+        gameController.addToCollisionMap(essence, essenceController);
 
         Background background = new Background(25, 30);
 
