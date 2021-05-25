@@ -1,16 +1,12 @@
 package com.shootemup.g53.controller.gamebuilder.element;
 
 import com.shootemup.g53.controller.element.AsteroidController;
-import com.shootemup.g53.controller.element.CoinController;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.gamebuilder.MovementStrategyFactory;
-import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.collider.LineCompositeFactory;
 import com.shootemup.g53.model.element.Asteroid;
-import com.shootemup.g53.model.element.Element;
-import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 
 import java.util.Random;
@@ -42,7 +38,7 @@ public class AsteroidGenerator extends MovableElementGenerator {
         gameController.addToCollisionMap(asteroid, asteroidController);
     }
 
-    protected void addCollider(Asteroid asteroid) {
+    protected void setCollider(Asteroid asteroid) {
         BodyCollider collider = new LineCompositeFactory().createFromCircle(asteroid, new Position(0, 0),
                 asteroid.getRadius());
         collider.setCategory(ColliderCategory.ENEMY);
@@ -55,7 +51,7 @@ public class AsteroidGenerator extends MovableElementGenerator {
         setPosition(asteroid);
         setRadius(asteroid);
         setMovement(asteroid);
-        addCollider(asteroid);
+        setCollider(asteroid);
         gameModel.addAsteroid(asteroid);
     }
 }

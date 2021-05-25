@@ -6,6 +6,9 @@ import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.gamebuilder.MovementStrategyFactory;
 import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.controller.movement.MovementStrategy;
+import com.shootemup.g53.model.collider.BodyCollider;
+import com.shootemup.g53.model.collider.ColliderCategory;
+import com.shootemup.g53.model.collider.LineCompositeFactory;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.game.GameModel;
@@ -74,6 +77,17 @@ class AsteroidGeneratorTest {
     }
 
     @Test
+    void setCollider() {
+        asteroidGenerator.setCollider(asteroid);
+        BodyCollider collider =
+                new LineCompositeFactory().createFromCircle(asteroid, new Position(0, 0), asteroid.getRadius());
+        collider.setCategory(ColliderCategory.ENEMY);
+
+        Mockito.verify(gameModel, Mockito.times(1))
+                .addCollider(collider);
+    }
+
+    @Test
     void setColor() {
         int randomVal = 255;
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(randomVal);
@@ -105,5 +119,10 @@ class AsteroidGeneratorTest {
 
         Mockito.verify(gameModel, Mockito.times(1)).addAsteroid(
                 new Asteroid(new Position(randomVal+xMinPos, 0), randomVal+1));
+        Mockito.verify(gameController, Mockito.times(1))
+                .addToControllerMap(Mockito.any(Asteroid.class), Mockito.any(AsteroidController.class));
+        Mockito.verify(gameController, Mockito.times(1))
+                .addToCollisionMap(Mockito.any(Asteroid.class), Mockito.any(AsteroidController.class));
+        Mockito.verify(gameModel, Mockito.times(1)).addCollider(Mockito.any(BodyCollider.class));
     }
 }

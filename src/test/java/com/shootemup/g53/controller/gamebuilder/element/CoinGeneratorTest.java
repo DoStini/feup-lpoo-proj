@@ -1,9 +1,13 @@
 package com.shootemup.g53.controller.gamebuilder.element;
 
 import com.shootemup.g53.controller.element.CoinController;
+import com.shootemup.g53.controller.element.SpaceshipController;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.gamebuilder.MovementStrategyFactory;
 import com.shootemup.g53.controller.movement.FallDownMovement;
+import com.shootemup.g53.model.collider.BodyCollider;
+import com.shootemup.g53.model.collider.ColliderCategory;
+import com.shootemup.g53.model.collider.LineCompositeFactory;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
@@ -59,6 +63,16 @@ class CoinGeneratorTest {
 
     }
 
+    @Test
+    void setCollider() {
+        coinGenerator.setCollider(coin);
+        BodyCollider collider =
+                new LineCompositeFactory().createFromCircle(coin, new Position(0, 0), coin.getRadius());
+        collider.setCategory(ColliderCategory.PICKUP);
+
+        Mockito.verify(gameModel, Mockito.times(1))
+                .addCollider(collider);
+    }
 
     @Test
     void setSpeed() {
@@ -94,6 +108,12 @@ class CoinGeneratorTest {
         Mockito.verify(gameModel, Mockito.times(1)).addCoin(
                 new Coin(new Position(randomVal, 0), randomVal+1)
         );
+
+        Mockito.verify(gameController, Mockito.times(1))
+                .addToControllerMap(Mockito.any(Coin.class), Mockito.any(CoinController.class));
+        Mockito.verify(gameController, Mockito.times(1))
+                .addToCollisionMap(Mockito.any(Coin.class), Mockito.any(CoinController.class));
+        Mockito.verify(gameModel, Mockito.times(1)).addCollider(Mockito.any(BodyCollider.class));
 
     }
 }

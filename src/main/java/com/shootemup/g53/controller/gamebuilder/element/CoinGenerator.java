@@ -45,7 +45,7 @@ public class CoinGenerator extends MovableElementGenerator {
         // coin.setValue(rand.nextInt(maxVal - minVal)+minVal);
     }
 
-    private void setCollider(Coin coin) {
+    protected void setCollider(Coin coin) {
         BodyCollider coinCollider =
                 new LineCompositeFactory().createFromCircle(coin, new Position(0,0), coin.getRadius());
         coinCollider.setCategory(ColliderCategory.PICKUP);

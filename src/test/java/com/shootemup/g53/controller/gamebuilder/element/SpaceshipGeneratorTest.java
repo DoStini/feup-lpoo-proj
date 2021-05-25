@@ -6,8 +6,13 @@ import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.gamebuilder.FiringStrategyFactory;
 import com.shootemup.g53.controller.gamebuilder.MovementStrategyFactory;
+import com.shootemup.g53.controller.movement.CircularMovement;
+import com.shootemup.g53.controller.movement.DiagonalBounceMovement;
 import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.controller.movement.MovementStrategy;
+import com.shootemup.g53.model.collider.BodyCollider;
+import com.shootemup.g53.model.collider.ColliderCategory;
+import com.shootemup.g53.model.collider.LineCompositeFactory;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
@@ -66,15 +71,29 @@ class SpaceshipGeneratorTest {
     void setMovementController() {
         int randomVal = 2;
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(randomVal);
-        Mockito.when(movementStrategyFactory.generate(Mockito.any())).thenReturn(Mockito.mock(MovementStrategy.class));
-        Mockito.when(firingStrategyFactory.generate(Mockito.any())).thenReturn(Mockito.mock(FiringStrategy.class));
+        FiringStrategy firingStrategy = Mockito.mock(FiringStrategy.class);
+        MovementStrategy movementStrategy = new FallDownMovement();
+        Mockito.when(movementStrategyFactory.generate(Mockito.any())).thenReturn(movementStrategy);
+        Mockito.when(firingStrategyFactory.generate(Mockito.any())).thenReturn(firingStrategy);
 
         spaceshipGenerator.setController(spaceship);
         Mockito.verify(gameController, Mockito.times(1))
                 .addToControllerMap(Mockito.eq(spaceship), Mockito.any(SpaceshipController.class));
         Mockito.verify(gameController, Mockito.times(1))
                 .addToCollisionMap(Mockito.eq(spaceship), Mockito.any(SpaceshipController.class));
+    }
 
+    @Test
+    void setCollider() {
+        spaceshipGenerator.setCollider(spaceship);
+        BodyCollider collider =
+                new LineCompositeFactory().createFromInvertedIsoscelesTriangle(spaceship, new Position(0, 0),
+                        spaceship.getHeight());
+        collider.setCategory(ColliderCategory.ENEMY);
+        collider.setCategoryMask((short) (ColliderCategory.PLAYER.getBits() | ColliderCategory.PLAYER_BULLET.getBits()));
+
+        Mockito.verify(gameModel, Mockito.times(1))
+                .addCollider(collider);
     }
 
     @Test
@@ -102,5 +121,10 @@ class SpaceshipGeneratorTest {
         Mockito.verify(gameModel, Mockito.times(1)).addEnemy(
                 new Spaceship(new Position(randomVal, 0),
                         randomVal+minSize, 100, color, randomVal+minSpeed));
+        Mockito.verify(gameController, Mockito.times(1))
+                .addToControllerMap(Mockito.any(Spaceship.class), Mockito.any(SpaceshipController.class));
+        Mockito.verify(gameController, Mockito.times(1))
+                .addToCollisionMap(Mockito.any(Spaceship.class), Mockito.any(SpaceshipController.class));
+        Mockito.verify(gameModel, Mockito.times(1)).addCollider(Mockito.any(BodyCollider.class));
     }
 }
