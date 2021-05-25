@@ -3,27 +3,26 @@ package com.shootemup.g53.controller.movement;
 import com.shootemup.g53.model.util.Position;
 
 public abstract class FrameMovement implements MovementStrategy {
-    protected int fireRate;
-    protected int lastMove;
-    protected int moveFrame;
-    public void increaseFrame(){
-        moveFrame++;
-    }
-
-    public int getFrame() {
-        return moveFrame;
-    }
+    protected double currentDistance;
 
     FrameMovement() {
-        lastMove = 0;
-        moveFrame = 0;
+        currentDistance = 0;
     }
 
     @Override
     public Position move(Position position, double speed) {
-        increaseFrame();
+        currentDistance += speed;
+        Position newPosition;
 
-        return moveFrame(position, (int)speed);
+        if(currentDistance >= 1) {
+            newPosition = moveFrame(position, (int)currentDistance);
+
+            currentDistance -= (int)currentDistance;
+        } else {
+            newPosition = position;
+        }
+
+        return newPosition;
     }
 
     abstract Position moveFrame(Position position, int speed);

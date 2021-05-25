@@ -107,6 +107,8 @@ class MovementStrategyTest {
 
     @Test
     void circular() {
+        int speed = 3;
+        Mockito.when(element.getSpeed()).thenReturn(speed);
         double angSpeed = 72;
 
         MovementStrategy circular = new CircularMovement(3, 0, angSpeed);
@@ -127,6 +129,8 @@ class MovementStrategyTest {
 
     @Test
     void circularReverse() {
+        int speed = 3;
+        Mockito.when(element.getSpeed()).thenReturn(speed);
         double angSpeed = -72;
 
         MovementStrategy circular = new CircularMovement(3, 0, angSpeed);
@@ -147,6 +151,8 @@ class MovementStrategyTest {
 
     @Test
     void circularReverseAngle() {
+        int speed = 3;
+        Mockito.when(element.getSpeed()).thenReturn(speed);
         double angSpeed = -72;
 
         MovementStrategy circular = new CircularMovement( 3, 90, angSpeed);
