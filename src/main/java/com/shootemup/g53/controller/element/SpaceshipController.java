@@ -41,7 +41,7 @@ public class SpaceshipController extends MovableElementController implements Col
 
     @Override
     public void handleBullet(Bullet bullet) {
-        spaceship.setHealth(spaceship.getHealth() - 1);
+        spaceship.setHealth(spaceship.getHealth() - bullet.getDamage());
     }
 
 

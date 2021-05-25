@@ -64,24 +64,19 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     @Override
     public void handleBullet(Bullet bullet) {
-        // this is bad
-        this.player.setHealth(this.player.getHealth()-1);
+        this.player.setHealth(this.player.getHealth()-bullet.getDamage());
     }
 
     @Override
     public void handleSpaceship(Spaceship spaceship) {
-        // this is bad
         this.player.setHealth(this.player.getHealth()-5);
+        
     }
 
     @Override
     public void handleEssence(Essence essence) {
         this.player.addEssence(essence.getValue());
         System.out.println(player.getEssence());
-    }
-
-    @Override
-    public void handlePlayer(Player player) {
     }
 
     @Override

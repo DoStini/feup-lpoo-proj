@@ -9,16 +9,18 @@ import com.shootemup.g53.model.util.objectpool.PoolableObject;
 public class Spaceship extends MovableElement {
     private int height;
     private int health;
-    public Spaceship(Position position, int height,int health, String color, int speed) {
+    private int bulletDamage;
+
+    public Spaceship(Position position, int height,int health, String color, int speed, int bulletDamage) {
         super(position, color, speed);
         this.height = height;
         this.health = health;
-
+        this.bulletDamage = bulletDamage;
     }
 
     @Override
     public PoolableObject clone() {
-        return new Spaceship(getPosition(), height,health,getColor(),getSpeed());
+        return new Spaceship(getPosition(), height,health,getColor(),getSpeed(), getBulletDamage());
     }
 
     public int getHeight() {
@@ -29,6 +31,9 @@ public class Spaceship extends MovableElement {
         this.height = height;
     }
 
+    public int getBulletDamage() {
+        return bulletDamage;
+    }
 
     public int getHealth() {
         return health;
