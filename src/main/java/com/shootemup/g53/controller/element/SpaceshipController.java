@@ -50,12 +50,11 @@ public class SpaceshipController extends MovableElementController implements Col
 
     @Override
     public void handleSpaceship(Spaceship spaceship) {
-
     }
 
     @Override
     public void handleAsteroid(Asteroid asteroid) {
-        spaceship.setHealth(0);
+
     }
 
     @Override

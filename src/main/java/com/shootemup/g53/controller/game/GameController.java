@@ -85,7 +85,6 @@ public class GameController extends GenericController {
 
     @Override
     public void handle(){
-
         if(backgroundController != null) backgroundController.handle();
 
         controllerCopy.clear();
@@ -132,41 +131,6 @@ public class GameController extends GenericController {
         }
         return pos.getX() > 0 && pos.getX() < gameModel.getWidth() &&
                 pos.getY() < gameModel.getHeight() + 10;
-    }
-
-    public void handlePlayerInput() {
-        getElementController(getGameModel().getPlayer()).handle();
-    }
-
-    public void handleBullets(){
-        for(Bullet bullet: gameModel.getBulletList()) {
-            getElementController(bullet).handle();
-        }
-        bulletPoolController.removeInactiveBullets();
-    }
-
-    public void handleEnemies(){
-        for(Spaceship enemy: gameModel.getEnemySpaceships()) {
-            getElementController(enemy).handle();
-            if (!insideBounds(enemy.getPosition()))
-                enemy.deactivate();
-        }
-    }
-
-    public void handleCoins() {
-        for (Coin coin : gameModel.getCoins()) {
-            getElementController(coin).handle();
-            if (!insideBounds(coin.getPosition()))
-                coin.deactivate();
-        }
-    }
-
-    public void handleAsteroids() {
-        for (Asteroid asteroid : gameModel.getAsteroids()) {
-            getElementController(asteroid).handle();
-            if (!insideBounds(asteroid.getPosition()))
-                asteroid.deactivate();
-        }
     }
 
    public void handleCollision() {

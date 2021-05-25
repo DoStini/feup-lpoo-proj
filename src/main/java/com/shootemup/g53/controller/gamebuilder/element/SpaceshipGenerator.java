@@ -80,9 +80,9 @@ public class SpaceshipGenerator extends MovableElementGenerator {
         setPosition(spaceship);
         setColor(spaceship);
         setSpeed(spaceship);
+        setSize(spaceship);
         setController(spaceship);
         setCollider(spaceship);
-        setSize(spaceship);
         gameModel.addEnemy(spaceship);
     }
 }
