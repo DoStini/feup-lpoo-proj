@@ -66,7 +66,6 @@ public class SpaceshipController extends MovableElementController implements Col
         fire(bulletPoolController);
         Position newPosition = move();
 
-
         spaceship.setPosition(newPosition);
     }
 }

@@ -5,13 +5,13 @@ import com.shootemup.g53.controller.element.ElementInterface;
 import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
+import com.shootemup.g53.controller.observer.LifeController;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
-
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 
@@ -19,12 +19,14 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     private Spaceship spaceship;
     private FiringStrategy firingStrategy;
     private BulletPoolController bulletPoolController;
+    private LifeController lifeController = new LifeController();
     private Gui gui;
     public PlayerController(Spaceship spaceship, Gui gui, BulletPoolController bulletPoolController, FiringStrategy firingStrategy) {
         this.spaceship = spaceship;
         this.gui = gui;
         this.bulletPoolController = bulletPoolController;
         this.firingStrategy = firingStrategy;
+
     }
 
     public void fire(Gui gui, BulletPoolController bulletPoolController) {
@@ -65,12 +67,14 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     public void handleBullet(Bullet bullet) {
         // this is bad
         this.spaceship.setHealth(this.spaceship.getHealth()-1);
+        lifeController.notifyObservers();
     }
 
     @Override
     public void handleSpaceship(Spaceship spaceship) {
         // this is bad
         this.spaceship.setHealth(this.spaceship.getHealth()-5);
+        lifeController.notifyObservers();
     }
 
     @Override
@@ -89,4 +93,10 @@ public class PlayerController implements CollisionHandlerController, ElementInte
         setPosition(newPosition);
         fire(gui,bulletPoolController);
     }
+
+    public LifeController getLifeController() {
+        return lifeController;
+    }
+
+
 }

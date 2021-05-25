@@ -9,6 +9,8 @@ import com.shootemup.g53.controller.command.StartCommand;
 import com.shootemup.g53.controller.game.MenuStateController;
 import com.shootemup.g53.controller.game.PauseStateController;
 import com.shootemup.g53.controller.gameBuilder.GameBuilder;
+import com.shootemup.g53.controller.input.InputObserver;
+import com.shootemup.g53.controller.input.KeyPressObserver;
 import com.shootemup.g53.model.game.MenuModel;
 import com.shootemup.g53.model.game.PauseModel;
 import com.shootemup.g53.ui.Gui;
@@ -16,18 +18,20 @@ import com.shootemup.g53.view.Viewer;
 import com.shootemup.g53.view.game.MenuViewer;
 import com.shootemup.g53.view.game.PauseViewer;
 
-public class PauseState extends State<PauseModel>{
+public class PauseState extends State<PauseModel> {
     private PauseStateController pauseController;
     private Viewer<PauseModel> pauseViewer;
     private PlayState playState;
     private Gui gui;
+    private KeyPressObserver keyPressObserver = new KeyPressObserver();
 
-    public PauseState(Game game, Gui gui,PlayState playState) {
+    public PauseState(Game game, Gui gui, PlayState playState) {
         this.game = game;
         this.gui = gui;
         this.pauseController = new PauseStateController(playState);
+        this.pauseController.getInputNotifier().addObserver(keyPressObserver);
         this.pauseViewer = new PauseViewer(gui);
-        getStateModel().getOptions().get(0).setButtonCommand(new ResumeCommand(game,playState));
+        getStateModel().getOptions().get(0).setButtonCommand(new ResumeCommand(game, playState));
         getStateModel().getOptions().get(1).setButtonCommand(new StartCommand(game));
         getStateModel().getOptions().get(2).setButtonCommand(new MenuCommand(game));
     }
@@ -55,18 +59,29 @@ public class PauseState extends State<PauseModel>{
     @Override
     public void run() {
         try {
-            while (true) {
-                Thread.sleep(100);
-                pauseController.handleKeyPress(gui);
+        pauseViewer.draw(getStateModel());
+        Thread.sleep(100);
+        while (true) {
+            pauseController.handleKeyPress(gui);
+            if (keyPressObserver.getKeyPressed()) {
                 pauseViewer.draw(getStateModel());
-                if(pauseController.isClose()){
+                if (pauseController.isClose()) {
                     return;
                 }
+                keyPressObserver.resetKeyPress();
+                Thread.sleep(200);
 
             }
         }
-        catch (InterruptedException  e) {
-            e.printStackTrace();
+
+
+        } catch (InterruptedException e) {
+                e.printStackTrace();
         }
+
+
     }
+
+
 }
+

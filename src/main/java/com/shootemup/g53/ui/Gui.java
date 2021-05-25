@@ -1,6 +1,7 @@
 package com.shootemup.g53.ui;
 
 import com.shootemup.g53.controller.input.Action;
+import com.shootemup.g53.controller.input.InputObserver;
 import com.shootemup.g53.model.util.Position;
 
 public interface Gui {

@@ -10,6 +10,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.input.AWTInputController;
 import com.shootemup.g53.controller.input.InputController;
+import com.shootemup.g53.controller.input.InputObserver;
 import com.shootemup.g53.model.util.Position;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 
@@ -133,6 +134,7 @@ public class LanternaGui implements Gui {
     public boolean isActionActive(Action act) {
         return inputController.isActionActive(act);
     }
+
 
 
 

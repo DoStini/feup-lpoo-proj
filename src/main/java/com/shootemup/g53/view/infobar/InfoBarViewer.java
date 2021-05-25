@@ -19,18 +19,20 @@ public class InfoBarViewer extends Viewer<InfoBarModel> {
     @Override
     public void draw(InfoBarModel infoBarModel) {
         gui.clear();
-        Drawer rectangleDrawer = new RectangleDrawer("#ff00ff", infoBarWidth,gui.getHeight());
+        String infoBarBackground = "#FF1033";
+        String textColor =  "#FFD892";
+        Drawer rectangleDrawer = new RectangleDrawer(infoBarBackground, infoBarWidth,gui.getHeight());
         rectangleDrawer.draw(gui,new Position(gui.getWidth() - infoBarWidth,0));
 
         int XPosition = gui.getWidth() - infoBarWidth/2;
         int currY = 5;
         String text = "LIVES: ";
-        gui.drawText("#00ff00","LIVES: ",new Position(XPosition - text.length()/5 , currY ),"#ffffff");
+        gui.drawText(textColor,"LIVES: ",new Position(XPosition - text.length()/5 , currY ),infoBarBackground);
         currY = currY + 2;
         String currHP = String.valueOf(infoBarModel.getCurrentLives());
         String maxHP = String.valueOf(infoBarModel.getMaxLives());
         text = currHP + "/" + maxHP;
-        gui.drawText("#00ff00",text,new Position(XPosition - text.length()/2,currY ),"#ffffff");
+        gui.drawText(textColor,text,new Position(XPosition - text.length()/2,currY ),infoBarBackground);
         currY = currY + 2;
         Drawer healthBarDrawer = new RectangleDrawer("#ff6961", 2, healthBarLength );
         Drawer healthBarCurrentDrawer = new RectangleDrawer("#00FF00", 2, (int) (healthBarLength * ( (double)(infoBarModel.getCurrentLives()) / infoBarModel.getMaxLives())) );
@@ -39,21 +41,21 @@ public class InfoBarViewer extends Viewer<InfoBarModel> {
         healthBarCurrentDrawer.draw(gui, new Position(XPosition - 2, currY));
         currY = currY + 7;
         text = "SCORE: ";
-        gui.drawText("#00ff00",text,new Position(XPosition - text.length()/5,5 + currY ),"#ffffff");
+        gui.drawText(textColor,text,new Position(XPosition - text.length()/5,5 + currY ),infoBarBackground);
         text = String.valueOf(infoBarModel.getScore());
         currY = currY + 2;
-        gui.drawText("#00ff00",text,new Position(XPosition - text.length()/2,5 + currY ),"#ffffff");
+        gui.drawText(textColor,text,new Position(XPosition ,5 + currY ),infoBarBackground);
         currY = currY + 3;
         text = "WAVE:";
-        gui.drawText("#00ff00",text,new Position(XPosition - text.length()/5,5 + currY ),"#ffffff");
+        gui.drawText(textColor,text,new Position(XPosition - text.length()/5,5 + currY ),infoBarBackground);
         text = String.valueOf(infoBarModel.getCurrentWave());
         currY = currY + 2;
-        gui.drawText("#00ff00",text,new Position(XPosition - text.length()/2,5 + currY ),"#ffffff");
+        gui.drawText(textColor,text,new Position(XPosition ,5 + currY ),infoBarBackground);
         currY = currY + 3;
         text = "TIME:";
-        gui.drawText("#00ff00",text,new Position(XPosition - text.length()/5,5 + currY ),"#ffffff");
+        gui.drawText(textColor,text,new Position(XPosition - text.length()/5,5 + currY ),infoBarBackground);
         currY = currY + 2;
         text = String.valueOf(infoBarModel.getTime());
-        gui.drawText("#00ff00",text,new Position(XPosition - text.length()/2,5 + currY ),"#ffffff");
+        gui.drawText(textColor,text,new Position(XPosition ,5 + currY ),infoBarBackground);
     }
 }

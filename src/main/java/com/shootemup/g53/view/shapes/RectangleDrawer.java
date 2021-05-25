@@ -16,7 +16,7 @@ public class RectangleDrawer implements Drawer{
 
     @Override
     public void draw(Gui gui, Position position) {
-        for (int i = 0; i <= height; i++){
+        for (int i = 0; i < height; i++){
             gui.drawLine(color,position,width);
             position.setY(position.getY() + 1);
         }

@@ -49,10 +49,11 @@ public class StateTest {
         Mockito.when(gameModel.getPlayer()).thenReturn(player);
         Mockito.when(gameController.getGameModel()).thenReturn(gameModel);
         Mockito.when(gameController.isGameFinished()).thenReturn(true);
-        Mockito.when(gameController.getLifeController()).thenReturn(lifeController);
-        Mockito.when(gameController.getScoreController()).thenReturn(scoreController);
         Mockito.when(gameController.getWaveCompletionController()).thenReturn(waveCompletionController);
         Mockito.when(gameController.getElementController(player)).thenReturn(playerController);
+        Mockito.when(gameController.getPlayerController()).thenReturn(playerController);
+
+        Mockito.when(playerController.getLifeController()).thenReturn(lifeController);
         gameViewer = Mockito.mock(GameViewer.class);
         gameBuilder = Mockito.mock(GameBuilder.class);
         Mockito.when(gameBuilder.buildGame(Mockito.anyInt(),Mockito.anyInt(),Mockito.anyInt(),Mockito.anyInt(),Mockito.any())).thenReturn(gameController);

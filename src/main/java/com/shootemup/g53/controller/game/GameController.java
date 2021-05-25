@@ -12,6 +12,7 @@ import com.shootemup.g53.controller.observer.LifeController;
 import com.shootemup.g53.controller.observer.ScoreController;
 import com.shootemup.g53.controller.observer.WaveCompletionController;
 
+import com.shootemup.g53.controller.player.PlayerController;
 import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
@@ -30,14 +31,14 @@ public class GameController extends GenericController {
     private HashMap<Element, ElementInterface> controllerHashMap = new HashMap<>();
     private HashMap<Element, CollisionHandlerController> collisionHashMap = new HashMap<>();
 
-    private LifeController lifeController = new LifeController();
-    private ScoreController scoreController = new ScoreController();
+
     private WaveCompletionController waveCompletionController = new WaveCompletionController();
 
     public GameController(GameModel gameModel) {
         this(gameModel, new BulletPoolController(gameModel, 30));
         this.bulletPoolController.setGameController(this);
         this.controllerCopy = new ArrayList<>();
+
     }
 
     public int numOfControllers(){
@@ -65,7 +66,6 @@ public class GameController extends GenericController {
     public void finishGame(){
         gameModel.setGameFinished(true);
     }
-
 
     public void removeFromControllerMap(Element element){
         controllerHashMap.remove(element);
@@ -100,7 +100,9 @@ public class GameController extends GenericController {
     public void handle(){
 
         if(backgroundController != null) backgroundController.handle();
-
+        if(gameModel.getPlayer().getHealth() <= 0){
+            finishGame();
+        }
         controllerCopy.clear();
         controllerCopy.addAll(controllerHashMap.values());
 
@@ -163,13 +165,8 @@ public class GameController extends GenericController {
         return gameModel;
     }
 
-    public LifeController getLifeController() {
-        return lifeController;
-    }
-
-
-    public ScoreController getScoreController() {
-        return scoreController;
+    public PlayerController getPlayerController(){
+        return (PlayerController) controllerHashMap.get(gameModel.getPlayer());
     }
 
     public WaveCompletionController getWaveCompletionController() {
