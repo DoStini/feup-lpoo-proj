@@ -1,9 +1,6 @@
 package com.shootemup.g53.controller.game;
 
-import com.shootemup.g53.controller.element.AsteroidController;
-import com.shootemup.g53.controller.element.BulletController;
-import com.shootemup.g53.controller.element.CoinController;
-import com.shootemup.g53.controller.element.SpaceshipController;
+import com.shootemup.g53.controller.element.*;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.player.PlayerController;
 import com.shootemup.g53.model.element.Asteroid;
@@ -13,6 +10,10 @@ import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
+<<<<<<< HEAD
+=======
+import com.sun.source.tree.AssertTree;
+>>>>>>> develop
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,7 @@ public class GameControllerTest {
     private CoinController coinController;
     private AsteroidController asteroidController;
     private SpaceshipController spaceshipController;
+    private BackgroundController backgroundController;
     private Position position;
     private Position position2;
     private Bullet bullet;
@@ -60,6 +62,8 @@ public class GameControllerTest {
         Mockito.when(bulletController.move()).thenReturn(position);
         bullet = Mockito.mock(Bullet.class);
         bullet2 = Mockito.mock(Bullet.class);
+        backgroundController = Mockito.mock(BackgroundController.class);
+
         Mockito.when(gameModel.getWidth()).thenReturn(50);
         Mockito.when(gameModel.getHeight()).thenReturn(50);
         Mockito.when(gameModel.getBulletList()).thenReturn(Arrays.asList(bullet, bullet2));
@@ -109,7 +113,7 @@ public class GameControllerTest {
         gameController.addToControllerMap(bullet2,bulletController);
 
         bulletPoolController.setGameController(gameController);
-        gameController.handleBullets();
+        gameController.handle();
         Mockito.verify(bulletPoolController, Mockito.times(1)).removeInactiveBullets();
 
         Mockito.verify(bulletController, Mockito.times(2))
@@ -144,17 +148,17 @@ public class GameControllerTest {
         gameController.addToControllerMap(coin,coinController);
         gameController.addToControllerMap(asteroid,asteroidController);
         gameController.addToControllerMap(player,playerController);
+        gameController.addToControllerMap(bullet, bulletController);
+        gameController.addToControllerMap(bullet2, bulletController);
+        gameController.setBackgroundController(backgroundController);
 
-        gameController.handlePlayerInput();
+        gameController.handle();
         Mockito.verify(playerController,Mockito.times(1)).handle();
 
-        gameController.handleCoins();
         Mockito.verify(coinController,Mockito.times(1)).handle();
 
-        gameController.handleAsteroids();
         Mockito.verify(asteroidController,Mockito.times(1)).handle();
 
-        gameController.handleEnemies();
         Mockito.verify(spaceshipController,Mockito.times(1)).handle();
     }
 
@@ -166,6 +170,7 @@ public class GameControllerTest {
 
         gameController.addToCollisionMap(spaceship, spaceshipController);
 
+<<<<<<< HEAD
         Assertions.assertEquals(spaceshipController, gameController.getCollisionHandler(spaceship));
 
         gameController.addToCollisionMap(coin, coinController);
@@ -178,6 +183,20 @@ public class GameControllerTest {
 
         Assertions.assertEquals(spaceshipController, gameController.getCollisionHandler(spaceship));
         Assertions.assertNull(gameController.getCollisionHandler(coin));
+=======
+        gameController.handle();
+        Mockito.verify(backgroundController,Mockito.times(2)).handle();
+    }
+
+    @Test
+    void settersGetters(){
+        GameController gameController = new GameController(gameModel, bulletPoolController);
+
+        gameController.setBackgroundController(backgroundController);
+
+        Assertions.assertEquals(gameController.getBackgroundController(), gameController.getBackgroundController());
+        Assertions.assertEquals(backgroundController, gameController.getBackgroundController());
+>>>>>>> develop
     }
 
 }

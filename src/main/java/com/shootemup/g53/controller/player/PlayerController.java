@@ -30,7 +30,7 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     public void fire(Gui gui, BulletPoolController bulletPoolController) {
         firingStrategy.increaseFrame();
         if (gui.isActionActive(Action.SPACE)) {
-            firingStrategy.fire(spaceship, bulletPoolController, ColliderCategory.PLAYER_BULLET);
+            firingStrategy.fire(spaceship, spaceship.getPosition().getUp(spaceship.getHeight()), bulletPoolController, "#ff0000", ColliderCategory.PLAYER_BULLET);
         }
     }
 
