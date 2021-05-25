@@ -49,10 +49,18 @@ class ChangingMovementTest {
 
     @Test
     void movement() {
-
         MovementStrategy controller = new ChangingMovement(15, movementStrategies);
         MovementStrategy movementController = movementStrategies.get(0);
         Mockito.when(movementController.move(spaceship.getPosition(), spaceship.getSpeed())).thenReturn(position);
+
+        MovementStrategy clone = controller.cloneStrategy();
+
+        Assertions.assertTrue(clone instanceof ChangingMovement);
+        ChangingMovement movement = (ChangingMovement) clone;
+
+        Assertions.assertEquals(15, ((ChangingMovement)controller).changeRate);
+
+        Assertions.assertNotEquals(movementController, movement.controllers.get(0));
 
         controller.handleFailedMovement();
         Mockito.verify(movementController, Mockito.times(1)).handleFailedMovement();

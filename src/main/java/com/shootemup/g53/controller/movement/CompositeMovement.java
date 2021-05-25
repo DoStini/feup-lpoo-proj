@@ -37,4 +37,15 @@ public class CompositeMovement extends IncrementalMovement {
             strategy.handleFailedMovement();
         }
     }
+
+    @Override
+    public MovementStrategy cloneStrategy() {
+        List<MovementStrategy> strategies = new ArrayList<>();
+
+        for(MovementStrategy strategy : controllers) {
+            strategies.add(strategy.cloneStrategy());
+        }
+
+        return new CompositeMovement(strategies);
+    }
 }

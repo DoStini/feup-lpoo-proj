@@ -2,13 +2,14 @@ package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.model.util.Position;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class ChangingMovement extends IncrementalMovement {
-    private int changeRate;
+    protected int changeRate;
     private MovementStrategy currentController;
-    private List<MovementStrategy> controllers;
+    protected List<MovementStrategy> controllers;
     private int lastChange = 0;
     private int frame = 0;
     private Random randomGen;
@@ -44,5 +45,16 @@ public class ChangingMovement extends IncrementalMovement {
     @Override
     public void handleFailedMovement() {
         currentController.handleFailedMovement();
+    }
+
+    @Override
+    public MovementStrategy cloneStrategy() {
+        List<MovementStrategy> strategies = new ArrayList<>();
+
+        for(MovementStrategy strategy : controllers) {
+            strategies.add(strategy.cloneStrategy());
+        }
+
+        return new ChangingMovement(changeRate, strategies);
     }
 }

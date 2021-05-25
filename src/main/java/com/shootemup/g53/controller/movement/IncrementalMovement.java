@@ -5,7 +5,7 @@ import com.shootemup.g53.model.util.Position;
 public abstract class IncrementalMovement implements MovementStrategy {
     protected double currentDistance;
 
-    IncrementalMovement() {
+    public IncrementalMovement() {
         currentDistance = 0;
     }
 

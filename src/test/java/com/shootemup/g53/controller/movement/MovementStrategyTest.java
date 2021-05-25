@@ -34,6 +34,9 @@ class MovementStrategyTest {
         element.setPosition(fallDownMovement.move(element.getPosition(), element.getSpeed()));
         Assertions.assertEquals(startPosition.getDown((int)speed * 2), element.getPosition());
 
+        MovementStrategy clone = fallDownMovement.cloneStrategy();
+
+        Assertions.assertTrue(clone instanceof FallDownMovement);
     }
 
     @Test
@@ -51,6 +54,10 @@ class MovementStrategyTest {
 
         element.setPosition(goUpMovement.move(element.getPosition(), element.getSpeed()));
         Assertions.assertEquals(startPosition.getUp((int)speed * 2), element.getPosition());
+
+        MovementStrategy clone = goUpMovement.cloneStrategy();
+
+        Assertions.assertTrue(clone instanceof MoveUpwardsMovement);
     }
 
 
@@ -59,6 +66,7 @@ class MovementStrategyTest {
         double speed = 3;
         Mockito.when(element.getSpeed()).thenReturn(speed);
 
+        Position init = element.getPosition();
         MovementStrategy diagonalBounceMovement = new DiagonalBounceMovement(0, 10, Direction.DOWN_RIGHT, element.getPosition());
 
         element.setPosition(diagonalBounceMovement.move(element.getPosition(), speed));
@@ -77,6 +85,16 @@ class MovementStrategyTest {
         Assertions.assertEquals(new Position(2, 22), element.getPosition());
         element.setPosition(diagonalBounceMovement.move(element.getPosition(), speed));
         Assertions.assertEquals(new Position(5, 25), element.getPosition());
+
+        MovementStrategy clone = diagonalBounceMovement.cloneStrategy();
+
+        Assertions.assertTrue(clone instanceof DiagonalBounceMovement);
+        DiagonalBounceMovement bounceClone = (DiagonalBounceMovement) clone;
+
+        Assertions.assertEquals(0, bounceClone.xLeftLimit);
+        Assertions.assertEquals(10, bounceClone.xRightLimit);
+        Assertions.assertEquals(Direction.DOWN_RIGHT, bounceClone.direction);
+        Assertions.assertEquals(init, bounceClone.initalPosition);
     }
 
     @Test
@@ -90,6 +108,10 @@ class MovementStrategyTest {
         Assertions.assertEquals(new Position(-2, 4), element.getPosition());
         element.setPosition(diagonalLeftMovement.move(element.getPosition(), speed));
         Assertions.assertEquals(new Position(-5, 7), element.getPosition());
+
+        MovementStrategy clone = diagonalLeftMovement.cloneStrategy();
+
+        Assertions.assertTrue(clone instanceof  DiagonalDownLeftMovement);
     }
 
     @Test
@@ -103,6 +125,10 @@ class MovementStrategyTest {
         Assertions.assertEquals(new Position(4, 4), element.getPosition());
         element.setPosition(diagonalRightMovement.move(element.getPosition(), speed));
         Assertions.assertEquals(new Position(7, 7), element.getPosition());
+
+        MovementStrategy clone = diagonalRightMovement.cloneStrategy();
+
+        Assertions.assertTrue(clone instanceof  DiagonalDownRightMovement);
     }
 
     @Test
@@ -112,6 +138,15 @@ class MovementStrategyTest {
         double angSpeed = 72;
 
         MovementStrategy circular = new CircularMovement(3, 0, angSpeed);
+
+        MovementStrategy clone = circular.cloneStrategy();
+
+        Assertions.assertTrue(clone instanceof CircularMovement);
+        CircularMovement bounceClone = (CircularMovement) clone;
+
+        Assertions.assertEquals(3, bounceClone.radius);
+        Assertions.assertEquals(0, bounceClone.angle);
+        Assertions.assertEquals(Math.toRadians(angSpeed), bounceClone.angularSpeed);
 
         element.setPosition(circular.move(element.getPosition(), element.getSpeed()));
         Assertions.assertEquals(new Position(-1, 4), element.getPosition());
@@ -125,6 +160,8 @@ class MovementStrategyTest {
         Assertions.assertEquals(new Position(1, 1), element.getPosition());
         element.setPosition(circular.move(element.getPosition(), element.getSpeed()));
         Assertions.assertEquals(new Position(-1, 4), element.getPosition());
+
+
     }
 
     @Test
@@ -184,6 +221,10 @@ class MovementStrategyTest {
         element.setPosition(left.move(element.getPosition(), element.getSpeed()));
 
         Assertions.assertEquals(new Position(-3, 1), element.getPosition());
+
+        MovementStrategy clone = left.cloneStrategy();
+
+        Assertions.assertTrue(clone instanceof LeftMovement);
     }
 
     @Test
@@ -198,5 +239,9 @@ class MovementStrategyTest {
         Assertions.assertEquals(new Position(3, 1), element.getPosition());
         element.setPosition(right.move(element.getPosition(), element.getSpeed()));
         Assertions.assertEquals(new Position(5, 1), element.getPosition());
+
+        MovementStrategy clone = right.cloneStrategy();
+
+        Assertions.assertTrue(clone instanceof  RightMovement);
     }
 }

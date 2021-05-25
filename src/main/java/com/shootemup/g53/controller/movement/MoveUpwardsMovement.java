@@ -12,4 +12,9 @@ public class MoveUpwardsMovement  extends IncrementalMovement {
     public void handleFailedMovement() {
 
     }
+
+    @Override
+    public MovementStrategy cloneStrategy() {
+        return new MoveUpwardsMovement();
+    }
 }

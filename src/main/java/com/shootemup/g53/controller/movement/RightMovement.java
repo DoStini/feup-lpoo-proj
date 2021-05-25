@@ -13,4 +13,9 @@ public class RightMovement extends IncrementalMovement {
     public void handleFailedMovement() {
 
     }
+
+    @Override
+    public MovementStrategy cloneStrategy() {
+        return new RightMovement();
+    }
 }

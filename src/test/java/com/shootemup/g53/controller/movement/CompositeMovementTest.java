@@ -16,6 +16,14 @@ class CompositeMovementTest {
         CompositeMovement strategy = new CompositeMovement();
         strategy.addMovement(fallDown);
 
+        MovementStrategy clone = strategy.cloneStrategy();
+
+        Assertions.assertTrue(clone instanceof CompositeMovement);
+        CompositeMovement movement = (CompositeMovement) clone;
+
+        Assertions.assertTrue(movement.controllers.get(0) instanceof FallDownMovement);
+        Assertions.assertNotEquals(fallDown, movement.controllers.get(0));
+
         Assertions.assertEquals(1, strategy.controllers.size());
 
         Position position = new Position(0,0);
@@ -32,10 +40,21 @@ class CompositeMovementTest {
 
         MovementStrategy composite = new CompositeMovement(strategies);
 
+        MovementStrategy clone = composite.cloneStrategy();
+
+        Assertions.assertTrue(clone instanceof CompositeMovement);
+        CompositeMovement movement = (CompositeMovement) clone;
+
+        Assertions.assertTrue(movement.controllers.get(0) instanceof FallDownMovement);
+        Assertions.assertTrue(movement.controllers.get(1) instanceof DiagonalDownLeftMovement);
+        Assertions.assertNotEquals(fallDown, movement.controllers.get(0));
+        Mockito.verify(fallDown, Mockito.times(1)).cloneStrategy();
+        Assertions.assertNotEquals(diagonalLeft, movement.controllers.get(0));
+        Mockito.verify(diagonalLeft, Mockito.times(1)).cloneStrategy();
+
         Position position = new Position(1,3);
 
         Assertions.assertEquals(new Position(-3+1,6+3), composite.move(position, 3));
-
 
         composite.handleFailedMovement();
 

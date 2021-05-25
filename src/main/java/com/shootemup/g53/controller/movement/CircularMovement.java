@@ -3,9 +3,9 @@ package com.shootemup.g53.controller.movement;
 import com.shootemup.g53.model.util.Position;
 
 public class CircularMovement  extends IncrementalMovement {
-    private final double radius;
-    private double angle;
-    private double angularSpeed;
+    protected final double radius;
+    protected double angle;
+    protected double angularSpeed;
 
     public CircularMovement(double radius, double initAngle, double angularSpeed) {
         this.radius = radius;
@@ -35,5 +35,10 @@ public class CircularMovement  extends IncrementalMovement {
     @Override
     public void handleFailedMovement() {
         this.angularSpeed = -this.angularSpeed;
+    }
+
+    @Override
+    public MovementStrategy cloneStrategy() {
+        return new CircularMovement(radius, angle, Math.toDegrees(angularSpeed));
     }
 }
