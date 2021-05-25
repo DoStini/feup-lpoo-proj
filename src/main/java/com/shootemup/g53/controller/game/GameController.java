@@ -66,8 +66,6 @@ public class GameController extends GenericController {
         gameModel.setGameFinished(true);
     }
 
-    public boolean isGameFinished(){
-        return gameModel.isGameFinished();
 
     public void removeFromControllerMap(Element element){
         controllerHashMap.remove(element);
@@ -100,12 +98,6 @@ public class GameController extends GenericController {
 
     @Override
     public void handle(){
-
-
-        handlePlayerInput();
-        handleEnemies();
-        handleBullets();
-        handleCoins();
 
         if(backgroundController != null) backgroundController.handle();
 
