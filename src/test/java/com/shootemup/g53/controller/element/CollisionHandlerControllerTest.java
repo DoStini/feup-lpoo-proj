@@ -58,7 +58,7 @@ class CollisionHandlerControllerTest {
 
     @Test
     void playerCollisions() {
-        Player player = new Player(new Position(0,0),0,10, "", 0);
+        Player player = new Player(new Position(0,0),0,10, "", 0,1);
         PlayerController playerController = Mockito.spy(new PlayerController(player, Mockito.mock(Gui.class), Mockito.mock(BulletPoolController.class),Mockito.mock(FiringStrategy.class)));
 
         playerController.handleCoin(Mockito.mock(Coin.class));

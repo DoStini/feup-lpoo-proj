@@ -46,7 +46,7 @@ public class GameBuilder {
         List<Coin> coinList = new ArrayList<>();
         List<BodyCollider> colliders = new ArrayList<>();
 
-        Player player = new Player(new Position(20, 35), 3, 30, "#aae243", 2);
+        Player player = new Player(new Position(20, 35), 3, 30, "#aae243", 2,1);
 
         //create a playerController ?
 

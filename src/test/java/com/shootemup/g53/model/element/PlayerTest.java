@@ -15,7 +15,7 @@ class PlayerTest {
 
     @Test
     void constructorGetters() {
-        Player player = new Player(fakePosition, 2, 20, "", 5);
+        Player player = new Player(fakePosition, 2, 20, "", 5,1);
 
         Assertions.assertEquals(fakePosition, player.getPosition());
         Assertions.assertEquals(2, player.getHeight());
@@ -28,7 +28,7 @@ class PlayerTest {
 
     @Test
     void addCoinsEssence() {
-        Player player = new Player(fakePosition, 2, 20, "", 5);
+        Player player = new Player(fakePosition, 2, 20, "", 5,1);
 
         Assertions.assertEquals(0, player.getCoins());
         Assertions.assertEquals(0, player.getEssence());
@@ -71,7 +71,7 @@ class PlayerTest {
 
     @Test
     void playerClone() {
-        Player player = new Player(fakePosition, 2, 20, "", 5);
+        Player player = new Player(fakePosition, 2, 20, "", 5,1);
 
         Player player2 = (Player) player.clone();
 
