@@ -12,17 +12,19 @@ import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.model.element.*;
+
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 
 public class PlayerController implements CollisionHandlerController, ElementInterface {
-    private Spaceship spaceship;
+    private Player player;
     private FiringStrategy firingStrategy;
     private BulletPoolController bulletPoolController;
     private LifeController lifeController = new LifeController();
     private Gui gui;
-    public PlayerController(Spaceship spaceship, Gui gui, BulletPoolController bulletPoolController, FiringStrategy firingStrategy) {
-        this.spaceship = spaceship;
+    public PlayerController(Player player, Gui gui, BulletPoolController bulletPoolController, FiringStrategy firingStrategy) {
+        this.player = player;
         this.gui = gui;
         this.bulletPoolController = bulletPoolController;
         this.firingStrategy = firingStrategy;
@@ -32,17 +34,17 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     public void fire(Gui gui, BulletPoolController bulletPoolController) {
         firingStrategy.increaseFrame();
         if (gui.isActionActive(Action.SPACE)) {
-            firingStrategy.fire(spaceship, spaceship.getPosition().getUp(spaceship.getHeight()), bulletPoolController, "#ff0000", ColliderCategory.PLAYER_BULLET);
+            firingStrategy.fire(player, player.getPosition().getUp(player.getHeight()), bulletPoolController, "#ff0000", ColliderCategory.PLAYER_BULLET);
         }
     }
 
     public void setPosition(Position position){
-        spaceship.setPosition(position);
+        player.setPosition(position);
     }
 
     public Position move(Gui gui) {
-        int speed = spaceship.getSpeed();
-        Position newPosition = spaceship.getPosition();
+        int speed = player.getSpeed();
+        Position newPosition = player.getPosition();
         if (gui.isActionActive(Action.W)) {
             newPosition = newPosition.getUp(speed);
         }
@@ -60,26 +62,32 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     @Override
     public void handleCollision(BodyCollider thisCollider, BodyCollider otherCollider, CollisionHandlerController otherController) {
-        otherController.handleSpaceship(this.spaceship);
+        otherController.handlePlayer(this.player);
     }
 
     @Override
     public void handleBullet(Bullet bullet) {
         // this is bad
-        this.spaceship.setHealth(this.spaceship.getHealth()-1);
         lifeController.notifyObservers();
+
+        this.player.setHealth(this.player.getHealth()-1);
     }
 
     @Override
     public void handleSpaceship(Spaceship spaceship) {
         // this is bad
-        this.spaceship.setHealth(this.spaceship.getHealth()-5);
         lifeController.notifyObservers();
+        this.player.setHealth(this.player.getHealth()-5);
+    }
+
+    @Override
+    public void handlePlayer(Player player) {
+
     }
 
     @Override
     public void handleAsteroid(Asteroid asteroid) {
-        spaceship.setHealth(0);
+        player.setHealth(0);
     }
 
     @Override

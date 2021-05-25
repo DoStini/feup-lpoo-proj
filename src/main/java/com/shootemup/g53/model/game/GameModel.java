@@ -12,7 +12,8 @@ public class GameModel extends Model {
     private int height;
     private boolean isGameFinished = false;
     private boolean paused = false;
-    private Spaceship player;
+    private Player player;
+
     private Background background;
 
     private List<Coin> coins;
@@ -54,7 +55,7 @@ public class GameModel extends Model {
         return player;
     }
 
-    public void setPlayer(Spaceship player) {
+    public void setPlayer(Player player) {
         this.player = player;
     }
 
