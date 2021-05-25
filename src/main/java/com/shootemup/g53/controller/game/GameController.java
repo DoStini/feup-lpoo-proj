@@ -3,6 +3,9 @@ package com.shootemup.g53.controller.game;
 import com.shootemup.g53.controller.element.ElementInterface;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.GenericController;
+import com.shootemup.g53.controller.observer.LifeController;
+import com.shootemup.g53.controller.observer.ScoreController;
+import com.shootemup.g53.controller.observer.WaveCompletionController;
 import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
@@ -16,6 +19,10 @@ public class GameController extends GenericController {
     private GameModel gameModel;
     private BulletPoolController bulletPoolController;
     private HashMap<Element, ElementInterface> controllerHashMap = new HashMap<Element,ElementInterface>();
+
+    private LifeController lifeController = new LifeController();
+    private ScoreController scoreController = new ScoreController();
+    private WaveCompletionController waveCompletionController = new WaveCompletionController();
 
     public GameController(GameModel gameModel) {
         this(gameModel, new BulletPoolController(gameModel, 30));
@@ -62,6 +69,7 @@ public class GameController extends GenericController {
 
     @Override
     public void handle(){
+
         handlePlayerInput();
         handleEnemies();
         handleBullets();
@@ -127,7 +135,22 @@ public class GameController extends GenericController {
         return gameModel.isPaused();
     }
 
+    public void unpause(){ gameModel.setPaused(false);}
+
     public GameModel getGameModel() {
         return gameModel;
+    }
+
+    public LifeController getLifeController() {
+        return lifeController;
+    }
+
+
+    public ScoreController getScoreController() {
+        return scoreController;
+    }
+
+    public WaveCompletionController getWaveCompletionController() {
+        return waveCompletionController;
     }
 }

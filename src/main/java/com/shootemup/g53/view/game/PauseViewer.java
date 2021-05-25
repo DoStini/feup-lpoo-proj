@@ -15,7 +15,9 @@ public class PauseViewer extends Viewer<PauseModel> {
     @Override
     public void draw(PauseModel model) {
         gui.clear();
+        model.getPlayState().getInfoBarViewer().draw(model.getPlayState().getInfoBarModel());
         model.getPlayState().getStateView().draw(model.getPlayState().getStateModel());
+
         for(Button button: model.getOptions()){
             buttonView.draw(gui,button);
         }

@@ -4,6 +4,7 @@ import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
+import com.shootemup.g53.model.infobar.InfoBarModel;
 import com.shootemup.g53.ui.Gui;
 import com.shootemup.g53.view.Viewer;
 import com.shootemup.g53.view.element.BulletView;
@@ -11,12 +12,14 @@ import com.shootemup.g53.view.element.CoinView;
 import com.shootemup.g53.view.element.spaceship.EnemyView;
 import com.shootemup.g53.view.element.spaceship.PlayerView;
 import com.shootemup.g53.view.element.spaceship.SpaceshipView;
+import com.shootemup.g53.view.infobar.InfoBarViewer;
 
 public class GameViewer extends Viewer<GameModel> {
     private SpaceshipView spaceshipView;
     private SpaceshipView enemyView;
     private CoinView coinView;
     private BulletView bulletView;
+    private InfoBarViewer infoBarViewer;
     public GameViewer(Gui gui) {
         this.gui = gui;
         spaceshipView = new PlayerView(2);
@@ -28,8 +31,6 @@ public class GameViewer extends Viewer<GameModel> {
     @Override
     public void draw(GameModel model) {
         //for now we only have enemies to draw
-        gui.clear();
-
         spaceshipView.draw(gui, model.getPlayer());
         for(Spaceship enemy: model.getEnemySpaceships()){
             enemyView.draw(gui,enemy);

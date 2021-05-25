@@ -11,6 +11,7 @@ public interface Gui<T> {
     boolean isActionActive(Action act);
     void refresh();
     int getWidth();
+    int getHeight();
     void close();
     void clear();
 }

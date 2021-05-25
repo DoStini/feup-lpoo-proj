@@ -9,7 +9,7 @@ public class ButtonView implements ElementView<Button>{
     @Override
     public void draw(Gui gui, Button element) {
         Position upperLeft = element.getPosition();
-        upperLeft.setX(gui.getWidth()/ 2 + 8);
+        upperLeft.setX(gui.getWidth()/2 - element.getWidth()/2);
         for(int y = upperLeft.getY(); y < upperLeft.getY() + element.getHeight(); y++){
             Position leftMost = new Position(upperLeft.getX(), y);
             gui.drawLine(element.getColor(),leftMost, element.getWidth());

@@ -25,6 +25,7 @@ public class LanternaGui implements Gui {
     Screen screen;
     TerminalSize terminalSize;
     private int fontSize;
+    private int height;
     private int width;
     private InputController<KeyEvent> inputController;
 
@@ -77,7 +78,8 @@ public class LanternaGui implements Gui {
         try {
             AWTTerminalFontConfiguration font = loadFont(fontSize);
             screen = loadTerminal(hSize, vSize, font);
-            this.width = hSize;
+            this.width = vSize;
+            this.height = hSize;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (FontFormatException e) {
@@ -139,6 +141,11 @@ public class LanternaGui implements Gui {
     @Override
     public int getWidth() {
         return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
     }
 
     @Override
