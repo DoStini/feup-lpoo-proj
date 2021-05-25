@@ -91,7 +91,15 @@ public class GameController extends GenericController {
 
         handleCollision();
 
+
+        deactivateDead();
         removeInactiveElements();
+    }
+
+    protected void deactivateDead() {
+        gameModel.getEnemySpaceships().stream()
+                .filter(enemy -> enemy.getHealth() <= 0)
+                .forEach(Element::deactivate);
     }
 
     public void removeInactiveElements(){
