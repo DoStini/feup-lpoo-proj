@@ -111,11 +111,7 @@ public class ElementControllerTest {
         spaceshipController.handle();
 
         Mockito.verify(spaceship,Mockito.times(1)).setPosition(position);
-<<<<<<< HEAD
-        Mockito.verify(firingStrategy,Mockito.times(1)).fire(spaceship,bulletPoolController, ColliderCategory.ENEMY_BULLET);
-=======
-        Mockito.verify(firingStrategy,Mockito.times(1)).fire(spaceship, spaceship.getPosition(), bulletPoolController, "#ffff00");
->>>>>>> develop
+        Mockito.verify(firingStrategy,Mockito.times(1)).fire(spaceship, spaceship.getPosition(), bulletPoolController, "#ffff00", ColliderCategory.ENEMY_BULLET);
 
         spaceshipController.handleAsteroid(asteroid);
         Mockito.verify(spaceship,Mockito.times(1)).setHealth(0);

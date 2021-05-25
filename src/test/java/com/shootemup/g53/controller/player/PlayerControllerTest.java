@@ -3,11 +3,7 @@ package com.shootemup.g53.controller.player;
 import com.shootemup.g53.controller.firing.MovingBulletStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
-<<<<<<< HEAD
-import com.shootemup.g53.controller.movement.MoveUpwardsMovement;
 import com.shootemup.g53.model.collider.ColliderCategory;
-=======
->>>>>>> develop
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
@@ -121,11 +117,7 @@ class PlayerControllerTest {
         }
 
         Mockito.verify(firingController, Mockito.times(fireRate))
-<<<<<<< HEAD
-                .fire(spaceship,bulletPoolController, ColliderCategory.PLAYER_BULLET);
-=======
-                .fire(spaceship, spaceship.getPosition(), bulletPoolController, "#ff0000");
->>>>>>> develop
+                .fire(spaceship, spaceship.getPosition(), bulletPoolController, "#ff0000",  ColliderCategory.PLAYER_BULLET);
 
     }
 

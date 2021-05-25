@@ -10,14 +10,9 @@ import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
-<<<<<<< HEAD
-=======
-import com.sun.source.tree.AssertTree;
->>>>>>> develop
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.Arrays;
@@ -160,6 +155,9 @@ public class GameControllerTest {
         Mockito.verify(asteroidController,Mockito.times(1)).handle();
 
         Mockito.verify(spaceshipController,Mockito.times(1)).handle();
+
+        gameController.handle();
+        Mockito.verify(backgroundController,Mockito.times(2)).handle();
     }
 
     @Test
@@ -170,7 +168,6 @@ public class GameControllerTest {
 
         gameController.addToCollisionMap(spaceship, spaceshipController);
 
-<<<<<<< HEAD
         Assertions.assertEquals(spaceshipController, gameController.getCollisionHandler(spaceship));
 
         gameController.addToCollisionMap(coin, coinController);
@@ -183,9 +180,6 @@ public class GameControllerTest {
 
         Assertions.assertEquals(spaceshipController, gameController.getCollisionHandler(spaceship));
         Assertions.assertNull(gameController.getCollisionHandler(coin));
-=======
-        gameController.handle();
-        Mockito.verify(backgroundController,Mockito.times(2)).handle();
     }
 
     @Test
@@ -196,7 +190,6 @@ public class GameControllerTest {
 
         Assertions.assertEquals(gameController.getBackgroundController(), gameController.getBackgroundController());
         Assertions.assertEquals(backgroundController, gameController.getBackgroundController());
->>>>>>> develop
     }
 
 }
