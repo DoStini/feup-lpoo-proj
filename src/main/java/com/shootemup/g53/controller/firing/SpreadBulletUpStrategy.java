@@ -29,10 +29,10 @@ public class SpreadBulletUpStrategy extends FiringStrategy {
     @Override
     public void createBullets(Spaceship spaceship, Position position, BulletPoolController bulletPoolController, String color, ColliderCategory category) {
         bulletPoolController.addBullet(position.getX(), position.getY(),
-                color, 3, bulletSpeed, middleStrategy, category);
+                color, 3, bulletSpeed, spaceship.getBulletDamage(), middleStrategy, category);
         bulletPoolController.addBullet(position.getX()-3, position.getY(),
-                color, 3, bulletSpeed/2, leftMovement, category);
+                color, 3, bulletSpeed/2, spaceship.getBulletDamage(), leftMovement, category);
         bulletPoolController.addBullet(position.getX()+3, position.getY(),
-                color, 3, bulletSpeed/2, rightMovement, category);
+                color, 3, bulletSpeed/2, spaceship.getBulletDamage(), rightMovement, category);
     }
 }
