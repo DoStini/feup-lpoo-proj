@@ -22,7 +22,7 @@ public class MovingBulletStrategy extends FiringStrategy {
     @Override
     public void createBullets(Spaceship spaceship, Position position, BulletPoolController bulletPoolController, String color, ColliderCategory category) {
         bulletPoolController.addBullet(position.getX(), position.getY(),
-                    color, 3, bulletSpeed, this.movementStrategy, category);
+                    color, 3, bulletSpeed, this.movementStrategy.cloneStrategy(), category);
 
     }
 }

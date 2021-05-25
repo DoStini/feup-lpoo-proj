@@ -69,7 +69,7 @@ public class GameBuilder {
             controllers.add(new FallDownMovement());
             controllers.add(new ChangingMovement(20, controllers));
 
-            List<FiringStrategy> firingStrategies = Arrays.asList(new MovingBulletStrategy(new FallDownMovement(), 2, 10));
+            List<FiringStrategy> firingStrategies = Arrays.asList(new MovingBulletStrategy(new FallDownMovement(), 0.75, 10));
 
             //MovementStrategy selectedMovementStrategy = controllers.get(0);
             MovementStrategy selectedMovementStrategy = new CompositeMovement();

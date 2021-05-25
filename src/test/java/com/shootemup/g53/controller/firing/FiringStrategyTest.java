@@ -10,6 +10,7 @@ import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.controller.movement.*;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
@@ -36,6 +37,7 @@ public class FiringStrategyTest {
         Mockito.when(spaceship.getHealth()).thenReturn(3);
 
         movementStrategy = Mockito.mock(FallDownMovement.class);
+        Mockito.when(movementStrategy.cloneStrategy()).thenReturn(movementStrategy);
         Mockito.when(movementStrategy.move(position,speed)).thenReturn(position);
 
         Mockito.when(position.getX()).thenReturn(5);
@@ -50,11 +52,16 @@ public class FiringStrategyTest {
             movingBulletStrategy.fire(spaceship, spaceship.getPosition(), bulletPoolController, "#ff0000", ColliderCategory.ENEMY_BULLET);
         }
 
+        int ySpace = spaceship.getPosition().getY();
+
+        Assertions.assertEquals(speed, movingBulletStrategy.getBulletSpeed());
+
         assertEquals(movingBulletStrategy.getFireRate(),fireRate);
         assertEquals(movingBulletStrategy.getFrame(),fireRate + 1);
         assertEquals(movingBulletStrategy.getLastFire(),11);
-        Mockito.verify(bulletPoolController,Mockito.times(1)).addBullet(spaceship.getPosition().getX(),
-                spaceship.getPosition().getY(),"#ff0000", 3,speed,movementStrategy, ColliderCategory.ENEMY_BULLET);
+        Mockito.verify(movementStrategy, Mockito.times(1)).cloneStrategy();
+        Mockito.verify(bulletPoolController,Mockito.times(1)).addBullet(Mockito.eq(spaceship.getPosition().getX()),
+                Mockito.eq(ySpace),Mockito.eq("#ff0000"), Mockito.eq(3),Mockito.eq(speed),Mockito.any(FallDownMovement.class), Mockito.eq(ColliderCategory.ENEMY_BULLET));
     }
 
     @Test
@@ -80,6 +87,8 @@ public class FiringStrategyTest {
         assertEquals(bulletStrategy.getFireRate(),fireRate);
         assertEquals(bulletStrategy.getFrame(),fireRate + 1);
         assertEquals(bulletStrategy.getLastFire(),11);
+        Mockito.verify(movementStrategy, Mockito.times(9)).cloneStrategy();
+
         Mockito.verify(bulletPoolController,Mockito.times(9)).addBullet(Mockito.anyInt(),
                 Mockito.anyInt(),Mockito.anyString(), Mockito.anyInt(),Mockito.anyDouble(), Mockito.any(), Mockito.any());
         Mockito.verify(bulletPoolController,Mockito.times(1)).addBullet(spaceship.getPosition().getX(),
