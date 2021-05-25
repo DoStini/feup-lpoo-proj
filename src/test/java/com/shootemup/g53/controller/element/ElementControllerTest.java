@@ -5,6 +5,7 @@ import com.shootemup.g53.controller.firing.MovingBulletStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.controller.movement.MovementStrategy;
+import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
@@ -110,7 +111,7 @@ public class ElementControllerTest {
         spaceshipController.handle();
 
         Mockito.verify(spaceship,Mockito.times(1)).setPosition(position);
-        Mockito.verify(firingStrategy,Mockito.times(1)).fire(spaceship, spaceship.getPosition(), bulletPoolController, "#ffff00");
+        Mockito.verify(firingStrategy,Mockito.times(1)).fire(spaceship, spaceship.getPosition(), bulletPoolController, "#ffff00", ColliderCategory.ENEMY_BULLET);
 
         spaceshipController.handleAsteroid(asteroid);
         Mockito.verify(spaceship,Mockito.times(1)).setHealth(0);

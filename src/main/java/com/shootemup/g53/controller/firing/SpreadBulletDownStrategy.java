@@ -5,6 +5,7 @@ import com.shootemup.g53.controller.movement.DiagonalDownLeftMovement;
 import com.shootemup.g53.controller.movement.DiagonalDownRightMovement;
 import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.controller.movement.MovementStrategy;
+import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 
@@ -25,12 +26,12 @@ public class SpreadBulletDownStrategy extends FiringStrategy {
 
 
     @Override
-    public void createBullets(Spaceship spaceship, Position position, BulletPoolController bulletPoolController, String color) {
+    public void createBullets(Spaceship spaceship, Position position, BulletPoolController bulletPoolController, String color, ColliderCategory category) {
         bulletPoolController.addBullet(position.getX(), position.getY(),
-                color, 3, bulletSpeed, middleStrategy);
+                color, 3, bulletSpeed, middleStrategy, category);
         bulletPoolController.addBullet(position.getX()-3, position.getY(),
-                color, 3, bulletSpeed/2, leftMovement);
+                color, 3, bulletSpeed/2, leftMovement, category);
         bulletPoolController.addBullet(position.getX()+3, position.getY(),
-                color, 3, bulletSpeed/2, rightMovement);
+                color, 3, bulletSpeed/2, rightMovement, category);
     }
 }

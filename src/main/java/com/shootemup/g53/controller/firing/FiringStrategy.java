@@ -1,6 +1,7 @@
 package com.shootemup.g53.controller.firing;
 
 import com.shootemup.g53.controller.game.BulletPoolController;
+import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 
@@ -33,15 +34,15 @@ public abstract class FiringStrategy {
         return frame;
     }
 
-    public void fire(Spaceship spaceship, Position position, BulletPoolController bulletPoolController, String color) {
+    public void fire(Spaceship spaceship, Position position, BulletPoolController bulletPoolController, String color, ColliderCategory category) {
         increaseFrame();
         if (frame > lastFire + fireRate) {
-            createBullets(spaceship, position, bulletPoolController, color);
+            createBullets(spaceship, position, bulletPoolController, color, category);
 
             lastFire = frame;
         }
     }
 
-    abstract void createBullets(Spaceship spaceship, Position position, BulletPoolController bulletPoolController, String color);
+    abstract void createBullets(Spaceship spaceship, Position position, BulletPoolController bulletPoolController, String color, ColliderCategory category);
 
 }

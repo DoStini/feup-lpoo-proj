@@ -2,6 +2,7 @@ package com.shootemup.g53.controller.firing;
 
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.MovementStrategy;
+import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 
@@ -22,14 +23,14 @@ public class MultipleMovingBulletStrategy extends FiringStrategy {
 
 
     @Override
-    public void createBullets(Spaceship spaceship, Position position, BulletPoolController bulletPoolController, String color) {
+    public void createBullets(Spaceship spaceship, Position position, BulletPoolController bulletPoolController, String color, ColliderCategory category) {
         int middleBullet = this.bullets/2;
         boolean odd = bullets % 2 != 0;
 
         if(odd) {
             for(int bullet = 0; bullet < this.bullets; bullet++) {
                 bulletPoolController.addBullet(position.getX()+(3)*(middleBullet-bullet), position.getY()+slope*2*(Math.abs(middleBullet-bullet)),
-                        color, 3, bulletSpeed, this.movementStrategy);
+                        color, 3, bulletSpeed, this.movementStrategy, category);
             }
         } else {
             for(int bullet = 0; bullet < this.bullets; bullet++) {
@@ -39,7 +40,7 @@ public class MultipleMovingBulletStrategy extends FiringStrategy {
                 else yDiff = Math.abs(middleBullet-bullet);
 
                 bulletPoolController.addBullet(position.getX()+(2)*(middleBullet-bullet)-1, position.getY()+slope*2*yDiff,
-                        color, 3, bulletSpeed, this.movementStrategy);
+                        color, 3, bulletSpeed, this.movementStrategy, category);
             }
         }
 

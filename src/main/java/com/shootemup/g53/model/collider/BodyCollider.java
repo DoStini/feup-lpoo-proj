@@ -7,10 +7,18 @@ import com.shootemup.g53.model.element.Element;
 public abstract class BodyCollider {
     protected Element element;
     protected BoundingBox boundingBox;
+    private short categoryMask;
+    private ColliderCategory category;
 
-    protected BodyCollider(Element element) {
+    protected BodyCollider(Element element, short categoryMask, ColliderCategory category) {
         this.element = element;
         this.boundingBox = null;
+        this.categoryMask = categoryMask;
+        this.category = category;
+    }
+
+    protected BodyCollider(Element element) {
+        this(element, (short) -1, ColliderCategory.GENERAL);
     }
 
     public BoundingBox getBoundingBox() {
@@ -21,10 +29,28 @@ public abstract class BodyCollider {
     abstract protected BoundingBox createBoundingBox();
 
     public boolean collides(BodyCollider other) {
+        if((this.categoryMask & other.category.getBits()) == 0 || (other.categoryMask & this.category.getBits()) == 0) {
+            return false;
+        }
+
         if(!this.getBoundingBox().collides(
                 other.getBoundingBox(), this.element.getPosition(), other.element.getPosition())
-        ) return false;
+        ) {
+            return false;
+        }
         else return innerVisit(other);
+    }
+
+    public Element getElement() {
+        return element;
+    }
+
+    public void setCategoryMask(short categoryMask) {
+        this.categoryMask = categoryMask;
+    }
+
+    public void setCategory(ColliderCategory category) {
+        this.category = category;
     }
 
     abstract protected boolean innerVisit(BodyCollider other);

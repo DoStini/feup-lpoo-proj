@@ -1,10 +1,12 @@
 package com.shootemup.g53.controller.player;
 
-import com.shootemup.g53.controller.element.CollisionController;
+import com.shootemup.g53.controller.element.CollisionHandlerController;
 import com.shootemup.g53.controller.element.ElementInterface;
 import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
+import com.shootemup.g53.model.collider.BodyCollider;
+import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
@@ -13,7 +15,7 @@ import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 
-public class PlayerController implements CollisionController, ElementInterface {
+public class PlayerController implements CollisionHandlerController, ElementInterface {
     private Spaceship spaceship;
     private FiringStrategy firingStrategy;
     private BulletPoolController bulletPoolController;
@@ -28,7 +30,7 @@ public class PlayerController implements CollisionController, ElementInterface {
     public void fire(Gui gui, BulletPoolController bulletPoolController) {
         firingStrategy.increaseFrame();
         if (gui.isActionActive(Action.SPACE)) {
-            firingStrategy.fire(spaceship, spaceship.getPosition().getUp(spaceship.getHeight()), bulletPoolController, "#ff0000");
+            firingStrategy.fire(spaceship, spaceship.getPosition().getUp(spaceship.getHeight()), bulletPoolController, "#ff0000", ColliderCategory.PLAYER_BULLET);
         }
     }
 
@@ -55,23 +57,30 @@ public class PlayerController implements CollisionController, ElementInterface {
     }
 
     @Override
-    public void handleBullet(Bullet bullet) {
+    public void handleCollision(BodyCollider thisCollider, BodyCollider otherCollider, CollisionHandlerController otherController) {
+        otherController.handleSpaceship(this.spaceship);
+    }
 
+    @Override
+    public void handleBullet(Bullet bullet) {
+        // this is bad
+        this.spaceship.setHealth(this.spaceship.getHealth()-1);
     }
 
     @Override
     public void handleSpaceship(Spaceship spaceship) {
-
+        // this is bad
+        this.spaceship.setHealth(this.spaceship.getHealth()-5);
     }
 
     @Override
     public void handleAsteroid(Asteroid asteroid) {
-
+        spaceship.setHealth(0);
     }
 
     @Override
     public void handleCoin(Coin coin) {
-
+        // add coin to inv
     }
 
     @Override

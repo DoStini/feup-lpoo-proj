@@ -2,6 +2,7 @@ package com.shootemup.g53.controller.firing;
 
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.*;
+import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 
@@ -43,22 +44,22 @@ public class SpreadAllStrategy extends FiringStrategy {
 
 
     @Override
-    public void createBullets(Spaceship spaceship, Position position, BulletPoolController bulletPoolController, String color) {
+    public void createBullets(Spaceship spaceship, Position position, BulletPoolController bulletPoolController, String color, ColliderCategory category) {
         bulletPoolController.addBullet(position.getX(), position.getY(),
-                color, 3, bulletSpeed, upwardsMovement);
+                color, 3, bulletSpeed, upwardsMovement, category);
         bulletPoolController.addBullet(position.getX()-3, position.getY(),
-                color, 3, bulletSpeed/2, leftDownMovement);
+                color, 3, bulletSpeed/2, leftDownMovement, category);
         bulletPoolController.addBullet(position.getX()+3, position.getY(),
-                color, 3, bulletSpeed/2, rightDownMovement);
+                color, 3, bulletSpeed/2, rightDownMovement, category);
         bulletPoolController.addBullet(position.getX()-3, position.getY(),
-                color, 3, bulletSpeed/2, leftUpMovement);
+                color, 3, bulletSpeed/2, leftUpMovement, category);
         bulletPoolController.addBullet(position.getX()+3, position.getY(),
-                color, 3, bulletSpeed/2, rightUpMovement);
+                color, 3, bulletSpeed/2, rightUpMovement, category);
         bulletPoolController.addBullet(position.getX(), position.getY(),
-                color, 3, bulletSpeed, downMovement);
+                color, 3, bulletSpeed, downMovement, category);
         bulletPoolController.addBullet(position.getX()-3, position.getY(),
-                color, 3, bulletSpeed/2, leftMovement);
+                color, 3, bulletSpeed/2, leftMovement, category);
         bulletPoolController.addBullet(position.getX()+3, position.getY(),
-                color, 3, bulletSpeed/2, rightMovement);
+                color, 3, bulletSpeed/2, rightMovement, category);
     }
 }

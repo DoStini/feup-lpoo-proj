@@ -1,12 +1,11 @@
 package com.shootemup.g53.controller.element;
 
-import com.shootemup.g53.controller.firing.FiringStrategy;
-import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.MovementStrategy;
+import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.util.Position;
 
-public class BulletController extends MovableElementController implements CollisionController, ElementInterface{
+public class BulletController extends MovableElementController implements CollisionHandlerController, ElementInterface{
     private Bullet bullet;
     public BulletController(Bullet bullet, MovementStrategy movementStrategy) {
         super(bullet, movementStrategy);
@@ -27,8 +26,12 @@ public class BulletController extends MovableElementController implements Collis
 
 
     @Override
-    public void handleBullet(Bullet bullet) {
+    public void handleCollision(BodyCollider thisCollider, BodyCollider otherCollider, CollisionHandlerController otherController) {
+        otherController.handleBullet(this.bullet);
+    }
 
+    @Override
+    public void handleBullet(Bullet bullet) {
     }
 
     @Override

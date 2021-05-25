@@ -36,5 +36,7 @@ public class Spaceship extends MovableElement {
 
     public void setHealth(int health) {
         this.health = health;
+
+        if(this.health < 0) this.health = 0;
     }
 }

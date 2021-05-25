@@ -10,11 +10,9 @@ import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
-import com.sun.source.tree.AssertTree;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.Arrays;
@@ -163,6 +161,28 @@ public class GameControllerTest {
     }
 
     @Test
+    void addRemoveGetCollisionHandler() {
+        GameController gameController = new GameController(gameModel, bulletPoolController);
+
+        Assertions.assertNull(gameController.getCollisionHandler(spaceship));
+
+        gameController.addToCollisionMap(spaceship, spaceshipController);
+
+        Assertions.assertEquals(spaceshipController, gameController.getCollisionHandler(spaceship));
+
+        gameController.addToCollisionMap(coin, coinController);
+
+        Assertions.assertEquals(spaceshipController, gameController.getCollisionHandler(spaceship));
+        Assertions.assertEquals(coinController, gameController.getCollisionHandler(coin));
+
+
+        gameController.removeFromCollisionMap(coin);
+
+        Assertions.assertEquals(spaceshipController, gameController.getCollisionHandler(spaceship));
+        Assertions.assertNull(gameController.getCollisionHandler(coin));
+    }
+
+    @Test
     void settersGetters(){
         GameController gameController = new GameController(gameModel, bulletPoolController);
 
@@ -171,4 +191,5 @@ public class GameControllerTest {
         Assertions.assertEquals(gameController.getBackgroundController(), gameController.getBackgroundController());
         Assertions.assertEquals(backgroundController, gameController.getBackgroundController());
     }
+
 }

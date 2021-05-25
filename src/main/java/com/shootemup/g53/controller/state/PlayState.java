@@ -59,8 +59,6 @@ public class PlayState extends State<GameModel> {
                     game.changeState(new GameOverState(this.game,new GameOverModel(),this.gui));
                     return;
                 }
-
-
             }
 
         }
