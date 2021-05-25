@@ -13,7 +13,7 @@ class PlayerTest {
 
     @BeforeEach
     void setUp() {
-        fakePosition = Mockito.mock(Position.class);
+        fakePosition = new Position(1,2);
     }
 
     @Test
@@ -70,5 +70,20 @@ class PlayerTest {
 
         Assertions.assertEquals(7, player.getCoins());
         Assertions.assertEquals(0, player.getEssence());
+    }
+
+    @Test
+    void playerClone() {
+        Player player = new Player(fakePosition, 2, 20, "", 5);
+
+        Player player2 = (Player) player.clone();
+
+        Assertions.assertEquals(fakePosition, player2.getPosition());
+        Assertions.assertEquals(2, player2.getHeight());
+        Assertions.assertEquals(20, player2.getHealth());
+        Assertions.assertEquals("", player2.getColor());
+        Assertions.assertEquals(5, player2.getSpeed());
+        Assertions.assertEquals(0, player2.getCoins());
+        Assertions.assertEquals(0, player2.getEssence());
     }
 }
