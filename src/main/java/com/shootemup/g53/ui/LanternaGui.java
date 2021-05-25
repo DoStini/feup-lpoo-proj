@@ -96,6 +96,13 @@ public class LanternaGui implements Gui {
     }
 
     @Override
+    public void drawColor(int red, int green, int blue, Position pos) {
+        TextGraphics graphics = screen.newTextGraphics();
+        graphics.setBackgroundColor(new TextColor.RGB(red, green, blue));
+        graphics.setCharacter(pos.getX(), pos.getY(), ' ');
+    }
+
+    @Override
     public void drawLine(String color, Position pos, int width) {
         TextGraphics graphics = screen.newTextGraphics();
         graphics.setBackgroundColor(TextColor.Factory.fromString(color));

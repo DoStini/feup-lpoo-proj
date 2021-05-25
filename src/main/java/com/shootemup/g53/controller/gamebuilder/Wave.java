@@ -1,14 +1,8 @@
 package com.shootemup.g53.controller.gamebuilder;
 
-import com.shootemup.g53.controller.firing.StraightBulletStrategy;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.gamebuilder.element.ElementGenerator;
-import com.shootemup.g53.controller.gamebuilder.element.SpaceshipGenerator;
-import com.shootemup.g53.controller.movement.*;
-import com.shootemup.g53.controller.player.PlayerController;
-import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
-import com.shootemup.g53.model.util.Position;
 
 import java.util.*;
 

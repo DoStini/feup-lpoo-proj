@@ -21,7 +21,7 @@ public class Bullet extends MovableElement implements PoolableObject {
 
     @Override
     public PoolableObject clone() {
-        return new Bullet(getPosition(), getColor(),getSpeed(), size);
+        return new Bullet(new Position(position.getX(), position.getY()), getColor(),getSpeed(), size);
     }
 
     public void init(int x, int y, String color, int size,int speed) {

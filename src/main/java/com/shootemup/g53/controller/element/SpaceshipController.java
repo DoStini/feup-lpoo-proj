@@ -3,6 +3,8 @@ package com.shootemup.g53.controller.element;
 import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.MovementStrategy;
+import com.shootemup.g53.model.collider.BodyCollider;
+import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
@@ -10,7 +12,7 @@ import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 
 
-public class SpaceshipController extends MovableElementController implements CollisionController, ElementInterface {
+public class SpaceshipController extends MovableElementController implements CollisionHandlerController, ElementInterface {
     private Spaceship spaceship;
     private FiringStrategy firingStrategy;
     private BulletPoolController bulletPoolController;
@@ -25,7 +27,7 @@ public class SpaceshipController extends MovableElementController implements Col
     }
 
     public void fire(BulletPoolController bulletPoolController){
-        firingStrategy.fire(spaceship, bulletPoolController);
+        firingStrategy.fire(spaceship, this.getSpaceship().getPosition(), bulletPoolController, "#ffff00", ColliderCategory.ENEMY_BULLET);
     }
 
     public Spaceship getSpaceship() {
@@ -34,6 +36,11 @@ public class SpaceshipController extends MovableElementController implements Col
 
     public void setSpaceship(Spaceship spaceship) {
         this.spaceship = spaceship;
+    }
+
+    @Override
+    public void handleCollision(BodyCollider thisCollider, BodyCollider otherCollider, CollisionHandlerController otherController) {
+        otherController.handleSpaceship(this.spaceship);
     }
 
     @Override

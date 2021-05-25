@@ -1,6 +1,6 @@
 package com.shootemup.g53.controller.gamebuilder;
 
-import com.shootemup.g53.controller.firing.StraightBulletStrategy;
+import com.shootemup.g53.controller.firing.MovingBulletStrategy;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.gamebuilder.element.AsteroidGenerator;
 import com.shootemup.g53.controller.gamebuilder.element.CoinGenerator;
@@ -49,7 +49,7 @@ public class GameBuilder {
         gameController.addToControllerMap(
                 spaceship,
                 new PlayerController(spaceship, gui, gameController.getBulletPoolController(),
-                        new StraightBulletStrategy(new MoveUpwardsMovement(), 3, 5)));
+                        new MovingBulletStrategy(new MoveUpwardsMovement(), 3, 5)));
         setupElementGenerators();
         this.currentWave = waveFactory.getNextWave(gameController);
     }

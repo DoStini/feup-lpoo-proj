@@ -2,15 +2,13 @@ package com.shootemup.g53.controller.gamebuilder.element;
 
 import com.shootemup.g53.controller.element.SpaceshipController;
 import com.shootemup.g53.controller.firing.FiringStrategy;
-import com.shootemup.g53.controller.firing.StraightBulletStrategy;
+import com.shootemup.g53.controller.firing.MovingBulletStrategy;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.gamebuilder.MovementStrategyFactory;
 import com.shootemup.g53.controller.movement.CompositeMovement;
 import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.controller.movement.MovementStrategy;
-import com.shootemup.g53.model.element.Element;
 import com.shootemup.g53.model.element.Spaceship;
-import com.shootemup.g53.model.game.GameModel;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -38,7 +36,7 @@ public class SpaceshipGenerator extends MovableElementGenerator {
     }
 
     protected FiringStrategy setFiringStrategy(Spaceship spaceship) {
-        return new StraightBulletStrategy(new FallDownMovement(),
+        return new MovingBulletStrategy(new FallDownMovement(),
                         2*spaceship.getSpeed(), rand.nextInt(maxFireRate-1)+1);
     }
 
