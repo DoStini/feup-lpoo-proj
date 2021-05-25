@@ -5,10 +5,7 @@ import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.controller.player.PlayerController;
 import com.shootemup.g53.model.collider.BodyCollider;
-import com.shootemup.g53.model.element.Asteroid;
-import com.shootemup.g53.model.element.Bullet;
-import com.shootemup.g53.model.element.Coin;
-import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 import org.junit.jupiter.api.Assertions;
@@ -31,7 +28,7 @@ class CollisionHandlerControllerTest {
         bulletController = Mockito.spy(new BulletController(Mockito.mock(Bullet.class), Mockito.mock(MovementStrategy.class)));
         coinController = Mockito.spy(new CoinController(Mockito.mock(Coin.class), Mockito.mock(MovementStrategy.class)));
         spaceshipController = Mockito.spy(new SpaceshipController(Mockito.mock(Spaceship.class), Mockito.mock(FiringStrategy.class), Mockito.mock(MovementStrategy.class), Mockito.mock(BulletPoolController.class)));
-        playerController = Mockito.spy(new PlayerController(Mockito.mock(Spaceship.class), Mockito.mock(Gui.class), Mockito.mock(BulletPoolController.class),Mockito.mock(FiringStrategy.class)));
+        playerController = Mockito.spy(new PlayerController(Mockito.mock(Player.class), Mockito.mock(Gui.class), Mockito.mock(BulletPoolController.class),Mockito.mock(FiringStrategy.class)));
     }
 
     @Test
@@ -56,12 +53,12 @@ class CollisionHandlerControllerTest {
 
         playerController.handleCollision(fakeCollider, fakeCollider, spaceshipController);
 
-        Mockito.verify(spaceshipController, Mockito.times(1)).handleSpaceship(Mockito.any());
+        Mockito.verify(spaceshipController, Mockito.times(1)).handlePlayer(Mockito.any());
     }
 
     @Test
     void playerCollisions() {
-        Spaceship player = new Spaceship(new Position(0,0),0,10, "", 0);
+        Player player = new Player(new Position(0,0),0,10, "", 0);
         PlayerController playerController = Mockito.spy(new PlayerController(player, Mockito.mock(Gui.class), Mockito.mock(BulletPoolController.class),Mockito.mock(FiringStrategy.class)));
 
         playerController.handleCoin(Mockito.mock(Coin.class));
@@ -122,7 +119,24 @@ class CollisionHandlerControllerTest {
 
         Assertions.assertFalse(bullet.isActive());
 
+        bullet.activate();
+
+        Assertions.assertTrue(bullet.isActive());
+
         bulletController.handleAsteroid(Mockito.mock(Asteroid.class));
+
+        Assertions.assertFalse(bullet.isActive());
+
+        bullet.activate();
+
+        Assertions.assertTrue(bullet.isActive());
+
+        bulletController.handlePlayer(Mockito.mock(Player.class));
+
+        Assertions.assertFalse(bullet.isActive());
+
+
+
     }
 
     @Test
@@ -135,7 +149,7 @@ class CollisionHandlerControllerTest {
 
         Assertions.assertTrue(coin.isActive());
 
-        coinController.handleSpaceship(Mockito.mock(Spaceship.class));
+        coinController.handlePlayer(Mockito.mock(Player.class));
 
         Assertions.assertFalse(coin.isActive());
 
