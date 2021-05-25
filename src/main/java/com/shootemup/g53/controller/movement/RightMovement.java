@@ -2,10 +2,10 @@ package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.model.util.Position;
 
-public class RightMovement implements MovementStrategy {
+public class RightMovement extends FrameMovement {
 
     @Override
-    public Position move(Position position, int speed) {
+    Position moveFrame(Position position, int speed) {
         return position.getRight(speed);
     }
 

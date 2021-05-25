@@ -2,9 +2,9 @@ package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.model.util.Position;
 
-public class MoveUpwardsMovement implements MovementStrategy {
+public class MoveUpwardsMovement  extends FrameMovement {
     @Override
-    public Position move(Position position, int speed) {
+    Position moveFrame(Position position, int speed) {
         return position.getUp(speed);
     }
 

@@ -3,14 +3,15 @@ package com.shootemup.g53.controller.movement;
 import com.shootemup.g53.model.util.Direction;
 import com.shootemup.g53.model.util.Position;
 
-public class DiagonalBounceMovement implements MovementStrategy {
+public class DiagonalBounceMovement extends FrameMovement{
     private final Position initalPosition;
     private final int xLeftLimit;
     private final int xRightLimit;
     private Direction direction;
 
+
     @Override
-    public Position move(Position position, int speed) {
+    Position moveFrame(Position position, int speed) {
         switch (this.direction) {
             case DOWN_LEFT:
                 position = this.moveLeft(position, speed);

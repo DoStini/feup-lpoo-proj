@@ -4,9 +4,8 @@ import com.shootemup.g53.model.util.Position;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-public class CompositeMovement implements MovementStrategy {
+public class CompositeMovement extends FrameMovement {
     protected List<MovementStrategy> controllers;
 
     public CompositeMovement() {
@@ -22,7 +21,7 @@ public class CompositeMovement implements MovementStrategy {
     }
 
     @Override
-    public Position move(Position position, int speed) {
+    Position moveFrame(Position position, int speed) {
         Position newPosition = new Position(position.getX(), position.getY());
 
         for(MovementStrategy strategy : controllers) {

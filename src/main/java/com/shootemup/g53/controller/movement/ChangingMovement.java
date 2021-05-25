@@ -5,7 +5,7 @@ import com.shootemup.g53.model.util.Position;
 import java.util.List;
 import java.util.Random;
 
-public class ChangingMovement implements MovementStrategy {
+public class ChangingMovement extends FrameMovement {
     private int changeRate;
     private MovementStrategy currentController;
     private List<MovementStrategy> controllers;
@@ -34,7 +34,7 @@ public class ChangingMovement implements MovementStrategy {
     }
 
     @Override
-    public Position move(Position position, int speed) {
+    Position moveFrame(Position position, int speed) {
         frame++;
         if (frame > lastChange + changeRate)
             setNewController();

@@ -2,7 +2,7 @@ package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.model.util.Position;
 
-public class CircularMovement implements MovementStrategy {
+public class CircularMovement  extends FrameMovement{
     private final double radius;
     private double angle;
     private double angularSpeed;
@@ -14,7 +14,7 @@ public class CircularMovement implements MovementStrategy {
     }
 
     @Override
-    public Position move(Position position, int speed) {
+    Position moveFrame(Position position, int speed) {
         Position curCenter = position.sub(
                 new Position(
                         Math.toIntExact(Math.round(radius*Math.cos(this.angle))),
