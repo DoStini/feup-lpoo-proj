@@ -46,20 +46,20 @@ public class SpreadAllStrategy extends FiringStrategy {
     @Override
     public void createBullets(Spaceship spaceship, Position position, BulletPoolController bulletPoolController, String color, ColliderCategory category) {
         bulletPoolController.addBullet(position.getX(), position.getY(),
-                color, 3, bulletSpeed, upwardsMovement, category);
+                color, 3, bulletSpeed, spaceship.getBulletDamage(), upwardsMovement, category);
         bulletPoolController.addBullet(position.getX()-3, position.getY(),
-                color, 3, bulletSpeed/2, leftDownMovement, category);
+                color, 3, bulletSpeed/2, spaceship.getBulletDamage(), leftDownMovement, category);
         bulletPoolController.addBullet(position.getX()+3, position.getY(),
-                color, 3, bulletSpeed/2, rightDownMovement, category);
+                color, 3, bulletSpeed/2, spaceship.getBulletDamage(), rightDownMovement, category);
         bulletPoolController.addBullet(position.getX()-3, position.getY(),
-                color, 3, bulletSpeed/2, leftUpMovement, category);
+                color, 3, bulletSpeed/2, spaceship.getBulletDamage(), leftUpMovement, category);
         bulletPoolController.addBullet(position.getX()+3, position.getY(),
-                color, 3, bulletSpeed/2, rightUpMovement, category);
+                color, 3, bulletSpeed/2, spaceship.getBulletDamage(), rightUpMovement, category);
         bulletPoolController.addBullet(position.getX(), position.getY(),
-                color, 3, bulletSpeed, downMovement, category);
+                color, 3, bulletSpeed, spaceship.getBulletDamage(), downMovement, category);
         bulletPoolController.addBullet(position.getX()-3, position.getY(),
-                color, 3, bulletSpeed/2, leftMovement, category);
+                color, 3, bulletSpeed/2, spaceship.getBulletDamage(), leftMovement, category);
         bulletPoolController.addBullet(position.getX()+3, position.getY(),
-                color, 3, bulletSpeed/2, rightMovement, category);
+                color, 3, bulletSpeed/2, spaceship.getBulletDamage(), rightMovement, category);
     }
 }
