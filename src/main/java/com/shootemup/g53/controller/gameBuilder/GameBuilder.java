@@ -106,7 +106,7 @@ public class GameBuilder {
         }
         Background background = new Background(25, 30);
 
-        gameController.setBackgroundController(new BackgroundController(gameModel, background, 30, 5));
+        gameController.setBackgroundController(new BackgroundController(gameModel, background, 30, 3));
         gameModel.setBackground(background);
         gameModel.setCoins(coinList);
         gameModel.setBulletList(new ArrayList<>());
