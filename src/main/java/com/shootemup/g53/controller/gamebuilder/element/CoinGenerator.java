@@ -17,8 +17,6 @@ import com.shootemup.g53.model.util.Position;
 import java.util.Random;
 
 public class CoinGenerator extends MovableElementGenerator {
-
-
     private final int minVal;
     private final int maxVal;
     private final int maxRadius;
@@ -54,7 +52,7 @@ public class CoinGenerator extends MovableElementGenerator {
         gameModel.addCollider(coinCollider);
     }
 
-    private void setMovement(Coin coin) {
+    protected void setMovement(Coin coin) {
         CoinController coinController = new CoinController(coin, generateMovementStrategy(coin));
         gameController.addToControllerMap(coin, coinController);
         gameController.addToCollisionMap(coin, coinController);

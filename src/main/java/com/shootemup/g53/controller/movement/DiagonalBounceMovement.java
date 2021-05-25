@@ -44,11 +44,8 @@ public class DiagonalBounceMovement implements MovementStrategy {
         int x = newPosition.getX();
 
         if(x < initalPosition.getX() - xLeftLimit) {
-            newPosition = newPosition.getRight(speed);
-
-            if(newPosition.getX() >= initalPosition.getX() - xLeftLimit) {
-                this.direction = Direction.DOWN_RIGHT;
-            }
+            newPosition = position.getRight(speed);
+            this.direction = Direction.DOWN_RIGHT;
         }
 
         return newPosition;
@@ -60,11 +57,8 @@ public class DiagonalBounceMovement implements MovementStrategy {
         int x = newPosition.getX();
 
         if(x > initalPosition.getX() + xRightLimit) {
-            newPosition = newPosition.getLeft(speed);
-
-            if(x <= initalPosition.getX() + xRightLimit) {
-                this.direction = Direction.DOWN_LEFT;
-            }
+            newPosition = position.getLeft(speed);
+              this.direction = Direction.DOWN_LEFT;
         }
 
         return newPosition;

@@ -1,7 +1,11 @@
 package com.shootemup.g53.controller.gamebuilder.element;
 
+import com.shootemup.g53.controller.element.AsteroidController;
+import com.shootemup.g53.controller.element.CoinController;
 import com.shootemup.g53.controller.game.GameController;
+import com.shootemup.g53.controller.gamebuilder.MovementStrategyFactory;
 import com.shootemup.g53.controller.movement.FallDownMovement;
+import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.game.GameModel;
@@ -18,6 +22,7 @@ class AsteroidGeneratorTest {
     private Random random;
     private Asteroid asteroid;
     private AsteroidGenerator asteroidGenerator;
+    private MovementStrategyFactory movementStrategyFactory;
     private GameController gameController;
     private GameModel gameModel;
 
@@ -37,8 +42,9 @@ class AsteroidGeneratorTest {
         gameModel = Mockito.mock(GameModel.class);
 
         Mockito.when(gameController.getGameModel()).thenReturn(gameModel);
+        movementStrategyFactory = Mockito.mock(MovementStrategyFactory.class);
 
-        asteroidGenerator = new AsteroidGenerator(random, gameController,
+        asteroidGenerator = new AsteroidGenerator(random, gameController, movementStrategyFactory,
                 xMinPos, xMaxPos, minSpeed, maxSpeed, maxRadius);
     }
 
@@ -51,6 +57,20 @@ class AsteroidGeneratorTest {
 
         Mockito.verify(random, Mockito.times(1)).nextInt(xMaxPos - xMinPos); // Min Height is 2
         Mockito.verify(asteroid, Mockito.times(1)).setPosition(new Position(randomVal+xMinPos, 0));
+    }
+
+    @Test
+    void setMovementController() {
+        int randomVal = 2;
+        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(randomVal);
+        Mockito.when(movementStrategyFactory.generate(Mockito.any())).thenReturn(new FallDownMovement());
+
+        asteroidGenerator.setMovement(asteroid);
+        Mockito.verify(gameController, Mockito.times(1))
+                .addToControllerMap(Mockito.eq(asteroid), Mockito.any(AsteroidController.class));
+        Mockito.verify(gameController, Mockito.times(1))
+                .addToCollisionMap(Mockito.eq(asteroid), Mockito.any(AsteroidController.class));
+
     }
 
     @Test
@@ -79,6 +99,7 @@ class AsteroidGeneratorTest {
     void generateElement() {
         int randomVal = 2;
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(randomVal);
+        Mockito.when(movementStrategyFactory.generate(Mockito.any())).thenReturn(Mockito.mock(MovementStrategy.class));
 
         asteroidGenerator.generateElement();
 

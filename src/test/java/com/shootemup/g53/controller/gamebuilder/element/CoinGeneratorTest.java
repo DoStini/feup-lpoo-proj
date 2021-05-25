@@ -1,6 +1,8 @@
 package com.shootemup.g53.controller.gamebuilder.element;
 
+import com.shootemup.g53.controller.element.CoinController;
 import com.shootemup.g53.controller.game.GameController;
+import com.shootemup.g53.controller.gamebuilder.MovementStrategyFactory;
 import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
@@ -18,6 +20,7 @@ class CoinGeneratorTest {
     private Coin coin;
     private CoinGenerator coinGenerator;
     private GameController gameController;
+    private MovementStrategyFactory movementStrategyFactory;
     private GameModel gameModel;
 
     private int xMinPos = 0,
@@ -34,16 +37,26 @@ class CoinGeneratorTest {
         gameController = Mockito.mock(GameController.class);
         coin = Mockito.mock(Coin.class);
         gameModel = Mockito.mock(GameModel.class);
+        movementStrategyFactory = Mockito.mock(MovementStrategyFactory.class);
 
         Mockito.when(gameController.getGameModel()).thenReturn(gameModel);
 
-        coinGenerator = new CoinGenerator(random, gameController,
+        coinGenerator = new CoinGenerator(random, gameController, movementStrategyFactory,
                 xMinPos, xMaxPos, minSpeed, maxSpeed, maxRadius, minVal, maxVal);
     }
 
     @Test
     void setMovementController() {
         int randomVal = 2;
+        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(randomVal);
+        Mockito.when(movementStrategyFactory.generate(Mockito.any())).thenReturn(new FallDownMovement());
+
+        coinGenerator.setMovement(coin);
+        Mockito.verify(gameController, Mockito.times(1))
+                .addToControllerMap(Mockito.eq(coin), Mockito.any(CoinController.class));
+        Mockito.verify(gameController, Mockito.times(1))
+                .addToCollisionMap(Mockito.eq(coin), Mockito.any(CoinController.class));
+
     }
 
 
@@ -74,6 +87,7 @@ class CoinGeneratorTest {
     void generateElement() {
         int randomVal = 2;
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(randomVal);
+        Mockito.when(movementStrategyFactory.generate(Mockito.any())).thenReturn(new FallDownMovement());
 
         coinGenerator.generateElement();
 

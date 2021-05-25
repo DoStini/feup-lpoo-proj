@@ -36,7 +36,7 @@ public class AsteroidGenerator extends MovableElementGenerator {
     }
 
 
-    private void setMovement(Asteroid asteroid) {
+    protected void setMovement(Asteroid asteroid) {
         AsteroidController asteroidController = new AsteroidController(asteroid, generateMovementStrategy(asteroid));
         gameController.addToControllerMap(asteroid, asteroidController);
         gameController.addToCollisionMap(asteroid, asteroidController);

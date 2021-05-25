@@ -10,6 +10,7 @@ import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.model.util.ColorOperation;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +24,7 @@ public class ElementControllerTest {
     private Spaceship spaceship;
     private Bullet bullet;
     private Coin coin;
+    private String color = "#aaaaaa";
     private MovementStrategy movementStrategy;
     private BulletPoolController bulletPoolController;
     private FiringStrategy firingStrategy;
@@ -42,12 +44,15 @@ public class ElementControllerTest {
         firingStrategy = Mockito.mock(MovingBulletStrategy.class);
         Mockito.when(coin.getPosition()).thenReturn(position);
         Mockito.when(coin.getSpeed()).thenReturn(speed);
+        Mockito.when(coin.getColor()).thenReturn(color);
         Mockito.when(spaceship.getPosition()).thenReturn(position);
         Mockito.when(spaceship.getSpeed()).thenReturn(speed);
         Mockito.when(spaceship.getHealth()).thenReturn(3);
+        Mockito.when(spaceship.getColor()).thenReturn(color);
         Mockito.when(bullet.getPosition()).thenReturn(position);
         Mockito.when(bullet.getSpeed()).thenReturn(speed);
         Mockito.when(asteroid.getSpeed()).thenReturn(speed);
+        Mockito.when(asteroid.getColor()).thenReturn(color);
         movementStrategy = Mockito.mock(FallDownMovement.class);
         Mockito.when(movementStrategy.move(position,speed)).thenReturn(position);
 
@@ -111,10 +116,8 @@ public class ElementControllerTest {
         spaceshipController.handle();
 
         Mockito.verify(spaceship,Mockito.times(1)).setPosition(position);
-        Mockito.verify(firingStrategy,Mockito.times(1)).fire(spaceship, spaceship.getPosition(), bulletPoolController, "#ffff00", ColliderCategory.ENEMY_BULLET);
-
-        spaceshipController.handleAsteroid(asteroid);
-        Mockito.verify(spaceship,Mockito.times(1)).setHealth(0);
+        Mockito.verify(firingStrategy,Mockito.times(1))
+                .fire(spaceship, spaceship.getPosition(), bulletPoolController, ColorOperation.invertColor(color), ColliderCategory.ENEMY_BULLET);
 
         spaceshipController.handleBullet(bullet);
         Mockito.verify(spaceship,Mockito.times(1)).setHealth(spaceship.getHealth() - 1);

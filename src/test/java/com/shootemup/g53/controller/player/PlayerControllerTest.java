@@ -5,6 +5,7 @@ import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.model.util.ColorOperation;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +18,7 @@ class PlayerControllerTest {
 
     private Spaceship spaceship;
     private Position position;
+    private String color = "#aaaaaa";
     private MovingBulletStrategy firingController;
     private BulletPoolController bulletPoolController;
     private int speed = 5;
@@ -33,7 +35,7 @@ class PlayerControllerTest {
         firingController = Mockito.mock(MovingBulletStrategy.class);
         Mockito.when(spaceship.getSpeed()).thenReturn(speed);
         Mockito.when(spaceship.getPosition()).thenReturn(position);
-
+        Mockito.when(spaceship.getColor()).thenReturn(color);
 
         Mockito.when(position.getUp(Mockito.anyInt())).thenReturn(position);
         Mockito.when(position.getDown(Mockito.anyInt())).thenReturn(position);
@@ -115,9 +117,8 @@ class PlayerControllerTest {
         for (int i = 0; i < fireRate; i++) {
             controller.fire(gui, bulletPoolController);
         }
-
         Mockito.verify(firingController, Mockito.times(fireRate))
-                .fire(spaceship, spaceship.getPosition(), bulletPoolController, "#ff0000",  ColliderCategory.PLAYER_BULLET);
+                .fire(spaceship, spaceship.getPosition(), bulletPoolController, ColorOperation.invertColor(color),  ColliderCategory.PLAYER_BULLET);
 
     }
 
