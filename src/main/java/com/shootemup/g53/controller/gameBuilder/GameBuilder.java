@@ -45,7 +45,7 @@ public class GameBuilder {
         List<Coin> coinList = new ArrayList<>();
         List<BodyCollider> colliders = new ArrayList<>();
 
-        Spaceship player = new Spaceship(new Position(20, 35), 3, 3, "#aae243", 2);
+        Spaceship player = new Spaceship(new Position(20, 35), 3, 3, "#aae243", 2, 5);
         //create a playerController ?
 
         PlayerController playerController = new PlayerController(player, gui, bulletPoolController, new MovingBulletStrategy(new MoveUpwardsMovement(), 2, 5));
@@ -76,7 +76,7 @@ public class GameBuilder {
             FiringStrategy selectedFiringStrategy = firingStrategies.get(rand.nextInt(firingStrategies.size()));
             //FiringStrategy selectedFiringStrategy = new SpreadAllStrategy(2, 10);
 
-            Spaceship s = new Spaceship(new Position(randomX, randomY), 3, 3, "#1212ee", 1);
+            Spaceship s = new Spaceship(new Position(randomX, randomY), 3, 3, "#1212ee", 1, 2);
             SpaceshipController sc = new SpaceshipController(s, selectedFiringStrategy, selectedMovementStrategy, bulletPoolController);
             gameController.addToControllerMap(s, sc);
             gameController.addToCollisionMap(s, sc);
