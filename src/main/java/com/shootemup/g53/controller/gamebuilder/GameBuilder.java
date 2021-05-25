@@ -31,15 +31,17 @@ public class GameBuilder {
     Wave currentWave;
 
     public GameBuilder(Gui gui, GameController gameController, long baseSkip){
-        this(new Random(), gui, gameController, baseSkip);
+        this(new Random(), gui, gameController,
+                new WaveFactory(1, 0.2f, 5, 100, 0.02f),
+                baseSkip);
     }
 
-    public GameBuilder(Random rand, Gui gui, GameController gameController, long baseSkip) {
+    public GameBuilder(Random rand, Gui gui, GameController gameController, WaveFactory waveFactory, long baseSkip) {
         this.rand = rand;
         this.gameController = gameController;
         this.gameModel = gameController.getGameModel();
         this.baseSkip = baseSkip;
-        this.waveFactory = new WaveFactory(1, 0.2f, 5, 100, 0.02f);
+        this.waveFactory = waveFactory;
         this.gui = gui;
         setupGame();
     }
@@ -99,7 +101,11 @@ public class GameBuilder {
                         4, -1, -1));
     }
 
-    private void setNextGeneration() {
+    protected void setupElementGenerators(List<ElementGenerator> strategyFactories) {
+         generators = strategyFactories;
+    }
+
+    protected void setNextGeneration() {
         nextGeneration = nextGeneration + baseSkip + rand.nextInt((int) baseSkip);
     }
 
@@ -111,5 +117,13 @@ public class GameBuilder {
 
         setNextGeneration();
         generators.get(rand.nextInt(generators.size())).generateElement();
+    }
+
+    protected List<ElementGenerator> getGenerators() {
+        return generators;
+    }
+
+    protected long getNextGeneration() {
+        return nextGeneration;
     }
 }

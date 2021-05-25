@@ -2,6 +2,7 @@ package com.shootemup.g53.model.element;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Background {
     private List<Star> stars;
@@ -32,7 +33,19 @@ public class Background {
         return this.minStars;
     }
 
+    public int getMaxStars() {
+        return maxStars;
+    }
+
     public List<Star> getStars() {
         return stars;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Background that = (Background) o;
+        return maxStars == that.maxStars && minStars == that.minStars && Objects.equals(stars, that.stars);
     }
 }
