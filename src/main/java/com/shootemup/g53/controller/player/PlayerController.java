@@ -120,8 +120,9 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     public void handle(long frame) {
         Position newPosition = move(gui);
         setPosition(newPosition);
-        fire(gui,bulletPoolController,frame);
+        fire(gui, bulletPoolController, frame);
         usePowerups(gui);
+    }
     public void handleShield(Shield shield) {
     }
 

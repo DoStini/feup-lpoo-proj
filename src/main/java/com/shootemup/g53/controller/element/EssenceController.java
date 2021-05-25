@@ -16,7 +16,7 @@ public class EssenceController extends MovableElementController implements Eleme
     }
 
     @Override
-    public void handle() {
+    public void handle(long frame) {
         Position newPosition = move();
         essence.setPosition(newPosition);
     }

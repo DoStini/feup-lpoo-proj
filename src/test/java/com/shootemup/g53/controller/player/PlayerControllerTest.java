@@ -144,11 +144,11 @@ class PlayerControllerTest {
     void powerUps() {
         Mockito.when(gui.isActionActive(Action.POWER_1)).thenReturn(true);
         PlayerController controller = new PlayerController(player,gui,bulletPoolController,powerupController,firingController);
-
-        controller.handle();
+        long frame = 0;
+        controller.handle(frame);
 
         Mockito.when(gui.isActionActive(Action.POWER_1)).thenReturn(false);
-        controller.handle();
+        controller.handle(frame);
 
         Mockito.verify(powerupController, Mockito.times(1)).spawnShield(player);
 
