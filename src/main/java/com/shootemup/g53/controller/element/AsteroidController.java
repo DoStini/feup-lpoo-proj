@@ -27,32 +27,8 @@ public class AsteroidController extends MovableElementController implements Coll
     }
 
     @Override
-    public void handleBullet(Bullet bullet) {
-    }
-
-    @Override
-    public void handleSpaceship(Spaceship spaceship) {
-
-    }
-
-    @Override
-    public void handlePlayer(Player player) {
-
-    }
-
-    @Override
-    public void handleAsteroid(Asteroid asteroid) {
-
-    }
-
-    @Override
-    public void handleCoin(Coin coin) {
-
-    }
-
-    @Override
     public void handleShield(Shield shield) {
-
+        asteroid.deactivate();
     }
 
     @Override
