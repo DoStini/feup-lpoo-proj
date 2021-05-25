@@ -31,7 +31,7 @@ public class GameController extends GenericController {
     private HashMap<Element, ElementInterface> controllerHashMap = new HashMap<>();
     private HashMap<Element, CollisionHandlerController> collisionHashMap = new HashMap<>();
 
-
+    private ScoreController scoreController = new ScoreController();
     private WaveCompletionController waveCompletionController = new WaveCompletionController();
 
     public GameController(GameModel gameModel) {
@@ -120,6 +120,11 @@ public class GameController extends GenericController {
         gameModel.getEnemySpaceships().stream()
                 .filter(enemy -> enemy.getHealth() <= 0)
                 .forEach(Element::deactivate);
+
+        for( int i = 0; i < gameModel.getEnemySpaceships().stream()
+                .filter(enemy -> enemy.getHealth() <= 0).count(); i++){
+            scoreController.notifyObservers();
+        }
     }
 
     public void removeInactiveElements(){
@@ -179,5 +184,9 @@ public class GameController extends GenericController {
 
     public WaveCompletionController getWaveCompletionController() {
         return waveCompletionController;
+    }
+
+    public ScoreController getScoreController() {
+        return scoreController;
     }
 }

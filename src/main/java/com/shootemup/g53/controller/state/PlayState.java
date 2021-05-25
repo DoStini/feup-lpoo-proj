@@ -33,7 +33,7 @@ public class PlayState extends State<GameModel> {
         this.gui = gui;
         this.infoBarViewer = new InfoBarViewer(this.gui, 10);
         this.gameController = this.gameBuilder.buildGame(5,3,gui.getWidth() - 10,gui.getHeight(), gui);
-        this.infoBarController = new InfoBarController(gameController, new InfoBarModel(3,1,seconds,6));
+        this.infoBarController = new InfoBarController(gameController, new InfoBarModel(getStateModel().getPlayer().getHealth(),1,seconds,getStateModel().getPlayer().getHealth()));
 
     }
 

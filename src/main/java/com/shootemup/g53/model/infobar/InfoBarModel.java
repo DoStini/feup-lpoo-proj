@@ -52,8 +52,8 @@ public class InfoBarModel extends Model implements PlayerLifeObserver, PlayerSco
     }
 
     @Override
-    public void updateLife() {
-        this.currentLives--;
+    public void updateLife(int amount) {
+        this.currentLives = this.currentLives - amount;
     }
 
     @Override

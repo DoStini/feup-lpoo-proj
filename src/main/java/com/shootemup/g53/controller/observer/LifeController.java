@@ -5,6 +5,7 @@ import java.util.List;
 
 public class LifeController implements EventSubject<PlayerLifeObserver>{
     private List<PlayerLifeObserver> playerLifeObservers = new ArrayList<>();
+    private int lifeToRemove = 0;
     @Override
     public void addObserver(PlayerLifeObserver observer) {
         playerLifeObservers.add(observer);
@@ -18,6 +19,14 @@ public class LifeController implements EventSubject<PlayerLifeObserver>{
     @Override
     public void notifyObservers() {
         for(PlayerLifeObserver playerLifeObserver : playerLifeObservers)
-            playerLifeObserver.updateLife();
+            playerLifeObserver.updateLife(lifeToRemove);
+    }
+
+    public int getLifeToRemove() {
+        return lifeToRemove;
+    }
+
+    public void setLifeToRemove(int lifeToRemove) {
+        this.lifeToRemove = lifeToRemove;
     }
 }

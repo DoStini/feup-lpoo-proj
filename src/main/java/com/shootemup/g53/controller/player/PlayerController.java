@@ -6,6 +6,7 @@ import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.observer.LifeController;
+import com.shootemup.g53.controller.observer.ScoreController;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Asteroid;
@@ -22,6 +23,7 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     private FiringStrategy firingStrategy;
     private BulletPoolController bulletPoolController;
     private LifeController lifeController = new LifeController();
+    private ScoreController scoreController = new ScoreController();
     private Gui gui;
     public PlayerController(Player player, Gui gui, BulletPoolController bulletPoolController, FiringStrategy firingStrategy) {
         this.player = player;
@@ -68,6 +70,7 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     @Override
     public void handleBullet(Bullet bullet) {
         // this is bad
+        lifeController.setLifeToRemove(1);
         lifeController.notifyObservers();
 
         this.player.setHealth(this.player.getHealth()-1);
@@ -76,6 +79,7 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     @Override
     public void handleSpaceship(Spaceship spaceship) {
         // this is bad
+        lifeController.setLifeToRemove(5);
         lifeController.notifyObservers();
         this.player.setHealth(this.player.getHealth()-5);
     }
@@ -92,7 +96,7 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     @Override
     public void handleCoin(Coin coin) {
-        // add coin to inv
+        scoreController.notifyObservers();
     }
 
     @Override
@@ -107,4 +111,7 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     }
 
 
+    public ScoreController getScoreController() {
+        return scoreController;
+    }
 }

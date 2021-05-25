@@ -10,7 +10,8 @@ public class InfoBarController {
     public InfoBarController(GameController gameController, InfoBarModel infoBarModel){
         this.infoBarModel = infoBarModel;
         gameController.getPlayerController().getLifeController().addObserver(infoBarModel);
-        //gameController.getPlayerController().getScoreController().addObserver(infoBarModel);
+        gameController.getPlayerController().getScoreController().addObserver(infoBarModel);
+        gameController.getScoreController().addObserver(infoBarModel);
         gameController.getWaveCompletionController().addObserver(infoBarModel);
     }
     public void handle(int frame) {
