@@ -44,15 +44,6 @@ public class SpaceshipController extends MovableElementController implements Col
         spaceship.setHealth(spaceship.getHealth() - 1);
     }
 
-    @Override
-    public void handleSpaceship(Spaceship spaceship) {
-
-    }
-
-    @Override
-    public void handlePlayer(Player player) {
-
-    }
 
     @Override
     public void handleAsteroid(Asteroid asteroid) {
@@ -60,7 +51,8 @@ public class SpaceshipController extends MovableElementController implements Col
     }
 
     @Override
-    public void handleCoin(Coin coin) {
+    public void handleShield(Shield shield) {
+        spaceship.setHealth(0);
     }
 
     @Override

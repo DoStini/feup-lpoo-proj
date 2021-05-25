@@ -19,6 +19,7 @@ public class GameModel extends Model {
     private List<Spaceship> enemySpaceships;
     private List<Bullet> bulletList;
     private List<BodyCollider> colliders;
+    private List<Shield> shields;
 
     public GameModel(int width, int height) {
         this.width = width;
@@ -62,6 +63,7 @@ public class GameModel extends Model {
         coins.removeIf(coin -> !coin.isActive());
         enemySpaceships.removeIf(enemy -> !enemy.isActive());
         asteroids.removeIf(asteroid -> !asteroid.isActive());
+        shields.removeIf(shield -> !shield.isActive());
     }
 
     public void addCollider(BodyCollider collider) {
@@ -100,6 +102,10 @@ public class GameModel extends Model {
         this.bulletList.add(bullet);
     }
 
+    public void addShield(Shield shield) {
+        this.shields.add(shield);
+    }
+
     public void setBackground(Background background) {
         this.background = background;
     }
@@ -127,4 +133,13 @@ public class GameModel extends Model {
     public void setAsteroids(List<Asteroid> asteroids) {
         this.asteroids = asteroids;
     }
+
+    public List<Shield> getShieldList() {
+        return shields;
+    }
+
+    public void setShields(List<Shield> shields) {
+        this.shields = shields;
+    }
+
 }

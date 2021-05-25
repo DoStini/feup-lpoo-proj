@@ -16,6 +16,7 @@ public class GameViewer extends Viewer<GameModel> {
     private SpaceshipView enemyView;
     private CoinView coinView;
     private BulletView bulletView;
+    private ShieldView shieldView;
     private StarView starView;
     private BackgroundView backgroundView;
 
@@ -25,6 +26,7 @@ public class GameViewer extends Viewer<GameModel> {
         enemyView = new EnemyView(2);
         coinView = new CoinView();
         bulletView = new BulletView();
+        shieldView = new ShieldView();
         starView = new StarView(0.2);
         backgroundView = new BackgroundView(starView);
     }
@@ -44,6 +46,9 @@ public class GameViewer extends Viewer<GameModel> {
         }
         for(Bullet bullet: model.getBulletList()){
             bulletView.draw(gui,bullet);
+        }
+        for(Shield shield: model.getShieldList()){
+            shieldView.draw(gui, shield);
         }
 
         gui.refresh();

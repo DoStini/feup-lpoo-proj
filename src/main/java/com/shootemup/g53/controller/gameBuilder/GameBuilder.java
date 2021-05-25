@@ -2,6 +2,7 @@ package com.shootemup.g53.controller.gameBuilder;
 
 import com.shootemup.g53.controller.element.BackgroundController;
 import com.shootemup.g53.controller.element.CoinController;
+import com.shootemup.g53.controller.element.ShieldController;
 import com.shootemup.g53.controller.element.SpaceshipController;
 import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.firing.MovingBulletStrategy;
@@ -12,10 +13,7 @@ import com.shootemup.g53.controller.player.PlayerController;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.collider.LineCompositeFactory;
-import com.shootemup.g53.model.element.Background;
-import com.shootemup.g53.model.element.Coin;
-import com.shootemup.g53.model.element.Player;
-import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Direction;
 import com.shootemup.g53.model.util.Position;
@@ -105,6 +103,20 @@ public class GameBuilder {
             coinList.add(coin);
             colliders.add(coinCollider);
         }
+
+        Shield shield = new Shield(new Position(10, 10), "#aaddee", 10, 5);
+        ShieldController shieldController = new ShieldController(shield);
+        gameController.addToControllerMap(shield, shieldController);
+        gameController.addToCollisionMap(shield, shieldController);
+        BodyCollider collider = new LineCompositeFactory()
+                .createFromSquare(shield, new Position(-shield.getWidth()/2, 0), shield.getWidth(), 4);
+        collider.setCategory(ColliderCategory.SHIELD);
+        colliders.add(collider);
+        List<Shield> shields = new ArrayList<>();
+        shields.add(shield);
+        gameModel.setShields(shields);
+
+
         Background background = new Background(25, 30);
 
         gameController.setBackgroundController(new BackgroundController(gameModel, background, 30, 5));

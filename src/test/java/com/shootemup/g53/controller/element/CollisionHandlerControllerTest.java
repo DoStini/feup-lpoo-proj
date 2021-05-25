@@ -21,6 +21,7 @@ class CollisionHandlerControllerTest {
     CoinController coinController;
     SpaceshipController spaceshipController;
     PlayerController playerController;
+    ShieldController shieldController;
 
     @BeforeEach
     void setup() {
@@ -29,6 +30,7 @@ class CollisionHandlerControllerTest {
         coinController = Mockito.spy(new CoinController(Mockito.mock(Coin.class), Mockito.mock(MovementStrategy.class)));
         spaceshipController = Mockito.spy(new SpaceshipController(Mockito.mock(Spaceship.class), Mockito.mock(FiringStrategy.class), Mockito.mock(MovementStrategy.class), Mockito.mock(BulletPoolController.class)));
         playerController = Mockito.spy(new PlayerController(Mockito.mock(Player.class), Mockito.mock(Gui.class), Mockito.mock(BulletPoolController.class),Mockito.mock(FiringStrategy.class)));
+        shieldController = Mockito.spy(new ShieldController(Mockito.mock(Shield.class)));
     }
 
     @Test
@@ -54,6 +56,11 @@ class CollisionHandlerControllerTest {
         playerController.handleCollision(fakeCollider, fakeCollider, spaceshipController);
 
         Mockito.verify(spaceshipController, Mockito.times(1)).handlePlayer(Mockito.any());
+
+        shieldController.handleCollision(fakeCollider, fakeCollider, bulletController);
+
+        Mockito.verify(bulletController, Mockito.times(1)).handleShield(Mockito.any());
+
     }
 
     @Test
@@ -73,6 +80,10 @@ class CollisionHandlerControllerTest {
         playerController.handleAsteroid(Mockito.mock(Asteroid.class));
 
         Assertions.assertEquals(0, player.getHealth());
+
+        playerController.handleShield(Mockito.mock(Shield.class));
+        Assertions.assertEquals(0, player.getHealth());
+
     }
 
     @Test
@@ -92,6 +103,13 @@ class CollisionHandlerControllerTest {
         spaceshipController.handleAsteroid(Mockito.mock(Asteroid.class));
 
         Assertions.assertEquals(0, spaceship.getHealth());
+
+        spaceship.setHealth(5);
+        Assertions.assertEquals(5, spaceship.getHealth());
+
+        spaceshipController.handleShield(Mockito.mock(Shield.class));
+        Assertions.assertEquals(0, spaceship.getHealth());
+
     }
 
     @Test
@@ -135,6 +153,13 @@ class CollisionHandlerControllerTest {
 
         Assertions.assertFalse(bullet.isActive());
 
+        bullet.activate();
+
+        Assertions.assertTrue(bullet.isActive());
+
+        bulletController.handleShield(Mockito.mock(Shield.class));
+
+        Assertions.assertFalse(bullet.isActive());
 
 
     }
@@ -154,5 +179,31 @@ class CollisionHandlerControllerTest {
         Assertions.assertFalse(coin.isActive());
 
         coinController.handleAsteroid(Mockito.mock(Asteroid.class));
+    }
+
+    @Test
+    void shieldCollisions() {
+        Shield shield = new Shield(new Position(0,0), "#aaaaaa", 5, 1);
+        ShieldController shieldController = Mockito.spy(new ShieldController(shield));
+
+        Assertions.assertEquals(5, shield.getStrength());
+
+        shieldController.handleSpaceship(Mockito.mock(Spaceship.class));
+
+        Assertions.assertEquals(5, shield.getStrength());
+
+        shieldController.handleSpaceship(Mockito.mock(Spaceship.class));
+
+        Assertions.assertEquals(5, shield.getStrength());
+
+        shieldController.handleBullet(Mockito.mock(Bullet.class));
+
+        Assertions.assertEquals(4, shield.getStrength());
+
+        Asteroid asteroid = Mockito.mock(Asteroid.class);
+        Mockito.when(asteroid.getRadius()).thenReturn(2);
+        shieldController.handleAsteroid(asteroid);
+
+        Assertions.assertEquals(2, shield.getStrength());
     }
 }

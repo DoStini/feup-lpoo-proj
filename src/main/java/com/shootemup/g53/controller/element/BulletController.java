@@ -55,6 +55,11 @@ public class BulletController extends MovableElementController implements Collis
     }
 
     @Override
+    public void handleShield(Shield shield) {
+        bullet.deactivate();
+    }
+
+    @Override
     public void handle() {
          Position newPosition = move();
          bullet.setPosition(newPosition);

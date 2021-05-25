@@ -51,6 +51,11 @@ public class AsteroidController extends MovableElementController implements Coll
     }
 
     @Override
+    public void handleShield(Shield shield) {
+
+    }
+
+    @Override
     public void handle() {
         Position newPosition = move();
         asteroid.setPosition(newPosition);

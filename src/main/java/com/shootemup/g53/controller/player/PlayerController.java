@@ -72,7 +72,6 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     @Override
     public void handlePlayer(Player player) {
-
     }
 
     @Override
@@ -83,6 +82,10 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     @Override
     public void handleCoin(Coin coin) {
         // add coin to inv
+    }
+
+    @Override
+    public void handleShield(Shield shield) {
     }
 
     @Override

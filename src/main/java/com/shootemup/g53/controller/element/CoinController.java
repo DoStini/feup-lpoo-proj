@@ -51,6 +51,11 @@ public class CoinController extends MovableElementController implements Collisio
     }
 
     @Override
+    public void handleShield(Shield shield) {
+
+    }
+
+    @Override
     public void handle() {
         Position newPosition = move();
         coin.setPosition(newPosition);
