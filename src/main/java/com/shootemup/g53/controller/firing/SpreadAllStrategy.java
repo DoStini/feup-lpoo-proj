@@ -46,20 +46,20 @@ public class SpreadAllStrategy extends FiringStrategy {
     @Override
     public void createBullets(Spaceship spaceship, Position position, BulletPoolController bulletPoolController, String color, ColliderCategory category) {
         bulletPoolController.addBullet(position.getX(), position.getY(),
-                color, 3, bulletSpeed, upwardsMovement.cloneStrategy(), category);
+                color, 3, bulletSpeed, spaceship.getBulletDamage(), upwardsMovement, category);
         bulletPoolController.addBullet(position.getX()-3, position.getY(),
-                color, 3, bulletSpeed/2, leftDownMovement.cloneStrategy(), category);
+                color, 3, bulletSpeed/2, spaceship.getBulletDamage(), leftDownMovement, category);
         bulletPoolController.addBullet(position.getX()+3, position.getY(),
-                color, 3, bulletSpeed/2, rightDownMovement.cloneStrategy(), category);
+                color, 3, bulletSpeed/2, spaceship.getBulletDamage(), rightDownMovement, category);
         bulletPoolController.addBullet(position.getX()-3, position.getY(),
-                color, 3, bulletSpeed/2, leftUpMovement.cloneStrategy(), category);
+                color, 3, bulletSpeed/2, spaceship.getBulletDamage(), leftUpMovement, category);
         bulletPoolController.addBullet(position.getX()+3, position.getY(),
-                color, 3, bulletSpeed/2, rightUpMovement.cloneStrategy(), category);
+                color, 3, bulletSpeed/2, spaceship.getBulletDamage(), rightUpMovement, category);
         bulletPoolController.addBullet(position.getX(), position.getY(),
-                color, 3, bulletSpeed, downMovement.cloneStrategy(), category);
+                color, 3, bulletSpeed, spaceship.getBulletDamage(), downMovement, category);
         bulletPoolController.addBullet(position.getX()-3, position.getY(),
-                color, 3, bulletSpeed/2, leftMovement.cloneStrategy(), category);
+                color, 3, bulletSpeed/2, spaceship.getBulletDamage(), leftMovement, category);
         bulletPoolController.addBullet(position.getX()+3, position.getY(),
-                color, 3, bulletSpeed/2, rightMovement.cloneStrategy(), category);
+                color, 3, bulletSpeed/2, spaceship.getBulletDamage(), rightMovement, category);
     }
 }

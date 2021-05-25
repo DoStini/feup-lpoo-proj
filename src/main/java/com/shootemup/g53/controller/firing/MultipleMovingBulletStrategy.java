@@ -30,7 +30,7 @@ public class MultipleMovingBulletStrategy extends FiringStrategy {
         if(odd) {
             for(int bullet = 0; bullet < this.bullets; bullet++) {
                 bulletPoolController.addBullet(position.getX()+(3)*(middleBullet-bullet), position.getY()+slope*2*(Math.abs(middleBullet-bullet)),
-                        color, 3, bulletSpeed, this.movementStrategy.cloneStrategy(), category);
+                        color, 3, bulletSpeed, spaceship.getBulletDamage(), this.movementStrategy, category);
             }
         } else {
             for(int bullet = 0; bullet < this.bullets; bullet++) {
@@ -40,7 +40,7 @@ public class MultipleMovingBulletStrategy extends FiringStrategy {
                 else yDiff = Math.abs(middleBullet-bullet);
 
                 bulletPoolController.addBullet(position.getX()+(2)*(middleBullet-bullet)-1, position.getY()+slope*2*yDiff,
-                        color, 3, bulletSpeed, this.movementStrategy.cloneStrategy(), category);
+                        color, 3, bulletSpeed, spaceship.getBulletDamage(), this.movementStrategy, category);
             }
         }
 

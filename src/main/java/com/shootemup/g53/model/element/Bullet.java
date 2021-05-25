@@ -6,21 +6,28 @@ import com.shootemup.g53.model.util.objectpool.PoolableObject;
 public class Bullet extends MovableElement implements PoolableObject {
 
     private int size;
+    private int damage;
     private boolean active = false;
 
-    public Bullet(Position position, String color, double speed, int size) {
+
+    public Bullet(Position position, String color,double speed, int size, int damage) {
         super(position, color, speed);
         this.size = size;
         this.active = true;
+        this.damage = damage;
     }
 
     public int getSize() {
         return size;
     }
 
+    public int getDamage() {
+        return damage;
+    }
+
     @Override
     public PoolableObject clone() {
-        return new Bullet(new Position(position.getX(), position.getY()), getColor(),getSpeed(), size);
+        return new Bullet(new Position(position.getX(), position.getY()), getColor(),getSpeed(), size, this.damage);
     }
 
     public void init(int x, int y, String color, int size,double speed) {

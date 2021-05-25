@@ -14,6 +14,7 @@ import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.collider.LineCompositeFactory;
 import com.shootemup.g53.model.element.Background;
 import com.shootemup.g53.model.element.Coin;
+import com.shootemup.g53.model.element.Player;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Direction;
@@ -45,7 +46,8 @@ public class GameBuilder {
         List<Coin> coinList = new ArrayList<>();
         List<BodyCollider> colliders = new ArrayList<>();
 
-        Spaceship player = new Spaceship(new Position(20, 35), 3, 3, "#aae243", 2);
+        Player player = new Player(new Position(20, 35), 3, 30, "#aae243", 2,1);
+
         //create a playerController ?
 
         PlayerController playerController = new PlayerController(player, gui, bulletPoolController, new MovingBulletStrategy(new MoveUpwardsMovement(), 2, 5));
@@ -76,7 +78,7 @@ public class GameBuilder {
             FiringStrategy selectedFiringStrategy = firingStrategies.get(rand.nextInt(firingStrategies.size()));
             //FiringStrategy selectedFiringStrategy = new SpreadAllStrategy(2, 10);
 
-            Spaceship s = new Spaceship(new Position(randomX, randomY), 3, 3, "#1212ee", 1);
+            Spaceship s = new Spaceship(new Position(randomX, randomY), 3, 3, "#1212ee", 1, 2);
             SpaceshipController sc = new SpaceshipController(s, selectedFiringStrategy, selectedMovementStrategy, bulletPoolController);
             gameController.addToControllerMap(s, sc);
             gameController.addToCollisionMap(s, sc);

@@ -40,8 +40,13 @@ public class BulletController extends MovableElementController implements Collis
     }
 
     @Override
-    public void handleAsteroid(Asteroid asteroid) {
+    public void handlePlayer(Player player) {
+        bullet.deactivate();
+    }
 
+    @Override
+    public void handleAsteroid(Asteroid asteroid) {
+        bullet.deactivate();
     }
 
     @Override
