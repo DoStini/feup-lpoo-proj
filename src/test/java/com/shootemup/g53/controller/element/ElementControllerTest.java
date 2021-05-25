@@ -26,7 +26,7 @@ public class ElementControllerTest {
     private BulletPoolController bulletPoolController;
     private FiringStrategy firingStrategy;
     private Position position;
-    private int speed = 5;
+    private double speed = 5;
 
     Gui gui;
 

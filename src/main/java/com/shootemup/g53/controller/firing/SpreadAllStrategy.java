@@ -19,7 +19,7 @@ public class SpreadAllStrategy extends FiringStrategy {
 
 
 
-    public SpreadAllStrategy(int speed, int fireRate) {
+    public SpreadAllStrategy(double speed, int fireRate) {
         super();
         this.bulletSpeed = speed;
         this.fireRate = fireRate;

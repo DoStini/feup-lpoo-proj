@@ -1,8 +1,5 @@
 package com.shootemup.g53.model.element;
 
-import com.shootemup.g53.controller.firing.FiringStrategy;
-import com.shootemup.g53.controller.game.BulletPoolController;
-import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.model.util.objectpool.PoolableObject;
 
@@ -11,7 +8,7 @@ public class Spaceship extends MovableElement {
     private int health;
     private int bulletDamage;
 
-    public Spaceship(Position position, int height,int health, String color, int speed, int bulletDamage) {
+    public Spaceship(Position position, int height,int health, String color, double speed, int bulletDamage) {
         super(position, color, speed);
         this.height = height;
         this.health = health;

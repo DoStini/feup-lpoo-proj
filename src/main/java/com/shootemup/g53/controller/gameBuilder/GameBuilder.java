@@ -70,7 +70,7 @@ public class GameBuilder {
             controllers.add(new FallDownMovement());
             controllers.add(new ChangingMovement(20, controllers));
 
-            List<FiringStrategy> firingStrategies = Arrays.asList(new MovingBulletStrategy(new FallDownMovement(), 2, 10));
+            List<FiringStrategy> firingStrategies = Arrays.asList(new MovingBulletStrategy(new FallDownMovement(), 0.75, 10));
 
             //MovementStrategy selectedMovementStrategy = controllers.get(0);
             MovementStrategy selectedMovementStrategy = new CompositeMovement();
@@ -132,7 +132,7 @@ public class GameBuilder {
 
         Background background = new Background(25, 30);
 
-        gameController.setBackgroundController(new BackgroundController(gameModel, background, 30, 5));
+        gameController.setBackgroundController(new BackgroundController(gameModel, background, 30, 3));
         gameModel.setBackground(background);
         gameModel.setCoins(coinList);
         gameModel.setBulletList(new ArrayList<>());

@@ -7,7 +7,7 @@ public class Player extends Spaceship{
     private int coins;
     private int essence;
 
-    public Player(Position position, int height, int health, String color, int speed, int bulletDamage) {
+    public Player(Position position, int height, int health, String color, double speed, int bulletDamage) {
         super(position, height, health, color, speed,bulletDamage);
         this.coins = 0;
         this.essence = 0;
