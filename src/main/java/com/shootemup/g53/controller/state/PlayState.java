@@ -52,6 +52,7 @@ public class PlayState extends State<GameModel> {
                 Thread.sleep(60);
                 frame++;
                 gameBuilder.handle(frame);
+                gameController.handleKeyPress(gui);
                 gameController.handle();
                 if(gameModel.isGameFinished()){
                     game.changeState(new GameOverState(this.game,new GameOverModel(),this.gui));

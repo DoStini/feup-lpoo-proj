@@ -26,7 +26,6 @@ public class WaveFactory {
         this.timeFactor = timeFactor;
         this.wave = 1;
         setupStrategies();
-
     }
 
     private void setupStrategies() {
