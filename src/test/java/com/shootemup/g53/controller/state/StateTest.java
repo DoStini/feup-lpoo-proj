@@ -52,7 +52,8 @@ public class StateTest {
         Mockito.when(gameController.getWaveCompletionController()).thenReturn(waveCompletionController);
         Mockito.when(gameController.getElementController(player)).thenReturn(playerController);
         Mockito.when(gameController.getPlayerController()).thenReturn(playerController);
-
+        Mockito.when(gameController.getScoreController()).thenReturn(scoreController);
+        Mockito.when(playerController.getScoreController()).thenReturn(scoreController);
         Mockito.when(playerController.getLifeController()).thenReturn(lifeController);
         gameViewer = Mockito.mock(GameViewer.class);
         gameBuilder = Mockito.mock(GameBuilder.class);
