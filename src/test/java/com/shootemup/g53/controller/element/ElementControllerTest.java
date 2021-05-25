@@ -21,6 +21,7 @@ public class ElementControllerTest {
     private Player player;
     private Bullet bullet;
     private Coin coin;
+    private Essence essence;
     private MovementStrategy movementStrategy;
     private BulletPoolController bulletPoolController;
     private FiringStrategy firingStrategy;
@@ -37,6 +38,7 @@ public class ElementControllerTest {
         player = Mockito.mock(Player.class);
         position = Mockito.mock(Position.class);
         coin = Mockito.mock(Coin.class);
+        essence = Mockito.mock(Essence.class);
         bulletPoolController = Mockito.mock(BulletPoolController.class);
         firingStrategy = Mockito.mock(MovingBulletStrategy.class);
         Mockito.when(coin.getPosition()).thenReturn(position);
@@ -86,6 +88,7 @@ public class ElementControllerTest {
         bulletController.handleSpaceship(spaceship);
         Mockito.verify(bullet,Mockito.times(1)).deactivate();
     }
+
     @Test
     void CoinControllerTest(){
 
@@ -125,8 +128,4 @@ public class ElementControllerTest {
         Mockito.verify(movementStrategy,Mockito.times(1)).handleFailedMovement();
 
     }
-
-
-
-
 }

@@ -25,6 +25,7 @@ class PlayerControllerTest {
     private BulletPoolController bulletPoolController;
     MovementStrategy strategy;
     private double speed = 5;
+    private PowerupController powerupController;
     private int fireRate = 10;
 
     Gui gui;
@@ -38,6 +39,7 @@ class PlayerControllerTest {
 
         Mockito.when(strategy.move(Mockito.any(), Mockito.anyDouble())).thenReturn(position);
 
+        powerupController = Mockito.mock(PowerupController.class);
 
         firingController = Mockito.mock(MovingBulletStrategy.class);
         Mockito.when(player.getSpeed()).thenReturn(speed);
@@ -54,7 +56,8 @@ class PlayerControllerTest {
 
     @Test
     void handleMovementUp() {
-        PlayerController controller = new PlayerController(player,gui,bulletPoolController, firingController);
+        PlayerController controller = new PlayerController(player,gui,bulletPoolController, powerupController,
+                firingController);
         controller.setUpStrategy(strategy);
 
         Mockito.when(gui.isActionActive(Action.W)).thenReturn(true);
@@ -66,7 +69,7 @@ class PlayerControllerTest {
     }
     @Test
     void handleMovementDown() {
-        PlayerController controller = new PlayerController(player,gui,bulletPoolController,firingController);
+        PlayerController controller = new PlayerController(player,gui,bulletPoolController,powerupController,firingController);
         controller.setDownStrategy(strategy);
 
         Mockito.when(gui.isActionActive(Action.S)).thenReturn(true);
@@ -79,9 +82,8 @@ class PlayerControllerTest {
     }
     @Test
     void handleMovementLeft() {
-        PlayerController controller = new PlayerController(player,gui,bulletPoolController,firingController);
+        PlayerController controller = new PlayerController(player,gui,bulletPoolController,powerupController,firingController);
         controller.setLeftStrategy(strategy);
-
         Mockito.when(gui.isActionActive(Action.A)).thenReturn(true);
 
         assertEquals(position, controller.move(gui));
@@ -91,7 +93,7 @@ class PlayerControllerTest {
     }
     @Test
     void handleMovementRight() {
-        PlayerController controller = new PlayerController(player,gui,bulletPoolController,firingController);
+        PlayerController controller = new PlayerController(player,gui,bulletPoolController,powerupController,firingController);
         controller.setRightStrategy(strategy);
 
         Mockito.when(gui.isActionActive(Action.D)).thenReturn(true);
@@ -104,7 +106,7 @@ class PlayerControllerTest {
 
     @Test
     void handleMultikeyMovement() {
-        PlayerController controller = new PlayerController(player,gui,bulletPoolController,firingController);
+        PlayerController controller = new PlayerController(player,gui,bulletPoolController,powerupController,firingController);
         Mockito.when(gui.isActionActive(Action.W)).thenReturn(true);
         Mockito.when(gui.isActionActive(Action.A)).thenReturn(true);
         Mockito.when(gui.isActionActive(Action.S)).thenReturn(true);
@@ -125,7 +127,7 @@ class PlayerControllerTest {
     void fireRateNotReached() {
         Mockito.when(gui.isActionActive(Action.SPACE)).thenReturn(true);
 
-        PlayerController controller = new PlayerController(player,gui,bulletPoolController,firingController);
+        PlayerController controller = new PlayerController(player,gui,bulletPoolController,powerupController,firingController);
 
         for (int i = 0; i < fireRate; i++) {
             controller.fire(gui, bulletPoolController);
@@ -133,6 +135,21 @@ class PlayerControllerTest {
 
         Mockito.verify(firingController, Mockito.times(fireRate))
                 .fire(player, player.getPosition(), bulletPoolController, "#ff0000",  ColliderCategory.PLAYER_BULLET);
+
+    }
+
+    @Test
+    void powerUps() {
+        Mockito.when(gui.isActionActive(Action.POWER_1)).thenReturn(true);
+        PlayerController controller = new PlayerController(player,gui,bulletPoolController,powerupController,firingController);
+
+        controller.handle();
+
+        Mockito.when(gui.isActionActive(Action.POWER_1)).thenReturn(false);
+        controller.handle();
+
+        Mockito.verify(powerupController, Mockito.times(1)).spawnShield(player);
+
 
     }
 

@@ -56,4 +56,12 @@ public abstract class BodyCollider {
     abstract protected boolean innerVisit(BodyCollider other);
     abstract protected boolean collidesLine(LineCollider other);
     abstract protected boolean collidesLineComposite(LineCompositeCollider other);
+
+    public ColliderCategory getCategory() {
+        return category;
+    }
+
+    public short getCategoryMask() {
+        return categoryMask;
+    }
 }
