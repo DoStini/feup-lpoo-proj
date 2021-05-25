@@ -45,7 +45,7 @@ public class GameBuilder {
         List<Coin> coinList = new ArrayList<>();
         List<BodyCollider> colliders = new ArrayList<>();
 
-        Spaceship player = new Spaceship(new Position(20, 35), 3, 3, "#aae243", 2);
+        Spaceship player = new Spaceship(new Position(20, 35), 3, 30, "#aae243", 2);
         //create a playerController ?
 
         PlayerController playerController = new PlayerController(player, gui, bulletPoolController, new MovingBulletStrategy(new MoveUpwardsMovement(), 2, 5));

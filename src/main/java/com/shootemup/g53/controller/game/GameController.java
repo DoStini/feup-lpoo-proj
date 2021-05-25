@@ -91,6 +91,7 @@ public class GameController extends GenericController {
 
         handleCollision();
 
+        if(gameModel.getPlayer().getHealth() <= 0) gameModel.setGameFinished(true);
 
         deactivateDead();
         removeInactiveElements();

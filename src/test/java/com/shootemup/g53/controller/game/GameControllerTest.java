@@ -208,5 +208,16 @@ public class GameControllerTest {
 
         Mockito.verify(spaceship,Mockito.times(1)).deactivate();
 
+        Mockito.when(player.getHealth()).thenReturn(5);
+
+        gameController.handle();
+
+        Mockito.verify(gameModel,Mockito.times(0)).setGameFinished(true);
+
+        Mockito.when(player.getHealth()).thenReturn(0);
+
+        gameController.handle();
+
+        Mockito.verify(gameModel,Mockito.times(1)).setGameFinished(true);
     }
 }
