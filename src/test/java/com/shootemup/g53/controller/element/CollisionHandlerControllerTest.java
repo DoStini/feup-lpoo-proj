@@ -4,6 +4,7 @@ import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.controller.player.PlayerController;
+import com.shootemup.g53.controller.player.PowerupController;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.util.Position;
@@ -29,7 +30,7 @@ class CollisionHandlerControllerTest {
         bulletController = Mockito.spy(new BulletController(Mockito.mock(Bullet.class), Mockito.mock(MovementStrategy.class)));
         coinController = Mockito.spy(new CoinController(Mockito.mock(Coin.class), Mockito.mock(MovementStrategy.class)));
         spaceshipController = Mockito.spy(new SpaceshipController(Mockito.mock(Spaceship.class), Mockito.mock(FiringStrategy.class), Mockito.mock(MovementStrategy.class), Mockito.mock(BulletPoolController.class)));
-        playerController = Mockito.spy(new PlayerController(Mockito.mock(Player.class), Mockito.mock(Gui.class), Mockito.mock(BulletPoolController.class),Mockito.mock(FiringStrategy.class)));
+        playerController = Mockito.spy(new PlayerController(Mockito.mock(Player.class), Mockito.mock(Gui.class), Mockito.mock(BulletPoolController.class),Mockito.mock(PowerupController.class),Mockito.mock(FiringStrategy.class)));
         shieldController = Mockito.spy(new ShieldController(Mockito.mock(Shield.class)));
     }
 
@@ -66,7 +67,8 @@ class CollisionHandlerControllerTest {
     @Test
     void playerCollisions() {
         Player player = new Player(new Position(0,0),0,10, "", 0);
-        PlayerController playerController = Mockito.spy(new PlayerController(player, Mockito.mock(Gui.class), Mockito.mock(BulletPoolController.class),Mockito.mock(FiringStrategy.class)));
+        PlayerController playerController = Mockito.spy(new PlayerController(player, Mockito.mock(Gui.class),
+                Mockito.mock(BulletPoolController.class),Mockito.mock(PowerupController.class),Mockito.mock(FiringStrategy.class)));
 
         playerController.handleCoin(Mockito.mock(Coin.class));
         playerController.handleBullet(Mockito.mock(Bullet.class));

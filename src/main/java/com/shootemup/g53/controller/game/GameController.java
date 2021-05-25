@@ -7,6 +7,7 @@ import com.shootemup.g53.controller.element.CollisionHandlerController;
 import com.shootemup.g53.controller.element.BackgroundController;
 import com.shootemup.g53.controller.element.ElementInterface;
 import com.shootemup.g53.controller.input.Action;
+import com.shootemup.g53.controller.player.PowerupController;
 import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
@@ -20,6 +21,7 @@ public class GameController extends GenericController {
     private GameModel gameModel;
     private BulletPoolController bulletPoolController;
     private CollisionController collisionController;
+    private PowerupController powerupController;
     private BackgroundController backgroundController;
     private List<ElementInterface> controllerCopy;
     private HashMap<Element, ElementInterface> controllerHashMap = new HashMap<>();
@@ -40,8 +42,8 @@ public class GameController extends GenericController {
         this.gameModel = gameModel;
         this.bulletPoolController = bulletPoolController;
         this.collisionController = new CollisionController(this);
+        this.powerupController = new PowerupController(this);
         this.controllerCopy = new ArrayList<>();
-
     }
 
     public boolean isGameFinished(){
@@ -138,5 +140,9 @@ public class GameController extends GenericController {
 
     public GameModel getGameModel() {
         return gameModel;
+    }
+
+    public PowerupController getPowerupController() {
+        return powerupController;
     }
 }

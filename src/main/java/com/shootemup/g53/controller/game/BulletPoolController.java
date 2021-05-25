@@ -30,7 +30,7 @@ public class BulletPoolController {
         Bullet bullet = setupBullet(x, y, color, size, speed, movementStrategy);
         BodyCollider bulletCollider = new LineCompositeFactory().createFromVerticalLine(bullet, new Position(0,0), size);
         bulletCollider.setCategory(category);
-        bulletCollider.setCategoryMask((short) (ColliderCategory.PLAYER.getBits() | ColliderCategory.ENEMY.getBits()));
+        bulletCollider.setCategoryMask((short) (ColliderCategory.PLAYER.getBits() | ColliderCategory.ENEMY.getBits() | ColliderCategory.SHIELD.getBits()));
         gameModel.addBullet(bullet);
         gameModel.addCollider(bulletCollider);
     }

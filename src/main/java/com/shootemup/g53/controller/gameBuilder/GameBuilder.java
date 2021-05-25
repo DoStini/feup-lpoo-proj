@@ -10,6 +10,7 @@ import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.movement.*;
 import com.shootemup.g53.controller.player.PlayerController;
+import com.shootemup.g53.controller.player.PowerupController;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.collider.LineCompositeFactory;
@@ -39,6 +40,7 @@ public class GameBuilder {
         GameModel gameModel = new GameModel(width, height);
         GameController gameController = new GameController(gameModel);
         BulletPoolController bulletPoolController = gameController.getBulletPoolController();
+        PowerupController powerupController = gameController.getPowerupController();
         //generate some enemies first
         List<Spaceship> enemiesList = new ArrayList<>();
         List<Coin> coinList = new ArrayList<>();
@@ -47,7 +49,8 @@ public class GameBuilder {
         Player player = new Player(new Position(20, 35), 3, 3, "#aae243", 2);
         //create a playerController ?
 
-        PlayerController playerController = new PlayerController(player, gui, bulletPoolController, new MovingBulletStrategy(new MoveUpwardsMovement(), 2, 5));
+        PlayerController playerController =
+                new PlayerController(player, gui, bulletPoolController, powerupController, new MovingBulletStrategy(new MoveUpwardsMovement(), 2, 5));
         gameController.addToControllerMap(player, playerController);
         gameController.addToCollisionMap(player, playerController);
         BodyCollider playerCollider = new LineCompositeFactory().createFromIsoscelesTriangle(player, new Position(0, 0), 3);
@@ -81,7 +84,8 @@ public class GameBuilder {
             gameController.addToCollisionMap(s, sc);
             BodyCollider enemyCollider = new LineCompositeFactory().createFromInvertedIsoscelesTriangle(s, new Position(0, 0), 3);
             enemyCollider.setCategory(ColliderCategory.ENEMY);
-            enemyCollider.setCategoryMask((short) (ColliderCategory.PLAYER.getBits() | ColliderCategory.PLAYER_BULLET.getBits()));
+            enemyCollider.setCategoryMask(
+                    (short) (ColliderCategory.PLAYER.getBits() | ColliderCategory.PLAYER_BULLET.getBits() | ColliderCategory.SHIELD.getBits()));
 
             colliders.add(enemyCollider);
             enemiesList.add(s);

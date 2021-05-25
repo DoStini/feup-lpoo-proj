@@ -2,6 +2,8 @@ package com.shootemup.g53.model.element;
 
 import com.shootemup.g53.model.util.Position;
 
+import java.util.Objects;
+
 public class Shield extends Element {
 
     private final int width;
@@ -24,4 +26,14 @@ public class Shield extends Element {
     public void setStrength(int strength) {
         this.strength = strength;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Shield shield = (Shield) o;
+        return this.getColor().equals(shield.getColor()) && this.getPosition().equals(shield.getPosition())
+                && width == shield.width && strength == shield.strength;
+    }
+
 }
