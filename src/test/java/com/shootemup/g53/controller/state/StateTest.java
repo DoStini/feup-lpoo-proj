@@ -26,6 +26,7 @@ public class StateTest {
     private Gui gui;
     private Game game;
     private Spaceship player;
+    long frame = 0;
 
     @BeforeEach
     void setup() {
@@ -52,7 +53,7 @@ public class StateTest {
         playState.run();
 
         Mockito.verify(gameBuilder, Mockito.times(1)).buildGame(Mockito.anyInt(),Mockito.anyInt(),Mockito.anyInt(),Mockito.anyInt(),Mockito.any());
-        Mockito.verify(gameController,Mockito.times(1)).handle();
+        Mockito.verify(gameController,Mockito.times(1)).handle(frame);
         Mockito.verify(gameController,Mockito.times(1)).handleKeyPress(gui);
 
         

@@ -14,7 +14,7 @@ class StarControllerTest {
     Star star;
     Star star2;
     MovementStrategy strategy;
-
+    long frame = 0;
     @BeforeEach
     void setUp() {
         star = Mockito.spy(new Star(new Position(2,2), 5));
@@ -40,7 +40,7 @@ class StarControllerTest {
     void handle() {
         StarController controller = new StarController(star, strategy);
 
-        controller.handle();
+        controller.handle(frame);
 
         Mockito.verify(strategy, Mockito.times(1)).move(Mockito.any(), Mockito.anyInt());
 

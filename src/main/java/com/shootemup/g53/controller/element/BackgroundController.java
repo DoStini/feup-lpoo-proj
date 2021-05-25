@@ -69,11 +69,11 @@ public class BackgroundController implements ElementInterface {
     }
 
     @Override
-    public void handle() {
+    public void handle(long frame) {
         removeOutOfBounds();
 
         for(StarController controller : starControllerList) {
-            controller.handle();
+            controller.handle(frame);
         }
 
         while(background.getStars().size() < background.getMinStars()) {

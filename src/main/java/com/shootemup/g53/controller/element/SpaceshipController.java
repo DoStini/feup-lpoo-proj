@@ -22,8 +22,8 @@ public class SpaceshipController extends MovableElementController implements Col
 
     }
 
-    public void fire(BulletPoolController bulletPoolController){
-        firingStrategy.fire(spaceship, this.getSpaceship().getPosition(), bulletPoolController, "#ffff00", ColliderCategory.ENEMY_BULLET);
+    public void fire(BulletPoolController bulletPoolController, long frame){
+        firingStrategy.fire(spaceship, this.getSpaceship().getPosition(), bulletPoolController, "#ffff00", ColliderCategory.ENEMY_BULLET,frame);
     }
 
     public Spaceship getSpaceship() {
@@ -64,8 +64,8 @@ public class SpaceshipController extends MovableElementController implements Col
     }
 
     @Override
-    public void handle() {
-        fire(bulletPoolController);
+    public void handle(long frame) {
+        fire(bulletPoolController,frame);
         Position newPosition = move();
 
 

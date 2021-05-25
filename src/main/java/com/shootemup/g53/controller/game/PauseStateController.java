@@ -12,7 +12,7 @@ public class PauseStateController extends GenericController {
     }
 
     @Override
-    public void handle() {
+    public void handle(long frame) {
 
     }
 }

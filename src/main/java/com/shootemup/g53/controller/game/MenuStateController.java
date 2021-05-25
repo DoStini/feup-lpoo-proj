@@ -13,7 +13,7 @@ public class MenuStateController extends GenericController {
     }
 
     @Override
-    public void handle() {
+    public void handle(long frame) {
 
     }
 }

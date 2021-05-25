@@ -9,7 +9,7 @@ public class ChangingMovement implements MovementStrategy {
     private int changeRate;
     private MovementStrategy currentController;
     private List<MovementStrategy> controllers;
-    private int lastChange = 0;
+    private long lastChange = 0;
     private int frame = 0;
     private Random randomGen;
 
@@ -36,8 +36,11 @@ public class ChangingMovement implements MovementStrategy {
     @Override
     public Position move(Position position, int speed) {
         frame++;
-        if (frame > lastChange + changeRate)
+        if (frame > lastChange + changeRate){
+            lastChange = frame;
             setNewController();
+        }
+
         return currentController.move(position, speed);
     }
 
