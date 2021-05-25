@@ -6,8 +6,8 @@ public enum ColliderCategory {
     ENEMY((short)0x0004),
     PLAYER_BULLET((short)0x0008),
     ENEMY_BULLET((short)0x0010),
-    PICKUP((short)0x0020)
-    ;
+    PICKUP((short)0x0020),
+    SHIELD((short) 0x0040);
 
     private final short bits;
 

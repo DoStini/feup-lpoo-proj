@@ -6,11 +6,12 @@ import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 
 public abstract class FiringStrategy {
-    protected int bulletSpeed;
+    protected double bulletSpeed;
     protected int fireRate;
     protected long lastFire;
-
-    public int getBulletSpeed() {
+ 
+    
+    public double getBulletSpeed() {
         return bulletSpeed;
     }
 

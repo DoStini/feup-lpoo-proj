@@ -26,16 +26,6 @@ public class CoinController extends MovableElementController implements Collisio
     }
 
     @Override
-    public void handleBullet(Bullet bullet) {
-
-    }
-
-    @Override
-    public void handleSpaceship(Spaceship spaceship) {
-
-    }
-
-    @Override
     public void handlePlayer(Player player) {
         coin.deactivate();
     }

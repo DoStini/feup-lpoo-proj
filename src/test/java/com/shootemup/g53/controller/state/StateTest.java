@@ -11,10 +11,8 @@ import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 import com.shootemup.g53.view.Viewer;
 import com.shootemup.g53.view.game.GameViewer;
-import com.sun.source.tree.ModuleTree;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 public class StateTest {

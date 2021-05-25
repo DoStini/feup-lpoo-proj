@@ -110,7 +110,7 @@ class BackgroundControllerTest {
         Assertions.assertEquals(5 , star.getDistance());
         Assertions.assertEquals(0 , star.getPosition().getY());
         Assertions.assertEquals(5, star.getPosition().getX());
-        Assertions.assertEquals(Math.max(1,5/(1+star.getDistance())), star.getSpeed());
+        Assertions.assertEquals((double)5/(1+star.getDistance()), star.getSpeed());
 
         Assertions.assertEquals(1, backgroundController.starControllerList.size());
 

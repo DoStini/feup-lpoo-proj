@@ -15,14 +15,14 @@ public class BackgroundController implements ElementInterface {
     protected Background background;
     protected int maxDistance;
     protected Random rng;
-    protected int maxSpeed;
+    protected double maxSpeed;
     protected List<StarController> starControllerList;
 
-    public BackgroundController(GameModel model, Background background, int maxDistance, int maxSpeed) {
+    public BackgroundController(GameModel model, Background background, int maxDistance, double maxSpeed) {
         this(model, background, maxDistance, maxSpeed, new Random());
     }
 
-    public BackgroundController(GameModel model, Background background, int maxDistance, int maxSpeed, Random rng) {
+    public BackgroundController(GameModel model, Background background, int maxDistance, double maxSpeed, Random rng) {
         this.model = model;
         this.background = background;
         this.maxDistance = maxDistance;
@@ -41,7 +41,7 @@ public class BackgroundController implements ElementInterface {
 
     public void createStar(Position position, int distance) {
         Star star = new Star(position, distance);
-        star.setSpeed(Math.min(Math.max(1, maxDistance/(1+distance)), this.maxSpeed));
+        star.setSpeed(Math.min((double)maxDistance/(1+distance), this.maxSpeed));
         background.addStar(star);
         StarController controller = new StarController(star, new FallDownMovement());
         addStarController(controller);
