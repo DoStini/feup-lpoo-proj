@@ -36,6 +36,11 @@ public class AsteroidController extends MovableElementController implements Coll
     }
 
     @Override
+    public void handlePlayer(Player player) {
+
+    }
+
+    @Override
     public void handleAsteroid(Asteroid asteroid) {
 
     }

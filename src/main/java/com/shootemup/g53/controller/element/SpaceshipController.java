@@ -5,10 +5,7 @@ import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
-import com.shootemup.g53.model.element.Asteroid;
-import com.shootemup.g53.model.element.Bullet;
-import com.shootemup.g53.model.element.Coin;
-import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.util.Position;
 
 
@@ -49,6 +46,11 @@ public class SpaceshipController extends MovableElementController implements Col
 
     @Override
     public void handleSpaceship(Spaceship spaceship) {
+
+    }
+
+    @Override
+    public void handlePlayer(Player player) {
 
     }
 
