@@ -5,7 +5,7 @@ import com.shootemup.g53.model.util.Position;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompositeMovement extends FrameMovement {
+public class CompositeMovement extends IncrementalMovement {
     protected List<MovementStrategy> controllers;
 
     public CompositeMovement() {

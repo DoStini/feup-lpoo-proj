@@ -5,7 +5,7 @@ import com.shootemup.g53.model.util.Position;
 import java.util.List;
 import java.util.Random;
 
-public class ChangingMovement extends FrameMovement {
+public class ChangingMovement extends IncrementalMovement {
     private int changeRate;
     private MovementStrategy currentController;
     private List<MovementStrategy> controllers;

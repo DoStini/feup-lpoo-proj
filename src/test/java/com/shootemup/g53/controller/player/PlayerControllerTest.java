@@ -3,12 +3,14 @@ package com.shootemup.g53.controller.player;
 import com.shootemup.g53.controller.firing.MovingBulletStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
+import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,6 +22,7 @@ class PlayerControllerTest {
     private Position position;
     private MovingBulletStrategy firingController;
     private BulletPoolController bulletPoolController;
+    MovementStrategy strategy;
     private double speed = 5;
     private int fireRate = 10;
 
@@ -30,6 +33,10 @@ class PlayerControllerTest {
         position = Mockito.mock(Position.class);
         spaceship = Mockito.mock(Spaceship.class);
         bulletPoolController = Mockito.mock(BulletPoolController.class);
+        strategy = Mockito.mock(MovementStrategy.class);
+
+        Mockito.when(strategy.move(Mockito.any(), Mockito.anyDouble())).thenReturn(position);
+
 
         firingController = Mockito.mock(MovingBulletStrategy.class);
         Mockito.when(spaceship.getSpeed()).thenReturn(speed);
@@ -47,44 +54,51 @@ class PlayerControllerTest {
     @Test
     void handleMovementUp() {
         PlayerController controller = new PlayerController(spaceship,gui,bulletPoolController, firingController);
+        controller.setUpStrategy(strategy);
+
         Mockito.when(gui.isActionActive(Action.W)).thenReturn(true);
 
         assertEquals(position, controller.move(gui));
+        double speed = spaceship.getSpeed();
 
-        //Mockito.verify(position, Mockito.times(1))
-        //        .getUp(speed);
+        Mockito.verify(strategy, Mockito.times(1)).move(position, speed);
     }
     @Test
     void handleMovementDown() {
         PlayerController controller = new PlayerController(spaceship,gui,bulletPoolController,firingController);
+        controller.setDownStrategy(strategy);
+
         Mockito.when(gui.isActionActive(Action.S)).thenReturn(true);
 
         assertEquals(position, controller.move(gui));
+        double speed = spaceship.getSpeed();
 
-        //Mockito.verify(position, Mockito.times(1))
-        //        .getDown(speed);
+
+        Mockito.verify(strategy, Mockito.times(1)).move(position, speed);
     }
     @Test
     void handleMovementLeft() {
         PlayerController controller = new PlayerController(spaceship,gui,bulletPoolController,firingController);
+        controller.setLeftStrategy(strategy);
+
         Mockito.when(gui.isActionActive(Action.A)).thenReturn(true);
 
         assertEquals(position, controller.move(gui));
+        double speed = spaceship.getSpeed();
 
-        assertFalse(true);
-
-        //Mockito.verify(position, Mockito.times(1))
-        //        .getLeft(speed);
+        Mockito.verify(strategy, Mockito.times(1)).move(position, speed);
     }
     @Test
     void handleMovementRight() {
         PlayerController controller = new PlayerController(spaceship,gui,bulletPoolController,firingController);
+        controller.setRightStrategy(strategy);
+
         Mockito.when(gui.isActionActive(Action.D)).thenReturn(true);
 
         assertEquals(position, controller.move(gui));
+        double speed = spaceship.getSpeed();
 
-        //Mockito.verify(position, Mockito.times(1))
-        //        .getRight(speed);
+        Mockito.verify(strategy, Mockito.times(1)).move(position, speed);
     }
 
     @Test
@@ -94,19 +108,16 @@ class PlayerControllerTest {
         Mockito.when(gui.isActionActive(Action.A)).thenReturn(true);
         Mockito.when(gui.isActionActive(Action.S)).thenReturn(true);
         Mockito.when(gui.isActionActive(Action.D)).thenReturn(true);
+        controller.setRightStrategy(strategy);
+        controller.setLeftStrategy(strategy);
+        controller.setDownStrategy(strategy);
+        controller.setUpStrategy(strategy);
 
         // Since position.getUp and others return a new position, we need to return the same position to test calls
 
         assertEquals(position, controller.move(gui));
 
-        //Mockito.verify(position, Mockito.times(1))
-        //        .getUp(speed);
-        //Mockito.verify(position, Mockito.times(1))
-        //        .getRight(speed);
-        //Mockito.verify(position, Mockito.times(1))
-        //        .getDown(speed);
-        //Mockito.verify(position, Mockito.times(1))
-        //        .getLeft(speed);
+        Mockito.verify(strategy, Mockito.times(4)).move(position, speed);
     }
 
     @Test

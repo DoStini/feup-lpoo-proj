@@ -2,7 +2,7 @@ package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.model.util.Position;
 
-public class CircularMovement  extends FrameMovement{
+public class CircularMovement  extends IncrementalMovement {
     private final double radius;
     private double angle;
     private double angularSpeed;

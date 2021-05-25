@@ -2,10 +2,10 @@ package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.model.util.Position;
 
-public abstract class FrameMovement implements MovementStrategy {
+public abstract class IncrementalMovement implements MovementStrategy {
     protected double currentDistance;
 
-    FrameMovement() {
+    IncrementalMovement() {
         currentDistance = 0;
     }
 

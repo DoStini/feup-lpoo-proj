@@ -38,6 +38,22 @@ public class PlayerController implements CollisionHandlerController, ElementInte
         this.downStrategy = new FallDownMovement();
     }
 
+    public void setDownStrategy(MovementStrategy downStrategy) {
+        this.downStrategy = downStrategy;
+    }
+
+    public void setLeftStrategy(MovementStrategy leftStrategy) {
+        this.leftStrategy = leftStrategy;
+    }
+
+    public void setRightStrategy(MovementStrategy rightStrategy) {
+        this.rightStrategy = rightStrategy;
+    }
+
+    public void setUpStrategy(MovementStrategy upStrategy) {
+        this.upStrategy = upStrategy;
+    }
+
     public void fire(Gui gui, BulletPoolController bulletPoolController) {
         firingStrategy.increaseFrame();
         if (gui.isActionActive(Action.SPACE)) {

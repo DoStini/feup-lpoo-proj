@@ -3,7 +3,7 @@ package com.shootemup.g53.controller.movement;
 import com.shootemup.g53.model.util.Direction;
 import com.shootemup.g53.model.util.Position;
 
-public class DiagonalBounceMovement extends FrameMovement{
+public class DiagonalBounceMovement extends IncrementalMovement {
     private final Position initalPosition;
     private final int xLeftLimit;
     private final int xRightLimit;
