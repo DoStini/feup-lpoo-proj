@@ -20,7 +20,7 @@ class MovementStrategyTest {
 
     @Test
     void fallDown() {
-        int speed = 2;
+        double speed = 2;
 
         Mockito.when(element.getSpeed()).thenReturn(speed);
 
@@ -29,16 +29,16 @@ class MovementStrategyTest {
         Position startPosition = element.getPosition();
 
         element.setPosition(fallDownMovement.move(startPosition, element.getSpeed()));
-        Assertions.assertEquals(startPosition.getDown(speed), element.getPosition());
+        Assertions.assertEquals(startPosition.getDown((int)speed), element.getPosition());
 
         element.setPosition(fallDownMovement.move(element.getPosition(), element.getSpeed()));
-        Assertions.assertEquals(startPosition.getDown(speed * 2), element.getPosition());
+        Assertions.assertEquals(startPosition.getDown((int)speed * 2), element.getPosition());
 
     }
 
     @Test
     void goUp() {
-        int speed = 2;
+        double speed = 2;
 
         Mockito.when(element.getSpeed()).thenReturn(speed);
 
@@ -47,16 +47,16 @@ class MovementStrategyTest {
         Position startPosition = element.getPosition();
 
         element.setPosition(goUpMovement.move(element.getPosition(), element.getSpeed()));
-        Assertions.assertEquals(startPosition.getUp(speed), element.getPosition());
+        Assertions.assertEquals(startPosition.getUp((int)speed), element.getPosition());
 
         element.setPosition(goUpMovement.move(element.getPosition(), element.getSpeed()));
-        Assertions.assertEquals(startPosition.getUp(speed * 2), element.getPosition());
+        Assertions.assertEquals(startPosition.getUp((int)speed * 2), element.getPosition());
     }
 
 
     @Test
     void diagonalBounce() {
-        int speed = 3;
+        double speed = 3;
         Mockito.when(element.getSpeed()).thenReturn(speed);
 
         MovementStrategy diagonalBounceMovement = new DiagonalBounceMovement(0, 10, Direction.DOWN_RIGHT, element.getPosition());
@@ -81,7 +81,7 @@ class MovementStrategyTest {
 
     @Test
     void diagonalLeft() {
-        int speed = 3;
+        double speed = 3;
         Mockito.when(element.getSpeed()).thenReturn(speed);
 
         MovementStrategy diagonalLeftMovement = new DiagonalDownLeftMovement();
@@ -94,7 +94,7 @@ class MovementStrategyTest {
 
     @Test
     void diagonalRight() {
-        int speed = 3;
+        double speed = 3;
         Mockito.when(element.getSpeed()).thenReturn(speed);
 
         MovementStrategy diagonalRightMovement = new DiagonalDownRightMovement();
@@ -107,7 +107,7 @@ class MovementStrategyTest {
 
     @Test
     void circular() {
-        int speed = 3;
+        double speed = 3;
         Mockito.when(element.getSpeed()).thenReturn(speed);
         double angSpeed = 72;
 
@@ -129,7 +129,7 @@ class MovementStrategyTest {
 
     @Test
     void circularReverse() {
-        int speed = 3;
+        double speed = 3;
         Mockito.when(element.getSpeed()).thenReturn(speed);
         double angSpeed = -72;
 
@@ -151,7 +151,7 @@ class MovementStrategyTest {
 
     @Test
     void circularReverseAngle() {
-        int speed = 3;
+        double speed = 3;
         Mockito.when(element.getSpeed()).thenReturn(speed);
         double angSpeed = -72;
 
@@ -175,7 +175,7 @@ class MovementStrategyTest {
     void leftMovement() {
         MovementStrategy left = new LeftMovement();
 
-        int speed = 2;
+        double speed = 2;
 
         Mockito.when(element.getSpeed()).thenReturn(speed);
 
@@ -190,7 +190,7 @@ class MovementStrategyTest {
     void rightMovement() {
         MovementStrategy right = new RightMovement();
 
-        int speed = 2;
+        double speed = 2;
 
         Mockito.when(element.getSpeed()).thenReturn(speed);
 

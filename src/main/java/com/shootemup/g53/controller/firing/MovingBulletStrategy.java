@@ -11,7 +11,7 @@ public class MovingBulletStrategy extends FiringStrategy {
     private MovementStrategy movementStrategy;
 
 
-    public MovingBulletStrategy(MovementStrategy movementStrategy, int speed, int fireRate) {
+    public MovingBulletStrategy(MovementStrategy movementStrategy, double speed, int fireRate) {
         super();
         this.movementStrategy = movementStrategy;
         this.bulletSpeed = speed;

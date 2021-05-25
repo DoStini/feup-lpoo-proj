@@ -12,7 +12,7 @@ public class SpreadBulletUpStrategy extends FiringStrategy {
     CompositeMovement leftMovement;
     CompositeMovement rightMovement;
 
-    public SpreadBulletUpStrategy(int speed, int fireRate) {
+    public SpreadBulletUpStrategy(double speed, int fireRate) {
         super();
         this.bulletSpeed = speed;
         this.fireRate = fireRate;

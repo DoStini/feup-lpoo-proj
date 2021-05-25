@@ -26,7 +26,7 @@ public class BulletPoolController {
         this(gameModel, new ObjectPool<>(cacheSize, new Bullet(new Position(0,0), "", 0,0)));
     }
 
-    public void addBullet(int x, int y, String color, int size, int speed, MovementStrategy movementStrategy, ColliderCategory category) {
+    public void addBullet(int x, int y, String color, int size, double speed, MovementStrategy movementStrategy, ColliderCategory category) {
         Bullet bullet = setupBullet(x, y, color, size, speed, movementStrategy);
         BodyCollider bulletCollider = new LineCompositeFactory().createFromVerticalLine(bullet, new Position(0,0), size);
         bulletCollider.setCategory(category);
@@ -35,11 +35,11 @@ public class BulletPoolController {
         gameModel.addCollider(bulletCollider);
     }
 
-    public void addBullet(int x, int y, String color, int size,int speed, MovementStrategy movementStrategy) {
+    public void addBullet(int x, int y, String color, int size,double speed, MovementStrategy movementStrategy) {
         addBullet(x,y,color,size,speed,movementStrategy,ColliderCategory.ENEMY_BULLET);
     }
 
-    Bullet setupBullet(int x, int y, String color, int size,int speed, MovementStrategy movementStrategy) {
+    Bullet setupBullet(int x, int y, String color, int size,double speed, MovementStrategy movementStrategy) {
         Bullet bullet = bulletPool.retrieve();
         if (bullet == null) {
             bullet = new Bullet(new Position(x, y), color, speed, size);

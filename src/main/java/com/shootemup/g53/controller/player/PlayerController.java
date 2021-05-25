@@ -5,6 +5,7 @@ import com.shootemup.g53.controller.element.ElementInterface;
 import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
+import com.shootemup.g53.controller.movement.*;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Asteroid;
@@ -19,12 +20,22 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     private Spaceship spaceship;
     private FiringStrategy firingStrategy;
     private BulletPoolController bulletPoolController;
+    protected MovementStrategy leftStrategy;
+    protected MovementStrategy rightStrategy;
+    protected MovementStrategy upStrategy;
+    protected MovementStrategy downStrategy;
     private Gui gui;
+
     public PlayerController(Spaceship spaceship, Gui gui, BulletPoolController bulletPoolController, FiringStrategy firingStrategy) {
         this.spaceship = spaceship;
         this.gui = gui;
         this.bulletPoolController = bulletPoolController;
         this.firingStrategy = firingStrategy;
+
+        this.leftStrategy = new LeftMovement();
+        this.rightStrategy = new RightMovement();
+        this.upStrategy = new MoveUpwardsMovement();
+        this.downStrategy = new FallDownMovement();
     }
 
     public void fire(Gui gui, BulletPoolController bulletPoolController) {
@@ -39,19 +50,18 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     }
 
     public Position move(Gui gui) {
-        int speed = spaceship.getSpeed();
         Position newPosition = spaceship.getPosition();
         if (gui.isActionActive(Action.W)) {
-            newPosition = newPosition.getUp(speed);
+            newPosition = upStrategy.move(newPosition, spaceship.getSpeed());
         }
         if (gui.isActionActive(Action.A)) {
-            newPosition = newPosition.getLeft(speed);
+            newPosition = leftStrategy.move(newPosition, spaceship.getSpeed());
         }
         if (gui.isActionActive(Action.S)) {
-            newPosition = newPosition.getDown(speed);
+            newPosition = downStrategy.move(newPosition, spaceship.getSpeed());
         }
         if (gui.isActionActive(Action.D)) {
-            newPosition = newPosition.getRight(speed);
+            newPosition = rightStrategy.move(newPosition, spaceship.getSpeed());
         }
         return newPosition;
     }

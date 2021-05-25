@@ -12,7 +12,7 @@ public class MultipleMovingBulletStrategy extends FiringStrategy {
     private int bullets;
     private int slope;
 
-    public MultipleMovingBulletStrategy(MovementStrategy movementStrategy, int bullets, int slope, int speed, int fireRate) {
+    public MultipleMovingBulletStrategy(MovementStrategy movementStrategy, int bullets, int slope, double speed, int fireRate) {
         super();
         this.movementStrategy = movementStrategy;
         this.bullets = bullets;

@@ -26,7 +26,7 @@ class ChangingMovementTest {
 
     Position position;
     Gui gui;
-    private int speed = 5;
+    private double speed = 5;
     private int fireRate = 5;
 
     @BeforeEach
