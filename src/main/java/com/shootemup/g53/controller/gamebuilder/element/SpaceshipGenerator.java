@@ -8,7 +8,12 @@ import com.shootemup.g53.controller.gamebuilder.MovementStrategyFactory;
 import com.shootemup.g53.controller.movement.CompositeMovement;
 import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.controller.movement.MovementStrategy;
+import com.shootemup.g53.model.collider.BodyCollider;
+import com.shootemup.g53.model.collider.ColliderCategory;
+import com.shootemup.g53.model.collider.LineCompositeFactory;
+import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.model.util.Position;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -40,6 +45,15 @@ public class SpaceshipGenerator extends MovableElementGenerator {
                         2*spaceship.getSpeed(), rand.nextInt(maxFireRate-1)+1);
     }
 
+    protected void setCollider(Spaceship spaceship) {
+        BodyCollider collider =
+                new LineCompositeFactory().createFromInvertedIsoscelesTriangle(spaceship, new Position(0, 0),
+                        spaceship.getHeight());
+        collider.setCategory(ColliderCategory.ENEMY);
+        collider.setCategoryMask((short) (ColliderCategory.PLAYER.getBits() | ColliderCategory.PLAYER_BULLET.getBits()));
+        gameModel.addCollider(collider);
+    }
+
     protected void setController(Spaceship spaceship) {
         MovementStrategy randomStrategy = generateMovementStrategy(spaceship), strategy;
 
@@ -50,8 +64,10 @@ public class SpaceshipGenerator extends MovableElementGenerator {
 
 
         FiringStrategy firingStrategy = setFiringStrategy(spaceship);
-        gameController.addToControllerMap(spaceship, new SpaceshipController(spaceship, firingStrategy, strategy,
-                gameController.getBulletPoolController()));
+        SpaceshipController spaceshipController = new SpaceshipController(spaceship, firingStrategy, strategy,
+                gameController.getBulletPoolController());
+        gameController.addToControllerMap(spaceship, spaceshipController);
+        gameController.addToCollisionMap(spaceship, spaceshipController);
     }
 
     protected void setSize(Spaceship spaceship) {
@@ -65,6 +81,7 @@ public class SpaceshipGenerator extends MovableElementGenerator {
         setColor(spaceship);
         setSpeed(spaceship);
         setController(spaceship);
+        setCollider(spaceship);
         setSize(spaceship);
         gameModel.addEnemy(spaceship);
     }

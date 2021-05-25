@@ -30,7 +30,8 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     public void fire(Gui gui, BulletPoolController bulletPoolController) {
         firingStrategy.increaseFrame();
         if (gui.isActionActive(Action.SPACE)) {
-            firingStrategy.fire(spaceship, spaceship.getPosition().getUp(spaceship.getHeight()), bulletPoolController, "#ff0000", ColliderCategory.PLAYER_BULLET);
+            firingStrategy.fire(spaceship, spaceship.getPosition().getUp(spaceship.getHeight()), bulletPoolController,
+                    "#ff0000", ColliderCategory.PLAYER_BULLET);
         }
     }
 
@@ -65,22 +66,27 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     public void handleBullet(Bullet bullet) {
         // this is bad
         this.spaceship.setHealth(this.spaceship.getHealth()-1);
+        System.out.println("hit by bullet");
     }
 
     @Override
     public void handleSpaceship(Spaceship spaceship) {
         // this is bad
         this.spaceship.setHealth(this.spaceship.getHealth()-5);
+        System.out.println(this.spaceship.getHealth());
+        System.out.println("hit spaceship");
     }
 
     @Override
     public void handleAsteroid(Asteroid asteroid) {
         spaceship.setHealth(0);
+        System.out.println("hit asteroid");
     }
 
     @Override
     public void handleCoin(Coin coin) {
         // add coin to inv
+        System.out.println("coin");
     }
 
     @Override

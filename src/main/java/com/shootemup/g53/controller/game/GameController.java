@@ -7,9 +7,6 @@ import com.shootemup.g53.controller.element.CollisionHandlerController;
 import com.shootemup.g53.controller.element.BackgroundController;
 import com.shootemup.g53.controller.element.ElementInterface;
 import com.shootemup.g53.controller.input.Action;
-import com.shootemup.g53.controller.GenericController;
-import com.shootemup.g53.controller.element.MovableElementController;
-import com.shootemup.g53.controller.player.PlayerController;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
@@ -100,7 +97,24 @@ public class GameController extends GenericController {
 
         handleCollision();
 
+        checkOutsideBounds();
+
         removeInactiveElements();
+    }
+
+    private void checkOutsideBounds() {
+        for(Bullet bullet: gameModel.getBulletList())
+            if (!insideBounds(bullet.getPosition()))
+                bullet.deactivate();
+        for(Coin coin: gameModel.getCoins())
+            if (!insideBounds(coin.getPosition()))
+                coin.deactivate();
+        for(Asteroid asteroid: gameModel.getAsteroids())
+            if (!insideBounds(asteroid.getPosition()))
+                asteroid.deactivate();
+        for(Spaceship spaceship: gameModel.getEnemySpaceships())
+            if (!insideBounds(spaceship.getPosition()))
+                spaceship.deactivate();
     }
 
     public void removeInactiveElements(){
@@ -117,7 +131,7 @@ public class GameController extends GenericController {
             return false;
         }
         return pos.getX() > 0 && pos.getX() < gameModel.getWidth() &&
-                pos.getY() < gameModel.getHeight();
+                pos.getY() < gameModel.getHeight() + 10;
     }
 
     public void handlePlayerInput() {

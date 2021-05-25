@@ -63,7 +63,7 @@ public class GameBuilder {
             int randomX = 10 + rand.nextInt(width - 15);
             int randomY = 10 + rand.nextInt(height - 15);
 
-            List<MovementStrategy> controllers = new ArrayList<MovementStrategy>();
+            List<MovementStrategy> controllers = new ArrayList<>();
             controllers.add(new CircularMovement(5, 0, 30));
             controllers.add(new DiagonalBounceMovement(3, 3, Direction.DOWN_LEFT, new Position(randomX, randomY)));
             controllers.add(new FallDownMovement());

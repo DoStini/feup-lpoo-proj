@@ -6,9 +6,13 @@ import com.shootemup.g53.controller.element.MovableElementController;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.gamebuilder.MovementStrategyFactory;
 import com.shootemup.g53.controller.movement.FallDownMovement;
+import com.shootemup.g53.model.collider.BodyCollider;
+import com.shootemup.g53.model.collider.ColliderCategory;
+import com.shootemup.g53.model.collider.LineCompositeFactory;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Element;
 import com.shootemup.g53.model.game.GameModel;
+import com.shootemup.g53.model.util.Position;
 
 import java.util.Random;
 
@@ -43,8 +47,17 @@ public class CoinGenerator extends MovableElementGenerator {
         // coin.setValue(rand.nextInt(maxVal - minVal)+minVal);
     }
 
+    private void setCollider(Coin coin) {
+        BodyCollider coinCollider =
+                new LineCompositeFactory().createFromCircle(coin, new Position(0,0), coin.getRadius());
+        coinCollider.setCategory(ColliderCategory.PICKUP);
+        gameModel.addCollider(coinCollider);
+    }
+
     private void setMovement(Coin coin) {
-        gameController.addToControllerMap(coin, new CoinController(coin, generateMovementStrategy(coin)));
+        CoinController coinController = new CoinController(coin, generateMovementStrategy(coin));
+        gameController.addToControllerMap(coin, coinController);
+        gameController.addToCollisionMap(coin, coinController);
     }
 
     @Override
@@ -54,6 +67,7 @@ public class CoinGenerator extends MovableElementGenerator {
         setRadius(coin);
         setValue(coin);
         setMovement(coin);
+        setCollider(coin);
         gameModel.addCoin(coin);
     }
 }
