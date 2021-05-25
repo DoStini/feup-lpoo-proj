@@ -97,8 +97,6 @@ public class PlayState extends State<GameModel> {
                     game.changeState(new PauseState(game,gui,this));
                     return;
                 }
-
-
             }
 
         }

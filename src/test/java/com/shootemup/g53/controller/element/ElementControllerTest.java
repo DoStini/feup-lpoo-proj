@@ -1,22 +1,20 @@
 package com.shootemup.g53.controller.element;
 
 import com.shootemup.g53.controller.firing.FiringStrategy;
-import com.shootemup.g53.controller.firing.StraightBulletStrategy;
+import com.shootemup.g53.controller.firing.MovingBulletStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.controller.movement.MovementStrategy;
+import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
-import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -41,7 +39,7 @@ public class ElementControllerTest {
         position = Mockito.mock(Position.class);
         coin = Mockito.mock(Coin.class);
         bulletPoolController = Mockito.mock(BulletPoolController.class);
-        firingStrategy = Mockito.mock(StraightBulletStrategy.class);
+        firingStrategy = Mockito.mock(MovingBulletStrategy.class);
         Mockito.when(coin.getPosition()).thenReturn(position);
         Mockito.when(coin.getSpeed()).thenReturn(speed);
         Mockito.when(spaceship.getPosition()).thenReturn(position);
@@ -113,7 +111,7 @@ public class ElementControllerTest {
         spaceshipController.handle();
 
         Mockito.verify(spaceship,Mockito.times(1)).setPosition(position);
-        Mockito.verify(firingStrategy,Mockito.times(1)).fire(spaceship,bulletPoolController);
+        Mockito.verify(firingStrategy,Mockito.times(1)).fire(spaceship, spaceship.getPosition(), bulletPoolController, "#ffff00", ColliderCategory.ENEMY_BULLET);
 
         spaceshipController.handleAsteroid(asteroid);
         Mockito.verify(spaceship,Mockito.times(1)).setHealth(0);

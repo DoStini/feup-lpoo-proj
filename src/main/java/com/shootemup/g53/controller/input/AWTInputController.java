@@ -38,7 +38,7 @@ public class AWTInputController extends InputController<KeyEvent> {
         if (event == null)
             return Action.NONE;
 
-        switch (event.getKeyChar()) {
+        switch (Character.toLowerCase(event.getKeyChar())) {
             case KeyEvent.VK_ESCAPE:
                 return Action.ESC;
             case 'w':

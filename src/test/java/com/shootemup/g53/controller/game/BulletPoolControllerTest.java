@@ -59,6 +59,12 @@ class BulletPoolControllerTest {
                 .init(Mockito.anyInt(),Mockito.anyInt(),Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt());
         Mockito.verify(gameModel, Mockito.times(1))
                 .addBullet(Mockito.any());
+        Mockito.verify(gameModel, Mockito.times(1))
+                .addCollider(Mockito.any());
+        Mockito.verify(gameController, Mockito.times(1))
+                .addToCollisionMap(Mockito.any(), Mockito.any());
+        Mockito.verify(gameController, Mockito.times(1))
+                .addToControllerMap(Mockito.any(), Mockito.any());
 
         bulletPoolController.restoreBullet(bullet);
         Assertions.assertFalse(bullet.isActive());
@@ -82,6 +88,5 @@ class BulletPoolControllerTest {
         bulletPoolController.restoreBullet(list.get(0));
         bulletPoolController.removeInactiveBullets();
         Assertions.assertEquals(2, list.size());
-
     }
 }

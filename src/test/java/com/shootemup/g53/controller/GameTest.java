@@ -1,13 +1,8 @@
 package com.shootemup.g53.controller;
 
-import com.shootemup.g53.controller.firing.StraightBulletStrategy;
-import com.shootemup.g53.controller.game.BulletPoolController;
-import com.shootemup.g53.controller.movement.MoveUpwardsMovement;
 import com.shootemup.g53.controller.state.PlayState;
 import com.shootemup.g53.controller.state.State;
-import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
-import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
