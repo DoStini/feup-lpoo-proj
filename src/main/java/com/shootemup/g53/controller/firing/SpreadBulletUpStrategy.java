@@ -33,6 +33,6 @@ public class SpreadBulletUpStrategy extends FiringStrategy {
         bulletPoolController.addBullet(position.getX()-3, position.getY(),
                 color, 3, bulletSpeed/2, leftMovement, category);
         bulletPoolController.addBullet(position.getX()+3, position.getY(),
-                color, 3, bulletSpeed/2, rightMovement, category);
+                color, 3, Math.max(1, bulletSpeed/2), rightMovement, category);
     }
 }

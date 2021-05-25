@@ -39,7 +39,7 @@ public class GameBuilder {
         this.gameController = gameController;
         this.gameModel = gameController.getGameModel();
         this.baseSkip = baseSkip;
-        this.waveFactory = new WaveFactory(1, 0.5f, 5, 60, 0.08f);
+        this.waveFactory = new WaveFactory(1, 0.2f, 5, 100, 0.02f);
         this.gui = gui;
         setupGame();
     }

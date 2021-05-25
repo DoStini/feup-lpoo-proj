@@ -4,6 +4,7 @@ import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.gamebuilder.MovementStrategyFactory;
 import com.shootemup.g53.model.element.Element;
 import com.shootemup.g53.model.game.GameModel;
+import com.shootemup.g53.model.util.ColorOperation;
 import com.shootemup.g53.model.util.Position;
 
 import java.util.Random;
@@ -36,10 +37,7 @@ public abstract class ElementGenerator {
     }
 
     protected void setColor(Element element) {
-        int r = rand.nextInt(255);
-        int g = rand.nextInt(255);
-        int b = rand.nextInt(255);
-        element.setColor(String.format("#%02x%02x%02x", r, g, b));
+        element.setColor(ColorOperation.generateColor(rand));
     }
 
     public abstract void generateElement();

@@ -26,7 +26,7 @@ public class Wave {
         this.gameModel = gameController.getGameModel();
         this.baseSkip = baseSkip;
         this.maxEnemies = maxEnemies;
-        setNextGeneration();
+        this.nextGeneration = 0;
         setupGenerator(generator);
     }
 

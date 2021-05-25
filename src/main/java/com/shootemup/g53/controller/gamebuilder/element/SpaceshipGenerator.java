@@ -4,6 +4,7 @@ import com.shootemup.g53.controller.element.SpaceshipController;
 import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.firing.MovingBulletStrategy;
 import com.shootemup.g53.controller.game.GameController;
+import com.shootemup.g53.controller.gamebuilder.FiringStrategyFactory;
 import com.shootemup.g53.controller.gamebuilder.MovementStrategyFactory;
 import com.shootemup.g53.controller.movement.CompositeMovement;
 import com.shootemup.g53.controller.movement.FallDownMovement;
@@ -24,25 +25,28 @@ public class SpaceshipGenerator extends MovableElementGenerator {
     private final int maxFireRate;
     private final int maxSize;
     private final int minSize;
+    private final FiringStrategyFactory firingStrategyFactory;
 
     public SpaceshipGenerator(GameController gameController, MovementStrategyFactory movementStrategyFactory,
+                              FiringStrategyFactory firingStrategyFactory,
                               int xMinPos, int xMaxPos, int minSpeed, int maxSpeed,
                               int minSize, int maxSize, int maxFireRate) {
-        this(new Random(), gameController, movementStrategyFactory, xMinPos, xMaxPos,
+        this(new Random(), gameController, movementStrategyFactory, firingStrategyFactory, xMinPos, xMaxPos,
                 minSpeed, maxSpeed, minSize, maxSize, maxFireRate);
     }
 
     SpaceshipGenerator(Random rand, GameController gameController, MovementStrategyFactory movementStrategyFactory,
+                       FiringStrategyFactory firingStrategyFactory,
                        int xMinPos, int xMaxPos, int minSpeed, int maxSpeed, int minSize, int maxSize, int maxFireRate) {
         super(rand, gameController, movementStrategyFactory, xMinPos, xMaxPos, minSpeed, maxSpeed);
         this.maxFireRate = maxFireRate;
         this.minSize = minSize;
         this.maxSize = maxSize;
+        this.firingStrategyFactory = firingStrategyFactory;
     }
 
     protected FiringStrategy setFiringStrategy(Spaceship spaceship) {
-        return new MovingBulletStrategy(new FallDownMovement(),
-                        2*spaceship.getSpeed(), rand.nextInt(maxFireRate-1)+1);
+        return firingStrategyFactory.generate(spaceship);
     }
 
     protected void setCollider(Spaceship spaceship) {

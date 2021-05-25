@@ -31,6 +31,8 @@ public class MovementStrategyFactory {
     private int maxCircularSpeed = 50;
     private int minBouncingLimit = 2;
     private int maxBouncingLimit = 8;
+    private int maxChangingRate = 120;
+    private int minChangingRate= 30;
 
     public MovementStrategyFactory(List<Strategy> strategies) {
         this(new Random(), strategies);
@@ -89,7 +91,8 @@ public class MovementStrategyFactory {
     private MovementStrategy generateChanging(Element element) {
         List<MovementStrategy> strategyList = compositeMovementStrategies(element);
 
-        return new ChangingMovement(random.nextInt(60), strategyList);
+        return new ChangingMovement(random.nextInt(maxChangingRate - minChangingRate)+minChangingRate,
+                strategyList);
     }
 
     private MovementStrategy generateDiagonalBounce(Element element) {
@@ -144,5 +147,13 @@ public class MovementStrategyFactory {
 
     public void setMaxBouncingLimit(int maxBouncingLimit) {
         this.maxBouncingLimit = maxBouncingLimit;
+    }
+
+    public void setMaxChangingRate(int maxChangingRate) {
+        this.maxChangingRate = maxChangingRate;
+    }
+
+    public void setMinChangingRate(int minChangingRate) {
+        this.minChangingRate = minChangingRate;
     }
 }

@@ -12,6 +12,7 @@ import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 
+import com.shootemup.g53.model.util.ColorOperation;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 
@@ -31,7 +32,8 @@ public class PlayerController implements CollisionHandlerController, ElementInte
         firingStrategy.increaseFrame();
         if (gui.isActionActive(Action.SPACE)) {
             firingStrategy.fire(spaceship, spaceship.getPosition().getUp(spaceship.getHeight()), bulletPoolController,
-                    "#ff0000", ColliderCategory.PLAYER_BULLET);
+                    ColorOperation.invertColor(spaceship.getColor()),
+                    ColliderCategory.PLAYER_BULLET);
         }
     }
 

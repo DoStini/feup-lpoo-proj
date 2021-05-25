@@ -9,6 +9,7 @@ import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.model.util.ColorOperation;
 import com.shootemup.g53.model.util.Position;
 
 
@@ -27,7 +28,9 @@ public class SpaceshipController extends MovableElementController implements Col
     }
 
     public void fire(BulletPoolController bulletPoolController){
-        firingStrategy.fire(spaceship, this.getSpaceship().getPosition(), bulletPoolController, "#ffff00", ColliderCategory.ENEMY_BULLET);
+        firingStrategy.fire(spaceship, this.getSpaceship().getPosition(), bulletPoolController,
+                ColorOperation.invertColor(spaceship.getColor()),
+                ColliderCategory.ENEMY_BULLET);
     }
 
     public Spaceship getSpaceship() {
