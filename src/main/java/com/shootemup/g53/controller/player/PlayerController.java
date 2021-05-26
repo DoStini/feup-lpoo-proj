@@ -57,12 +57,12 @@ public class PlayerController implements CollisionHandlerController, ElementInte
         this.upStrategy = upStrategy;
     }
 
-    public void fire(Gui gui, BulletPoolController bulletPoolController) {
-        firingStrategy.increaseFrame();
+    public void fire(Gui gui, BulletPoolController bulletPoolController, long frame) {
         if (gui.isActionActive(Action.SPACE)) {
             firingStrategy.fire(player, player.getPosition().getUp(player.getHeight()), bulletPoolController,
                     ColorOperation.invertColor(player.getColor()),
-                    ColliderCategory.PLAYER_BULLET);
+                    ColliderCategory.PLAYER_BULLET, frame);
+
         }
     }
 
@@ -121,16 +121,16 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     }
 
     @Override
+    public void handle(long frame) {
+        Position newPosition = move(gui);
+        setPosition(newPosition);
+        fire(gui, bulletPoolController, frame);
+        usePowerups(gui);
+    }
     public void handleShield(Shield shield) {
     }
 
-    @Override
-    public void handle() {
-        Position newPosition = move(gui);
-        setPosition(newPosition);
-        fire(gui,bulletPoolController);
-        usePowerups(gui);
-    }
+   
 
     private void usePowerups(Gui gui) {
         if (gui.isActionActive(Action.POWER_1))

@@ -8,34 +8,28 @@ import com.shootemup.g53.model.util.Position;
 public abstract class FiringStrategy {
     protected double bulletSpeed;
     protected int fireRate;
-    protected int lastFire;
-    protected int frame;
-    public void increaseFrame(){
-        frame++;
-    }
+    protected long lastFire;
+ 
+    
     public double getBulletSpeed() {
         return bulletSpeed;
     }
 
     public FiringStrategy() {
         lastFire = 0;
-        frame = 0;
+
     }
 
     public int getFireRate() {
         return fireRate;
     }
 
-    public int getLastFire() {
+    public long getLastFire() {
         return lastFire;
     }
 
-    public int getFrame() {
-        return frame;
-    }
 
-    public void fire(Spaceship spaceship, Position position, BulletPoolController bulletPoolController, String color, ColliderCategory category) {
-        increaseFrame();
+    public void fire(Spaceship spaceship, Position position, BulletPoolController bulletPoolController, String color, ColliderCategory category, long frame) {
         if (frame > lastFire + fireRate) {
             createBullets(spaceship, position, bulletPoolController, color, category);
 

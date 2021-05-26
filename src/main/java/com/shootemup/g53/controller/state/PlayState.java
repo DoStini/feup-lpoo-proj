@@ -18,6 +18,7 @@ public class PlayState extends State<GameModel> {
     private GameBuilder gameBuilder;
     private Viewer<GameModel> gameViewer;
     private Gui gui;
+    long frame = 0;
 
     public PlayState(Game game, GameModel gameModel, Gui gui){
         this.game = game;
@@ -46,15 +47,32 @@ public class PlayState extends State<GameModel> {
 
     @Override
     public void run(){
+        Thread second_counter = new Thread(){
+            @Override
+            public void run(){
+                try{
+                    while(!gameController.isGameFinished()){
+                        Thread.sleep(50);
+                        frame++;
+                    }
+
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+
+            }
+        };
+        second_counter.start();
+
         try{
-            long frame = 0;
             while(true){
-                Thread.sleep(60);
-                frame++;
+                Thread.sleep(50);
                 gameBuilder.handle(frame);
                 gameController.handleKeyPress(gui);
-                gameController.handle();
-                if(gameModel.isGameFinished()){
+
+                gameController.handle(frame);
+
+                if(gameController.isGameFinished()){
                     game.changeState(new GameOverState(this.game,new GameOverModel(),this.gui));
                     return;
                 }

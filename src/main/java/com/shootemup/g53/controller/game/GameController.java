@@ -85,14 +85,14 @@ public class GameController extends GenericController {
     }
 
     @Override
-    public void handle(){
-        if(backgroundController != null) backgroundController.handle();
+    public void handle(long frame){
+        if(backgroundController != null) backgroundController.handle(frame);
 
         controllerCopy.clear();
         controllerCopy.addAll(controllerHashMap.values());
 
         for(ElementInterface elementInterface : controllerCopy) {
-            elementInterface.handle();
+            elementInterface.handle(frame);
         }
 
         handleCollision();
