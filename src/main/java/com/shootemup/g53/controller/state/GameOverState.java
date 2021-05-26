@@ -52,7 +52,7 @@ public class GameOverState extends State<GameOverModel> {
     public void run() {
         try {
             gameOverViewer.draw(getStateModel());
-            Thread.sleep(100);
+            Thread.sleep(200);
             while (true) {
 
                 gameOverController.handleKeyPress(gui);

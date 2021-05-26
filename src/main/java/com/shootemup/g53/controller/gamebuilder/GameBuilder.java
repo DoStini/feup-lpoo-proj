@@ -136,4 +136,8 @@ public class GameBuilder {
     protected long getNextGeneration() {
         return nextGeneration;
     }
+
+    public WaveFactory getWaveFactory() {
+        return waveFactory;
+    }
 }

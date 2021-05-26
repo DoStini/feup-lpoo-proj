@@ -51,7 +51,7 @@ public class MenuState extends State<MenuModel> {
     public void run() {
         try {
         menuViewer.draw(getStateModel());
-        Thread.sleep(100);
+        Thread.sleep(200);
         while (true) {
 
             menuController.handleKeyPress(gui);

@@ -2,6 +2,7 @@ package com.shootemup.g53.controller.player;
 
 import com.shootemup.g53.controller.element.ShieldController;
 import com.shootemup.g53.controller.game.GameController;
+import com.shootemup.g53.controller.observer.EssenceController;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.collider.LineCompositeCollider;
@@ -15,9 +16,9 @@ public class PowerupController {
     private GameController gameController;
     private GameModel gameModel;
     private Player player;
-
+    private EssenceController essenceController = new EssenceController();
     private int shieldEssenceCost = 5;
-
+    private int healthCost = 3;
     public PowerupController(GameController gameController) {
         this.gameController = gameController;
         this.gameModel = gameController.getGameModel();
@@ -26,7 +27,8 @@ public class PowerupController {
     public boolean spawnShield(Player player) {
         if (player.getEssence() < shieldEssenceCost)
             return false;
-
+        essenceController.setAmount(-shieldEssenceCost);
+        essenceController.notifyObservers();
         player.removeEssence(shieldEssenceCost);
 
         generateShield(player);
@@ -47,4 +49,15 @@ public class PowerupController {
         gameController.addToCollisionMap(shield, shieldController);
     }
 
+    public int getShieldEssenceCost() {
+        return shieldEssenceCost;
+    }
+
+    public int getHealthCost() {
+        return healthCost;
+    }
+
+    public EssenceController getEssenceController() {
+        return essenceController;
+    }
 }

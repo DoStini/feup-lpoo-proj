@@ -5,6 +5,7 @@ import com.shootemup.g53.controller.element.ElementInterface;
 import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
+import com.shootemup.g53.controller.observer.EssenceController;
 import com.shootemup.g53.controller.observer.LifeController;
 import com.shootemup.g53.controller.observer.ScoreController;
 import com.shootemup.g53.controller.movement.*;
@@ -26,6 +27,7 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     private BulletPoolController bulletPoolController;
     private LifeController lifeController = new LifeController();
     private ScoreController scoreController = new ScoreController();
+    private EssenceController essenceController = new EssenceController();
     protected MovementStrategy leftStrategy;
     protected MovementStrategy rightStrategy;
     protected MovementStrategy upStrategy;
@@ -121,7 +123,8 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     public void handleEssence(Essence essence) {
         this.player.addEssence(essence.getValue());
-        System.out.println(player.getEssence());
+        essenceController.setAmount(essence.getValue());
+        essenceController.notifyObservers();
     }
 
     @Override
@@ -158,5 +161,13 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     public ScoreController getScoreController() {
         return scoreController;
+    }
+
+    public EssenceController getEssenceController() {
+        return essenceController;
+    }
+
+    public PowerupController getPowerupController() {
+        return powerupController;
     }
 }

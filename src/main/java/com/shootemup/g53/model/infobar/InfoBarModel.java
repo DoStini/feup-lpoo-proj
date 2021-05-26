@@ -1,16 +1,20 @@
 package com.shootemup.g53.model.infobar;
 
+import com.shootemup.g53.controller.observer.EssenceObserver;
 import com.shootemup.g53.controller.observer.PlayerLifeObserver;
 import com.shootemup.g53.controller.observer.PlayerScoreObserver;
 import com.shootemup.g53.controller.observer.WaveCompletionObserver;
 import com.shootemup.g53.model.Model;
 
-public class InfoBarModel extends Model implements PlayerLifeObserver, PlayerScoreObserver, WaveCompletionObserver {
+public class InfoBarModel extends Model implements PlayerLifeObserver, PlayerScoreObserver, WaveCompletionObserver, EssenceObserver {
     private int currentWave = 1;
     private int currentLives;
     private int maxLives;
     private int score;
     private int time;
+    private int essence = 0;
+    private int essenceShieldCost;
+    private int essenceHealthCost;
 
     public InfoBarModel(int currentLives, int score, int time, int maxLives) {
         this.currentLives = currentLives;
@@ -72,5 +76,31 @@ public class InfoBarModel extends Model implements PlayerLifeObserver, PlayerSco
 
     public void setMaxLives(int maxLives) {
         this.maxLives = maxLives;
+    }
+
+
+    public int getEssence() {
+        return essence;
+    }
+
+    public int getEssenceShieldCost() {
+        return essenceShieldCost;
+    }
+
+    public void setEssenceShieldCost(int essenceShieldCost) {
+        this.essenceShieldCost = essenceShieldCost;
+    }
+
+    public int getEssenceHealthCost() {
+        return essenceHealthCost;
+    }
+
+    public void setEssenceHealthCost(int essenceHealthCost) {
+        this.essenceHealthCost = essenceHealthCost;
+    }
+
+    @Override
+    public void notifyEssence(int amount) {
+        essence = essence + amount;
     }
 }

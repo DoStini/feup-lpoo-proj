@@ -35,6 +35,7 @@ public class PlayState extends State<GameModel> {
         this.gui = gui;
         this.infoBarViewer = new InfoBarViewer(this.gui, 10);
         this.infoBarController = new InfoBarController(gameController, new InfoBarModel(getStateModel().getPlayer().getHealth(),1,seconds,getStateModel().getPlayer().getHealth()));
+        gameBuilder.getWaveFactory().getWaveCompletionController().addObserver(getInfoBarModel());
     }
 
     public InfoBarModel getInfoBarModel(){
@@ -71,6 +72,7 @@ public class PlayState extends State<GameModel> {
 
                         Thread.sleep(50);
                         frame++;
+                        if(frame % 20 == 0) seconds++;
                     }
 
                 }catch(InterruptedException e){
@@ -85,7 +87,7 @@ public class PlayState extends State<GameModel> {
         
         try{
             while(true){
-
+                gui.clear();
                 Thread.sleep(50);
                 gameBuilder.handle(frame);
                 gameController.handleKeyPress(gui);
@@ -97,11 +99,13 @@ public class PlayState extends State<GameModel> {
                     return;
                 }else if(gameController.isPaused()){
                     gameController.unpause();
+                    second_counter.interrupt();
                     game.changeState(new PauseState(game,gui,this));
                     return;
                 }
                 infoBarViewer.draw(infoBarController.getInfoBarModel());
                 gameViewer.draw(gameModel);
+                gui.refresh();
             }
 
         }

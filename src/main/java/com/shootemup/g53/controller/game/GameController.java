@@ -37,7 +37,6 @@ public class GameController extends GenericController {
     private HashMap<Element, CollisionHandlerController> collisionHashMap = new HashMap<>();
 
     private ScoreController scoreController = new ScoreController();
-    private WaveCompletionController waveCompletionController = new WaveCompletionController();
 
     public GameController(GameModel gameModel) {
         this(gameModel, new BulletPoolController(gameModel, 30));
@@ -208,15 +207,10 @@ public class GameController extends GenericController {
         return (PlayerController) controllerHashMap.get(gameModel.getPlayer());
     }
 
-    public WaveCompletionController getWaveCompletionController() {
-        return waveCompletionController;
-    }
 
     public ScoreController getScoreController() {
         return scoreController;
     }
 
-    public PowerupController getPowerupController() {
-        return powerupController;
-    }
+
 }

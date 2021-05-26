@@ -44,8 +44,6 @@ public class GameViewer extends Viewer<GameModel> {
     @Override
     public void draw(GameModel model) {
 
-        gui.clear();
-
         if(model.getBackground()!= null) backgroundView.draw(gui, model.getBackground());
 
         spaceshipView.draw(gui, model.getPlayer());
@@ -67,6 +65,6 @@ public class GameViewer extends Viewer<GameModel> {
         for(Essence essence: model.getEssenceList()){
             essenceView.draw(gui, essence);
         }
-        gui.refresh();
+
     }
 }

@@ -18,7 +18,6 @@ public class InfoBarViewer extends Viewer<InfoBarModel> {
 
     @Override
     public void draw(InfoBarModel infoBarModel) {
-        gui.clear();
         String infoBarBackground = "#FF1033";
         String textColor =  "#FFD892";
         Drawer rectangleDrawer = new RectangleDrawer(infoBarBackground, infoBarWidth,gui.getHeight());
@@ -57,5 +56,28 @@ public class InfoBarViewer extends Viewer<InfoBarModel> {
         currY = currY + 2;
         text = String.valueOf(infoBarModel.getTime());
         gui.drawText(textColor,text,new Position(XPosition ,5 + currY ),infoBarBackground);
+        currY = currY + 3;
+        text = "ESSENCE:";
+        gui.drawText(textColor,text,new Position(XPosition - text.length()/5,5 + currY ),infoBarBackground);
+        currY = currY + 2;
+        text = String.valueOf(infoBarModel.getEssence());
+        gui.drawText(textColor,text,new Position(XPosition ,5 + currY ),infoBarBackground);
+        if(infoBarModel.getEssence() >= infoBarModel.getEssenceShieldCost()){
+            currY = currY + 3;
+            text = "SHIELD:";
+            gui.drawText(textColor,text,new Position(XPosition - text.length()/5,5 + currY ),infoBarBackground);
+            currY = currY + 2;
+            text = "(E) " + String.valueOf(infoBarModel.getEssenceShieldCost());
+            gui.drawText(textColor,text,new Position(XPosition - text.length()/5,5 + currY ),infoBarBackground);
+        }
+
+        if(infoBarModel.getEssence() >= infoBarModel.getEssenceHealthCost()){
+            currY = currY + 3;
+            text = "HEALTH:";
+            gui.drawText(textColor,text,new Position(XPosition - text.length()/5,5 + currY ),infoBarBackground);
+            currY = currY + 2;
+            text = "(R) "+ String.valueOf(infoBarModel.getEssenceHealthCost());
+            gui.drawText(textColor,text,new Position(XPosition - text.length()/5,5 + currY ),infoBarBackground);
+        }
     }
 }

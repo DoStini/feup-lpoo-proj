@@ -11,8 +11,12 @@ public class InfoBarController {
         this.infoBarModel = infoBarModel;
         gameController.getPlayerController().getLifeController().addObserver(infoBarModel);
         gameController.getPlayerController().getScoreController().addObserver(infoBarModel);
+        gameController.getPlayerController().getEssenceController().addObserver(infoBarModel);
+        infoBarModel.setEssenceShieldCost(gameController.getPlayerController().getPowerupController().getShieldEssenceCost());
+        gameController.getPlayerController().getPowerupController().getEssenceController().addObserver(infoBarModel);
+        infoBarModel.setEssenceHealthCost(gameController.getPlayerController().getPowerupController().getHealthCost());
         gameController.getScoreController().addObserver(infoBarModel);
-        gameController.getWaveCompletionController().addObserver(infoBarModel);
+
     }
     public void handle(int frame) {
         infoBarModel.setTime(frame);

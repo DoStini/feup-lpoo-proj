@@ -54,14 +54,16 @@ public class PauseState extends State<PauseModel> {
     public void run() {
         try {
         pauseViewer.draw(getStateModel());
-        Thread.sleep(100);
+        Thread.sleep(200);
         while (true) {
             pauseController.handleKeyPress(gui);
             if (keyPressObserver.getKeyPressed()) {
+
                 pauseViewer.draw(getStateModel());
                 if (pauseController.isClose()) {
                     return;
                 }
+
                 keyPressObserver.resetKeyPress();
                 Thread.sleep(200);
 

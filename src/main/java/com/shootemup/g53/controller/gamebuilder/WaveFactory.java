@@ -3,6 +3,7 @@ package com.shootemup.g53.controller.gamebuilder;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.gamebuilder.element.ElementGenerator;
 import com.shootemup.g53.controller.gamebuilder.element.SpaceshipGenerator;
+import com.shootemup.g53.controller.observer.WaveCompletionController;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +18,7 @@ public class WaveFactory {
     private MovementStrategyFactory movementStrategyFactory;
     private FiringStrategyFactory normalFiringStrategyFactory;
     private FiringStrategyFactory bossFiringStrategy;
+    private WaveCompletionController waveCompletionController = new WaveCompletionController();
 
     public WaveFactory(int baseEnemies, float enemiesFactor, int bossWaveFactor, int baseSkip, float timeFactor) {
         this.baseEnemies = baseEnemies;
@@ -61,6 +63,7 @@ public class WaveFactory {
         }
 
         wave++;
+        waveCompletionController.notifyObservers();
         return result;
     }
 
@@ -91,5 +94,9 @@ public class WaveFactory {
 
     private boolean isBossWave() {
         return wave % bossWaveFactor == 0;
+    }
+
+    public WaveCompletionController getWaveCompletionController() {
+        return waveCompletionController;
     }
 }
