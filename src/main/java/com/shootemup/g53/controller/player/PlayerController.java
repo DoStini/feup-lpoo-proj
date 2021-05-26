@@ -33,7 +33,7 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     protected MovementStrategy upStrategy;
     protected MovementStrategy downStrategy;
     private Gui gui;
-
+    int cooldown;
     private PowerupController powerupController;
 
     public PlayerController(Player player, Gui gui, BulletPoolController bulletPoolController,
@@ -106,7 +106,6 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     @Override
     public void handleBullet(Bullet bullet) {
-
         lifeController.setLifeToRemove(bullet.getDamage());
         lifeController.notifyObservers();
         this.player.setHealth(this.player.getHealth()-bullet.getDamage());
@@ -114,10 +113,14 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     @Override
     public void handleSpaceship(Spaceship spaceship) {
-        lifeController.setLifeToRemove(5);
-        lifeController.notifyObservers();
-        this.player.setHealth(this.player.getHealth()-5);
-        
+        if(cooldown == 0){
+            lifeController.setLifeToRemove(5);
+            lifeController.notifyObservers();
+            this.player.setHealth(this.player.getHealth()-5);
+            cooldown = 80;
+            player.setColor("#FFFFFF");
+        }
+
     }
 
 
@@ -143,11 +146,14 @@ public class PlayerController implements CollisionHandlerController, ElementInte
         setPosition(newPosition);
         fire(gui, bulletPoolController, frame);
         usePowerups(gui);
+        if(cooldown > 0) cooldown--;
+        if(cooldown == 0) player.setColor("#aae253");
     }
     public void handleShield(Shield shield) {
+
+
     }
 
-   
 
     private void usePowerups(Gui gui) {
         if (gui.isActionActive(Action.POWER_1))
@@ -157,7 +163,6 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     public LifeController getLifeController() {
         return lifeController;
     }
-
 
     public ScoreController getScoreController() {
         return scoreController;
