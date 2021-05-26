@@ -55,7 +55,7 @@ class GameBuilderTest {
     void setupPlayer() {
         gameBuilder = new GameBuilder(gui, gameController, 2);
 
-        Player spaceship = new Player(new Position(20, 35), 3, 20, "#aae253", 4,5);
+        Player spaceship = new Player(new Position(20, 35), 3, 20, "#aae253", 3,5);
 
         BodyCollider playerCollider =
                 new LineCompositeFactory().createFromIsoscelesTriangle(spaceship, new Position(0, 0), 3);
@@ -107,7 +107,7 @@ class GameBuilderTest {
 
         List<ElementGenerator> generators = gameBuilder.getGenerators();
 
-        Assertions.assertEquals(2, generators.size());
+        Assertions.assertEquals(3, generators.size());
         Assertions.assertEquals(AsteroidGenerator.class, generators.get(0).getClass());
         Assertions.assertEquals(CoinGenerator.class, generators.get(1).getClass());
     }
