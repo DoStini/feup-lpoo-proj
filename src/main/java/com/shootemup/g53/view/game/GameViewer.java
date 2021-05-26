@@ -2,6 +2,7 @@ package com.shootemup.g53.view.game;
 
 import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.game.GameModel;
+
 import com.shootemup.g53.ui.Gui;
 import com.shootemup.g53.view.Viewer;
 import com.shootemup.g53.view.element.AsteroidView;
@@ -11,13 +12,16 @@ import com.shootemup.g53.view.element.*;
 import com.shootemup.g53.view.element.spaceship.EnemyView;
 import com.shootemup.g53.view.element.spaceship.PlayerView;
 import com.shootemup.g53.view.element.spaceship.SpaceshipView;
+import com.shootemup.g53.view.infobar.InfoBarViewer;
 
 public class GameViewer extends Viewer<GameModel> {
-    private Gui gui;
     private SpaceshipView spaceshipView;
     private SpaceshipView enemyView;
     private CoinView coinView;
     private BulletView bulletView;
+
+    private InfoBarViewer infoBarViewer;
+
     private AsteroidView asteroidView;
     private ShieldView shieldView;
     private StarView starView;
@@ -39,7 +43,7 @@ public class GameViewer extends Viewer<GameModel> {
 
     @Override
     public void draw(GameModel model) {
-        gui.clear();
+
         if(model.getBackground()!= null) backgroundView.draw(gui, model.getBackground());
 
         spaceshipView.draw(gui, model.getPlayer());
@@ -61,6 +65,6 @@ public class GameViewer extends Viewer<GameModel> {
         for(Essence essence: model.getEssenceList()){
             essenceView.draw(gui, essence);
         }
-        gui.refresh();
+
     }
 }

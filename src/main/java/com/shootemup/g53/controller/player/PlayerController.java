@@ -5,9 +5,16 @@ import com.shootemup.g53.controller.element.ElementInterface;
 import com.shootemup.g53.controller.firing.FiringStrategy;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.input.Action;
+import com.shootemup.g53.controller.observer.EssenceController;
+import com.shootemup.g53.controller.observer.LifeController;
+import com.shootemup.g53.controller.observer.ScoreController;
 import com.shootemup.g53.controller.movement.*;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
+import com.shootemup.g53.model.element.Asteroid;
+import com.shootemup.g53.model.element.Bullet;
+import com.shootemup.g53.model.element.Coin;
+import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.element.*;
 
 import com.shootemup.g53.model.util.ColorOperation;
@@ -18,6 +25,9 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     private Player player;
     private FiringStrategy firingStrategy;
     private BulletPoolController bulletPoolController;
+    private LifeController lifeController = new LifeController();
+    private ScoreController scoreController = new ScoreController();
+    private EssenceController essenceController = new EssenceController();
     protected MovementStrategy leftStrategy;
     protected MovementStrategy rightStrategy;
     protected MovementStrategy upStrategy;
@@ -32,6 +42,7 @@ public class PlayerController implements CollisionHandlerController, ElementInte
         this.gui = gui;
         this.bulletPoolController = bulletPoolController;
         this.firingStrategy = firingStrategy;
+
 
         this.powerupController = powerupController;
 
@@ -95,19 +106,25 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     @Override
     public void handleBullet(Bullet bullet) {
+
+        lifeController.setLifeToRemove(bullet.getDamage());
+        lifeController.notifyObservers();
         this.player.setHealth(this.player.getHealth()-bullet.getDamage());
     }
 
     @Override
     public void handleSpaceship(Spaceship spaceship) {
+        lifeController.setLifeToRemove(5);
+        lifeController.notifyObservers();
         this.player.setHealth(this.player.getHealth()-5);
         
     }
 
-    @Override
+
     public void handleEssence(Essence essence) {
         this.player.addEssence(essence.getValue());
-        System.out.println(player.getEssence());
+        essenceController.setAmount(essence.getValue());
+        essenceController.notifyObservers();
     }
 
     @Override
@@ -117,7 +134,7 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     @Override
     public void handleCoin(Coin coin) {
-        // add coin to inv
+        scoreController.notifyObservers();
     }
 
     @Override
@@ -135,5 +152,22 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     private void usePowerups(Gui gui) {
         if (gui.isActionActive(Action.POWER_1))
             powerupController.spawnShield(player);
+    }
+
+    public LifeController getLifeController() {
+        return lifeController;
+    }
+
+
+    public ScoreController getScoreController() {
+        return scoreController;
+    }
+
+    public EssenceController getEssenceController() {
+        return essenceController;
+    }
+
+    public PowerupController getPowerupController() {
+        return powerupController;
     }
 }

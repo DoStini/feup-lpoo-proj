@@ -30,13 +30,14 @@ public class Bullet extends MovableElement implements PoolableObject {
         return new Bullet(new Position(position.getX(), position.getY()), getColor(),getSpeed(), size, this.damage);
     }
 
-    public void init(int x, int y, String color, int size,double speed) {
+    public void init(int x, int y, String color, int size, double speed, int damage) {
+
         position.setX(x);
         position.setY(y);
         setColor(color);
         this.size = size;
         setSpeed(speed);
-
+        this.damage = damage;
     }
 
     @Override

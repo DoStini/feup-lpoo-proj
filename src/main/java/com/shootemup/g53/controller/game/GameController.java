@@ -7,6 +7,10 @@ import com.shootemup.g53.controller.element.CollisionHandlerController;
 import com.shootemup.g53.controller.element.BackgroundController;
 import com.shootemup.g53.controller.element.ElementInterface;
 import com.shootemup.g53.controller.input.Action;
+import com.shootemup.g53.controller.observer.ScoreController;
+import com.shootemup.g53.controller.observer.WaveCompletionController;
+
+import com.shootemup.g53.controller.player.PlayerController;
 import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
@@ -32,10 +36,13 @@ public class GameController extends GenericController {
     private HashMap<Element, ElementInterface> controllerHashMap = new HashMap<>();
     private HashMap<Element, CollisionHandlerController> collisionHashMap = new HashMap<>();
 
+    private ScoreController scoreController = new ScoreController();
+
     public GameController(GameModel gameModel) {
         this(gameModel, new BulletPoolController(gameModel, 30));
         this.bulletPoolController.setGameController(this);
         this.controllerCopy = new ArrayList<>();
+
     }
 
     public int numOfControllers(){
@@ -56,6 +63,11 @@ public class GameController extends GenericController {
 
     public void addToControllerMap(Element element, ElementInterface elementController){
         controllerHashMap.put(element,elementController);
+    }
+
+
+    public void finishGame(){
+        gameModel.setGameFinished(true);
     }
 
     public void removeFromControllerMap(Element element){
@@ -82,11 +94,15 @@ public class GameController extends GenericController {
         if(gui.isActionActive(Action.ESC)){
             gameModel.setGameFinished(true);
         }
+        if(gui.isActionActive(Action.Q)){
+            gameModel.setPaused(true);
+        }
     }
 
-    @Override
+     @Override
     public void handle(long frame){
         if(backgroundController != null) backgroundController.handle(frame);
+
 
         controllerCopy.clear();
         controllerCopy.addAll(controllerHashMap.values());
@@ -97,7 +113,7 @@ public class GameController extends GenericController {
 
         handleCollision();
 
-        if(gameModel.getPlayer().getHealth() <= 0) gameModel.setGameFinished(true);
+        if(gameModel.getPlayer().getHealth() <= 0) finishGame();
 
         checkOutsideBounds();
         deactivateDead();
@@ -110,6 +126,12 @@ public class GameController extends GenericController {
         gameModel.getEnemySpaceships().stream()
                 .filter(enemy -> enemy.getHealth() <= 0)
                 .forEach(Element::deactivate);
+
+        for( int i = 0; i < gameModel.getEnemySpaceships().stream()
+                .filter(enemy -> enemy.getHealth() <= 0).count(); i++){
+            scoreController.notifyObservers();
+        }
+
         gameModel.getShieldList().stream()
                 .filter(shield -> shield.getStrength() <= 0)
                 .forEach(Element::deactivate);
@@ -128,7 +150,6 @@ public class GameController extends GenericController {
         for(Spaceship spaceship: gameModel.getEnemySpaceships())
             if (!insideBounds(spaceship.getPosition()))
                 spaceship.deactivate();
-
     }
 
     public void removeInactiveElements(){
@@ -164,6 +185,11 @@ public class GameController extends GenericController {
         this.gameModel = gameModel;
         this.bulletPoolController.setGameModel(this.gameModel);
     }
+    public boolean isPaused(){
+        return gameModel.isPaused();
+    }
+
+    public void unpause(){ gameModel.setPaused(false);}
 
     public void setBackgroundController(BackgroundController backgroundController) {
         this.backgroundController = backgroundController;
@@ -177,7 +203,14 @@ public class GameController extends GenericController {
         return gameModel;
     }
 
-    public PowerupController getPowerupController() {
-        return powerupController;
+    public PlayerController getPlayerController(){
+        return (PlayerController) controllerHashMap.get(gameModel.getPlayer());
     }
+
+
+    public ScoreController getScoreController() {
+        return scoreController;
+    }
+
+
 }

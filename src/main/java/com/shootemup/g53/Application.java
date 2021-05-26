@@ -16,7 +16,7 @@ public class Application {
 
     public static void gameDemo() {
 
-        int height = 50, width = 100;
+        int height = 100, width = 60;
 
         Gui gui = new LanternaGui(height,width, 15);
         GameModel gameModel = new GameModel(width, height);

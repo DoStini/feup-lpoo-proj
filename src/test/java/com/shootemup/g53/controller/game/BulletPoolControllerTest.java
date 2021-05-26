@@ -41,7 +41,7 @@ class BulletPoolControllerTest {
         bulletPoolController.addBullet(5,5,"color", 5,0,3,null);
 
         Mockito.verify(gameModel, Mockito.times(1)).addBullet(bullet);
-        Mockito.verify(bullet, Mockito.times(1)).init(5,5,"color", 5,0);
+        Mockito.verify(bullet, Mockito.times(1)).init(5,5,"color", 5,0, 3);
 
         bulletPoolController.restoreBullet(bullet);
         Assertions.assertFalse(bullet.isActive());
@@ -56,7 +56,7 @@ class BulletPoolControllerTest {
         bulletPoolController.addBullet(5,5,"", 5,0,3, null);
 
         Mockito.verify(bullet, Mockito.times(0))
-                .init(Mockito.anyInt(),Mockito.anyInt(),Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt());
+                .init(Mockito.anyInt(),Mockito.anyInt(),Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
         Mockito.verify(gameModel, Mockito.times(1))
                 .addBullet(Mockito.any());
         Mockito.verify(gameModel, Mockito.times(1))

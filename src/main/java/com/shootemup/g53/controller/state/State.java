@@ -8,6 +8,7 @@ import com.shootemup.g53.view.Viewer;
 public abstract class State<M extends Model> {
     protected Game game;
     public abstract M getStateModel();
+    public abstract void exit();
     public abstract Viewer<M> getStateView();
     public abstract GenericController getStateController();
     public abstract void run();

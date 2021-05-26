@@ -49,7 +49,7 @@ public class BulletPoolController {
 
         }
         else {
-            bullet.init(x, y, color, size,speed);
+            bullet.init(x, y, color, size,speed, damage);
 
         }
         BulletController bulletController = new BulletController(bullet, movementStrategy);

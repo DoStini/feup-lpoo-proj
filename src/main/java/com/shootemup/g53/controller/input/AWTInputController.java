@@ -3,8 +3,11 @@ package com.shootemup.g53.controller.input;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AWTInputController extends InputController<KeyEvent> {
 
@@ -21,12 +24,14 @@ public class AWTInputController extends InputController<KeyEvent> {
 
             @Override
             public void keyPressed(KeyEvent e) {
+
                 Action act = eventToAction(e);
                 keysPressed.put(act, true);
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
+
                 Action act = eventToAction(e);
                 keysPressed.put(act, false);
             }
@@ -75,4 +80,8 @@ public class AWTInputController extends InputController<KeyEvent> {
     public void handleEvent(KeyEvent event) {
 
     }
+
+
+
+
 }
