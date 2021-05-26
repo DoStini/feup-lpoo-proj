@@ -2,7 +2,6 @@ package com.shootemup.g53.controller.gamebuilder.element;
 
 import com.shootemup.g53.controller.element.SpaceshipController;
 import com.shootemup.g53.controller.firing.FiringStrategy;
-import com.shootemup.g53.controller.firing.MovingBulletStrategy;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.gamebuilder.FiringStrategyFactory;
 import com.shootemup.g53.controller.gamebuilder.MovementStrategyFactory;
@@ -12,7 +11,6 @@ import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.collider.LineCompositeFactory;
-import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 
@@ -40,7 +38,7 @@ public class SpaceshipGenerator extends MovableElementGenerator {
 
     public SpaceshipGenerator(GameController gameController, MovementStrategyFactory movementStrategyFactory,
                               FiringStrategyFactory firingStrategyFactory,
-                              int xMinPos, int xMaxPos, int minSpeed, int maxSpeed,
+                              int xMinPos, int xMaxPos, double minSpeed, double maxSpeed,
                               int minSize, int maxSize, int maxFireRate, int maxDamage) {
         this(new Random(), gameController, movementStrategyFactory, firingStrategyFactory, xMinPos, xMaxPos,
                 minSpeed, maxSpeed, minSize, maxSize, maxFireRate, maxDamage);
@@ -48,7 +46,7 @@ public class SpaceshipGenerator extends MovableElementGenerator {
 
     SpaceshipGenerator(Random rand, GameController gameController, MovementStrategyFactory movementStrategyFactory,
                        FiringStrategyFactory firingStrategyFactory,
-                       int xMinPos, int xMaxPos, int minSpeed, int maxSpeed, int minSize, int maxSize, int maxFireRate, int maxDamage) {
+                       int xMinPos, int xMaxPos, double minSpeed, double maxSpeed, int minSize, int maxSize, int maxFireRate, int maxDamage) {
         super(rand, gameController, movementStrategyFactory, xMinPos, xMaxPos, minSpeed, maxSpeed);
         this.maxFireRate = maxFireRate;
         this.minSize = minSize;

@@ -110,6 +110,9 @@ public class GameController extends GenericController {
         gameModel.getEnemySpaceships().stream()
                 .filter(enemy -> enemy.getHealth() <= 0)
                 .forEach(Element::deactivate);
+        gameModel.getShieldList().stream()
+                .filter(shield -> shield.getStrength() <= 0)
+                .forEach(Element::deactivate);
     }
 
     private void checkOutsideBounds() {

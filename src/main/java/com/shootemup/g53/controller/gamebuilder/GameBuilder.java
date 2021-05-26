@@ -6,6 +6,7 @@ import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.gamebuilder.element.AsteroidGenerator;
 import com.shootemup.g53.controller.gamebuilder.element.CoinGenerator;
 import com.shootemup.g53.controller.gamebuilder.element.ElementGenerator;
+import com.shootemup.g53.controller.gamebuilder.element.EssenceGenerator;
 import com.shootemup.g53.controller.movement.*;
 import com.shootemup.g53.controller.player.PlayerController;
 import com.shootemup.g53.controller.player.PowerupController;
@@ -50,7 +51,7 @@ public class GameBuilder {
 
     private void setupPlayer() {
         Player spaceship = new Player(new Position(20, 35), 3, 20, "#aae253",
-                4, 10);
+                3, 10);
         gameModel.setPlayer(spaceship);
 
         List<BodyCollider> colliders = new ArrayList<>();
@@ -103,10 +104,11 @@ public class GameBuilder {
         MovementStrategyFactory movementStrategyFactory =
                 new MovementStrategyFactory(Arrays.asList(MovementStrategyFactory.Strategy.DOWN));
         generators = Arrays.asList(
-                new AsteroidGenerator(gameController, movementStrategyFactory, 0, gameModel.getWidth(), 1,
+                new AsteroidGenerator(gameController, movementStrategyFactory, 0, gameModel.getWidth(), 0.2,
                         1, 10),
-                new CoinGenerator(gameController, movementStrategyFactory,0, gameModel.getWidth(), 1, 1,
-                        4, -1, -1));
+                new CoinGenerator(gameController, movementStrategyFactory,0, gameModel.getWidth(), 0.2, 1,
+                        4, -1, -1),
+                new EssenceGenerator(gameController, movementStrategyFactory, 0, gameModel.getWidth(), 0.2, 1));
     }
 
     protected void setupElementGenerators(List<ElementGenerator> strategyFactories) {

@@ -16,12 +16,12 @@ public class AsteroidGenerator extends MovableElementGenerator {
     private final int maxRadius;
 
     public AsteroidGenerator(GameController gameController, MovementStrategyFactory movementStrategyFactory,
-                             int xMinPos, int xMaxPos, int minSpeed, int maxSpeed, int maxRadius) {
+                             int xMinPos, int xMaxPos, double minSpeed, double maxSpeed, int maxRadius) {
         this(new Random(), gameController, movementStrategyFactory, xMinPos, xMaxPos, minSpeed, maxSpeed, maxRadius);
     }
 
     AsteroidGenerator(Random rand, GameController gameController, MovementStrategyFactory movementStrategyFactory,
-                      int xMinPos, int xMaxPos, int minSpeed, int maxSpeed,
+                      int xMinPos, int xMaxPos, double minSpeed, double maxSpeed,
                       int maxRadius) {
         super(rand, gameController, movementStrategyFactory, xMinPos, xMaxPos, minSpeed, maxSpeed);
         this.maxRadius = maxRadius;

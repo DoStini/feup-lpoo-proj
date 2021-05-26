@@ -1,17 +1,12 @@
 package com.shootemup.g53.controller.gamebuilder.element;
 
 import com.shootemup.g53.controller.element.CoinController;
-import com.shootemup.g53.controller.element.ElementInterface;
-import com.shootemup.g53.controller.element.MovableElementController;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.gamebuilder.MovementStrategyFactory;
-import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.collider.LineCompositeFactory;
 import com.shootemup.g53.model.element.Coin;
-import com.shootemup.g53.model.element.Element;
-import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 
 import java.util.Random;
@@ -22,14 +17,14 @@ public class CoinGenerator extends MovableElementGenerator {
     private final int maxRadius;
 
     public CoinGenerator(GameController gameController, MovementStrategyFactory movementStrategyFactory,
-                         int xMinPos, int xMaxPos, int minSpeed, int maxSpeed,
+                         int xMinPos, int xMaxPos, double minSpeed, double maxSpeed,
                          int maxRadius, int minVal, int maxVal) {
         this(new Random(), gameController, movementStrategyFactory,
                 xMinPos, xMaxPos, minSpeed, maxSpeed, maxRadius, minVal, maxVal);
     }
 
     CoinGenerator(Random rand, GameController gameController, MovementStrategyFactory movementStrategyFactory,
-                  int xMinPos, int xMaxPos, int minSpeed, int maxSpeed,
+                  int xMinPos, int xMaxPos, double minSpeed, double maxSpeed,
                   int maxRadius, int minVal, int maxVal) {
         super(rand, gameController, movementStrategyFactory, xMinPos, xMaxPos, minSpeed, maxSpeed);
         this.minVal = minVal;
