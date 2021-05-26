@@ -21,7 +21,7 @@ public class StarController extends MovableElementController implements ElementI
     }
 
     @Override
-    public void handle() {
+    public void handle(long frame) {
         Position newPosition = move();
         star.setPosition(newPosition);
     }

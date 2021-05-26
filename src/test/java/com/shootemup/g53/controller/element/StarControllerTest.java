@@ -14,14 +14,14 @@ class StarControllerTest {
     Star star;
     Star star2;
     MovementStrategy strategy;
-
+    long frame = 0;
     @BeforeEach
     void setUp() {
         star = Mockito.spy(new Star(new Position(2,2), 5));
         star2 = Mockito.mock(Star.class);
         strategy = Mockito.mock(MovementStrategy.class);
 
-        Mockito.when(strategy.move(Mockito.any(Position.class), Mockito.anyInt())).thenReturn(new Position(5,5));
+        Mockito.when(strategy.move(Mockito.any(Position.class), Mockito.anyDouble())).thenReturn(new Position(5,5));
     }
 
     @Test
@@ -40,9 +40,9 @@ class StarControllerTest {
     void handle() {
         StarController controller = new StarController(star, strategy);
 
-        controller.handle();
+        controller.handle(frame);
 
-        Mockito.verify(strategy, Mockito.times(1)).move(Mockito.any(), Mockito.anyInt());
+        Mockito.verify(strategy, Mockito.times(1)).move(Mockito.any(), Mockito.anyDouble());
 
         Assertions.assertEquals(new Position(5,5), controller.getStar().getPosition());
     }

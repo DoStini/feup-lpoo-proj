@@ -2,15 +2,19 @@ package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.model.util.Position;
 
-public class LeftMovement implements MovementStrategy {
-
+public class LeftMovement extends IncrementalMovement {
     @Override
-    public Position move(Position position, int speed) {
+    Position moveFrame(Position position, int speed) {
         return position.getLeft(speed);
     }
 
     @Override
     public void handleFailedMovement() {
 
+    }
+
+    @Override
+    public MovementStrategy cloneStrategy() {
+        return new LeftMovement();
     }
 }

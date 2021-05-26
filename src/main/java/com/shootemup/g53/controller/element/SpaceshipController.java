@@ -5,6 +5,11 @@ import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
+import com.shootemup.g53.model.element.Asteroid;
+import com.shootemup.g53.model.element.Bullet;
+import com.shootemup.g53.model.element.Coin;
+import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.model.util.ColorOperation;
 import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.util.Position;
 
@@ -14,7 +19,8 @@ public class SpaceshipController extends MovableElementController implements Col
     private FiringStrategy firingStrategy;
     private BulletPoolController bulletPoolController;
 
-    public SpaceshipController(Spaceship spaceship, FiringStrategy firingStrategy, MovementStrategy movementStrategy, BulletPoolController bulletPoolController) {
+    public SpaceshipController(Spaceship spaceship, FiringStrategy firingStrategy, MovementStrategy movementStrategy,
+                               BulletPoolController bulletPoolController) {
         super(spaceship, movementStrategy);
         this.spaceship = spaceship;
         this.firingStrategy = firingStrategy;
@@ -22,8 +28,10 @@ public class SpaceshipController extends MovableElementController implements Col
 
     }
 
-    public void fire(BulletPoolController bulletPoolController){
-        firingStrategy.fire(spaceship, this.getSpaceship().getPosition(), bulletPoolController, "#ffff00", ColliderCategory.ENEMY_BULLET);
+    public void fire(BulletPoolController bulletPoolController, long frame){
+        firingStrategy.fire(spaceship, this.getSpaceship().getPosition(), bulletPoolController,
+                ColorOperation.invertColor(spaceship.getColor()),
+                ColliderCategory.ENEMY_BULLET, frame);
     }
 
     public Spaceship getSpaceship() {
@@ -45,27 +53,13 @@ public class SpaceshipController extends MovableElementController implements Col
     }
 
     @Override
-    public void handleSpaceship(Spaceship spaceship) {
-
-    }
-
-    @Override
-    public void handlePlayer(Player player) {
-
-    }
-
-    @Override
-    public void handleAsteroid(Asteroid asteroid) {
+    public void handleShield(Shield shield) {
         spaceship.setHealth(0);
     }
 
     @Override
-    public void handleCoin(Coin coin) {
-    }
-
-    @Override
-    public void handle() {
-        fire(bulletPoolController);
+    public void handle(long frame) {
+        fire(bulletPoolController,frame);
         Position newPosition = move();
 
         spaceship.setPosition(newPosition);

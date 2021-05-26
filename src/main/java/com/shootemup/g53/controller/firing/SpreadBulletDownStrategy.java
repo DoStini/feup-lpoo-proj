@@ -15,7 +15,7 @@ public class SpreadBulletDownStrategy extends FiringStrategy {
     MovementStrategy leftMovement;
     MovementStrategy rightMovement;
 
-    public SpreadBulletDownStrategy(int speed, int fireRate) {
+    public SpreadBulletDownStrategy(double speed, int fireRate) {
         super();
         this.bulletSpeed = speed;
         this.fireRate = fireRate;

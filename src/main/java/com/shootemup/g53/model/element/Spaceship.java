@@ -1,8 +1,5 @@
 package com.shootemup.g53.model.element;
 
-import com.shootemup.g53.controller.firing.FiringStrategy;
-import com.shootemup.g53.controller.game.BulletPoolController;
-import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.model.util.objectpool.PoolableObject;
 
@@ -11,11 +8,15 @@ public class Spaceship extends MovableElement {
     private int health;
     private int bulletDamage;
 
-    public Spaceship(Position position, int height,int health, String color, int speed, int bulletDamage) {
+    public Spaceship(Position position, int height,int health, String color, double speed, int bulletDamage) {
         super(position, color, speed);
         this.height = height;
         this.health = health;
         this.bulletDamage = bulletDamage;
+    }
+
+    public Spaceship() {
+        this(new Position(0,0), 0, 0, "",0, 0);
     }
 
     @Override
@@ -44,4 +45,19 @@ public class Spaceship extends MovableElement {
 
         if(this.health < 0) this.health = 0;
     }
+
+    public void setBulletDamage(int bulletDamage) {
+        this.bulletDamage = bulletDamage;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Spaceship)) return false;
+        Spaceship other = (Spaceship) o;
+        return super.equals(o)
+                && other.height == this.height
+                && other.getSpeed() == this.getSpeed();
+    }
+
 }

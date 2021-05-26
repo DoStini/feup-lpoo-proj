@@ -7,12 +7,15 @@ import com.shootemup.g53.controller.element.CollisionHandlerController;
 import com.shootemup.g53.controller.element.BackgroundController;
 import com.shootemup.g53.controller.element.ElementInterface;
 import com.shootemup.g53.controller.input.Action;
-import com.shootemup.g53.controller.GenericController;
-import com.shootemup.g53.controller.observer.LifeController;
 import com.shootemup.g53.controller.observer.ScoreController;
 import com.shootemup.g53.controller.observer.WaveCompletionController;
 
 import com.shootemup.g53.controller.player.PlayerController;
+import com.shootemup.g53.model.element.Asteroid;
+import com.shootemup.g53.model.element.Bullet;
+import com.shootemup.g53.model.element.Coin;
+import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.controller.player.PowerupController;
 import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
@@ -25,7 +28,9 @@ import java.util.*;
 public class GameController extends GenericController {
     private GameModel gameModel;
     private BulletPoolController bulletPoolController;
+
     private CollisionController collisionController;
+    private PowerupController powerupController;
     private BackgroundController backgroundController;
     private List<ElementInterface> controllerCopy;
     private HashMap<Element, ElementInterface> controllerHashMap = new HashMap<>();
@@ -51,7 +56,6 @@ public class GameController extends GenericController {
         this.bulletPoolController = bulletPoolController;
         this.collisionController = new CollisionController(this);
         this.controllerCopy = new ArrayList<>();
-
     }
 
     public boolean isGameFinished(){
@@ -96,25 +100,28 @@ public class GameController extends GenericController {
         }
     }
 
-    @Override
-    public void handle(){
+     @Override
+    public void handle(long frame){
+        if(backgroundController != null) backgroundController.handle(frame);
 
-        if(backgroundController != null) backgroundController.handle();
-        if(gameModel.getPlayer().getHealth() <= 0){
-            finishGame();
-        }
+
         controllerCopy.clear();
         controllerCopy.addAll(controllerHashMap.values());
 
         for(ElementInterface elementInterface : controllerCopy) {
-            elementInterface.handle();
+            elementInterface.handle(frame);
         }
 
         handleCollision();
 
+        if(gameModel.getPlayer().getHealth() <= 0) finishGame();
+
+        checkOutsideBounds();
         deactivateDead();
         removeInactiveElements();
     }
+
+
 
     protected void deactivateDead() {
         gameModel.getEnemySpaceships().stream()
@@ -125,6 +132,25 @@ public class GameController extends GenericController {
                 .filter(enemy -> enemy.getHealth() <= 0).count(); i++){
             scoreController.notifyObservers();
         }
+
+        gameModel.getShieldList().stream()
+                .filter(shield -> shield.getStrength() <= 0)
+                .forEach(Element::deactivate);
+    }
+
+    private void checkOutsideBounds() {
+        for(Bullet bullet: gameModel.getBulletList())
+            if (!insideBounds(bullet.getPosition()))
+                bullet.deactivate();
+        for(Coin coin: gameModel.getCoins())
+            if (!insideBounds(coin.getPosition()))
+                coin.deactivate();
+        for(Asteroid asteroid: gameModel.getAsteroids())
+            if (!insideBounds(asteroid.getPosition()))
+                asteroid.deactivate();
+        for(Spaceship spaceship: gameModel.getEnemySpaceships())
+            if (!insideBounds(spaceship.getPosition()))
+                spaceship.deactivate();
     }
 
     public void removeInactiveElements(){
@@ -140,8 +166,8 @@ public class GameController extends GenericController {
         if(pos == null){
             return false;
         }
-        return pos.getX()> 0 && pos.getX() < gameModel.getWidth() &&
-                pos.getY() > 0 && pos.getY() < gameModel.getHeight();
+        return pos.getX() > 0 && pos.getX() < gameModel.getWidth() &&
+                pos.getY() < gameModel.getHeight() + 10;
     }
 
    public void handleCollision() {
@@ -188,5 +214,9 @@ public class GameController extends GenericController {
 
     public ScoreController getScoreController() {
         return scoreController;
+    }
+
+    public PowerupController getPowerupController() {
+        return powerupController;
     }
 }

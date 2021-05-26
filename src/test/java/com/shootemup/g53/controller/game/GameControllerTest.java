@@ -15,7 +15,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -36,7 +38,7 @@ public class GameControllerTest {
     private Asteroid asteroid;
     private Spaceship spaceship;
     private Spaceship player;
-
+    long frame = 0;
     Gui gui;
 
     @BeforeEach
@@ -61,11 +63,20 @@ public class GameControllerTest {
 
         Mockito.when(gameModel.getWidth()).thenReturn(50);
         Mockito.when(gameModel.getHeight()).thenReturn(50);
-        Mockito.when(gameModel.getBulletList()).thenReturn(Arrays.asList(bullet, bullet2));
-        Mockito.when(gameModel.getAsteroids()).thenReturn(Arrays.asList(asteroid));
-        Mockito.when(gameModel.getEnemySpaceships()).thenReturn(Arrays.asList(spaceship));
+
+        List<Bullet> bullets = new ArrayList<>(); bullets.add(bullet); bullets.add(bullet2);
+        Mockito.when(gameModel.getBulletList()).thenReturn(bullets);
+
+        List<Asteroid> asteroids = new ArrayList<>(); asteroids.add(asteroid);
+        Mockito.when(gameModel.getAsteroids()).thenReturn(asteroids);
+
+        List<Spaceship> spaceships = new ArrayList<>(); spaceships.add(spaceship);
+        Mockito.when(gameModel.getEnemySpaceships()).thenReturn(spaceships);
+
         Mockito.when(gameModel.getPlayer()).thenReturn(player);
-        Mockito.when(gameModel.getCoins()).thenReturn(Arrays.asList(coin));
+
+        List<Coin> coins = new ArrayList<>(); coins.add(coin);
+        Mockito.when(gameModel.getCoins()).thenReturn(coins);
         Mockito.when(position.getX()).thenReturn(5);
         Mockito.when(position.getY()).thenReturn(5);
         Mockito.when(position2.getX()).thenReturn(55);
@@ -108,11 +119,11 @@ public class GameControllerTest {
         gameController.addToControllerMap(bullet2,bulletController);
 
         bulletPoolController.setGameController(gameController);
-        gameController.handle();
+        gameController.handle(frame);
         Mockito.verify(bulletPoolController, Mockito.times(1)).removeInactiveBullets();
 
         Mockito.verify(bulletController, Mockito.times(2))
-                .handle();
+                .handle(frame);
 
     }
 
@@ -147,17 +158,17 @@ public class GameControllerTest {
         gameController.addToControllerMap(bullet2, bulletController);
         gameController.setBackgroundController(backgroundController);
 
-        gameController.handle();
-        Mockito.verify(playerController,Mockito.times(1)).handle();
+        gameController.handle(frame);
+        Mockito.verify(playerController,Mockito.times(1)).handle(frame);
 
-        Mockito.verify(coinController,Mockito.times(1)).handle();
+        Mockito.verify(coinController,Mockito.times(1)).handle(frame);
 
-        Mockito.verify(asteroidController,Mockito.times(1)).handle();
+        Mockito.verify(asteroidController,Mockito.times(1)).handle(frame);
 
-        Mockito.verify(spaceshipController,Mockito.times(1)).handle();
+        Mockito.verify(spaceshipController,Mockito.times(1)).handle(frame);
 
-        gameController.handle();
-        Mockito.verify(backgroundController,Mockito.times(2)).handle();
+        gameController.handle(frame);
+        Mockito.verify(backgroundController,Mockito.times(2)).handle(frame);
     }
 
     @Test
@@ -210,13 +221,13 @@ public class GameControllerTest {
 
         Mockito.when(player.getHealth()).thenReturn(5);
 
-        gameController.handle();
+        gameController.handle(frame);
 
         Mockito.verify(gameModel,Mockito.times(0)).setGameFinished(true);
 
         Mockito.when(player.getHealth()).thenReturn(0);
 
-        gameController.handle();
+        gameController.handle(frame);
 
         Mockito.verify(gameModel,Mockito.times(1)).setGameFinished(true);
     }

@@ -38,7 +38,7 @@ public class GameOverController extends GenericController {
     }
 
     @Override
-    public void handle() {
+    public void handle(long frame) {
 
     }
 

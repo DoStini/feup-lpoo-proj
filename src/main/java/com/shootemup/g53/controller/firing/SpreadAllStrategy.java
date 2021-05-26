@@ -18,8 +18,7 @@ public class SpreadAllStrategy extends FiringStrategy {
     FallDownMovement downMovement;
 
 
-
-    public SpreadAllStrategy(int speed, int fireRate) {
+    public SpreadAllStrategy(double speed, int fireRate) {
         super();
         this.bulletSpeed = speed;
         this.fireRate = fireRate;
@@ -58,6 +57,7 @@ public class SpreadAllStrategy extends FiringStrategy {
         bulletPoolController.addBullet(position.getX(), position.getY(),
                 color, 3, bulletSpeed, spaceship.getBulletDamage(), downMovement, category);
         bulletPoolController.addBullet(position.getX()-3, position.getY(),
+
                 color, 3, bulletSpeed/2, spaceship.getBulletDamage(), leftMovement, category);
         bulletPoolController.addBullet(position.getX()+3, position.getY(),
                 color, 3, bulletSpeed/2, spaceship.getBulletDamage(), rightMovement, category);

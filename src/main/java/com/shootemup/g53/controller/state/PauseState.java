@@ -2,20 +2,14 @@ package com.shootemup.g53.controller.state;
 
 import com.shootemup.g53.controller.Game;
 import com.shootemup.g53.controller.GenericController;
-import com.shootemup.g53.controller.command.ExitCommand;
 import com.shootemup.g53.controller.command.MenuCommand;
 import com.shootemup.g53.controller.command.ResumeCommand;
 import com.shootemup.g53.controller.command.StartCommand;
-import com.shootemup.g53.controller.game.MenuStateController;
 import com.shootemup.g53.controller.game.PauseStateController;
-import com.shootemup.g53.controller.gameBuilder.GameBuilder;
-import com.shootemup.g53.controller.input.InputObserver;
 import com.shootemup.g53.controller.input.KeyPressObserver;
-import com.shootemup.g53.model.game.MenuModel;
 import com.shootemup.g53.model.game.PauseModel;
 import com.shootemup.g53.ui.Gui;
 import com.shootemup.g53.view.Viewer;
-import com.shootemup.g53.view.game.MenuViewer;
 import com.shootemup.g53.view.game.PauseViewer;
 
 public class PauseState extends State<PauseModel> {

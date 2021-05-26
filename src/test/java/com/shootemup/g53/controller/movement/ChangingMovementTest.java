@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -26,7 +27,7 @@ class ChangingMovementTest {
 
     Position position;
     Gui gui;
-    private int speed = 5;
+    private double speed = 5;
     private int fireRate = 5;
 
     @BeforeEach
@@ -49,10 +50,31 @@ class ChangingMovementTest {
 
     @Test
     void movement() {
-
-        MovementStrategy controller = new ChangingMovement(15, movementStrategies);
+        MovementStrategy controller = Mockito.spy(new ChangingMovement(15, movementStrategies));
         MovementStrategy movementController = movementStrategies.get(0);
         Mockito.when(movementController.move(spaceship.getPosition(), spaceship.getSpeed())).thenReturn(position);
+
+        MovementStrategy clone = controller.cloneStrategy();
+
+        Assertions.assertTrue(clone instanceof ChangingMovement);
+        ChangingMovement movement = (ChangingMovement) clone;
+
+        Assertions.assertEquals(15, ((ChangingMovement)controller).changeRate);
+
+        Assertions.assertNotSame(movementController, movement.controllers.get(0));
+
+        ChangingMovement movement1 = new ChangingMovement(16, Collections.singletonList(controller));
+        MovementStrategy strategy = movement1.cloneStrategy();
+
+        Assertions.assertTrue(strategy instanceof ChangingMovement);
+        ChangingMovement changingMovement = (ChangingMovement) strategy;
+
+        Assertions.assertTrue(changingMovement.controllers.get(0) instanceof ChangingMovement);
+        Assertions.assertNotSame(controller, changingMovement.controllers.get(0));
+        Mockito.verify(controller, Mockito.times(2)).cloneStrategy();
+
+        Assertions.assertNotSame(movementController, ((ChangingMovement) changingMovement.controllers.get(0)).controllers.get(0));
+        Mockito.verify(movementController, Mockito.times(2)).cloneStrategy();
 
         controller.handleFailedMovement();
         Mockito.verify(movementController, Mockito.times(1)).handleFailedMovement();

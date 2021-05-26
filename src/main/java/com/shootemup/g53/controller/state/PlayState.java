@@ -4,20 +4,18 @@ import com.shootemup.g53.controller.Game;
 import com.shootemup.g53.controller.GenericController;
 import com.shootemup.g53.controller.game.GameController;
 
-import com.shootemup.g53.controller.gameBuilder.GameBuilder;
 import com.shootemup.g53.controller.infobar.InfoBarController;
-import com.shootemup.g53.controller.input.InputController;
+
+import com.shootemup.g53.controller.gamebuilder.GameBuilder;
 import com.shootemup.g53.model.game.GameModel;
-import com.shootemup.g53.model.game.GameOverModel;
 import com.shootemup.g53.model.infobar.InfoBarModel;
 import com.shootemup.g53.ui.Gui;
 import com.shootemup.g53.view.Viewer;
 import com.shootemup.g53.view.game.GameViewer;
 import com.shootemup.g53.view.infobar.InfoBarViewer;
 
-import java.io.IOException;
-
 public class PlayState extends State<GameModel> {
+    private final GameModel gameModel;
     private GameController gameController;
     private GameBuilder gameBuilder;
     private Viewer<GameModel> gameViewer;
@@ -26,15 +24,17 @@ public class PlayState extends State<GameModel> {
     private InfoBarViewer infoBarViewer;
     int seconds = 0;
 
-    public PlayState(Game game, Gui gui, GameBuilder gameBuilder){
+    long frame = 0;
+
+    public PlayState(Game game, GameModel gameModel, Gui gui) {
         this.game = game;
-        this.gameBuilder = gameBuilder;
+        this.gameModel = gameModel;
+        this.gameController = new GameController(this.gameModel);
+        this.gameBuilder = new GameBuilder(gui, this.gameController, 10);
         this.gameViewer = new GameViewer(gui);
         this.gui = gui;
         this.infoBarViewer = new InfoBarViewer(this.gui, 10);
-        this.gameController = this.gameBuilder.buildGame(5,3,gui.getWidth() - 10,gui.getHeight(), gui);
         this.infoBarController = new InfoBarController(gameController, new InfoBarModel(getStateModel().getPlayer().getHealth(),1,seconds,getStateModel().getPlayer().getHealth()));
-
     }
 
     public InfoBarModel getInfoBarModel(){
@@ -68,8 +68,9 @@ public class PlayState extends State<GameModel> {
             public void run(){
                 try{
                     while(!gameController.isGameFinished()){
-                        Thread.sleep(1000);
-                        seconds++;
+
+                        Thread.sleep(50);
+                        frame++;
                     }
 
                 }catch(InterruptedException e){
@@ -78,17 +79,18 @@ public class PlayState extends State<GameModel> {
 
             }
         };
+
         second_counter.start();
+
         
         try{
             while(true){
 
                 Thread.sleep(50);
+                gameBuilder.handle(frame);
                 gameController.handleKeyPress(gui);
-                gameController.handle();
+                gameController.handle(frame);
                 infoBarController.handle(seconds);
-                infoBarViewer.draw(infoBarController.getInfoBarModel());
-                gameViewer.draw(gameController.getGameModel());
 
                 if(gameController.isGameFinished()){
                     game.changeState(new GameOverState(this.game,this.gui));
@@ -98,6 +100,8 @@ public class PlayState extends State<GameModel> {
                     game.changeState(new PauseState(game,gui,this));
                     return;
                 }
+                infoBarViewer.draw(infoBarController.getInfoBarModel());
+                gameViewer.draw(gameModel);
             }
 
         }
@@ -108,5 +112,13 @@ public class PlayState extends State<GameModel> {
 
     public InfoBarViewer getInfoBarViewer() {
         return infoBarViewer;
+    }
+
+    public void setGameController(GameController gameController) {
+        this.gameController = gameController;
+    }
+
+    public void setGameBuilder(GameBuilder gameBuilder) {
+        this.gameBuilder = gameBuilder;
     }
 }
