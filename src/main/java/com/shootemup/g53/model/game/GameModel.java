@@ -25,7 +25,7 @@ public class GameModel extends Model {
     private List<BodyCollider> colliders;
 
     public GameModel(int width, int height) {
-        this.width = width;
+        this.width = width - 10;
         this.height = height;
     }
 

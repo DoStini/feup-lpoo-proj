@@ -103,8 +103,8 @@ public class PlayState extends State<GameModel> {
                     game.changeState(new PauseState(game,gui,this));
                     return;
                 }
-                infoBarViewer.draw(infoBarController.getInfoBarModel());
                 gameViewer.draw(gameModel);
+                infoBarViewer.draw(infoBarController.getInfoBarModel());
                 gui.refresh();
             }
 

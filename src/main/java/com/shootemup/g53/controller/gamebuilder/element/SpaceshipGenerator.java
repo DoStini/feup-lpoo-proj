@@ -64,7 +64,8 @@ public class SpaceshipGenerator extends MovableElementGenerator {
                 new LineCompositeFactory().createFromInvertedIsoscelesTriangle(spaceship, new Position(0, 0),
                         spaceship.getHeight());
         collider.setCategory(ColliderCategory.ENEMY);
-        collider.setCategoryMask((short) (ColliderCategory.PLAYER.getBits() | ColliderCategory.PLAYER_BULLET.getBits()));
+        collider.setCategoryMask((short) (ColliderCategory.PLAYER.getBits() | ColliderCategory.PLAYER_BULLET.getBits()
+                | ColliderCategory.SHIELD.getBits()));
         gameModel.addCollider(collider);
     }
 
