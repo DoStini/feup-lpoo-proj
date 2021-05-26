@@ -83,18 +83,41 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     public Position move(Gui gui) {
         Position newPosition = new Position(player.getPosition().getX(),player.getPosition().getY());
+        Position oldPosition = newPosition;
 
         if (gui.isActionActive(Action.W)) {
             newPosition = upStrategy.move(newPosition, player.getSpeed());
+
+            if(!insideBounds(newPosition)) {
+                newPosition = oldPosition;
+            } else {
+                oldPosition = newPosition;
+            }
         }
         if (gui.isActionActive(Action.A)) {
             newPosition = leftStrategy.move(newPosition, player.getSpeed());
+
+            if(!insideBounds(newPosition)) {
+                newPosition = oldPosition;
+            } else {
+                oldPosition = newPosition;
+            }
         }
         if (gui.isActionActive(Action.S)) {
             newPosition = downStrategy.move(newPosition, player.getSpeed());
+
+            if(!insideBounds(newPosition)) {
+                newPosition = oldPosition;
+            } else {
+                oldPosition = newPosition;
+            }
         }
         if (gui.isActionActive(Action.D)) {
             newPosition = rightStrategy.move(newPosition, player.getSpeed());
+
+            if(!insideBounds(newPosition)) {
+                newPosition = oldPosition;
+            }
         }
 
         if (insideBounds(newPosition))

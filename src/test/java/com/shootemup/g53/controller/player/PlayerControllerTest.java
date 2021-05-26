@@ -69,7 +69,9 @@ class PlayerControllerTest {
         assertEquals(position, controller.move(gui));
         double speed = player.getSpeed();
 
-        Mockito.verify(strategy, Mockito.times(1)).move(position, speed);
+        Position positionSent = new Position(player.getPosition().getX(), player.getPosition().getY());
+
+        Mockito.verify(strategy, Mockito.times(1)).move(Mockito.eq(positionSent), Mockito.eq(speed));
     }
     @Test
     void handleMovementDown() {
@@ -81,8 +83,9 @@ class PlayerControllerTest {
         assertEquals(position, controller.move(gui));
         double speed = player.getSpeed();
 
+        Position positionSent = new Position(player.getPosition().getX(), player.getPosition().getY());
 
-        Mockito.verify(strategy, Mockito.times(1)).move(position, speed);
+        Mockito.verify(strategy, Mockito.times(1)).move(Mockito.eq(positionSent), Mockito.eq(speed));
     }
     @Test
     void handleMovementLeft() {
@@ -93,7 +96,9 @@ class PlayerControllerTest {
         assertEquals(position, controller.move(gui));
         double speed = player.getSpeed();
 
-        Mockito.verify(strategy, Mockito.times(1)).move(position, speed);
+        Position positionSent = new Position(player.getPosition().getX(), player.getPosition().getY());
+
+        Mockito.verify(strategy, Mockito.times(1)).move(Mockito.eq(positionSent), Mockito.eq(speed));
     }
     @Test
     void handleMovementRight() {
@@ -105,7 +110,9 @@ class PlayerControllerTest {
         assertEquals(position, controller.move(gui));
         double speed = player.getSpeed();
 
-        Mockito.verify(strategy, Mockito.times(1)).move(position, speed);
+        Position positionSent = new Position(player.getPosition().getX(), player.getPosition().getY());
+
+        Mockito.verify(strategy, Mockito.times(1)).move(Mockito.eq(positionSent), Mockito.eq(speed));
     }
 
     @Test
@@ -124,7 +131,9 @@ class PlayerControllerTest {
 
         assertEquals(position, controller.move(gui));
 
-        Mockito.verify(strategy, Mockito.times(4)).move(position, speed);
+        Position positionSent = new Position(player.getPosition().getX(), player.getPosition().getY());
+
+        Mockito.verify(strategy, Mockito.times(4)).move(Mockito.eq(positionSent), Mockito.eq(speed));
     }
 
     @Test
