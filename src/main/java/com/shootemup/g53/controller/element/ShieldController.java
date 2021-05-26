@@ -30,7 +30,7 @@ public class ShieldController implements ElementInterface, CollisionHandlerContr
     }
 
     @Override
-    public void handle() {
+    public void handle(long frame) {
 
     }
 }

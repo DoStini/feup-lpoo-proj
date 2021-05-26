@@ -51,7 +51,7 @@ public class BulletController extends MovableElementController implements Collis
     }
 
     @Override
-    public void handle() {
+    public void handle(long frame) {
          Position newPosition = move();
          bullet.setPosition(newPosition);
     }

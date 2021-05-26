@@ -126,15 +126,17 @@ class PlayerControllerTest {
     @Test
     void fireRateNotReached() {
         Mockito.when(gui.isActionActive(Action.SPACE)).thenReturn(true);
+        long frame = 0;
 
         PlayerController controller = new PlayerController(player,gui,bulletPoolController,powerupController,firingController);
 
         for (int i = 0; i < fireRate; i++) {
-            controller.fire(gui, bulletPoolController);
+            frame++;
+            controller.fire(gui, bulletPoolController,frame);
         }
 
-        Mockito.verify(firingController, Mockito.times(fireRate))
-                .fire(player, player.getPosition(), bulletPoolController, "#ff0000",  ColliderCategory.PLAYER_BULLET);
+        Mockito.verify(firingController, Mockito.times(1))
+                .fire(player, player.getPosition(), bulletPoolController, "#ff0000",  ColliderCategory.PLAYER_BULLET,frame);
 
     }
 
@@ -142,11 +144,11 @@ class PlayerControllerTest {
     void powerUps() {
         Mockito.when(gui.isActionActive(Action.POWER_1)).thenReturn(true);
         PlayerController controller = new PlayerController(player,gui,bulletPoolController,powerupController,firingController);
-
-        controller.handle();
+        long frame = 0;
+        controller.handle(frame);
 
         Mockito.when(gui.isActionActive(Action.POWER_1)).thenReturn(false);
-        controller.handle();
+        controller.handle(frame);
 
         Mockito.verify(powerupController, Mockito.times(1)).spawnShield(player);
 

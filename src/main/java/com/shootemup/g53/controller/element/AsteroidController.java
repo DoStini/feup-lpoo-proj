@@ -32,7 +32,7 @@ public class AsteroidController extends MovableElementController implements Coll
     }
 
     @Override
-    public void handle() {
+    public void handle(long frame) {
         Position newPosition = move();
         asteroid.setPosition(newPosition);
     }

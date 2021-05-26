@@ -37,8 +37,11 @@ public class ChangingMovement extends IncrementalMovement {
     @Override
     Position moveFrame(Position position, int speed) {
         frame++;
-        if (frame > lastChange + changeRate)
+        if (frame > lastChange + changeRate){
+            lastChange = frame;
             setNewController();
+        }
+
         return currentController.move(position, speed);
     }
 

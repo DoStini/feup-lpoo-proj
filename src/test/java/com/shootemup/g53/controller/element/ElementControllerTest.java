@@ -63,13 +63,13 @@ public class ElementControllerTest {
     @Test
     void AsteroidControllerTest(){
         Mockito.when(asteroid.getPosition()).thenReturn(position);
-
+        long frame = 0;
         AsteroidController asteroidController = new AsteroidController(asteroid,movementStrategy);
         asteroidController.move();
         Mockito.verify(movementStrategy, Mockito.times(1)).move(position,speed);
 
         assertEquals(asteroidController.getAsteroid(), asteroid);
-        asteroidController.handle();
+        asteroidController.handle(frame);
         Mockito.verify(asteroid,Mockito.times(1)).setPosition(position);
     }
 
@@ -79,9 +79,9 @@ public class ElementControllerTest {
         BulletController bulletController = new BulletController(bullet,movementStrategy);
         bulletController.move();
         Mockito.verify(movementStrategy, Mockito.times(1)).move(position,speed);
-
+        long frame = 0;
         assertEquals(bulletController.getBullet(), bullet);
-        bulletController.handle();
+        bulletController.handle(frame);
 
         Mockito.verify(bullet,Mockito.times(1)).setPosition(position);
         assertEquals(bulletController.getBullet(),bullet);
@@ -91,13 +91,13 @@ public class ElementControllerTest {
 
     @Test
     void CoinControllerTest(){
-
+        long frame = 0;
         CoinController coinController = new CoinController(coin,movementStrategy);
         coinController.move();
         Mockito.verify(movementStrategy, Mockito.times(1)).move(position,speed);
 
         assertEquals(coinController.getCoin(), coin);
-        coinController.handle();
+        coinController.handle(frame);
 
         Mockito.verify(coin,Mockito.times(1)).setPosition(position);
 
@@ -111,12 +111,12 @@ public class ElementControllerTest {
         SpaceshipController spaceshipController = new SpaceshipController(spaceship,firingStrategy, movementStrategy,bulletPoolController);
         spaceshipController.move();
         Mockito.verify(movementStrategy, Mockito.times(1)).move(position,speed);
-
+        long frame = 0;
         assertEquals(spaceshipController.getSpaceship(), spaceship);
-        spaceshipController.handle();
+        spaceshipController.handle(frame);
 
         Mockito.verify(spaceship,Mockito.times(1)).setPosition(position);
-        Mockito.verify(firingStrategy,Mockito.times(1)).fire(spaceship, spaceship.getPosition(), bulletPoolController, "#ffff00", ColliderCategory.ENEMY_BULLET);
+        Mockito.verify(firingStrategy,Mockito.times(1)).fire(spaceship, spaceship.getPosition(), bulletPoolController, "#ffff00", ColliderCategory.ENEMY_BULLET,frame);
 
         spaceshipController.handleAsteroid(asteroid);
         Mockito.verify(spaceship,Mockito.times(1)).setHealth(0);
