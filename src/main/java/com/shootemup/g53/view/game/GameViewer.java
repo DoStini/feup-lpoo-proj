@@ -2,9 +2,11 @@ package com.shootemup.g53.view.game;
 
 import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.game.GameModel;
-import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 import com.shootemup.g53.view.Viewer;
+import com.shootemup.g53.view.element.AsteroidView;
+import com.shootemup.g53.view.element.BulletView;
+import com.shootemup.g53.view.element.CoinView;
 import com.shootemup.g53.view.element.*;
 import com.shootemup.g53.view.element.spaceship.EnemyView;
 import com.shootemup.g53.view.element.spaceship.PlayerView;
@@ -16,6 +18,7 @@ public class GameViewer extends Viewer<GameModel> {
     private SpaceshipView enemyView;
     private CoinView coinView;
     private BulletView bulletView;
+    private AsteroidView asteroidView;
     private ShieldView shieldView;
     private StarView starView;
     private EssenceView essenceView;
@@ -27,6 +30,7 @@ public class GameViewer extends Viewer<GameModel> {
         enemyView = new EnemyView(2);
         coinView = new CoinView();
         bulletView = new BulletView();
+        asteroidView = new AsteroidView();
         shieldView = new ShieldView();
         essenceView = new EssenceView();
         starView = new StarView(0.2);
@@ -35,7 +39,6 @@ public class GameViewer extends Viewer<GameModel> {
 
     @Override
     public void draw(GameModel model) {
-        //for now we only have enemies to draw
         gui.clear();
         if(model.getBackground()!= null) backgroundView.draw(gui, model.getBackground());
 
@@ -48,6 +51,9 @@ public class GameViewer extends Viewer<GameModel> {
         }
         for(Bullet bullet: model.getBulletList()){
             bulletView.draw(gui,bullet);
+        }
+        for(Asteroid asteroid: model.getAsteroids()){
+            asteroidView.draw(gui,asteroid);
         }
         for(Shield shield: model.getShieldList()){
             shieldView.draw(gui, shield);

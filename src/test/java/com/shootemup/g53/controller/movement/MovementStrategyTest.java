@@ -66,6 +66,7 @@ class MovementStrategyTest {
         double speed = 3;
         Mockito.when(element.getSpeed()).thenReturn(speed);
 
+
         Position init = element.getPosition();
         MovementStrategy diagonalBounceMovement = new DiagonalBounceMovement(0, 10, Direction.DOWN_RIGHT, element.getPosition());
 
@@ -82,9 +83,11 @@ class MovementStrategyTest {
         element.setPosition(diagonalBounceMovement.move(element.getPosition(), speed));
         Assertions.assertEquals(new Position(1, 19), element.getPosition());
         element.setPosition(diagonalBounceMovement.move(element.getPosition(), speed));
-        Assertions.assertEquals(new Position(2, 22), element.getPosition());
+        Assertions.assertEquals(new Position(4, 22), element.getPosition());
         element.setPosition(diagonalBounceMovement.move(element.getPosition(), speed));
-        Assertions.assertEquals(new Position(5, 25), element.getPosition());
+        Assertions.assertEquals(new Position(7, 25), element.getPosition());
+        element.setPosition(diagonalBounceMovement.move(element.getPosition(), speed));
+        Assertions.assertEquals(new Position(10, 28), element.getPosition());
 
         MovementStrategy clone = diagonalBounceMovement.cloneStrategy();
 

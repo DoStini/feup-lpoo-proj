@@ -7,6 +7,10 @@ import com.shootemup.g53.controller.element.CollisionHandlerController;
 import com.shootemup.g53.controller.element.BackgroundController;
 import com.shootemup.g53.controller.element.ElementInterface;
 import com.shootemup.g53.controller.input.Action;
+import com.shootemup.g53.model.element.Asteroid;
+import com.shootemup.g53.model.element.Bullet;
+import com.shootemup.g53.model.element.Coin;
+import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.controller.player.PowerupController;
 import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.game.GameModel;
@@ -20,6 +24,7 @@ import java.util.*;
 public class GameController extends GenericController {
     private GameModel gameModel;
     private BulletPoolController bulletPoolController;
+
     private CollisionController collisionController;
     private PowerupController powerupController;
     private BackgroundController backgroundController;
@@ -94,14 +99,36 @@ public class GameController extends GenericController {
 
         if(gameModel.getPlayer().getHealth() <= 0) gameModel.setGameFinished(true);
 
+        checkOutsideBounds();
         deactivateDead();
         removeInactiveElements();
     }
+
+
 
     protected void deactivateDead() {
         gameModel.getEnemySpaceships().stream()
                 .filter(enemy -> enemy.getHealth() <= 0)
                 .forEach(Element::deactivate);
+        gameModel.getShieldList().stream()
+                .filter(shield -> shield.getStrength() <= 0)
+                .forEach(Element::deactivate);
+    }
+
+    private void checkOutsideBounds() {
+        for(Bullet bullet: gameModel.getBulletList())
+            if (!insideBounds(bullet.getPosition()))
+                bullet.deactivate();
+        for(Coin coin: gameModel.getCoins())
+            if (!insideBounds(coin.getPosition()))
+                coin.deactivate();
+        for(Asteroid asteroid: gameModel.getAsteroids())
+            if (!insideBounds(asteroid.getPosition()))
+                asteroid.deactivate();
+        for(Spaceship spaceship: gameModel.getEnemySpaceships())
+            if (!insideBounds(spaceship.getPosition()))
+                spaceship.deactivate();
+
     }
 
     public void removeInactiveElements(){
@@ -117,8 +144,8 @@ public class GameController extends GenericController {
         if(pos == null){
             return false;
         }
-        return pos.getX()> 0 && pos.getX() < gameModel.getWidth() &&
-                pos.getY() > 0 && pos.getY() < gameModel.getHeight();
+        return pos.getX() > 0 && pos.getX() < gameModel.getWidth() &&
+                pos.getY() < gameModel.getHeight() + 10;
     }
 
    public void handleCollision() {

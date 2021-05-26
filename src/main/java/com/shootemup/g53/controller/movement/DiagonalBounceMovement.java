@@ -33,6 +33,7 @@ public class DiagonalBounceMovement extends IncrementalMovement {
         else this.direction = Direction.DOWN_LEFT;
     }
 
+
     @Override
     public MovementStrategy cloneStrategy() {
         return new DiagonalBounceMovement(xLeftLimit, xRightLimit, direction, new Position(initalPosition.getX(), initalPosition.getY()));
@@ -50,9 +51,7 @@ public class DiagonalBounceMovement extends IncrementalMovement {
         int x = newPosition.getX();
 
         if(x < initalPosition.getX() - xLeftLimit) {
-            int diff = xLeftLimit - x;
-            newPosition = newPosition.getRight(2*diff);
-
+            newPosition = position.getRight(speed);
             this.direction = Direction.DOWN_RIGHT;
         }
 
@@ -65,10 +64,8 @@ public class DiagonalBounceMovement extends IncrementalMovement {
         int x = newPosition.getX();
 
         if(x > initalPosition.getX() + xRightLimit) {
-            int diff = x- xRightLimit;
-            newPosition = newPosition.getLeft(diff + diff);
-
-            this.direction = Direction.DOWN_LEFT;
+            newPosition = position.getLeft(speed);
+              this.direction = Direction.DOWN_LEFT;
         }
 
         return newPosition;

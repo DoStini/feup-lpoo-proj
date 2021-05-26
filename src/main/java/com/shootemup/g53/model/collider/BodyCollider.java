@@ -57,6 +57,22 @@ public abstract class BodyCollider {
     abstract protected boolean collidesLine(LineCollider other);
     abstract protected boolean collidesLineComposite(LineCompositeCollider other);
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof BodyCollider)) {
+            return false;
+        }
+
+        BodyCollider other = (BodyCollider) o;
+
+        // Compare the data members and return accordingly
+        return this.element.equals(other.element)
+                && category.equals(other.category) && categoryMask == other.categoryMask;
+    }
+
     public ColliderCategory getCategory() {
         return category;
     }

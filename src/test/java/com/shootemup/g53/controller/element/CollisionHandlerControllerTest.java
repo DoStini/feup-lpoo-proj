@@ -123,14 +123,13 @@ class CollisionHandlerControllerTest {
 
         spaceshipController.handleAsteroid(Mockito.mock(Asteroid.class));
 
-        Assertions.assertEquals(0, spaceship.getHealth());
+        Assertions.assertEquals(7, spaceship.getHealth());
 
         spaceship.setHealth(5);
         Assertions.assertEquals(5, spaceship.getHealth());
 
         spaceshipController.handleShield(Mockito.mock(Shield.class));
         Assertions.assertEquals(0, spaceship.getHealth());
-
     }
 
     @Test

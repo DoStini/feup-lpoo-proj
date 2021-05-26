@@ -136,6 +136,18 @@ public class GameModel extends Model {
         this.asteroids = asteroids;
     }
 
+    public void addCoin(Coin coin) {
+        coins.add(coin);
+    }
+
+    public void addEnemy(Spaceship spaceship) {
+        enemySpaceships.add(spaceship);
+    }
+
+    public void addAsteroid(Asteroid asteroid) {
+        asteroids.add(asteroid);
+    }
+
     public List<Shield> getShieldList() {
         return shields;
     }

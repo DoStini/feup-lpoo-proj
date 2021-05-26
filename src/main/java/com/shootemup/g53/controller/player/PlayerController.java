@@ -10,6 +10,7 @@ import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.*;
 
+import com.shootemup.g53.model.util.ColorOperation;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 
@@ -58,7 +59,10 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     public void fire(Gui gui, BulletPoolController bulletPoolController, long frame) {
         if (gui.isActionActive(Action.SPACE)) {
-            firingStrategy.fire(player, player.getPosition().getUp(player.getHeight()), bulletPoolController, "#ff0000", ColliderCategory.PLAYER_BULLET,frame);
+            firingStrategy.fire(player, player.getPosition().getUp(player.getHeight()), bulletPoolController,
+                    ColorOperation.invertColor(player.getColor()),
+                    ColliderCategory.PLAYER_BULLET, frame);
+
         }
     }
 

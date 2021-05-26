@@ -7,6 +7,7 @@ import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Player;
 import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.model.util.ColorOperation;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +22,7 @@ class PlayerControllerTest {
 
     private Player player;
     private Position position;
+    private String color = "#aaaaaa";
     private MovingBulletStrategy firingController;
     private BulletPoolController bulletPoolController;
     MovementStrategy strategy;
@@ -42,9 +44,10 @@ class PlayerControllerTest {
         powerupController = Mockito.mock(PowerupController.class);
 
         firingController = Mockito.mock(MovingBulletStrategy.class);
+
         Mockito.when(player.getSpeed()).thenReturn(speed);
         Mockito.when(player.getPosition()).thenReturn(position);
-
+        Mockito.when(player.getColor()).thenReturn(color);
 
         Mockito.when(position.getUp(Mockito.anyInt())).thenReturn(position);
         Mockito.when(position.getDown(Mockito.anyInt())).thenReturn(position);
@@ -133,10 +136,10 @@ class PlayerControllerTest {
         for (int i = 0; i < fireRate; i++) {
             frame++;
             controller.fire(gui, bulletPoolController,frame);
+            Mockito.verify(firingController, Mockito.times(1))
+                    .fire(player, player.getPosition(), bulletPoolController, ColorOperation.invertColor(color),
+                            ColliderCategory.PLAYER_BULLET, frame);
         }
-
-        Mockito.verify(firingController, Mockito.times(1))
-                .fire(player, player.getPosition(), bulletPoolController, "#ff0000",  ColliderCategory.PLAYER_BULLET,frame);
 
     }
 
@@ -151,7 +154,6 @@ class PlayerControllerTest {
         controller.handle(frame);
 
         Mockito.verify(powerupController, Mockito.times(1)).spawnShield(player);
-
 
     }
 

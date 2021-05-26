@@ -15,6 +15,10 @@ public class Spaceship extends MovableElement {
         this.bulletDamage = bulletDamage;
     }
 
+    public Spaceship() {
+        this(new Position(0,0), 0, 0, "",0, 0);
+    }
+
     @Override
     public PoolableObject clone() {
         return new Spaceship(getPosition(), height,health,getColor(),getSpeed(), getBulletDamage());
@@ -41,4 +45,19 @@ public class Spaceship extends MovableElement {
 
         if(this.health < 0) this.health = 0;
     }
+
+    public void setBulletDamage(int bulletDamage) {
+        this.bulletDamage = bulletDamage;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Spaceship)) return false;
+        Spaceship other = (Spaceship) o;
+        return super.equals(o)
+                && other.height == this.height
+                && other.getSpeed() == this.getSpeed();
+    }
+
 }
