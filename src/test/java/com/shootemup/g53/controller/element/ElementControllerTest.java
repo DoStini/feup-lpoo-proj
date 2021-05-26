@@ -11,6 +11,7 @@ import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.ColorOperation;
+import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,14 +23,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ElementControllerTest {
     private Asteroid asteroid;
     private Spaceship spaceship;
+    private Player player;
     private Bullet bullet;
     private Coin coin;
     private String color = "#aaaaaa";
+    private Essence essence;
     private MovementStrategy movementStrategy;
     private BulletPoolController bulletPoolController;
     private FiringStrategy firingStrategy;
     private Position position;
-    private int speed = 5;
+    private double speed = 5;
 
     Gui gui;
 
@@ -38,8 +41,10 @@ public class ElementControllerTest {
         asteroid = Mockito.mock(Asteroid.class);
         bullet = Mockito.mock(Bullet.class);
         spaceship = Mockito.mock(Spaceship.class);
+        player = Mockito.mock(Player.class);
         position = Mockito.mock(Position.class);
         coin = Mockito.mock(Coin.class);
+        essence = Mockito.mock(Essence.class);
         bulletPoolController = Mockito.mock(BulletPoolController.class);
         firingStrategy = Mockito.mock(MovingBulletStrategy.class);
         Mockito.when(coin.getPosition()).thenReturn(position);
@@ -49,6 +54,9 @@ public class ElementControllerTest {
         Mockito.when(spaceship.getSpeed()).thenReturn(speed);
         Mockito.when(spaceship.getHealth()).thenReturn(3);
         Mockito.when(spaceship.getColor()).thenReturn(color);
+        Mockito.when(player.getPosition()).thenReturn(position);
+        Mockito.when(player.getSpeed()).thenReturn(speed);
+        Mockito.when(player.getHealth()).thenReturn(3);
         Mockito.when(bullet.getPosition()).thenReturn(position);
         Mockito.when(bullet.getSpeed()).thenReturn(speed);
         Mockito.when(asteroid.getSpeed()).thenReturn(speed);
@@ -89,6 +97,7 @@ public class ElementControllerTest {
         bulletController.handleSpaceship(spaceship);
         Mockito.verify(bullet,Mockito.times(1)).deactivate();
     }
+
     @Test
     void CoinControllerTest(){
 
@@ -101,7 +110,7 @@ public class ElementControllerTest {
 
         Mockito.verify(coin,Mockito.times(1)).setPosition(position);
 
-        coinController.handleSpaceship(spaceship);
+        coinController.handlePlayer(player);
         Mockito.verify(coin,Mockito.times(1)).deactivate();
     }
 
@@ -126,8 +135,4 @@ public class ElementControllerTest {
         Mockito.verify(movementStrategy,Mockito.times(1)).handleFailedMovement();
 
     }
-
-
-
-
 }

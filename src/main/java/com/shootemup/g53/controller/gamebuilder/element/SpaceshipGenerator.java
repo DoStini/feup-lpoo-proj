@@ -26,22 +26,34 @@ public class SpaceshipGenerator extends MovableElementGenerator {
     private final int maxSize;
     private final int minSize;
     private final FiringStrategyFactory firingStrategyFactory;
+    private final int maxDamage;
+    private int minHealth = 5;
+    private int maxHealth = 10;
+
+    public void setMinHealth(int minHealth) {
+        this.minHealth = minHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
 
     public SpaceshipGenerator(GameController gameController, MovementStrategyFactory movementStrategyFactory,
                               FiringStrategyFactory firingStrategyFactory,
                               int xMinPos, int xMaxPos, int minSpeed, int maxSpeed,
-                              int minSize, int maxSize, int maxFireRate) {
+                              int minSize, int maxSize, int maxFireRate, int maxDamage) {
         this(new Random(), gameController, movementStrategyFactory, firingStrategyFactory, xMinPos, xMaxPos,
-                minSpeed, maxSpeed, minSize, maxSize, maxFireRate);
+                minSpeed, maxSpeed, minSize, maxSize, maxFireRate, maxDamage);
     }
 
     SpaceshipGenerator(Random rand, GameController gameController, MovementStrategyFactory movementStrategyFactory,
                        FiringStrategyFactory firingStrategyFactory,
-                       int xMinPos, int xMaxPos, int minSpeed, int maxSpeed, int minSize, int maxSize, int maxFireRate) {
+                       int xMinPos, int xMaxPos, int minSpeed, int maxSpeed, int minSize, int maxSize, int maxFireRate, int maxDamage) {
         super(rand, gameController, movementStrategyFactory, xMinPos, xMaxPos, minSpeed, maxSpeed);
         this.maxFireRate = maxFireRate;
         this.minSize = minSize;
         this.maxSize = maxSize;
+        this.maxDamage = maxDamage;
         this.firingStrategyFactory = firingStrategyFactory;
     }
 
@@ -74,8 +86,16 @@ public class SpaceshipGenerator extends MovableElementGenerator {
         gameController.addToCollisionMap(spaceship, spaceshipController);
     }
 
+    private void setDamage(Spaceship spaceship) {
+        spaceship.setBulletDamage(rand.nextInt(maxDamage - 1) + 1);
+    }
+
     protected void setSize(Spaceship spaceship) {
         spaceship.setHeight(rand.nextInt(maxSize-minSize)+minSize);
+    }
+
+    private void setHealth(Spaceship spaceship) {
+        spaceship.setHealth(rand.nextInt(maxHealth-minHealth)+minHealth);
     }
 
     @Override
@@ -85,6 +105,8 @@ public class SpaceshipGenerator extends MovableElementGenerator {
         setColor(spaceship);
         setSpeed(spaceship);
         setSize(spaceship);
+        setDamage(spaceship);
+        setHealth(spaceship);
         setController(spaceship);
         setCollider(spaceship);
         gameModel.addEnemy(spaceship);

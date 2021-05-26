@@ -11,7 +11,7 @@ public class MovingBulletStrategy extends FiringStrategy {
     private MovementStrategy movementStrategy;
 
 
-    public MovingBulletStrategy(MovementStrategy movementStrategy, int speed, int fireRate) {
+    public MovingBulletStrategy(MovementStrategy movementStrategy, double speed, int fireRate) {
         super();
         this.movementStrategy = movementStrategy;
         this.bulletSpeed = speed;
@@ -22,7 +22,7 @@ public class MovingBulletStrategy extends FiringStrategy {
     @Override
     public void createBullets(Spaceship spaceship, Position position, BulletPoolController bulletPoolController, String color, ColliderCategory category) {
         bulletPoolController.addBullet(position.getX(), position.getY(),
-                    color, 3, bulletSpeed, this.movementStrategy, category);
+                    color, 3, bulletSpeed, spaceship.getBulletDamage(), this.movementStrategy, category);
 
     }
 }

@@ -87,7 +87,7 @@ public class FiringStrategyFactory {
         return random.nextInt(maxFireRate - minFireRate) + minFireRate;
     }
 
-    private int genSpeed(Spaceship element) {
+    private double genSpeed(Spaceship element) {
         return random.nextInt(bulletSpeedDiff) + element.getSpeed() + 2;
     }
 

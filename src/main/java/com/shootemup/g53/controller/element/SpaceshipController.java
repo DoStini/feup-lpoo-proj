@@ -10,6 +10,7 @@ import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.ColorOperation;
+import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.util.Position;
 
 
@@ -48,20 +49,12 @@ public class SpaceshipController extends MovableElementController implements Col
 
     @Override
     public void handleBullet(Bullet bullet) {
-        spaceship.setHealth(spaceship.getHealth() - 1);
+        spaceship.setHealth(spaceship.getHealth() - bullet.getDamage());
     }
 
     @Override
-    public void handleSpaceship(Spaceship spaceship) {
-    }
-
-    @Override
-    public void handleAsteroid(Asteroid asteroid) {
-
-    }
-
-    @Override
-    public void handleCoin(Coin coin) {
+    public void handleShield(Shield shield) {
+        spaceship.setHealth(0);
     }
 
     @Override

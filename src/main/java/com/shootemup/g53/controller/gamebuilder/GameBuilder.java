@@ -8,10 +8,12 @@ import com.shootemup.g53.controller.gamebuilder.element.CoinGenerator;
 import com.shootemup.g53.controller.gamebuilder.element.ElementGenerator;
 import com.shootemup.g53.controller.movement.*;
 import com.shootemup.g53.controller.player.PlayerController;
+import com.shootemup.g53.controller.player.PowerupController;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.collider.LineCompositeFactory;
 import com.shootemup.g53.model.element.Background;
+import com.shootemup.g53.model.element.Player;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
@@ -47,7 +49,8 @@ public class GameBuilder {
     }
 
     private void setupPlayer() {
-        Spaceship spaceship = new Spaceship(new Position(20, 35), 3, 20, "#aae253", 2);
+        Player spaceship = new Player(new Position(20, 35), 3, 20, "#aae253",
+                4, 10);
         gameModel.setPlayer(spaceship);
 
         List<BodyCollider> colliders = new ArrayList<>();
@@ -63,7 +66,10 @@ public class GameBuilder {
         colliders.add(playerCollider);
         gameModel.setColliders(colliders);
 
+        PowerupController powerupController = new PowerupController(gameController);
+
         PlayerController playerController = new PlayerController(spaceship, gui, gameController.getBulletPoolController(),
+                powerupController,
                 new MovingBulletStrategy(new MoveUpwardsMovement(), 3, 5));
         gameController.addToControllerMap(spaceship, playerController);
         gameController.addToCollisionMap(spaceship, playerController);
@@ -89,6 +95,8 @@ public class GameBuilder {
         gameModel.setBulletList(new ArrayList<>());
         gameModel.setEnemySpaceships(new ArrayList<>());
         gameModel.setAsteroids(new ArrayList<>());
+        gameModel.setShields(new ArrayList<>());
+        gameModel.setEssences(new ArrayList<>());
     }
 
     private void setupElementGenerators() {

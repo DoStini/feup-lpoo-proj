@@ -1,6 +1,5 @@
 package com.shootemup.g53.model.element;
 
-import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.model.util.objectpool.PoolableObject;
 

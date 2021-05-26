@@ -72,4 +72,12 @@ public abstract class BodyCollider {
         return this.element.equals(other.element)
                 && category.equals(other.category) && categoryMask == other.categoryMask;
     }
+
+    public ColliderCategory getCategory() {
+        return category;
+    }
+
+    public short getCategoryMask() {
+        return categoryMask;
+    }
 }

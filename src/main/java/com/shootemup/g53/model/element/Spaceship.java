@@ -1,28 +1,27 @@
 package com.shootemup.g53.model.element;
 
-import com.shootemup.g53.controller.firing.FiringStrategy;
-import com.shootemup.g53.controller.game.BulletPoolController;
-import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.model.util.objectpool.PoolableObject;
 
 public class Spaceship extends MovableElement {
     private int height;
     private int health;
-    public Spaceship(Position position, int height,int health, String color, int speed) {
+    private int bulletDamage;
+
+    public Spaceship(Position position, int height,int health, String color, double speed, int bulletDamage) {
         super(position, color, speed);
         this.height = height;
         this.health = health;
-
+        this.bulletDamage = bulletDamage;
     }
 
     public Spaceship() {
-        this(new Position(0,0), 0, 0, "", 0);
+        this(new Position(0,0), 0, 0, "",0, 0);
     }
 
     @Override
     public PoolableObject clone() {
-        return new Spaceship(getPosition(), height,health,getColor(),getSpeed());
+        return new Spaceship(getPosition(), height,health,getColor(),getSpeed(), getBulletDamage());
     }
 
     public int getHeight() {
@@ -33,6 +32,9 @@ public class Spaceship extends MovableElement {
         this.height = height;
     }
 
+    public int getBulletDamage() {
+        return bulletDamage;
+    }
 
     public int getHealth() {
         return health;
@@ -42,6 +44,10 @@ public class Spaceship extends MovableElement {
         this.health = health;
 
         if(this.health < 0) this.health = 0;
+    }
+
+    public void setBulletDamage(int bulletDamage) {
+        this.bulletDamage = bulletDamage;
     }
 
     @Override

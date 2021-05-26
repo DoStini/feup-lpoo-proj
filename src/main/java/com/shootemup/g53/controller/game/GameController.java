@@ -11,6 +11,7 @@ import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.element.Coin;
 import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.controller.player.PowerupController;
 import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
@@ -25,6 +26,7 @@ public class GameController extends GenericController {
     private BulletPoolController bulletPoolController;
 
     private CollisionController collisionController;
+    private PowerupController powerupController;
     private BackgroundController backgroundController;
     private List<ElementInterface> controllerCopy;
     private HashMap<Element, ElementInterface> controllerHashMap = new HashMap<>();
@@ -46,7 +48,6 @@ public class GameController extends GenericController {
         this.bulletPoolController = bulletPoolController;
         this.collisionController = new CollisionController(this);
         this.controllerCopy = new ArrayList<>();
-
     }
 
     public boolean isGameFinished(){
@@ -96,9 +97,19 @@ public class GameController extends GenericController {
 
         handleCollision();
 
-        checkOutsideBounds();
+        if(gameModel.getPlayer().getHealth() <= 0) gameModel.setGameFinished(true);
 
+        checkOutsideBounds();
+        deactivateDead();
         removeInactiveElements();
+    }
+
+
+
+    protected void deactivateDead() {
+        gameModel.getEnemySpaceships().stream()
+                .filter(enemy -> enemy.getHealth() <= 0)
+                .forEach(Element::deactivate);
     }
 
     private void checkOutsideBounds() {
@@ -114,6 +125,7 @@ public class GameController extends GenericController {
         for(Spaceship spaceship: gameModel.getEnemySpaceships())
             if (!insideBounds(spaceship.getPosition()))
                 spaceship.deactivate();
+
     }
 
     public void removeInactiveElements(){
@@ -160,5 +172,9 @@ public class GameController extends GenericController {
 
     public GameModel getGameModel() {
         return gameModel;
+    }
+
+    public PowerupController getPowerupController() {
+        return powerupController;
     }
 }

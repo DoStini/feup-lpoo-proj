@@ -38,7 +38,8 @@ class SpaceshipGeneratorTest {
             maxSpeed = 10,
             minSize = 2,
             maxSize = 4,
-            maxFireRate = 5;
+            maxFireRate = 5,
+            maxDamage = 5;
 
     @BeforeEach
     void setup() {
@@ -53,7 +54,7 @@ class SpaceshipGeneratorTest {
 
         spaceshipGenerator = new SpaceshipGenerator(random, gameController,
             movementStrategyFactory, firingStrategyFactory,
-            xMinPos, xMaxPos, minSpeed, maxSpeed, minSize, maxSize, maxFireRate);
+            xMinPos, xMaxPos, minSpeed, maxSpeed, minSize, maxSize, maxFireRate, maxDamage);
     }
 
     @Test
@@ -120,7 +121,7 @@ class SpaceshipGeneratorTest {
 
         Mockito.verify(gameModel, Mockito.times(1)).addEnemy(
                 new Spaceship(new Position(randomVal, 0),
-                        randomVal+minSize, 100, color, randomVal+minSpeed));
+                        randomVal+minSize, randomVal+5, color, randomVal+minSpeed, randomVal+1));
         Mockito.verify(gameController, Mockito.times(1))
                 .addToControllerMap(Mockito.any(Spaceship.class), Mockito.any(SpaceshipController.class));
         Mockito.verify(gameController, Mockito.times(1))

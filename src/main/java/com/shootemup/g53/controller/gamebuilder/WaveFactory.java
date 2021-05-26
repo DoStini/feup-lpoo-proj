@@ -68,7 +68,7 @@ public class WaveFactory {
         Wave result;
         ElementGenerator generator;
         generator = new SpaceshipGenerator(gameController, movementStrategyFactory, normalFiringStrategyFactory, 0, gameWidth, 1,
-                3, 2, 5, 10);
+                3, 2, 5, 10, 3);
 
         float skip = Math.max(1, baseSkip*(1-timeFactor*(wave-1)));
 
@@ -81,7 +81,7 @@ public class WaveFactory {
         Wave result;
         ElementGenerator generator;
         generator = new SpaceshipGenerator(gameController, movementStrategyFactory, bossFiringStrategy, 0, gameWidth, 1,
-                2, 15, 25, 5);
+                2, 15, 25, 5, 5);
         result = new Wave(gameController, 1, generator,
                 wave/bossWaveFactor);
         return result;

@@ -38,7 +38,7 @@ class BulletPoolControllerTest {
         Bullet bullet = Mockito.mock(Bullet.class);
         Mockito.when(objectPool.retrieve()).thenReturn(bullet);
 
-        bulletPoolController.addBullet(5,5,"color", 5,0,null);
+        bulletPoolController.addBullet(5,5,"color", 5,0,3,null);
 
         Mockito.verify(gameModel, Mockito.times(1)).addBullet(bullet);
         Mockito.verify(bullet, Mockito.times(1)).init(5,5,"color", 5,0);
@@ -53,7 +53,7 @@ class BulletPoolControllerTest {
         Bullet bullet = Mockito.mock(Bullet.class);
         Mockito.when(objectPool.retrieve()).thenReturn(null);
 
-        bulletPoolController.addBullet(5,5,"", 5,0, null);
+        bulletPoolController.addBullet(5,5,"", 5,0,3, null);
 
         Mockito.verify(bullet, Mockito.times(0))
                 .init(Mockito.anyInt(),Mockito.anyInt(),Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt());
@@ -75,9 +75,9 @@ class BulletPoolControllerTest {
 
     void removeBullets() {
         List<Bullet> list = new ArrayList<>();
-        list.add(new Bullet(new Position(0,0), "", 0,0));
-        list.add(new Bullet(new Position(0,0), "", 0,0));
-        list.add(new Bullet(new Position(0,0), "", 0,0));
+        list.add(new Bullet(new Position(0,0), "", 0,0, 3));
+        list.add(new Bullet(new Position(0,0), "", 0,0, 3));
+        list.add(new Bullet(new Position(0,0), "", 0,0, 3));
         Mockito.when(gameModel.getBulletList()).thenReturn(list);
 
         Assertions.assertTrue(list.get(0).isActive());
