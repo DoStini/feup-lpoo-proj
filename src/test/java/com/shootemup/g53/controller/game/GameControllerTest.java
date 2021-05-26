@@ -104,8 +104,8 @@ public class GameControllerTest {
     @Test
     void checkInsideBoounds() {
         GameController gameController = new GameController(gameModel, null);
-        assertEquals(gameController.insideBounds(position), true);
-        assertEquals(gameController.insideBounds(position2), false);
+        assertEquals(gameController.insideBounds(position, 0, 0), true);
+        assertEquals(gameController.insideBounds(position2, 0, 0), false);
         Mockito.verify(gameModel, Mockito.times(2))
                 .getWidth();
         Mockito.verify(gameModel, Mockito.times(1))

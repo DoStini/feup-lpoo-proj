@@ -82,7 +82,7 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     }
 
     public Position move(Gui gui) {
-        Position newPosition = player.getPosition();
+        Position newPosition = new Position(player.getPosition().getX(),player.getPosition().getY());
 
         if (gui.isActionActive(Action.W)) {
             newPosition = upStrategy.move(newPosition, player.getSpeed());
@@ -96,7 +96,19 @@ public class PlayerController implements CollisionHandlerController, ElementInte
         if (gui.isActionActive(Action.D)) {
             newPosition = rightStrategy.move(newPosition, player.getSpeed());
         }
-        return newPosition;
+
+        if (insideBounds(newPosition))
+            return newPosition;
+
+        return player.getPosition();
+    }
+
+    public boolean insideBounds(Position pos) {
+        if(pos == null){
+            return false;
+        }
+        return pos.getX() > 0 && pos.getX() < gui.getWidth() - 10  &&
+                pos.getY() < gui.getHeight() && pos.getY() >= 0;
     }
 
     @Override
