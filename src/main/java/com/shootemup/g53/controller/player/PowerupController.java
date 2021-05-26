@@ -19,6 +19,7 @@ public class PowerupController {
     private EssenceController essenceController = new EssenceController();
     private int shieldEssenceCost = 5;
     private int healthCost = 3;
+
     public PowerupController(GameController gameController) {
         this.gameController = gameController;
         this.gameModel = gameController.getGameModel();
@@ -37,7 +38,7 @@ public class PowerupController {
     }
 
     private void generateShield(Player player) {
-        Shield shield = new Shield(player.getPosition().getUp(2), player.getColor(), 5, 5);
+        Shield shield = new Shield(player.getPosition().getUp(2), player.getColor(), 5, 10);
         ShieldController shieldController = new ShieldController(shield);
         BodyCollider collider = new LineCompositeFactory()
                 .createFromSquare(shield, new Position(-shield.getWidth()/2, 0), shield.getWidth(), 2);

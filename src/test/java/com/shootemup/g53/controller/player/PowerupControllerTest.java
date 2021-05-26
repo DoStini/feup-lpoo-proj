@@ -64,7 +64,7 @@ class PowerupControllerTest {
         Shield shield = new Shield(player.getPosition().getUp(2), player.getColor(), 5, 5);
 
         BodyCollider bodyCollider = gameModel.getColliders().get(0);
-        Assertions.assertEquals(5, bodyCollider.getBoundingBox().getWidth());
+        Assertions.assertEquals(10, bodyCollider.getBoundingBox().getWidth());
         Assertions.assertEquals(2, bodyCollider.getBoundingBox().getHeight());
         Assertions.assertEquals(new Position(-shield.getWidth()/2, 0),
                 bodyCollider.getBoundingBox().getTopLeft());

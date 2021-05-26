@@ -38,6 +38,7 @@ class PlayerControllerTest {
         player = Mockito.mock(Player.class);
         bulletPoolController = Mockito.mock(BulletPoolController.class);
         strategy = Mockito.mock(MovementStrategy.class);
+        gui = Mockito.mock(Gui.class);
 
         Mockito.when(strategy.move(Mockito.any(), Mockito.anyDouble())).thenReturn(position);
 
