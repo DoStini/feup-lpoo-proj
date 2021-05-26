@@ -170,6 +170,8 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     private void usePowerups(Gui gui) {
         if (gui.isActionActive(Action.POWER_1))
             powerupController.spawnShield(player);
+        if (gui.isActionActive(Action.POWER_2))
+            powerupController.healthBoost(player);
     }
 
     public LifeController getLifeController() {
