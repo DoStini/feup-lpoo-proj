@@ -62,6 +62,7 @@ public class PlayState extends State<GameModel> {
 
             }
         };
+
         second_counter.start();
 
         try{
