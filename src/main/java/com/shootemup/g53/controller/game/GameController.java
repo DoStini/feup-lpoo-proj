@@ -139,16 +139,16 @@ public class GameController extends GenericController {
 
     private void checkOutsideBounds() {
         for(Bullet bullet: gameModel.getBulletList())
-            if (!insideBounds(bullet.getPosition()))
+            if (!insideBounds(bullet.getPosition(), 1, bullet.getSize()))
                 bullet.deactivate();
         for(Coin coin: gameModel.getCoins())
-            if (!insideBounds(coin.getPosition()))
+            if (!insideBounds(coin.getPosition(), coin.getRadius()*2, coin.getRadius()*2))
                 coin.deactivate();
         for(Asteroid asteroid: gameModel.getAsteroids())
-            if (!insideBounds(asteroid.getPosition()))
+            if (!insideBounds(asteroid.getPosition(), asteroid.getRadius()*2, asteroid.getRadius()*2))
                 asteroid.deactivate();
         for(Spaceship spaceship: gameModel.getEnemySpaceships())
-            if (!insideBounds(spaceship.getPosition()))
+            if (!insideBounds(spaceship.getPosition(), spaceship.getHeight()*2, spaceship.getHeight()*2))
                 spaceship.deactivate();
     }
 
@@ -161,12 +161,12 @@ public class GameController extends GenericController {
         gameModel.removeInactive();
     }
 
-    public boolean insideBounds(Position pos) {
+    public boolean insideBounds(Position pos, int width, int height) {
         if(pos == null){
             return false;
         }
-        return pos.getX() > 0 && pos.getX() < gameModel.getWidth() &&
-                pos.getY() < gameModel.getHeight() + 10;
+        return pos.getX() + width > 0 && pos.getX() < gameModel.getWidth() + width &&
+                pos.getY() < gameModel.getHeight() + height && pos.getY() + height >= 0;
     }
 
    public void handleCollision() {
@@ -211,6 +211,4 @@ public class GameController extends GenericController {
     public ScoreController getScoreController() {
         return scoreController;
     }
-
-
 }

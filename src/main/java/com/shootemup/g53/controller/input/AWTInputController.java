@@ -48,6 +48,8 @@ public class AWTInputController extends InputController<KeyEvent> {
                 return Action.ESC;
             case 'e':
                 return Action.POWER_1;
+            case 'r':
+                return Action.POWER_2;
             case 'w':
                 return Action.W;
             case 'a':

@@ -4,6 +4,7 @@ import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.model.util.objectpool.PoolableObject;
 
 public class Player extends Spaceship{
+    private final int maxHealth;
     private int coins;
     private int essence;
 
@@ -12,6 +13,7 @@ public class Player extends Spaceship{
         super(position, height, health, color, speed,bulletDamage);
         this.coins = 0;
         this.essence = 0;
+        this.maxHealth = health;
     }
 
     public int getEssence() {
@@ -47,4 +49,7 @@ public class Player extends Spaceship{
     }
 
 
+    public int getMaxHealth() {
+        return maxHealth;
+    }
 }

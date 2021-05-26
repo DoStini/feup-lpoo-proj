@@ -69,7 +69,7 @@ public class WaveFactory {
 
     private Wave getNormalWave(GameController gameController, int gameWidth) {
         Wave result;
-        ElementGenerator generator;
+        SpaceshipGenerator generator;
         generator = new SpaceshipGenerator(gameController, movementStrategyFactory, normalFiringStrategyFactory,
                 5, gameWidth-5, 0.2,
                 3, 2, 5, 10, 3);
@@ -83,10 +83,13 @@ public class WaveFactory {
 
     private Wave getBossWave(GameController gameController, int gameWidth) {
         Wave result;
-        ElementGenerator generator;
+        SpaceshipGenerator generator;
         generator = new SpaceshipGenerator(gameController, movementStrategyFactory, bossFiringStrategy, 5,
-                gameWidth-5, 0.1,
-                0.5, 15, 25, 5, 5);
+                gameWidth-5, 0.05,
+                0.1, 15, 25, 5, 5);
+        generator.setMinHealth(100);
+        generator.setMaxHealth(120);
+
         result = new Wave(gameController, 1, generator,
                 wave/bossWaveFactor);
         return result;

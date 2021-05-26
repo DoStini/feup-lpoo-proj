@@ -82,21 +82,56 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     }
 
     public Position move(Gui gui) {
-        Position newPosition = player.getPosition();
+        Position newPosition = new Position(player.getPosition().getX(),player.getPosition().getY());
+        Position oldPosition = newPosition;
 
         if (gui.isActionActive(Action.W)) {
             newPosition = upStrategy.move(newPosition, player.getSpeed());
+
+            if(!insideBounds(newPosition)) {
+                newPosition = oldPosition;
+            } else {
+                oldPosition = newPosition;
+            }
         }
         if (gui.isActionActive(Action.A)) {
             newPosition = leftStrategy.move(newPosition, player.getSpeed());
+
+            if(!insideBounds(newPosition)) {
+                newPosition = oldPosition;
+            } else {
+                oldPosition = newPosition;
+            }
         }
         if (gui.isActionActive(Action.S)) {
             newPosition = downStrategy.move(newPosition, player.getSpeed());
+
+            if(!insideBounds(newPosition)) {
+                newPosition = oldPosition;
+            } else {
+                oldPosition = newPosition;
+            }
         }
         if (gui.isActionActive(Action.D)) {
             newPosition = rightStrategy.move(newPosition, player.getSpeed());
+
+            if(!insideBounds(newPosition)) {
+                newPosition = oldPosition;
+            }
         }
-        return newPosition;
+
+        if (insideBounds(newPosition))
+            return newPosition;
+
+        return player.getPosition();
+    }
+
+    public boolean insideBounds(Position pos) {
+        if(pos == null){
+            return false;
+        }
+        return pos.getX() > 0 && pos.getX() < gui.getWidth() - 10  &&
+                pos.getY() < gui.getHeight() && pos.getY() >= 0;
     }
 
     @Override
@@ -158,6 +193,8 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     private void usePowerups(Gui gui) {
         if (gui.isActionActive(Action.POWER_1))
             powerupController.spawnShield(player);
+        if (gui.isActionActive(Action.POWER_2))
+            powerupController.healthBoost(player);
     }
 
     public LifeController getLifeController() {

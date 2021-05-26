@@ -3,6 +3,7 @@ package com.shootemup.g53.controller.player;
 import com.shootemup.g53.controller.element.ShieldController;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.observer.EssenceController;
+import com.shootemup.g53.controller.observer.LifeController;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.collider.LineCompositeCollider;
@@ -18,7 +19,10 @@ public class PowerupController {
     private Player player;
     private EssenceController essenceController = new EssenceController();
     private int shieldEssenceCost = 5;
-    private int healthCost = 3;
+    private int healthCost = 8;
+    private int healthBoost = 10;
+    private LifeController lifeController = new LifeController();
+
     public PowerupController(GameController gameController) {
         this.gameController = gameController;
         this.gameModel = gameController.getGameModel();
@@ -36,8 +40,20 @@ public class PowerupController {
         return true;
     }
 
+    public boolean healthBoost(Player player) {
+        if (player.getEssence() < healthCost)
+            return false;
+
+        int health = player.getHealth();
+
+        player.setHealth(Math.min(health + healthBoost, player.getMaxHealth()));
+        lifeController.setLifeToRemove(-(player.getHealth() - health));
+        lifeController.notifyObservers();
+        return true;
+    }
+
     private void generateShield(Player player) {
-        Shield shield = new Shield(player.getPosition().getUp(2), player.getColor(), 5, 5);
+        Shield shield = new Shield(player.getPosition().getUp(2), player.getColor(), 5, 10);
         ShieldController shieldController = new ShieldController(shield);
         BodyCollider collider = new LineCompositeFactory()
                 .createFromSquare(shield, new Position(-shield.getWidth()/2, 0), shield.getWidth(), 2);
@@ -55,6 +71,10 @@ public class PowerupController {
 
     public int getHealthCost() {
         return healthCost;
+    }
+
+    public LifeController getLifeController() {
+        return lifeController;
     }
 
     public EssenceController getEssenceController() {
