@@ -1,14 +1,9 @@
 package com.shootemup.g53.controller;
 
-import com.shootemup.g53.controller.game.GameController;
-import com.shootemup.g53.controller.state.PlayState;
+import com.shootemup.g53.controller.state.MenuState;
 import com.shootemup.g53.controller.state.State;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.ui.Gui;
-
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 public class Game {
     private State state;
@@ -17,7 +12,7 @@ public class Game {
 
     public Game(Gui gui, GameModel gameModel){
         this.gui = gui;
-        this.state = new PlayState(this,gameModel,gui);
+        this.state = new MenuState(this,gui);
     }
 
     public void changeState(State state){
@@ -33,7 +28,12 @@ public class Game {
         return toExit;
     }
 
-    public void setToExit(boolean toExit) {
-        this.toExit = toExit;
+    public void setToExit() {
+        this.state.exit();
+        this.toExit = true;
+    }
+
+    public Gui getGui() {
+        return gui;
     }
 }

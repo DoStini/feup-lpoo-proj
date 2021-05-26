@@ -6,7 +6,7 @@ import com.shootemup.g53.model.util.Position;
 import java.util.HashMap;
 
 public class LineCompositeFactory {
-    LineCompositeCollider createFromSquare(Element element, Position topLeft, int width, int height) {
+    public LineCompositeCollider createFromSquare(Element element, Position topLeft, int width, int height) {
         HashMap<Integer, LineCollider> colliderHashMap = new HashMap<>();
 
         for(int y = topLeft.getY(); y <= topLeft.getY() + height; y++) {
@@ -16,7 +16,7 @@ public class LineCompositeFactory {
         return new LineCompositeCollider(element, colliderHashMap);
     }
 
-    LineCompositeCollider createFromVerticalLine(Element element, Position topLeft, int height) {
+    public LineCompositeCollider createFromVerticalLine(Element element, Position topLeft, int height) {
         HashMap<Integer, LineCollider> colliderHashMap = new HashMap<>();
 
         for(int y = topLeft.getY(); y <= topLeft.getY() + height; y++) {
@@ -26,7 +26,7 @@ public class LineCompositeFactory {
         return new LineCompositeCollider(element, colliderHashMap);
     }
 
-    LineCompositeCollider createFromIsoscelesTriangle(Element element, Position top, int height) {
+    public LineCompositeCollider createFromIsoscelesTriangle(Element element, Position top, int height) {
         HashMap<Integer, LineCollider> colliderHashMap = new HashMap<>();
 
         for(int y = 0; y <= height; y++) {
@@ -38,7 +38,7 @@ public class LineCompositeFactory {
         return new LineCompositeCollider(element, colliderHashMap);
     }
 
-    LineCompositeCollider createFromInvertedIsoscelesTriangle(Element element, Position top, int height) {
+    public LineCompositeCollider createFromInvertedIsoscelesTriangle(Element element, Position top, int height) {
         HashMap<Integer, LineCollider> colliderHashMap = new HashMap<>();
 
         for(int y = 0; y <= height; y++) {
@@ -50,7 +50,7 @@ public class LineCompositeFactory {
         return new LineCompositeCollider(element, colliderHashMap);
     }
 
-    LineCompositeCollider createFromCircle(Element element, Position center, int radius) {
+    public LineCompositeCollider createFromCircle(Element element, Position center, int radius) {
         HashMap<Integer, LineCollider> colliderHashMap = new HashMap<>();
 
         if(radius == 0) return  new LineCompositeCollider(element, colliderHashMap);

@@ -2,9 +2,10 @@ package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.model.util.Position;
 
-public class DiagonalDownRightMovement implements MovementStrategy {
+public class DiagonalDownRightMovement extends IncrementalMovement {
+
     @Override
-    public Position move(Position position, int speed) {
+    Position moveFrame(Position position, int speed) {
         Position newPosition = position.getDown(speed);
         newPosition = newPosition.getRight(speed);
         return newPosition;
@@ -13,6 +14,11 @@ public class DiagonalDownRightMovement implements MovementStrategy {
     @Override
     public void handleFailedMovement() {
 
+    }
+
+    @Override
+    public MovementStrategy cloneStrategy() {
+        return new DiagonalDownRightMovement();
     }
 }
 
