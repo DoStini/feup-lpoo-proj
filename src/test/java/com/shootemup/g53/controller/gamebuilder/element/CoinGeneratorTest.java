@@ -76,13 +76,13 @@ class CoinGeneratorTest {
 
     @Test
     void setSpeed() {
-        int randomVal = 2;
-        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(randomVal);
+        double randomVal = 1.0;
+        Mockito.when(random.nextDouble()).thenReturn(randomVal);
 
         coinGenerator.setSpeed(coin);
 
-        Mockito.verify(random, Mockito.times(1)).nextInt(maxSpeed-minSpeed);
-        Mockito.verify(coin, Mockito.times(1)).setSpeed(randomVal + minSpeed);
+        Mockito.verify(random, Mockito.times(1)).nextDouble();
+        Mockito.verify(coin, Mockito.times(1)).setSpeed(randomVal*(maxSpeed-minSpeed) + minSpeed);
     }
 
     @Test
