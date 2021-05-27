@@ -3,11 +3,8 @@ package com.shootemup.g53.controller.input;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AWTInputController extends InputController<KeyEvent> {
 
@@ -44,8 +41,6 @@ public class AWTInputController extends InputController<KeyEvent> {
             return Action.NONE;
 
         switch (Character.toLowerCase(event.getKeyChar())) {
-            case KeyEvent.VK_ESCAPE:
-                return Action.ESC;
             case 'e':
                 return Action.POWER_1;
             case 'r':
@@ -63,6 +58,8 @@ public class AWTInputController extends InputController<KeyEvent> {
         }
 
         switch (event.getKeyCode()) {
+            case KeyEvent.VK_ESCAPE:
+                return Action.ESC;
             case KeyEvent.VK_LEFT:
                 return Action.LEFT;
             case KeyEvent.VK_UP:
@@ -77,13 +74,6 @@ public class AWTInputController extends InputController<KeyEvent> {
 
         return Action.NONE;
     }
-
-    @Override
-    public void handleEvent(KeyEvent event) {
-
-    }
-
-
 
 
 }
