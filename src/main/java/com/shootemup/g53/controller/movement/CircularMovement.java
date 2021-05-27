@@ -33,11 +33,6 @@ public class CircularMovement  extends IncrementalMovement {
     }
 
     @Override
-    public void handleFailedMovement() {
-        this.angularSpeed = -this.angularSpeed;
-    }
-
-    @Override
     public MovementStrategy cloneStrategy() {
         return new CircularMovement(radius, angle, Math.toDegrees(angularSpeed));
     }

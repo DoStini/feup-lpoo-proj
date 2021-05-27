@@ -75,9 +75,6 @@ class ChangingMovementTest {
 
         Assertions.assertNotSame(movementController, ((ChangingMovement) changingMovement.controllers.get(0)).controllers.get(0));
         Mockito.verify(movementController, Mockito.times(2)).cloneStrategy();
-
-        controller.handleFailedMovement();
-        Mockito.verify(movementController, Mockito.times(1)).handleFailedMovement();
     }
 
 

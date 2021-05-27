@@ -32,13 +32,6 @@ public class CompositeMovement extends IncrementalMovement {
     }
 
     @Override
-    public void handleFailedMovement() {
-        for(MovementStrategy strategy : controllers) {
-            strategy.handleFailedMovement();
-        }
-    }
-
-    @Override
     public MovementStrategy cloneStrategy() {
         List<MovementStrategy> strategies = new ArrayList<>();
 

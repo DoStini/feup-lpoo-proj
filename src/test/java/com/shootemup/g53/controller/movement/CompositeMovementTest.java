@@ -57,11 +57,6 @@ class CompositeMovementTest {
 
         Assertions.assertEquals(new Position(-3+1,6+3), composite.move(position, 3));
 
-        composite.handleFailedMovement();
-
-        Mockito.verify(fallDown, Mockito.times(1)).handleFailedMovement();
-        Mockito.verify(diagonalLeft, Mockito.times(1)).handleFailedMovement();
-
         MovementStrategy composite2 = new CompositeMovement(Collections.singletonList(composite));
 
         MovementStrategy clone2 = composite2.cloneStrategy();
