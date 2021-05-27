@@ -5,7 +5,6 @@ plugins {
 }
 
 pitest {
-    targetClasses = ['com.shootemup.g53.controller.input.*']
     junit5PluginVersion = '0.12'
 }
 
