@@ -11,7 +11,6 @@ import com.shootemup.g53.view.element.CoinView;
 import com.shootemup.g53.view.element.*;
 import com.shootemup.g53.view.element.spaceship.EnemyView;
 import com.shootemup.g53.view.element.spaceship.PlayerView;
-import com.shootemup.g53.view.element.spaceship.SpaceshipView;
 import com.shootemup.g53.view.infobar.InfoBarViewer;
 
 public class GameViewer extends Viewer<GameModel> {
