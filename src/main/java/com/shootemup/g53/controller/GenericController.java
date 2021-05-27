@@ -4,7 +4,7 @@ import com.shootemup.g53.ui.Gui;
 
 import java.util.List;
 
-abstract public class GenericController {
-    public abstract void handleKeyPress(Gui gui);
-    public abstract void handle(long frame);
+public interface GenericController {
+    default void handleKeyPress(Gui gui) {};
+    default void handle(long frame) {};
 }

@@ -68,6 +68,9 @@ class CollisionHandlerControllerTest {
 
         Mockito.verify(essenceController, Mockito.times(1)).handlePlayer(Mockito.any());
 
+        essenceController.handleCollision(fakeCollider, fakeCollider, playerController);
+
+        Mockito.verify(playerController, Mockito.times(1)).handleEssence(Mockito.any());
 
     }
 
@@ -141,6 +144,13 @@ class CollisionHandlerControllerTest {
         asteroidController.handleBullet(Mockito.mock(Bullet.class));
         asteroidController.handleSpaceship(Mockito.mock(Spaceship.class));
         asteroidController.handleAsteroid(Mockito.mock(Asteroid.class));
+        asteroidController.handleEssence(Mockito.mock(Essence.class));
+
+        Assertions.assertTrue(asteroid.isActive());
+
+        asteroidController.handleShield(Mockito.mock(Shield.class));
+
+        Assertions.assertFalse(asteroid.isActive());
     }
 
     @Test

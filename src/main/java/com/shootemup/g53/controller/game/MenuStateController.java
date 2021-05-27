@@ -8,7 +8,7 @@ import com.shootemup.g53.model.game.MenuModel;
 import com.shootemup.g53.ui.Gui;
 
 
-public class MenuStateController extends GenericController {
+public class MenuStateController implements GenericController {
     private MenuModel menuModel = new MenuModel();
     private InputNotifier inputNotifier = new InputNotifier();
     @Override
@@ -42,11 +42,6 @@ public class MenuStateController extends GenericController {
 
     public void close(){
         menuModel.setClosed(true);
-    }
-
-    @Override
-    public void handle(long frame) {
-
     }
 
     public MenuModel getMenuModel() {

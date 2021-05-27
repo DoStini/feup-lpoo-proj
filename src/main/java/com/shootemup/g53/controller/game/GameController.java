@@ -25,12 +25,11 @@ import java.util.HashMap;
 import java.util.*;
 
 
-public class GameController extends GenericController {
+public class GameController implements GenericController {
     private GameModel gameModel;
     private BulletPoolController bulletPoolController;
 
     private CollisionController collisionController;
-    private PowerupController powerupController;
     private BackgroundController backgroundController;
     private List<ElementInterface> controllerCopy;
     private HashMap<Element, ElementInterface> controllerHashMap = new HashMap<>();

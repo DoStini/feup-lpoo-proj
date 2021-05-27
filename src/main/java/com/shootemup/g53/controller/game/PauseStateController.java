@@ -7,7 +7,7 @@ import com.shootemup.g53.controller.state.PlayState;
 import com.shootemup.g53.model.game.PauseModel;
 import com.shootemup.g53.ui.Gui;
 
-public class PauseStateController extends GenericController {
+public class PauseStateController implements GenericController {
 
     private PauseModel pauseModel;
     private InputNotifier inputNotifier = new InputNotifier();
@@ -43,13 +43,6 @@ public class PauseStateController extends GenericController {
     public void close() {
         pauseModel.setClosed(true);
     }
-
-
-    @Override
-    public void handle(long frame) {
-
-    }
-
 
     public PauseModel getPauseModel() {
         return pauseModel;
