@@ -57,14 +57,20 @@ public class GameBuilder {
         List<BodyCollider> colliders = new ArrayList<>();
 
         BodyCollider playerCollider =
-                new LineCompositeFactory().createFromIsoscelesTriangle(spaceship, new Position(0, 0), 3);
+                new LineCompositeFactory().createFromIsoscelesTriangle(spaceship, new Position(0, 0), 1);
         playerCollider.setCategory(ColliderCategory.PLAYER);
         playerCollider.setCategoryMask(
                 (short) (ColliderCategory.ENEMY.getBits() |
-                         ColliderCategory.ENEMY_BULLET.getBits() |
-                         ColliderCategory.PICKUP.getBits()));
+                         ColliderCategory.ENEMY_BULLET.getBits()));
+
+        BodyCollider pickupCollider =
+                new LineCompositeFactory().createFromSquare(spaceship, new Position(-spaceship.getHeight(), 0), spaceship.getHeight()*2, spaceship.getHeight());
+        pickupCollider.setCategory(ColliderCategory.PLAYER);
+        pickupCollider.setCategoryMask(
+                ColliderCategory.PICKUP.getBits());
 
         colliders.add(playerCollider);
+        colliders.add(pickupCollider);
         gameModel.setColliders(colliders);
 
         PowerupController powerupController = new PowerupController(gameController);
@@ -79,7 +85,7 @@ public class GameBuilder {
     private void setupBackground() {
         Background background = new Background(25, 30);
 
-        gameController.setBackgroundController(new BackgroundController(gameModel, background, 30, 5));
+        gameController.setBackgroundController(new BackgroundController(gameModel, background, 30, 3.5));
         gameModel.setBackground(background);
     }
 

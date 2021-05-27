@@ -88,7 +88,7 @@ public class PlayState extends State<GameModel> {
         try{
             while(true){
                 gui.clear();
-                Thread.sleep(50);
+                Thread.sleep(40);
                 gameBuilder.handle(frame);
                 gameController.handleKeyPress(gui);
                 gameController.handle(frame);
