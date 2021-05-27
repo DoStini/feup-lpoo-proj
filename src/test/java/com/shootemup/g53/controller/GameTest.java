@@ -70,5 +70,6 @@ public class GameTest {
         game.changeState(state);
         game.run();
         Mockito.verify(state, Mockito.times(5)).run();
+        Mockito.verify(state, Mockito.times(1)).exit();
     }
 }
