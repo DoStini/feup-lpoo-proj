@@ -15,7 +15,7 @@ class EnemyViewTest {
         Gui gui = Mockito.mock(Gui.class);
         int size = 5;
         int lineWidth = 2;
-        SpaceshipView view = new EnemyView(lineWidth);
+        EnemyView view = new EnemyView(lineWidth);
         Spaceship spaceship = Mockito.mock(Spaceship.class);
         Mockito.when(spaceship.getHeight()).thenReturn(size);
         Mockito.when(spaceship.getColor()).thenReturn("#aaaaaa");

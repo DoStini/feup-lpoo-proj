@@ -15,7 +15,6 @@ import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.collider.LineCompositeFactory;
 import com.shootemup.g53.model.element.Background;
 import com.shootemup.g53.model.element.Player;
-import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
@@ -50,14 +49,14 @@ public class GameBuilder {
     }
 
     private void setupPlayer() {
-        Player spaceship = new Player(new Position(20, 35), 3, 20, "#aae253",
+        Player spaceship = new Player(new Position(20, 35), 3, 1, 20, "#aae253",
                 3, 10);
         gameModel.setPlayer(spaceship);
 
         List<BodyCollider> colliders = new ArrayList<>();
 
         BodyCollider playerCollider =
-                new LineCompositeFactory().createFromIsoscelesTriangle(spaceship, new Position(0, 0), 1);
+                new LineCompositeFactory().createFromIsoscelesTriangle(spaceship, new Position(0, 0), spaceship.getHitHeight());
         playerCollider.setCategory(ColliderCategory.PLAYER);
         playerCollider.setCategoryMask(
                 (short) (ColliderCategory.ENEMY.getBits() |

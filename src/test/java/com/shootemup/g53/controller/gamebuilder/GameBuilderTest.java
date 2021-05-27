@@ -1,7 +1,6 @@
 package com.shootemup.g53.controller.gamebuilder;
 
 import com.shootemup.g53.controller.element.BackgroundController;
-import com.shootemup.g53.controller.element.SpaceshipController;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.gamebuilder.element.AsteroidGenerator;
 import com.shootemup.g53.controller.gamebuilder.element.CoinGenerator;
@@ -25,8 +24,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class GameBuilderTest {
 
@@ -55,7 +52,7 @@ class GameBuilderTest {
     void setupPlayer() {
         gameBuilder = new GameBuilder(gui, gameController, 2);
 
-        Player spaceship = new Player(new Position(20, 35), 3, 20, "#aae253", 3,5);
+        Player spaceship = new Player(new Position(20, 35), 3, 1, 20, "#aae253", 3,5);
 
         BodyCollider playerCollider =
                 new LineCompositeFactory().createFromIsoscelesTriangle(spaceship, new Position(0, 0), 1);

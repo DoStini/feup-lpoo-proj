@@ -3,10 +3,7 @@ package com.shootemup.g53.controller.game;
 import com.shootemup.g53.controller.element.*;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.player.PlayerController;
-import com.shootemup.g53.model.element.Asteroid;
-import com.shootemup.g53.model.element.Bullet;
-import com.shootemup.g53.model.element.Coin;
-import com.shootemup.g53.model.element.Spaceship;
+import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
@@ -37,7 +34,7 @@ public class GameControllerTest {
     private Coin coin;
     private Asteroid asteroid;
     private Spaceship spaceship;
-    private Spaceship player;
+    private Player player;
     long frame = 0;
     Gui gui;
 
@@ -45,7 +42,7 @@ public class GameControllerTest {
     void setup() {
         gameModel = Mockito.mock(GameModel.class);
         position = Mockito.mock(Position.class);
-        player = Mockito.mock(Spaceship.class);
+        player = Mockito.mock(Player.class);
         bulletController = Mockito.mock(BulletController.class);
         position2 = Mockito.mock(Position.class);
         coin = Mockito.mock(Coin.class);

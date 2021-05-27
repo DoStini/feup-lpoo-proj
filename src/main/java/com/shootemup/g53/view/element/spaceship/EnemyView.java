@@ -3,10 +3,12 @@ package com.shootemup.g53.view.element.spaceship;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
+import com.shootemup.g53.view.element.ElementView;
 
-public class EnemyView extends SpaceshipView {
+public class EnemyView implements ElementView<Spaceship> {
+    protected int lineWidth;
     public EnemyView(int lineWidth) {
-        super(lineWidth);
+        this.lineWidth = lineWidth;
     }
 
     @Override

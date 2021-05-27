@@ -14,8 +14,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class CollisionHandlerControllerTest {
     AsteroidController asteroidController;
     BulletController bulletController;
@@ -74,7 +72,7 @@ class CollisionHandlerControllerTest {
     @Test
     void playerCollisions() {
 
-        Player player = new Player(new Position(0,0),0,10, "", 0,1);
+        Player player = new Player(new Position(0,0),0, 1, 10, "", 0,1);
         PlayerController playerController = Mockito.spy(new PlayerController(
                 player, Mockito.mock(Gui.class), Mockito.mock(BulletPoolController.class),
                 Mockito.mock(PowerupController.class), Mockito.mock(FiringStrategy.class)));
