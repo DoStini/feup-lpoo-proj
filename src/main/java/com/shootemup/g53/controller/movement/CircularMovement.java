@@ -32,6 +32,18 @@ public class CircularMovement  extends IncrementalMovement {
         ).add(curCenter);
     }
 
+    public double getRadius() {
+        return radius;
+    }
+
+    public double getAngle() {
+        return angle;
+    }
+
+    public double getAngularSpeed() {
+        return angularSpeed;
+    }
+
     @Override
     public void handleFailedMovement() {
         this.angularSpeed = -this.angularSpeed;
