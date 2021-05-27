@@ -7,13 +7,19 @@ public class Player extends Spaceship{
     private final int maxHealth;
     private int coins;
     private int essence;
+    private int hitHeight;
 
 
-    public Player(Position position, int height, int health, String color, double speed, int bulletDamage) {
+    public Player(Position position, int height, int hitHeight, int health, String color, double speed, int bulletDamage) {
         super(position, height, health, color, speed,bulletDamage);
         this.coins = 0;
         this.essence = 0;
         this.maxHealth = health;
+        this.hitHeight = hitHeight;
+    }
+
+    public int getHitHeight() {
+        return hitHeight;
     }
 
     public int getEssence() {
@@ -41,7 +47,7 @@ public class Player extends Spaceship{
 
     @Override
     public PoolableObject clone() {
-        return new Player(new Position(position.getX(), position.getY()), this.getHeight(),this.getHealth(),getColor(),getSpeed(),getBulletDamage());
+        return new Player(new Position(position.getX(), position.getY()), this.getHeight(), 1, this.getHealth(),getColor(),getSpeed(),getBulletDamage());
     }
 
     public void setEssence(int essence) {

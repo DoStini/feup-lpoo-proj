@@ -15,7 +15,6 @@ import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.collider.LineCompositeFactory;
 import com.shootemup.g53.model.element.Background;
 import com.shootemup.g53.model.element.Player;
-import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
@@ -50,21 +49,27 @@ public class GameBuilder {
     }
 
     private void setupPlayer() {
-        Player spaceship = new Player(new Position(20, 35), 3, 20, "#aae253",
+        Player spaceship = new Player(new Position(20, 35), 3, 1, 20, "#aae253",
                 3, 10);
         gameModel.setPlayer(spaceship);
 
         List<BodyCollider> colliders = new ArrayList<>();
 
         BodyCollider playerCollider =
-                new LineCompositeFactory().createFromIsoscelesTriangle(spaceship, new Position(0, 0), 3);
+                new LineCompositeFactory().createFromIsoscelesTriangle(spaceship, new Position(0, 0), spaceship.getHitHeight());
         playerCollider.setCategory(ColliderCategory.PLAYER);
         playerCollider.setCategoryMask(
                 (short) (ColliderCategory.ENEMY.getBits() |
-                         ColliderCategory.ENEMY_BULLET.getBits() |
-                         ColliderCategory.PICKUP.getBits()));
+                         ColliderCategory.ENEMY_BULLET.getBits()));
+
+        BodyCollider pickupCollider =
+                new LineCompositeFactory().createFromSquare(spaceship, new Position(-spaceship.getHeight(), 0), spaceship.getHeight()*2, spaceship.getHeight());
+        pickupCollider.setCategory(ColliderCategory.PLAYER);
+        pickupCollider.setCategoryMask(
+                ColliderCategory.PICKUP.getBits());
 
         colliders.add(playerCollider);
+        colliders.add(pickupCollider);
         gameModel.setColliders(colliders);
 
         PowerupController powerupController = new PowerupController(gameController);
@@ -79,7 +84,7 @@ public class GameBuilder {
     private void setupBackground() {
         Background background = new Background(25, 30);
 
-        gameController.setBackgroundController(new BackgroundController(gameModel, background, 30, 5));
+        gameController.setBackgroundController(new BackgroundController(gameModel, background, 30, 3.5));
         gameModel.setBackground(background);
     }
 

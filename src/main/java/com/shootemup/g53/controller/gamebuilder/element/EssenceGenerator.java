@@ -30,7 +30,7 @@ public class EssenceGenerator extends MovableElementGenerator {
 
     protected void setCollider(Essence essence) {
         BodyCollider collider = new LineCompositeFactory()
-                        .createFromCircle(essence, new Position(0,0), 1);;
+                        .createFromCircle(essence, new Position(0,0), 1);
         collider.setCategory(ColliderCategory.PICKUP);
         gameModel.addCollider(collider);
     }

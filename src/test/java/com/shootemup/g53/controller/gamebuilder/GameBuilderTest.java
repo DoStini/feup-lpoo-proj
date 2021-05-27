@@ -1,7 +1,6 @@
 package com.shootemup.g53.controller.gamebuilder;
 
 import com.shootemup.g53.controller.element.BackgroundController;
-import com.shootemup.g53.controller.element.SpaceshipController;
 import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.gamebuilder.element.AsteroidGenerator;
 import com.shootemup.g53.controller.gamebuilder.element.CoinGenerator;
@@ -25,8 +24,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class GameBuilderTest {
 
@@ -55,20 +52,30 @@ class GameBuilderTest {
     void setupPlayer() {
         gameBuilder = new GameBuilder(gui, gameController, 2);
 
-        Player spaceship = new Player(new Position(20, 35), 3, 20, "#aae253", 3,5);
+        Player spaceship = new Player(new Position(20, 35), 3, 1, 20, "#aae253", 3,5);
 
         BodyCollider playerCollider =
-                new LineCompositeFactory().createFromIsoscelesTriangle(spaceship, new Position(0, 0), 3);
+                new LineCompositeFactory().createFromIsoscelesTriangle(spaceship, new Position(0, 0), 1);
         playerCollider.setCategory(ColliderCategory.PLAYER);
         playerCollider.setCategoryMask(
                 (short) (ColliderCategory.ENEMY.getBits() |
-                        ColliderCategory.ENEMY_BULLET.getBits() |
-                        ColliderCategory.PICKUP.getBits()));
+                        ColliderCategory.ENEMY_BULLET.getBits()));
+
+        BodyCollider pickupCollider =
+                new LineCompositeFactory().createFromSquare(spaceship, new Position(-spaceship.getHeight(), 0), spaceship.getHeight()*2, spaceship.getHeight());
+        pickupCollider.setCategory(ColliderCategory.PLAYER);
+        pickupCollider.setCategoryMask(
+                ColliderCategory.PICKUP.getBits());
+
+        List<BodyCollider> colliders = new ArrayList<>();
+
+        colliders.add(playerCollider);
+        colliders.add(pickupCollider);
 
         Mockito.verify(gameModel, Mockito.times(1))
                 .setPlayer(spaceship);
-        Mockito.verify(gameModel, Mockito.times(1))
-                .setColliders(Arrays.asList(playerCollider));
+        Assertions.assertEquals(playerCollider, gameModel.getColliders().get(0));
+        Assertions.assertEquals(pickupCollider, gameModel.getColliders().get(1));
 
         Mockito.verify(gameController, Mockito.times(1))
                 .addToControllerMap(Mockito.eq(spaceship), Mockito.any(PlayerController.class));

@@ -72,7 +72,7 @@ public class WaveFactory {
         SpaceshipGenerator generator;
         generator = new SpaceshipGenerator(gameController, movementStrategyFactory, normalFiringStrategyFactory,
                 5, gameWidth-5, 0.2,
-                3, 2, 5, 10, 3);
+                1.5, 2, 5, 10, 3);
 
         float skip = Math.max(1, baseSkip*(1-timeFactor*(wave-1)));
 

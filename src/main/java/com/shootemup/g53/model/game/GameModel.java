@@ -53,7 +53,7 @@ public class GameModel extends Model {
         isGameFinished = gameFinished;
     }
 
-    public Spaceship getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
