@@ -21,7 +21,6 @@ public class Game {
 
     public void run(){
         while(!toExit) this.state.run();
-        System.exit(0);
     }
 
     public boolean isToExit() {
@@ -35,5 +34,9 @@ public class Game {
 
     public Gui getGui() {
         return gui;
+    }
+
+    public State getState() {
+        return state;
     }
 }

@@ -6,6 +6,7 @@ import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.element.*;
 
 import java.util.List;
+import java.util.Objects;
 
 public class GameModel extends Model {
     private int width;

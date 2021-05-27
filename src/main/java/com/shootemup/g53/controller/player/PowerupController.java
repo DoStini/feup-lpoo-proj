@@ -16,7 +16,6 @@ import com.shootemup.g53.model.util.Position;
 public class PowerupController {
     private GameController gameController;
     private GameModel gameModel;
-    private Player player;
     private EssenceController essenceController = new EssenceController();
     private int shieldEssenceCost = 5;
     private int healthCost = 8;
