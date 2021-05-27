@@ -28,9 +28,4 @@ public class ShieldController implements ElementInterface, CollisionHandlerContr
     public void handleAsteroid(Asteroid asteroid) {
         shield.setStrength(shield.getStrength() - asteroid.getRadius());
     }
-
-    @Override
-    public void handle(long frame) {
-
-    }
 }

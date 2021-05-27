@@ -15,13 +15,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class CollisionHandlerControllerTest {
-    AsteroidController asteroidController;
-    BulletController bulletController;
-    CoinController coinController;
-    SpaceshipController spaceshipController;
-    PlayerController playerController;
-    ShieldController shieldController;
-    EssenceController essenceController;
+    CollisionHandlerController asteroidController;
+    CollisionHandlerController bulletController;
+    CollisionHandlerController coinController;
+    CollisionHandlerController spaceshipController;
+    CollisionHandlerController playerController;
+    CollisionHandlerController shieldController;
+    CollisionHandlerController essenceController;
 
     @BeforeEach
     void setup() {
@@ -159,6 +159,7 @@ class CollisionHandlerControllerTest {
         bulletController.handleCoin(Mockito.mock(Coin.class));
         bulletController.handleBullet(Mockito.mock(Bullet.class));
 
+
         Assertions.assertTrue(bullet.isActive());
 
         bulletController.handleSpaceship(Mockito.mock(Spaceship.class));
@@ -199,6 +200,7 @@ class CollisionHandlerControllerTest {
 
         coinController.handleCoin(Mockito.mock(Coin.class));
         coinController.handleBullet(Mockito.mock(Bullet.class));
+        coinController.handleShield(Mockito.mock(Shield.class));
 
         Assertions.assertTrue(coin.isActive());
 
@@ -233,6 +235,8 @@ class CollisionHandlerControllerTest {
         shieldController.handleAsteroid(asteroid);
 
         Assertions.assertEquals(2, shield.getStrength());
+
+        shieldController.handleShield(Mockito.mock(Shield.class));
     }
 
     @Test
@@ -250,5 +254,7 @@ class CollisionHandlerControllerTest {
         Assertions.assertFalse(essence.isActive());
 
         essenceController.handleAsteroid(Mockito.mock(Asteroid.class));
+
+        essenceController.handleShield(Mockito.mock(Shield.class));
     }
 }
