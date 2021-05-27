@@ -7,14 +7,19 @@ import com.shootemup.g53.controller.state.PlayState;
 import com.shootemup.g53.model.game.PauseModel;
 import com.shootemup.g53.ui.Gui;
 
-public class PauseStateController extends GenericController {
+public class PauseStateController implements GenericController {
 
     private PauseModel pauseModel;
-    private InputNotifier inputNotifier = new InputNotifier();
+    private InputNotifier inputNotifier;
+
     public PauseStateController(PlayState playState) {
-        this.pauseModel = new PauseModel(playState);
+        this(new PauseModel(playState), new InputNotifier());
     }
 
+    public PauseStateController(PauseModel pauseModel, InputNotifier inputNotifier) {
+        this.pauseModel = pauseModel;
+        this.inputNotifier = inputNotifier;
+    }
 
     @Override
     public void handleKeyPress(Gui gui) {
@@ -28,10 +33,9 @@ public class PauseStateController extends GenericController {
             close();
             pauseModel.getSelectedButton().getButtonCommand().execute();
             inputNotifier.notifyObservers();
-            return;
         } else if (gui.isActionActive(Action.ESC)) {
             close();
-            pauseModel.getOptions().get(1).getButtonCommand().execute();
+            pauseModel.getExitBtn().getButtonCommand().execute();
             inputNotifier.notifyObservers();
         }
     }
@@ -43,13 +47,6 @@ public class PauseStateController extends GenericController {
     public void close() {
         pauseModel.setClosed(true);
     }
-
-
-    @Override
-    public void handle(long frame) {
-
-    }
-
 
     public PauseModel getPauseModel() {
         return pauseModel;

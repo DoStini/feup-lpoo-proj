@@ -31,16 +31,6 @@ public class CoinController extends MovableElementController implements Collisio
     }
 
     @Override
-    public void handleAsteroid(Asteroid asteroid) {
-
-    }
-
-    @Override
-    public void handleCoin(Coin coin) {
-
-    }
-
-    @Override
     public void handle(long frame) {
         Position newPosition = move();
         coin.setPosition(newPosition);

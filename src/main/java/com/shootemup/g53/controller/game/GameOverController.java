@@ -8,9 +8,18 @@ import com.shootemup.g53.model.game.GameOverModel;
 import com.shootemup.g53.ui.Gui;
 
 
-public class GameOverController extends GenericController {
-    private GameOverModel gameOverModel = new GameOverModel();
-    private InputNotifier inputNotifier = new InputNotifier();
+public class GameOverController implements GenericController {
+    private GameOverModel gameOverModel;
+    private InputNotifier inputNotifier;
+
+    public GameOverController() {
+        this(new GameOverModel(), new InputNotifier());
+    }
+
+    public GameOverController(GameOverModel gameOverModel, InputNotifier inputNotifier) {
+        this.gameOverModel = gameOverModel;
+        this.inputNotifier = inputNotifier;
+    }
 
     @Override
     public void handleKeyPress(Gui gui) {
@@ -30,15 +39,10 @@ public class GameOverController extends GenericController {
         }
         else if(gui.isActionActive(Action.ESC)){
             close();
-            gameOverModel.getOptions().get(1).getButtonCommand().execute();
+            gameOverModel.getExitBtn().getButtonCommand().execute();
             inputNotifier.notifyObservers();
 
         }
-
-    }
-
-    @Override
-    public void handle(long frame) {
 
     }
 

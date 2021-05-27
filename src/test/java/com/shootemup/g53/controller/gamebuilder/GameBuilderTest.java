@@ -84,6 +84,8 @@ class GameBuilderTest {
         Mockito.verify(gameModel, Mockito.times(1)).setBulletList(new ArrayList<>());
         Mockito.verify(gameModel, Mockito.times(1)).setEnemySpaceships(new ArrayList<>());
         Mockito.verify(gameModel, Mockito.times(1)).setAsteroids(new ArrayList<>());
+        Mockito.verify(gameModel, Mockito.times(1)).setShields(new ArrayList<>());
+        Mockito.verify(gameModel, Mockito.times(1)).setEssences(new ArrayList<>());
 
     }
 

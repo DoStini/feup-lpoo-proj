@@ -33,7 +33,8 @@ class CoinGeneratorTest {
             maxSpeed = 10,
             maxRadius = 4,
             minVal = 2,
-            maxVal = 3;
+            maxVal = 3,
+            maxValue = 3;
 
     @BeforeEach
     void setup() {
@@ -46,7 +47,7 @@ class CoinGeneratorTest {
         Mockito.when(gameController.getGameModel()).thenReturn(gameModel);
 
         coinGenerator = new CoinGenerator(random, gameController, movementStrategyFactory,
-                xMinPos, xMaxPos, minSpeed, maxSpeed, maxRadius, minVal, maxVal);
+                xMinPos, xMaxPos, minSpeed, maxSpeed, maxRadius);
     }
 
     @Test
@@ -95,7 +96,6 @@ class CoinGeneratorTest {
         Mockito.verify(random, Mockito.times(1)).nextInt(maxRadius-1);
         Mockito.verify(coin, Mockito.times(1)).setRadius(randomVal + 1);
     }
-
 
     @Test
     void generateElement() {

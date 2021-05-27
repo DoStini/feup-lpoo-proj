@@ -8,9 +8,19 @@ import com.shootemup.g53.model.game.MenuModel;
 import com.shootemup.g53.ui.Gui;
 
 
-public class MenuStateController extends GenericController {
-    private MenuModel menuModel = new MenuModel();
-    private InputNotifier inputNotifier = new InputNotifier();
+public class MenuStateController implements GenericController {
+    private MenuModel menuModel;
+    private InputNotifier inputNotifier;
+
+    public MenuStateController() {
+        this(new MenuModel(), new InputNotifier());
+    }
+
+    public MenuStateController(MenuModel menuModel, InputNotifier inputNotifier) {
+        this.menuModel = menuModel;
+        this.inputNotifier = inputNotifier;
+    }
+
     @Override
     public void handleKeyPress(Gui gui) {
         if(gui.isActionActive(Action.UP)){
@@ -25,11 +35,10 @@ public class MenuStateController extends GenericController {
             close();
             menuModel.getSelectedButton().getButtonCommand().execute();
             inputNotifier.notifyObservers();
-            return;
         }
         else if(gui.isActionActive(Action.ESC)){
             close();
-            menuModel.getOptions().get(1).getButtonCommand().execute();
+            menuModel.getExitBtn().getButtonCommand().execute();
             inputNotifier.notifyObservers();
 
         }
@@ -42,11 +51,6 @@ public class MenuStateController extends GenericController {
 
     public void close(){
         menuModel.setClosed(true);
-    }
-
-    @Override
-    public void handle(long frame) {
-
     }
 
     public MenuModel getMenuModel() {
