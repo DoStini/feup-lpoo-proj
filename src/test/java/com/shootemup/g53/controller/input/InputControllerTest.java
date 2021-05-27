@@ -74,6 +74,9 @@ class InputControllerTest {
         Mockito.verify(controller, Mockito.times(2)).eventToAction(keyEvent);
         Assertions.assertEquals(1, controller.keysPressed.size());
         Assertions.assertFalse(controller.isActionActive(Action.NONE));
+        keyListener.keyTyped(keyEvent);
+        Assertions.assertEquals(1, controller.keysPressed.size());
+        Assertions.assertFalse(controller.isActionActive(Action.NONE));
     }
 
     @Test
