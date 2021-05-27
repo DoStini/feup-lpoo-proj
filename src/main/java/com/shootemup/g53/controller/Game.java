@@ -21,7 +21,6 @@ public class Game {
 
     public void run(){
         while(!toExit) this.state.run();
-        System.exit(0);
     }
 
     public boolean isToExit() {

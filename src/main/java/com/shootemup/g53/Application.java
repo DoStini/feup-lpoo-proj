@@ -22,6 +22,7 @@ public class Application {
         GameModel gameModel = new GameModel(width, height);
         Game game = new Game(gui, gameModel);
         game.run();
+        gui.close();
 
     }
 }
