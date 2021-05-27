@@ -21,9 +21,6 @@ public class MovableElementController {
         return movementStrategy.move(movableElement.getPosition(), movableElement.getSpeed());
     }
 
-    public void handleFailedMovement(){
-        movementStrategy.handleFailedMovement();
-    }
 
     public void setMovableElement(MovableElement movableElement) {
         this.movableElement = movableElement;

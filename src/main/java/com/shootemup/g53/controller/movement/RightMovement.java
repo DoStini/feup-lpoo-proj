@@ -10,11 +10,6 @@ public class RightMovement extends IncrementalMovement {
     }
 
     @Override
-    public void handleFailedMovement() {
-
-    }
-
-    @Override
     public MovementStrategy cloneStrategy() {
         return new RightMovement();
     }

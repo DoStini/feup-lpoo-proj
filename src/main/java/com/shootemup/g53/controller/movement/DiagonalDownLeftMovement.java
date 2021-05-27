@@ -12,11 +12,6 @@ public class DiagonalDownLeftMovement extends IncrementalMovement {
     }
 
     @Override
-    public void handleFailedMovement() {
-
-    }
-
-    @Override
     public MovementStrategy cloneStrategy() {
         return new DiagonalDownLeftMovement();
     }

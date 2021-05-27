@@ -27,12 +27,6 @@ public class DiagonalBounceMovement extends IncrementalMovement {
         return position.getDown(speed);
     }
 
-    @Override
-    public void handleFailedMovement() {
-        if(this.direction == Direction.DOWN_LEFT) this.direction = Direction.DOWN_RIGHT;
-        else this.direction = Direction.DOWN_LEFT;
-    }
-
 
     @Override
     public MovementStrategy cloneStrategy() {

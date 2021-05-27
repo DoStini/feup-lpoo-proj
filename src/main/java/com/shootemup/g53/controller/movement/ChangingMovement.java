@@ -46,11 +46,6 @@ public class ChangingMovement extends IncrementalMovement {
     }
 
     @Override
-    public void handleFailedMovement() {
-        currentController.handleFailedMovement();
-    }
-
-    @Override
     public MovementStrategy cloneStrategy() {
         List<MovementStrategy> strategies = new ArrayList<>();
 

@@ -132,8 +132,5 @@ public class ElementControllerTest {
         spaceshipController.handleBullet(bullet);
         Mockito.verify(spaceship,Mockito.times(1)).setHealth(spaceship.getHealth() - 1);
 
-        spaceshipController.handleFailedMovement();
-        Mockito.verify(movementStrategy,Mockito.times(1)).handleFailedMovement();
-
     }
 }
