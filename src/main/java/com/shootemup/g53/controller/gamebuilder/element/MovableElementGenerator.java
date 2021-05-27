@@ -32,5 +32,12 @@ public abstract class MovableElementGenerator extends ElementGenerator {
     protected void setSpeed(MovableElement element) {
         element.setSpeed(rand.nextDouble()*(maxSpeed-minSpeed)+minSpeed);
     }
-    
+
+    public double getMinSpeed() {
+        return minSpeed;
+    }
+
+    public double getMaxSpeed() {
+        return maxSpeed;
+    }
 }

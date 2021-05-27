@@ -41,4 +41,12 @@ public abstract class ElementGenerator {
     }
 
     public abstract void generateElement();
+
+    public int getxMinPos() {
+        return xMinPos;
+    }
+
+    public int getxMaxPos() {
+        return xMaxPos;
+    }
 }

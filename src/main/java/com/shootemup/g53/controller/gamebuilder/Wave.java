@@ -54,4 +54,24 @@ public class Wave {
 
         return false;
     }
+
+    public long getBaseSkip() {
+        return baseSkip;
+    }
+
+    public Random getRand() {
+        return rand;
+    }
+
+    public ElementGenerator getGenerator() {
+        return generator;
+    }
+
+    public int getCurrentEnemies() {
+        return currentEnemies;
+    }
+
+    public int getMaxEnemies() {
+        return maxEnemies;
+    }
 }

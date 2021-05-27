@@ -125,6 +125,10 @@ public class MovementStrategyFactory {
         return new FallDownMovement();
     }
 
+    protected List<Strategy> getStrategies() {
+        return strategies;
+    }
+
     public void setMaxRadius(int maxRadius) {
         this.maxRadius = maxRadius;
     }

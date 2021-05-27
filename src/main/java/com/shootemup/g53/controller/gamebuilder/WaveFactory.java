@@ -1,12 +1,10 @@
 package com.shootemup.g53.controller.gamebuilder;
 
 import com.shootemup.g53.controller.game.GameController;
-import com.shootemup.g53.controller.gamebuilder.element.ElementGenerator;
 import com.shootemup.g53.controller.gamebuilder.element.SpaceshipGenerator;
 import com.shootemup.g53.controller.observer.WaveCompletionController;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class WaveFactory {
     int wave;
@@ -15,22 +13,29 @@ public class WaveFactory {
     private final int bossWaveFactor;
     private final long baseSkip;
     private final float timeFactor;
+
     private MovementStrategyFactory movementStrategyFactory;
     private FiringStrategyFactory normalFiringStrategyFactory;
-    private FiringStrategyFactory bossFiringStrategy;
-    private WaveCompletionController waveCompletionController = new WaveCompletionController();
+    private FiringStrategyFactory bossFiringStrategyFactory;
+
+    private WaveCompletionController waveCompletionController;
 
     public WaveFactory(int baseEnemies, float enemiesFactor, int bossWaveFactor, int baseSkip, float timeFactor) {
+        this(new WaveCompletionController(), baseEnemies, enemiesFactor, bossWaveFactor, baseSkip, timeFactor);
+    }
+
+    public WaveFactory(WaveCompletionController waveCompletionController, int baseEnemies, float enemiesFactor, int bossWaveFactor, int baseSkip, float timeFactor) {
         this.baseEnemies = baseEnemies;
         this.enemiesFactor = enemiesFactor;
         this.bossWaveFactor = bossWaveFactor;
         this.baseSkip = baseSkip;
         this.timeFactor = timeFactor;
         this.wave = 1;
+        this.waveCompletionController = waveCompletionController;
         setupStrategies();
     }
 
-    private void setupStrategies() {
+    protected void setupStrategies() {
         movementStrategyFactory = new MovementStrategyFactory(
                 Arrays.asList(MovementStrategyFactory.Strategy.CHANGING,
                         MovementStrategyFactory.Strategy.COMPOSITE,
@@ -44,7 +49,7 @@ public class WaveFactory {
                                 FiringStrategyFactory.Strategy.SPREAD_DOWN
                         )
         );
-        bossFiringStrategy = new FiringStrategyFactory(
+        bossFiringStrategyFactory = new FiringStrategyFactory(
                 Arrays.asList(FiringStrategyFactory.Strategy.NORMAL,
                         FiringStrategyFactory.Strategy.SPREAD_DOWN,
                         FiringStrategyFactory.Strategy.MULTIPLE,
@@ -74,9 +79,9 @@ public class WaveFactory {
                 5, gameWidth-5, 0.2,
                 1.5, 2, 5, 10, 3);
 
-        float skip = Math.max(1, baseSkip*(1-timeFactor*(wave-1)));
+        int skip = Math.max(1, Math.round(baseSkip*(1-timeFactor*(wave-1))));
 
-        result = new Wave(gameController, (long) skip,
+        result = new Wave(gameController, skip,
                 generator, Math.round(baseEnemies+(wave-1)*enemiesFactor));
         return result;
     }
@@ -84,7 +89,7 @@ public class WaveFactory {
     private Wave getBossWave(GameController gameController, int gameWidth) {
         Wave result;
         SpaceshipGenerator generator;
-        generator = new SpaceshipGenerator(gameController, movementStrategyFactory, bossFiringStrategy, 5,
+        generator = new SpaceshipGenerator(gameController, movementStrategyFactory, bossFiringStrategyFactory, 5,
                 gameWidth-5, 0.05,
                 0.1, 15, 25, 5, 5);
         generator.setMinHealth(100);
@@ -101,5 +106,17 @@ public class WaveFactory {
 
     public WaveCompletionController getWaveCompletionController() {
         return waveCompletionController;
+    }
+
+    public MovementStrategyFactory getMovementStrategyFactory() {
+        return movementStrategyFactory;
+    }
+
+    public FiringStrategyFactory getNormalFiringStrategyFactory() {
+        return normalFiringStrategyFactory;
+    }
+
+    public FiringStrategyFactory getBossFiringStrategyFactory() {
+        return bossFiringStrategyFactory;
     }
 }
