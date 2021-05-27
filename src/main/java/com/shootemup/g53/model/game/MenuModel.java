@@ -9,18 +9,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuModel extends Model {
+    private final Button playBtn;
+    private final Button exitBtn;
     private List<Button> options;
     private int selected;
     private boolean isClosed = false;
 
     public MenuModel(){
         options = new ArrayList<>();
-        options.add(new Button("PLAY", new Position(0, 6),30,5,"#b52225"));
-        options.add(new Button("EXIT", new Position(0, 19), 30,5,"#b52225"));
-        options.get(1).deactivate();
-
-        selected = 0;
+        this.playBtn = new Button("PLAY", new Position(0, 6),30,5,"#b52225");
+        this.exitBtn = new Button("EXIT", new Position(0, 19), 30,5,"#b52225");
+        setup();
     }
+
+    private void setup() {
+        options.add(playBtn);
+        options.add(exitBtn);
+        options.get(1).deactivate();
+        selected = 0;
+
+    }
+
     public int getSelected() {
         return selected % options.size();
     }
@@ -60,5 +69,9 @@ public class MenuModel extends Model {
 
     public void setClosed(boolean closed) {
         isClosed = closed;
+    }
+
+    public Button getExitBtn() {
+        return exitBtn;
     }
 }

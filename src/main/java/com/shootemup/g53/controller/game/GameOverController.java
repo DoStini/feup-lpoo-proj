@@ -46,11 +46,6 @@ public class GameOverController implements GenericController {
 
     }
 
-    @Override
-    public void handle(long frame) {
-
-    }
-
     public boolean isClose(){
         return gameOverModel.isClosed();
     }

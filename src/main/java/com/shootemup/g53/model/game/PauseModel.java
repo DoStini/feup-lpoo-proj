@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PauseModel extends Model {
+    private final Button exitBtn;
     private List<Button> options;
 
     private int selected;
@@ -17,13 +18,18 @@ public class PauseModel extends Model {
 
     public PauseModel(PlayState playState){
         options = new ArrayList<>();
+        this.exitBtn = new Button("EXIT", new Position(0, 23), 30,5,"#b52225");
+        setup();
+        this.playState = playState;
+    }
+
+    private void setup() {
         options.add(new Button("RESUME", new Position(0 , 3),30,5,"#b52225"));
         options.add(new Button("RESTART", new Position(0, 15), 30,5,"#b52225"));
-        options.add(new Button("EXIT", new Position(0, 23), 30,5,"#b52225"));
+        options.add(exitBtn);
         options.get(1).deactivate();
         options.get(2).deactivate();
         selected = 0;
-        this.playState = playState;
     }
 
     public boolean isClosed() {
@@ -68,5 +74,9 @@ public class PauseModel extends Model {
 
     public void setPlayState(PlayState playState) {
         this.playState = playState;
+    }
+
+    public Button getExitBtn() {
+        return exitBtn;
     }
 }

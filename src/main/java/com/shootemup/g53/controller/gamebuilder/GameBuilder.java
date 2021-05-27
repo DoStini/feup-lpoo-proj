@@ -107,7 +107,7 @@ public class GameBuilder {
                 new AsteroidGenerator(gameController, movementStrategyFactory, 0, gameModel.getWidth(), 0.2,
                         1, 10),
                 new CoinGenerator(gameController, movementStrategyFactory,0, gameModel.getWidth(), 0.2, 1,
-                        4, -1, -1),
+                        4),
                 new EssenceGenerator(gameController, movementStrategyFactory, 0, gameModel.getWidth(), 0.2, 1));
     }
 

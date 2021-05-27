@@ -102,7 +102,16 @@ public class GameControllerTest {
     }
 
     @Test
-    void checkInsideBoounds() {
+    void handleQKeyPress() {
+        Mockito.when(gui.isActionActive(Action.Q)).thenReturn(true);
+        GameController gameController = new GameController(gameModel,null);
+        gameController.handleKeyPress(gui);
+        Mockito.verify(gameModel, Mockito.times(1))
+                .setPaused(true);
+    }
+
+    @Test
+    void checkInsideBounds() {
         GameController gameController = new GameController(gameModel, null);
         assertEquals(gameController.insideBounds(position, 0, 0), true);
         assertEquals(gameController.insideBounds(position2, 0, 0), false);

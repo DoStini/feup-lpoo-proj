@@ -12,32 +12,24 @@ import com.shootemup.g53.model.util.Position;
 import java.util.Random;
 
 public class CoinGenerator extends MovableElementGenerator {
-    private final int minVal;
-    private final int maxVal;
     private final int maxRadius;
 
     public CoinGenerator(GameController gameController, MovementStrategyFactory movementStrategyFactory,
                          int xMinPos, int xMaxPos, double minSpeed, double maxSpeed,
-                         int maxRadius, int minVal, int maxVal) {
+                         int maxRadius) {
         this(new Random(), gameController, movementStrategyFactory,
-                xMinPos, xMaxPos, minSpeed, maxSpeed, maxRadius, minVal, maxVal);
+                xMinPos, xMaxPos, minSpeed, maxSpeed, maxRadius);
     }
 
     CoinGenerator(Random rand, GameController gameController, MovementStrategyFactory movementStrategyFactory,
                   int xMinPos, int xMaxPos, double minSpeed, double maxSpeed,
-                  int maxRadius, int minVal, int maxVal) {
+                  int maxRadius) {
         super(rand, gameController, movementStrategyFactory, xMinPos, xMaxPos, minSpeed, maxSpeed);
-        this.minVal = minVal;
-        this.maxVal = maxVal;
         this.maxRadius = maxRadius;
     }
 
     protected void setRadius(Coin coin) {
         coin.setRadius(rand.nextInt(maxRadius-1)+1);
-    }
-
-    protected void setValue(Coin coin) {
-        // coin.setValue(rand.nextInt(maxVal - minVal)+minVal);
     }
 
     protected void setCollider(Coin coin) {
@@ -58,7 +50,6 @@ public class CoinGenerator extends MovableElementGenerator {
         Coin coin = new Coin();
         setPosition(coin);
         setRadius(coin);
-        setValue(coin);
         setMovement(coin);
         setCollider(coin);
         gameModel.addCoin(coin);
