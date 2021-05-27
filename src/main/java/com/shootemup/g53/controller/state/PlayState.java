@@ -118,6 +118,10 @@ public class PlayState extends State<GameModel> {
         return infoBarViewer;
     }
 
+    public GameModel getGameModel() {
+        return gameModel;
+    }
+
     public void setGameController(GameController gameController) {
         this.gameController = gameController;
     }

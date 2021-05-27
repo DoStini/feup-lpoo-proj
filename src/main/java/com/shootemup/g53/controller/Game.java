@@ -36,4 +36,8 @@ public class Game {
     public Gui getGui() {
         return gui;
     }
+
+    public State getState() {
+        return state;
+    }
 }
