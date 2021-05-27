@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InputNotifier implements EventSubject<InputObserver> {
-    private List<InputObserver> inputObservers = new ArrayList<>();
+    protected List<InputObserver> inputObservers = new ArrayList<>();
     @Override
     public void addObserver(InputObserver observer) {
         inputObservers.add(observer);
