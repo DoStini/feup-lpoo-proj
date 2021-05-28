@@ -10,6 +10,7 @@ import com.shootemup.g53.ui.Gui;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class GameControllerTest {
     @BeforeEach
     void setup() {
         gameModel = Mockito.mock(GameModel.class);
+
         position = Mockito.mock(Position.class);
         player = Mockito.mock(Player.class);
         bulletController = Mockito.mock(BulletController.class);
@@ -54,6 +56,7 @@ public class GameControllerTest {
         spaceship = Mockito.mock(Spaceship.class);
         bulletPoolController = Mockito.mock(BulletPoolController.class);
         Mockito.when(bulletController.move()).thenReturn(position);
+        Mockito.doNothing().when(bulletPoolController).setGameController(Mockito.any(GameController.class));
         bullet = Mockito.mock(Bullet.class);
         bullet2 = Mockito.mock(Bullet.class);
         backgroundController = Mockito.mock(BackgroundController.class);
@@ -86,7 +89,34 @@ public class GameControllerTest {
 
         Mockito.when(bullet2.isActive()).thenReturn(true);
         gui = Mockito.mock(Gui.class);
+    }
 
+    @Test
+    void constructors() {
+        GameController controller = new GameController(gameModel);
+
+        Assertions.assertEquals(controller, controller.getBulletPoolController().getGameController());
+        Assertions.assertEquals(30, controller.getBulletPoolController().bulletPool.getPoolSize());
+        Assertions.assertFalse(controller.isGameFinished());
+
+        Assertions.assertEquals(0, controller.controllerHashMap.size());
+
+        controller.addToControllerMap(bullet, bulletController);
+
+        Assertions.assertEquals(1, controller.controllerHashMap.size());
+        Assertions.assertEquals(bulletController, controller.getElementController(bullet));
+
+        controller.removeFromControllerMap(bullet);
+
+        Assertions.assertEquals(0, controller.controllerHashMap.size());
+        Assertions.assertEquals(null, controller.getElementController(bullet));
+
+        controller.finishGame();
+
+        Mockito.verify(gameModel, Mockito.times(1)).setGameFinished(true);
+        Mockito.when(gameModel.isGameFinished()).thenReturn(true);
+
+        Assertions.assertTrue(controller.isGameFinished());
     }
 
     @Test
@@ -155,7 +185,7 @@ public class GameControllerTest {
 
     @Test
     void HandleElementsTest(){
-        GameController gameController = new GameController(gameModel, bulletPoolController);
+        GameController gameController = Mockito.spy(new GameController(gameModel, bulletPoolController));
         gameController.addToControllerMap(spaceship,spaceshipController);
         gameController.addToControllerMap(coin,coinController);
         gameController.addToControllerMap(asteroid,asteroidController);
@@ -165,6 +195,10 @@ public class GameControllerTest {
         gameController.setBackgroundController(backgroundController);
 
         gameController.handle(frame);
+        Mockito.verify(gameController, Mockito.times(1)).handleCollision();
+        Mockito.verify(gameController, Mockito.times(1)).checkOutsideBounds();
+        Mockito.verify(gameController, Mockito.times(1)).deactivateDead();
+
         Mockito.verify(playerController,Mockito.times(1)).handle(frame);
 
         Mockito.verify(coinController,Mockito.times(1)).handle(frame);

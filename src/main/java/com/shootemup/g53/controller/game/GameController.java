@@ -31,16 +31,14 @@ public class GameController implements GenericController {
 
     private CollisionController collisionController;
     private BackgroundController backgroundController;
-    private List<ElementInterface> controllerCopy;
-    private HashMap<Element, ElementInterface> controllerHashMap = new HashMap<>();
-    private HashMap<Element, CollisionHandlerController> collisionHashMap = new HashMap<>();
+    protected HashMap<Element, ElementInterface> controllerHashMap = new HashMap<>();
+    protected HashMap<Element, CollisionHandlerController> collisionHashMap = new HashMap<>();
 
     private ScoreController scoreController = new ScoreController();
 
     public GameController(GameModel gameModel) {
         this(gameModel, new BulletPoolController(gameModel, 30));
         this.bulletPoolController.setGameController(this);
-        this.controllerCopy = new ArrayList<>();
 
     }
 
@@ -53,7 +51,6 @@ public class GameController implements GenericController {
         this.gameModel = gameModel;
         this.bulletPoolController = bulletPoolController;
         this.collisionController = new CollisionController(this);
-        this.controllerCopy = new ArrayList<>();
     }
 
     public boolean isGameFinished(){
@@ -99,56 +96,48 @@ public class GameController implements GenericController {
     }
 
      @Override
-    public void handle(long frame){
-        if(backgroundController != null) backgroundController.handle(frame);
+    public void handle(long frame) {
+         if (backgroundController != null) backgroundController.handle(frame);
 
+         List<ElementInterface> controllerCopy = new ArrayList<>(controllerHashMap.values());
 
-        controllerCopy.clear();
-        controllerCopy.addAll(controllerHashMap.values());
+         controllerCopy.forEach(value -> value.handle(frame));
 
-        for(ElementInterface elementInterface : controllerCopy) {
-            elementInterface.handle(frame);
-        }
+         handleCollision();
 
-        handleCollision();
+         if (gameModel.getPlayer().getHealth() <= 0) finishGame();
 
-        if(gameModel.getPlayer().getHealth() <= 0) finishGame();
-
-        checkOutsideBounds();
-        deactivateDead();
-        removeInactiveElements();
-    }
-
-
+         checkOutsideBounds();
+         deactivateDead();
+         removeInactiveElements();
+     }
 
     protected void deactivateDead() {
         gameModel.getEnemySpaceships().stream()
                 .filter(enemy -> enemy.getHealth() <= 0)
-                .forEach(Element::deactivate);
-
-        for( int i = 0; i < gameModel.getEnemySpaceships().stream()
-                .filter(enemy -> enemy.getHealth() <= 0).count(); i++){
-            scoreController.notifyObservers();
-        }
+                .forEach(enemy -> {
+                    enemy.deactivate();
+                    scoreController.notifyObservers();
+                });
 
         gameModel.getShieldList().stream()
                 .filter(shield -> shield.getStrength() <= 0)
                 .forEach(Element::deactivate);
     }
 
-    private void checkOutsideBounds() {
-        for(Bullet bullet: gameModel.getBulletList())
-            if (!insideBounds(bullet.getPosition(), 1, bullet.getSize()))
-                bullet.deactivate();
-        for(Coin coin: gameModel.getCoins())
-            if (!insideBounds(coin.getPosition(), coin.getRadius()*2, coin.getRadius()*2))
-                coin.deactivate();
-        for(Asteroid asteroid: gameModel.getAsteroids())
-            if (!insideBounds(asteroid.getPosition(), asteroid.getRadius()*2, asteroid.getRadius()*2))
-                asteroid.deactivate();
-        for(Spaceship spaceship: gameModel.getEnemySpaceships())
-            if (!insideBounds(spaceship.getPosition(), spaceship.getHeight()*2, spaceship.getHeight()*2))
-                spaceship.deactivate();
+    protected void checkOutsideBounds() {
+        gameModel.getBulletList().stream()
+                .filter(bullet -> !insideBounds(bullet.getPosition(), 1, bullet.getSize()))
+                .forEach(Element::deactivate);
+        gameModel.getCoins().stream()
+                .filter(coin -> !insideBounds(coin.getPosition(), coin.getRadius() * 2, coin.getRadius() * 2))
+                .forEach(Element::deactivate);
+        gameModel.getAsteroids().stream()
+                .filter(asteroid -> !insideBounds(asteroid.getPosition(), asteroid.getRadius() * 2, asteroid.getRadius() * 2))
+                .forEach(Element::deactivate);
+        gameModel.getEnemySpaceships().stream()
+                .filter(spaceship -> !insideBounds(spaceship.getPosition(), spaceship.getHeight() * 2, spaceship.getHeight() * 2))
+                .forEach(Element::deactivate);
     }
 
     public void removeInactiveElements(){
