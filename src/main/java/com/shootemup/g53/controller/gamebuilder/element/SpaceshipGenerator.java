@@ -110,4 +110,29 @@ public class SpaceshipGenerator extends MovableElementGenerator {
         setCollider(spaceship);
         gameModel.addEnemy(spaceship);
     }
+
+
+    public int getMaxFireRate() {
+        return maxFireRate;
+    }
+
+    public int getMaxSize() {
+        return maxSize;
+    }
+
+    public int getMinSize() {
+        return minSize;
+    }
+
+    public int getMaxDamage() {
+        return maxDamage;
+    }
+
+    public int getMinHealth() {
+        return minHealth;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
 }

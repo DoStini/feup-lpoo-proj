@@ -83,6 +83,10 @@ public class FiringStrategyFactory {
                 genFireRate());
     }
 
+    public List<Strategy> getStrategies() {
+        return strategies;
+    }
+
     private int genFireRate() {
         return random.nextInt(maxFireRate - minFireRate) + minFireRate;
     }
