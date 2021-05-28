@@ -27,7 +27,7 @@ class PowerupControllerTest {
 
     @BeforeEach
     void setup() {
-        player = Mockito.mock(Player.class, Mockito.CALLS_REAL_METHODS);
+        player = Mockito.spy(new Player(Mockito.mock(Position.class), 0,0, 30, "", 10.0, 10));
         gameController = Mockito.mock(GameController.class);
         gameModel = Mockito.spy(new GameModel(20,20));
         gameModel.setShields(new ArrayList<>());
@@ -44,6 +44,9 @@ class PowerupControllerTest {
         player.setEssence(3);
         Assertions.assertFalse(controller.spawnShield(player));
         Assertions.assertEquals(3, player.getEssence());
+
+        Assertions.assertFalse(controller.healthBoost(player));
+        Assertions.assertEquals(3, player.getEssence());
     }
 
     @Test
@@ -51,10 +54,15 @@ class PowerupControllerTest {
         player.setEssence(5);
         Assertions.assertTrue(controller.spawnShield(player));
         Assertions.assertEquals(0, player.getEssence());
+
+        player.setHealth(10);
+        player.setEssence(8);
+        Assertions.assertTrue(controller.healthBoost(player));
+        Assertions.assertEquals(0, player.getEssence());
     }
 
     @Test
-    void oneTimeEssence() {
+    void oneTimeEssenceShield() {
         player.setEssence(6);
         Assertions.assertTrue(controller.spawnShield(player));
         Assertions.assertEquals(1, player.getEssence());
@@ -79,5 +87,35 @@ class PowerupControllerTest {
         Mockito.verify(gameController,  Mockito.times(1))
                 .addToCollisionMap(Mockito.eq(shield), Mockito.any(ShieldController.class));
 
+    }
+
+    @Test
+    void oneTimeEssenceHealth() {
+        player.setEssence(9);
+        player.setHealth(5);
+        Assertions.assertTrue(controller.healthBoost(player));
+        Assertions.assertEquals(1, player.getEssence());
+        Assertions.assertEquals(15, player.getHealth());
+        Assertions.assertFalse(controller.spawnShield(player));
+        Assertions.assertEquals(1, player.getEssence());
+        Assertions.assertEquals(15, player.getHealth());
+    }
+
+    @Test
+    void maxHealth() {
+        player.setEssence(9);
+        player.setHealth(30);
+        Assertions.assertFalse(controller.healthBoost(player));
+        Assertions.assertEquals(9, player.getEssence());
+        Assertions.assertEquals(30, player.getHealth());
+    }
+
+    @Test
+    void capHealth() {
+        player.setEssence(9);
+        player.setHealth(25);
+        Assertions.assertTrue(controller.healthBoost(player));
+        Assertions.assertEquals(1, player.getEssence());
+        Assertions.assertEquals(30, player.getHealth());
     }
 }

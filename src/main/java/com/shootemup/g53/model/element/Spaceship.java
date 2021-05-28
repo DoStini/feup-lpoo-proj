@@ -43,7 +43,7 @@ public class Spaceship extends MovableElement {
     public void setHealth(int health) {
         this.health = health;
 
-        if(this.health < 0) this.health = 0;
+        this.health = Math.max(0, Math.min(30, health));
     }
 
     public void setBulletDamage(int bulletDamage) {
