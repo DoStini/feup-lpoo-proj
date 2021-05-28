@@ -2,5 +2,5 @@ package com.shootemup.g53.controller.element;
 
 
 public interface ElementInterface {
-    void handle(long frame);
+    default void handle(long frame) {}
 }
