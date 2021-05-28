@@ -34,12 +34,11 @@ public class GameController implements GenericController {
     protected HashMap<Element, ElementInterface> controllerHashMap = new HashMap<>();
     protected HashMap<Element, CollisionHandlerController> collisionHashMap = new HashMap<>();
 
-    private ScoreController scoreController = new ScoreController();
+    private ScoreController scoreController;
 
     public GameController(GameModel gameModel) {
         this(gameModel, new BulletPoolController(gameModel, 30));
         this.bulletPoolController.setGameController(this);
-
     }
 
     public int numOfControllers(){
@@ -51,6 +50,7 @@ public class GameController implements GenericController {
         this.gameModel = gameModel;
         this.bulletPoolController = bulletPoolController;
         this.collisionController = new CollisionController(this);
+        this.scoreController = new ScoreController();
     }
 
     public boolean isGameFinished(){
@@ -61,6 +61,9 @@ public class GameController implements GenericController {
         controllerHashMap.put(element,elementController);
     }
 
+    public void setScoreController(ScoreController scoreController) {
+        this.scoreController = scoreController;
+    }
 
     public void finishGame(){
         gameModel.setGameFinished(true);
@@ -127,7 +130,7 @@ public class GameController implements GenericController {
 
     protected void checkOutsideBounds() {
         gameModel.getBulletList().stream()
-                .filter(bullet -> !insideBounds(bullet.getPosition(), 1, bullet.getSize()))
+                .filter(bullet -> !insideBounds(bullet.getPosition(), 0, bullet.getSize()))
                 .forEach(Element::deactivate);
         gameModel.getCoins().stream()
                 .filter(coin -> !insideBounds(coin.getPosition(), coin.getRadius() * 2, coin.getRadius() * 2))
@@ -153,7 +156,7 @@ public class GameController implements GenericController {
         if(pos == null){
             return false;
         }
-        return pos.getX() + width > 0 && pos.getX() < gameModel.getWidth() + width &&
+        return pos.getX() + width >= 0 && pos.getX() < gameModel.getWidth() + width &&
                 pos.getY() < gameModel.getHeight() + height && pos.getY() + height >= 0;
     }
 
