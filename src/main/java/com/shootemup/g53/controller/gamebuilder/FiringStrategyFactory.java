@@ -39,7 +39,7 @@ public class FiringStrategyFactory {
     }
 
     public FiringStrategy generate(Spaceship element) {
-        Strategy strategy = strategies.get(random.nextInt() % strategies.size());
+        Strategy strategy = strategies.get(random.nextInt(strategies.size()));
         switch (strategy){
             case NORMAL:
                 return generateNormal(element);
