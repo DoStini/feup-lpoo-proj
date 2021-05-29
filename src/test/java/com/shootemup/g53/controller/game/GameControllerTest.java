@@ -251,8 +251,47 @@ public class GameControllerTest {
 
         gameController.setBackgroundController(backgroundController);
 
-        Assertions.assertEquals(gameController.getBackgroundController(), gameController.getBackgroundController());
-        Assertions.assertEquals(backgroundController, gameController.getBackgroundController());
+        Assertions.assertSame(gameController.getBackgroundController(), gameController.getBackgroundController());
+        Assertions.assertSame(backgroundController, gameController.getBackgroundController());
+
+        GameModel model = Mockito.mock(GameModel.class);
+        BulletPoolController bulletPoolController2 = Mockito.mock(BulletPoolController.class);
+
+        gameController.setGameModel(model);
+
+        Assertions.assertSame(model, gameController.getGameModel());
+        Assertions.assertSame(bulletPoolController, gameController.getBulletPoolController());
+
+        Mockito.verify(bulletPoolController, Mockito.times(1)).setGameModel(model);
+
+        gameController.setBulletPoolController(bulletPoolController2);
+        Assertions.assertSame(bulletPoolController2, gameController.getBulletPoolController());
+
+        Assertions.assertNull(gameController.getPlayerController());
+
+        Mockito.when(model.getPlayer()).thenReturn(player);
+        gameController.addToControllerMap(player, playerController);
+
+        Assertions.assertSame(playerController, gameController.getPlayerController());
+
+        Mockito.when(model.isPaused()).thenReturn(true);
+
+        Assertions.assertTrue(gameController.isPaused());
+
+        gameController.unpause();
+
+        Mockito.verify(model, Mockito.times(1)).setPaused(false);
+
+        Mockito.when(model.isPaused()).thenReturn(false);
+        Assertions.assertFalse(gameController.isPaused());
+
+        ScoreController scoreController = Mockito.mock(ScoreController.class);
+
+        Assertions.assertNotSame(scoreController, gameController.getScoreController());
+
+        gameController.setScoreController(scoreController);
+
+        Assertions.assertSame(scoreController, gameController.getScoreController());
     }
 
     @Test
