@@ -104,7 +104,7 @@ public class GameController implements GenericController {
 
          List<ElementInterface> controllerCopy = new ArrayList<>(controllerHashMap.values());
 
-         controllerCopy.forEach(value -> value.handle(frame));
+         controllerCopy.forEach(controller -> controller.handle(frame));
 
          handleCollision();
 
