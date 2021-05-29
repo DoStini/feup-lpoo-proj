@@ -123,15 +123,15 @@ class FiringStrategyFactoryTest {
 
         firingStrategyFactory = new FiringStrategyFactory(random, strategies);
 
-        Mockito.when(random.nextInt()).thenReturn(1);
+        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(1);
         Assertions.assertEquals(SpreadBulletDownStrategy.class,
                 firingStrategyFactory.generate(spaceship).getClass());
 
-        Mockito.when(random.nextInt()).thenReturn(2);
+        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(2);
         Assertions.assertEquals(MovingBulletStrategy.class,
                 firingStrategyFactory.generate(spaceship).getClass());
 
-        Mockito.when(random.nextInt()).thenReturn(0);
+        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
         Assertions.assertEquals(SpreadAllStrategy.class,
                 firingStrategyFactory.generate(spaceship).getClass());
 
