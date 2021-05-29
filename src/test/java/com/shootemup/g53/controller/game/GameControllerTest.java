@@ -4,6 +4,7 @@ import com.shootemup.g53.controller.element.*;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.observer.ScoreController;
 import com.shootemup.g53.controller.player.PlayerController;
+import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.element.*;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
@@ -335,6 +336,9 @@ public class GameControllerTest {
         Mockito.when(coin.getPosition()).thenReturn(new Position(-1,0));
         Mockito.when(asteroid.getPosition()).thenReturn(new Position(-1,0));
         Mockito.when(bullet2.getPosition()).thenReturn(new Position(-1,0));
+        Mockito.when(coin.getRadius()).thenReturn(2);
+        Mockito.when(asteroid.getRadius()).thenReturn(2);
+        Mockito.when(spaceship.getHeight()).thenReturn(2);
 
         Position position = bullet2.getPosition();
 
@@ -342,8 +346,116 @@ public class GameControllerTest {
 
         Mockito.verify(bullet2, Mockito.times(1)).deactivate();
         Mockito.verify(bullet, Mockito.times(1)).deactivate();
+        Mockito.verify(spaceship, Mockito.times(0)).deactivate();
+        Mockito.verify(coin, Mockito.times(0)).deactivate();
+        Mockito.verify(asteroid, Mockito.times(0)).deactivate();
+
+        Mockito.when(spaceship.getPosition()).thenReturn(new Position(-2,0));
+        Mockito.when(coin.getPosition()).thenReturn(new Position(-2,0));
+        Mockito.when(asteroid.getPosition()).thenReturn(new Position(-2,0));
+
+        gameController.checkOutsideBounds();
+
+        Mockito.verify(spaceship, Mockito.times(0)).deactivate();
+        Mockito.verify(coin, Mockito.times(0)).deactivate();
+        Mockito.verify(asteroid, Mockito.times(0)).deactivate();
+
+        Mockito.when(spaceship.getPosition()).thenReturn(new Position(-5,0));
+        Mockito.when(coin.getPosition()).thenReturn(new Position(-5,0));
+        Mockito.when(asteroid.getPosition()).thenReturn(new Position(-5,0));
+
+        gameController.checkOutsideBounds();
+
         Mockito.verify(spaceship, Mockito.times(1)).deactivate();
         Mockito.verify(coin, Mockito.times(1)).deactivate();
         Mockito.verify(asteroid, Mockito.times(1)).deactivate();
+
+        Mockito.when(spaceship.getPosition()).thenReturn(new Position(-3,-4));
+        Mockito.when(coin.getPosition()).thenReturn(new Position(-3,-4));
+        Mockito.when(asteroid.getPosition()).thenReturn(new Position(-3,-4));
+
+        gameController.checkOutsideBounds();
+
+        Mockito.verify(spaceship, Mockito.times(1)).deactivate();
+        Mockito.verify(coin, Mockito.times(1)).deactivate();
+        Mockito.verify(asteroid, Mockito.times(1)).deactivate();
+
+        Mockito.when(spaceship.getPosition()).thenReturn(new Position(-3,-5));
+        Mockito.when(coin.getPosition()).thenReturn(new Position(-3,-5));
+        Mockito.when(asteroid.getPosition()).thenReturn(new Position(-3,-5));
+
+        gameController.checkOutsideBounds();
+
+        Mockito.verify(spaceship, Mockito.times(2)).deactivate();
+        Mockito.verify(coin, Mockito.times(2)).deactivate();
+        Mockito.verify(asteroid, Mockito.times(2)).deactivate();
+    }
+
+    @Test
+    void removeInactive() {
+        GameController gameController = new GameController(gameModel, bulletPoolController);
+        gameController.addToControllerMap(spaceship,spaceshipController);
+        gameController.addToControllerMap(coin,coinController);
+        gameController.addToControllerMap(asteroid,asteroidController);
+        gameController.addToControllerMap(player,playerController);
+        gameController.addToControllerMap(bullet, bulletController);
+        gameController.addToControllerMap(bullet2, bulletController);
+
+        BodyCollider playerCollider = Mockito.mock(BodyCollider.class);
+        BodyCollider coinCollider = Mockito.mock(BodyCollider.class);
+        BodyCollider spaceshipCollider = Mockito.mock(BodyCollider.class);
+        BodyCollider bulletCollider = Mockito.mock(BodyCollider.class);
+
+        List<BodyCollider> colliders = new ArrayList<>();
+        colliders.add(playerCollider);
+        colliders.add(coinCollider);
+        colliders.add(spaceshipCollider);
+        colliders.add(bulletCollider);
+
+        Mockito.when(gameModel.getColliders()).thenReturn(colliders);
+
+        gameController.addToCollisionMap(player, playerController);
+        gameController.addToCollisionMap(coin, coinController);
+        gameController.addToCollisionMap(spaceship, spaceshipController);
+        gameController.addToCollisionMap(bullet, bulletController);
+
+        Mockito.when(player.isActive()).thenReturn(true);
+        Mockito.when(spaceship.isActive()).thenReturn(true);
+        Mockito.when(coin.isActive()).thenReturn(true);
+        Mockito.when(asteroid.isActive()).thenReturn(true);
+        Mockito.when(bullet.isActive()).thenReturn(true);
+        Mockito.when(bullet2.isActive()).thenReturn(true);
+
+        Assertions.assertEquals(6, gameController.controllerHashMap.size());
+        Assertions.assertEquals(4, gameController.collisionHashMap.size());
+
+        gameController.removeInactiveElements();
+
+        Assertions.assertEquals(6, gameController.controllerHashMap.size());
+        Assertions.assertEquals(4, gameController.collisionHashMap.size());
+
+        Mockito.verify(gameModel, Mockito.times(1)).removeInactive();
+
+        Mockito.when(bullet2.isActive()).thenReturn(false);
+        Mockito.when(asteroid.isActive()).thenReturn(false);
+
+        gameController.removeInactiveElements();
+
+        Assertions.assertEquals(4, gameController.controllerHashMap.size());
+        Assertions.assertFalse(gameController.controllerHashMap.containsKey(asteroid));
+        Assertions.assertFalse(gameController.controllerHashMap.containsKey(bullet2));
+        Assertions.assertEquals(4, gameController.collisionHashMap.size());
+
+        Mockito.verify(gameModel, Mockito.times(2)).removeInactive();
+
+        Mockito.when(player.isActive()).thenReturn(false);
+        Mockito.when(spaceship.isActive()).thenReturn(false);
+        Mockito.when(coin.isActive()).thenReturn(false);
+
+        gameController.removeInactiveElements();
+
+        Assertions.assertEquals(1, gameController.controllerHashMap.size());
+        Assertions.assertTrue(gameController.controllerHashMap.containsKey(bullet));
+        Assertions.assertEquals(1, gameController.collisionHashMap.size());
     }
 }
