@@ -27,12 +27,18 @@ public class PowerupController {
         this.gameModel = gameController.getGameModel();
     }
 
-    public boolean spawnShield(Player player) {
-        if (player.getEssence() < shieldEssenceCost)
+    private boolean consumeEssence(Player player, int cost) {
+        if(!player.removeEssence(cost))
             return false;
-        essenceController.setAmount(-shieldEssenceCost);
+
+        essenceController.setAmount(-cost);
         essenceController.notifyObservers();
-        player.removeEssence(shieldEssenceCost);
+        return true;
+    }
+
+    public boolean spawnShield(Player player) {
+        if(!consumeEssence(player, shieldEssenceCost))
+            return false;
 
         generateShield(player);
 
@@ -40,12 +46,12 @@ public class PowerupController {
     }
 
     public boolean healthBoost(Player player) {
-        if (player.getEssence() < healthCost)
+        if (player.getHealth() == player.getMaxHealth() || !consumeEssence(player, healthCost))
             return false;
 
         int health = player.getHealth();
 
-        player.setHealth(Math.min(health + healthBoost, player.getMaxHealth()));
+        player.setHealth(health + healthBoost);
         lifeController.setLifeToRemove(-(player.getHealth() - health));
         lifeController.notifyObservers();
         return true;
