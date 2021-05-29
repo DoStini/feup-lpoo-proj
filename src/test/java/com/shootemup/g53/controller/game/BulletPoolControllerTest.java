@@ -1,6 +1,5 @@
 package com.shootemup.g53.controller.game;
 
-import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.model.element.Bullet;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
@@ -9,10 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.stubbing.OngoingStubbing;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
