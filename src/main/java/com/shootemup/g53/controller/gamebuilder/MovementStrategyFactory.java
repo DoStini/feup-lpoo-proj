@@ -7,6 +7,7 @@ import com.shootemup.g53.model.util.Direction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class MovementStrategyFactory {
 
@@ -21,8 +22,7 @@ public class MovementStrategyFactory {
     }
 
     private final Random random;
-    private final List<Strategy> strategies;
-    private final int recursionLimit = 10;
+    private List<Strategy> strategies;
 
     private double maxRadius = 5;
     private double minRadius = 3;
@@ -44,8 +44,11 @@ public class MovementStrategyFactory {
         this.strategies = strategies;
     }
 
-    protected MovementStrategy generate(Element element, int currentRec) {
-        Strategy strategy = strategies.get(random.nextInt() % strategies.size());
+    public MovementStrategy generate(Element element) {
+        if (strategies.isEmpty())
+            return null;
+        int r = random.nextInt(strategies.size());
+        Strategy strategy = strategies.get(r);
         switch (strategy){
             case DOWN:
                 return generateDown(element);
@@ -58,43 +61,64 @@ public class MovementStrategyFactory {
             case DIAGONAL_BOUNCE:
                 return generateDiagonalBounce(element);
             case CHANGING:
-                return generateChanging(element, currentRec);
+                return generateChanging(element);
             case COMPOSITE:
-                return generateComposite(element, currentRec);
+                return generateComposite(element);
         }
         return null;
     }
 
-    public MovementStrategy generate(Element element) {
-        return generate(element, 0);
+    public MovementStrategy ensureFallDown(MovementStrategy movementStrategy) {
+        if (movementStrategy instanceof FallDownMovement)
+            return movementStrategy;
+        else if (movementStrategy instanceof CompositeMovement) {
+            CompositeMovement strategy = (CompositeMovement) movementStrategy;
+            if (!strategy.contains(new FallDownMovement()))
+                strategy.addMovement(new FallDownMovement());
+        }
+        else if (movementStrategy instanceof ChangingMovement) {
+            ChangingMovement strategy = (ChangingMovement) movementStrategy;
+            if (!strategy.contains(new FallDownMovement()))
+                strategy.addMovement(new FallDownMovement());
+        }
+
+        List<MovementStrategy> strategies = new ArrayList<>();
+        strategies.add(movementStrategy);
+        strategies.add(new FallDownMovement());
+
+        return new CompositeMovement(strategies);
     }
 
-    private List<MovementStrategy> compositeMovementStrategies(Element element, int currentRec) {
+    private List<MovementStrategy> compositeMovementStrategies(Element element) {
+        List<Strategy> swap = strategies;
+        strategies = new ArrayList<>(strategies).stream()
+                .filter(el -> el != Strategy.COMPOSITE && el != Strategy.CHANGING).collect(Collectors.toList());
+
         List<MovementStrategy> strategyList = new ArrayList<>();
-        if (currentRec > recursionLimit)
-            return strategyList;
 
         int numComposites = random.nextInt(maxComposite-minComposite)+minComposite;
 
         for (int i = 0; i < numComposites; i++) {
-            MovementStrategy movementStrategy = generate(element, currentRec + 1);
+            MovementStrategy movementStrategy = generate(element);
             if (movementStrategy != null)
                 strategyList.add(movementStrategy);
         }
 
+        strategies = swap;
+
         return strategyList;
     }
 
-    private MovementStrategy generateComposite(Element element, int currentRec) {
-        List<MovementStrategy> strategyList = compositeMovementStrategies(element, currentRec);
+    private MovementStrategy generateComposite(Element element) {
+        List<MovementStrategy> strategyList = compositeMovementStrategies(element);
         if (strategyList.isEmpty())
             return null;
 
         return new CompositeMovement(strategyList);
     }
 
-    private MovementStrategy generateChanging(Element element, int currentRec) {
-        List<MovementStrategy> strategyList = compositeMovementStrategies(element, currentRec);
+    private MovementStrategy generateChanging(Element element) {
+        List<MovementStrategy> strategyList = compositeMovementStrategies(element);
         if (strategyList.isEmpty())
             return null;
 

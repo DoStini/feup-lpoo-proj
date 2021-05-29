@@ -26,7 +26,7 @@ public abstract class MovableElementGenerator extends ElementGenerator {
     }
 
     MovementStrategy generateMovementStrategy(MovableElement element) {
-        return movementStrategyFactory.generate(element);
+        return movementStrategyFactory.ensureFallDown(movementStrategyFactory.generate(element));
     }
 
     protected void setSpeed(MovableElement element) {

@@ -60,4 +60,20 @@ public class ChangingMovement extends IncrementalMovement {
 
         return new ChangingMovement(changeRate, strategies);
     }
+
+    public boolean contains(MovementStrategy strategy) {
+        return controllers.stream().anyMatch(st -> st.getClass() == strategy.getClass());
+    }
+
+    public void addMovement(MovementStrategy movementStrategy) {
+        controllers.add(movementStrategy);
+    }
+
+    public List<MovementStrategy> getControllers() {
+        return controllers;
+    }
+
+    public int getChangingRate() {
+        return changeRate;
+    }
 }
