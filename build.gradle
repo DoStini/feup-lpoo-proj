@@ -25,7 +25,6 @@ dependencies {
 }
 
 pitest {
-    targetClasses = ['com.shootemup.g53.controller.game*']
     junit5PluginVersion = '0.12'
 }
 
