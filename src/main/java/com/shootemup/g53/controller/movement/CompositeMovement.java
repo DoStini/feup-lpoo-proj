@@ -41,4 +41,12 @@ public class CompositeMovement extends IncrementalMovement {
 
         return new CompositeMovement(strategies);
     }
+
+    public boolean contains(MovementStrategy strategy) {
+        return controllers.stream().anyMatch(st -> st.getClass() == strategy.getClass());
+    }
+
+    public List<MovementStrategy> getControllers() {
+        return controllers;
+    }
 }

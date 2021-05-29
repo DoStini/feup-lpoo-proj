@@ -20,7 +20,7 @@ public class FiringStrategyFactory {
     private final Random random;
     private final List<Strategy> strategies;
 
-    private int bulletSpeedDiff = 4;
+    private double bulletSpeedDiff = 4;
     private int maxFireRate = 10;
     private int minFireRate = 5;
     private int maxBullets = 4;
@@ -39,7 +39,7 @@ public class FiringStrategyFactory {
     }
 
     public FiringStrategy generate(Spaceship element) {
-        Strategy strategy = strategies.get(random.nextInt(strategies.size()));
+        Strategy strategy = strategies.get(random.nextInt() % strategies.size());
         switch (strategy){
             case NORMAL:
                 return generateNormal(element);
@@ -75,10 +75,7 @@ public class FiringStrategyFactory {
     }
 
     private FiringStrategy generateNormal(Spaceship element) {
-        MovementStrategyFactory movementStrategyFactory =
-                new MovementStrategyFactory(Arrays.asList(MovementStrategyFactory.Strategy.DOWN,
-                                                            MovementStrategyFactory.Strategy.DIAGONAL_DOWN));
-        return new MovingBulletStrategy(movementStrategyFactory.generate(element),
+        return new MovingBulletStrategy(new FallDownMovement(),
                 genSpeed(element),
                 genFireRate());
     }
@@ -92,7 +89,7 @@ public class FiringStrategyFactory {
     }
 
     private double genSpeed(Spaceship element) {
-        return random.nextInt(bulletSpeedDiff) + element.getSpeed() + 2;
+        return random.nextDouble()*bulletSpeedDiff + element.getSpeed() + 2;
     }
 
 }

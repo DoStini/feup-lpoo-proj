@@ -1,6 +1,7 @@
 package com.shootemup.g53.controller.firing;
 
 import com.shootemup.g53.controller.game.BulletPoolController;
+import com.shootemup.g53.controller.movement.FallDownMovement;
 import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.element.Spaceship;
@@ -24,5 +25,9 @@ public class MovingBulletStrategy extends FiringStrategy {
         bulletPoolController.addBullet(position.getX(), position.getY(),
                     color, 3, bulletSpeed, spaceship.getBulletDamage(), this.movementStrategy, category);
 
+    }
+
+    public MovementStrategy getMovement() {
+        return movementStrategy;
     }
 }

@@ -11,7 +11,7 @@ import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.model.util.objectpool.ObjectPool;
 
 public class BulletPoolController {
-    private ObjectPool<Bullet> bulletPool;
+    protected ObjectPool<Bullet> bulletPool;
 
     private GameModel gameModel;
     private GameController gameController;

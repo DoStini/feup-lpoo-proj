@@ -70,13 +70,7 @@ public class SpaceshipGenerator extends MovableElementGenerator {
     }
 
     protected void setController(Spaceship spaceship) {
-        MovementStrategy randomStrategy = generateMovementStrategy(spaceship), strategy;
-
-        if (!(randomStrategy instanceof FallDownMovement))
-            strategy = new CompositeMovement(Arrays.asList(randomStrategy, new FallDownMovement()));
-        else
-            strategy = randomStrategy;
-
+        MovementStrategy strategy = generateMovementStrategy(spaceship);
 
         FiringStrategy firingStrategy = setFiringStrategy(spaceship);
         SpaceshipController spaceshipController = new SpaceshipController(spaceship, firingStrategy, strategy,
