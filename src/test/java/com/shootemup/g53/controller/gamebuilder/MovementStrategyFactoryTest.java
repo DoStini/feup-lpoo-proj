@@ -92,7 +92,7 @@ class MovementStrategyFactoryTest {
     void generateDiagonalDown() {
         strategies = Arrays.asList(MovementStrategyFactory.Strategy.DIAGONAL_DOWN);
         Random random = Mockito.mock(Random.class);
-        Mockito.when(random.nextInt()).thenReturn(0);
+        Mockito.when(random.nextInt()).thenReturn(2);
 
         MovementStrategyFactory movementStrategyFactory = new MovementStrategyFactory(random, strategies);
 
@@ -107,7 +107,7 @@ class MovementStrategyFactoryTest {
     void generateBounceDefaults() {
         strategies = Arrays.asList(MovementStrategyFactory.Strategy.DIAGONAL_BOUNCE);
         Random random = Mockito.mock(Random.class);
-        Mockito.when(random.nextInt()).thenReturn(0);
+        Mockito.when(random.nextInt()).thenReturn(2);
         Position position = new Position(5, 5);
         Mockito.when(element.getPosition()).thenReturn(position);
 
@@ -125,6 +125,7 @@ class MovementStrategyFactoryTest {
         Assertions.assertEquals(6, bounceMovement.getxLeftLimit());
         Assertions.assertEquals(6, bounceMovement.getxRightLimit());
         Assertions.assertEquals(Direction.DOWN_RIGHT, bounceMovement.getDirection());
+        Mockito.verify(random, Mockito.times(1)).nextInt(6);
     }
 
     @Test
@@ -182,6 +183,7 @@ class MovementStrategyFactoryTest {
         Random random = Mockito.mock(Random.class);
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0, 0, 0, 1);
 
+
         MovementStrategyFactory movementStrategyFactory = new MovementStrategyFactory(random, strategies);
         MovementStrategy movementStrategy = movementStrategyFactory.generate(element);
         Assertions.assertEquals(CompositeMovement.class, movementStrategy.getClass());
@@ -191,6 +193,7 @@ class MovementStrategyFactoryTest {
         Assertions.assertEquals(2, composite.getControllers().size());
         Assertions.assertEquals(FallDownMovement.class, composite.getControllers().get(0).getClass());
         Assertions.assertEquals(CircularMovement.class, composite.getControllers().get(1).getClass());
+        Mockito.verify(random, Mockito.times(3)).nextInt(2);
     }
 
     @Test
@@ -212,6 +215,90 @@ class MovementStrategyFactoryTest {
         Assertions.assertEquals(110, changing.getChangingRate());
         Assertions.assertEquals(FallDownMovement.class, changing.getControllers().get(0).getClass());
         Assertions.assertEquals(CircularMovement.class, changing.getControllers().get(1).getClass());
+        Mockito.verify(random, Mockito.times(1)).nextInt(90);
+    }
+
+    @Test
+    void ensureFallDown() {
+        MovementStrategy movementStrategy = Mockito.mock(FallDownMovement.class);
+        MovementStrategyFactory movementStrategyFactory = new MovementStrategyFactory(strategies);
+        Assertions.assertEquals(movementStrategy, movementStrategyFactory.ensureFallDown(movementStrategy));
+    }
+
+    @Test
+    void ensureFallDownNonFallDown() {
+        MovementStrategy movementStrategy = Mockito.mock(CircularMovement.class);
+        MovementStrategyFactory movementStrategyFactory = new MovementStrategyFactory(strategies);
+
+        MovementStrategy result =  movementStrategyFactory.ensureFallDown(movementStrategy);
+
+        Assertions.assertEquals(CompositeMovement.class, result.getClass());
+
+        CompositeMovement composite = (CompositeMovement) result;
+
+        Assertions.assertEquals(2, composite.getControllers().size());
+        Assertions.assertEquals(Mockito.mock(CircularMovement.class).getClass(), composite.getControllers().get(0).getClass());
+        Assertions.assertEquals(FallDownMovement.class, composite.getControllers().get(1).getClass());
+    }
+
+    @Test
+    void ensureFallDownChanging() {
+
+        List<MovementStrategy> movementStrategies = new ArrayList<>();
+        movementStrategies.add(Mockito.mock(CircularMovement.class));
+
+        MovementStrategy movementStrategy =
+                new ChangingMovement(0, movementStrategies);
+
+        MovementStrategyFactory movementStrategyFactory = new MovementStrategyFactory(strategies);
+
+        MovementStrategy result =  movementStrategyFactory.ensureFallDown(movementStrategy);
+
+        Assertions.assertEquals(movementStrategy, result);
+
+        ChangingMovement changing = (ChangingMovement) result;
+
+        Assertions.assertEquals(2, changing.getControllers().size());
+        Assertions.assertEquals(Mockito.mock(CircularMovement.class).getClass(), changing.getControllers().get(0).getClass());
+        Assertions.assertEquals(FallDownMovement.class, changing.getControllers().get(1).getClass());
+
+        result =  movementStrategyFactory.ensureFallDown(result);
+        changing = (ChangingMovement) result;
+
+        Assertions.assertEquals(2, changing.getControllers().size());
+        Assertions.assertEquals(Mockito.mock(CircularMovement.class).getClass(), changing.getControllers().get(0).getClass());
+        Assertions.assertEquals(FallDownMovement.class, changing.getControllers().get(1).getClass());
+
+    }
+
+    @Test
+    void ensureFallDownComposite() {
+
+        List<MovementStrategy> movementStrategies = new ArrayList<>();
+        movementStrategies.add(Mockito.mock(CircularMovement.class));
+
+        MovementStrategy movementStrategy =
+                new CompositeMovement(movementStrategies);
+
+        MovementStrategyFactory movementStrategyFactory = new MovementStrategyFactory(strategies);
+
+        MovementStrategy result =  movementStrategyFactory.ensureFallDown(movementStrategy);
+
+        Assertions.assertEquals(movementStrategy, result);
+
+        CompositeMovement composite = (CompositeMovement) result;
+
+        Assertions.assertEquals(2, composite.getControllers().size());
+        Assertions.assertEquals(Mockito.mock(CircularMovement.class).getClass(), composite.getControllers().get(0).getClass());
+        Assertions.assertEquals(FallDownMovement.class, composite.getControllers().get(1).getClass());
+
+        result =  movementStrategyFactory.ensureFallDown(result);
+        composite = (CompositeMovement) result;
+
+        Assertions.assertEquals(2, composite.getControllers().size());
+        Assertions.assertEquals(Mockito.mock(CircularMovement.class).getClass(), composite.getControllers().get(0).getClass());
+        Assertions.assertEquals(FallDownMovement.class, composite.getControllers().get(1).getClass());
+
     }
 
 }

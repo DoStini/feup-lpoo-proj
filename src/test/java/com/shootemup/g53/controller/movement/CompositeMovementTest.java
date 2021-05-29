@@ -83,4 +83,16 @@ class CompositeMovementTest {
         Assertions.assertNotSame(diagonalLeft, movement3.controllers.get(1));
         Mockito.verify(diagonalLeft, Mockito.times(2)).cloneStrategy();
     }
+
+    @Test
+    void contains() {
+
+        List<MovementStrategy> movementStrategies = Arrays.asList(new FallDownMovement());
+
+        CompositeMovement controller = new CompositeMovement(movementStrategies);
+
+        Assertions.assertTrue(controller.contains(new FallDownMovement()));
+        Assertions.assertFalse(controller.contains(new MoveUpwardsMovement()));
+
+    }
 }

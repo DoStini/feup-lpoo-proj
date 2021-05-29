@@ -75,11 +75,13 @@ public class MovementStrategyFactory {
             CompositeMovement strategy = (CompositeMovement) movementStrategy;
             if (!strategy.contains(new FallDownMovement()))
                 strategy.addMovement(new FallDownMovement());
+            return strategy;
         }
         else if (movementStrategy instanceof ChangingMovement) {
             ChangingMovement strategy = (ChangingMovement) movementStrategy;
             if (!strategy.contains(new FallDownMovement()))
                 strategy.addMovement(new FallDownMovement());
+            return strategy;
         }
 
         List<MovementStrategy> strategies = new ArrayList<>();
