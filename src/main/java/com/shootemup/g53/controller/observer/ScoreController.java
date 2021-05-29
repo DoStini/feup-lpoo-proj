@@ -20,4 +20,8 @@ public class ScoreController implements EventSubject<PlayerScoreObserver>{
         for(PlayerScoreObserver playerScoreObserver: levelCompletedObservers)
             playerScoreObserver.updateScore();
     }
+
+    public List<PlayerScoreObserver> getLevelCompletedObservers() {
+        return levelCompletedObservers;
+    }
 }

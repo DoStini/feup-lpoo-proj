@@ -25,6 +25,7 @@ class PlayerControllerTest {
     private String color = "#aaaaaa";
     private MovingBulletStrategy firingController;
     private BulletPoolController bulletPoolController;
+    private NormalState normalState;
     MovementStrategy strategy;
     private double speed = 5;
     private PowerupController powerupController;
@@ -40,8 +41,8 @@ class PlayerControllerTest {
         strategy = Mockito.mock(MovementStrategy.class);
         gui = Mockito.mock(Gui.class);
 
-        Mockito.when(strategy.move(Mockito.any(), Mockito.anyDouble())).thenReturn(position);
 
+        Mockito.when(strategy.move(Mockito.any(), Mockito.anyDouble())).thenReturn(position);
         powerupController = Mockito.mock(PowerupController.class);
 
         firingController = Mockito.mock(MovingBulletStrategy.class);
@@ -66,7 +67,7 @@ class PlayerControllerTest {
 
         Mockito.when(gui.isActionActive(Action.W)).thenReturn(true);
 
-        assertEquals(position, controller.move(gui));
+        assertEquals(position, controller.move());
         double speed = player.getSpeed();
 
         Position positionSent = new Position(player.getPosition().getX(), player.getPosition().getY());
@@ -80,7 +81,7 @@ class PlayerControllerTest {
 
         Mockito.when(gui.isActionActive(Action.S)).thenReturn(true);
 
-        assertEquals(position, controller.move(gui));
+        assertEquals(position, controller.move());
         double speed = player.getSpeed();
 
         Position positionSent = new Position(player.getPosition().getX(), player.getPosition().getY());
@@ -93,7 +94,7 @@ class PlayerControllerTest {
         controller.setLeftStrategy(strategy);
         Mockito.when(gui.isActionActive(Action.A)).thenReturn(true);
 
-        assertEquals(position, controller.move(gui));
+        assertEquals(position, controller.move());
         double speed = player.getSpeed();
 
         Position positionSent = new Position(player.getPosition().getX(), player.getPosition().getY());
@@ -107,7 +108,7 @@ class PlayerControllerTest {
 
         Mockito.when(gui.isActionActive(Action.D)).thenReturn(true);
 
-        assertEquals(position, controller.move(gui));
+        assertEquals(position, controller.move());
         double speed = player.getSpeed();
 
         Position positionSent = new Position(player.getPosition().getX(), player.getPosition().getY());
@@ -129,7 +130,7 @@ class PlayerControllerTest {
 
         // Since position.getUp and others return a new position, we need to return the same position to test calls
 
-        assertEquals(position, controller.move(gui));
+        assertEquals(position, controller.move());
 
         Position positionSent = new Position(player.getPosition().getX(), player.getPosition().getY());
 
@@ -145,7 +146,7 @@ class PlayerControllerTest {
 
         for (int i = 0; i < fireRate; i++) {
             frame++;
-            controller.fire(gui, bulletPoolController,frame);
+            controller.getCurrState().fire(gui, bulletPoolController,frame);
             Mockito.verify(firingController, Mockito.times(1))
                     .fire(player, player.getPosition(), bulletPoolController, ColorOperation.invertColor(color),
                             ColliderCategory.PLAYER_BULLET, frame);

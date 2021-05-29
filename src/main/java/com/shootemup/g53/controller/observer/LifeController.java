@@ -26,7 +26,11 @@ public class LifeController implements EventSubject<PlayerLifeObserver>{
         return lifeToRemove;
     }
 
-    public void setLifeToRemove(int lifeToRemove) {
+    public void setLife(int lifeToRemove) {
         this.lifeToRemove = lifeToRemove;
+    }
+
+    public List<PlayerLifeObserver> getPlayerLifeObservers() {
+        return playerLifeObservers;
     }
 }

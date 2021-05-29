@@ -6,7 +6,6 @@ import com.shootemup.g53.controller.observer.EssenceController;
 import com.shootemup.g53.controller.observer.LifeController;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
-import com.shootemup.g53.model.collider.LineCompositeCollider;
 import com.shootemup.g53.model.collider.LineCompositeFactory;
 import com.shootemup.g53.model.element.Player;
 import com.shootemup.g53.model.element.Shield;
@@ -16,7 +15,7 @@ import com.shootemup.g53.model.util.Position;
 public class PowerupController {
     private GameController gameController;
     private GameModel gameModel;
-    private EssenceController essenceController = new EssenceController();
+    private EssenceController essenceNotifier = new EssenceController();
     private int shieldEssenceCost = 5;
     private int healthCost = 8;
     private int healthBoost = 10;
@@ -30,10 +29,10 @@ public class PowerupController {
     public boolean spawnShield(Player player) {
         if (player.getEssence() < shieldEssenceCost)
             return false;
-        essenceController.setAmount(-shieldEssenceCost);
-        essenceController.notifyObservers();
         player.removeEssence(shieldEssenceCost);
 
+        essenceNotifier.setAmount(player.getEssence());
+        essenceNotifier.notifyObservers();
         generateShield(player);
 
         return true;
@@ -46,7 +45,7 @@ public class PowerupController {
         int health = player.getHealth();
 
         player.setHealth(Math.min(health + healthBoost, player.getMaxHealth()));
-        lifeController.setLifeToRemove(-(player.getHealth() - health));
+        lifeController.setLife(player.getHealth());
         lifeController.notifyObservers();
         return true;
     }
@@ -76,7 +75,7 @@ public class PowerupController {
         return lifeController;
     }
 
-    public EssenceController getEssenceController() {
-        return essenceController;
+    public EssenceController getEssenceNotifier() {
+        return essenceNotifier;
     }
 }

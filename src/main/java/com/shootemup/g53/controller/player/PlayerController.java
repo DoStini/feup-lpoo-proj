@@ -28,12 +28,13 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     private LifeController lifeController = new LifeController();
     private ScoreController scoreController = new ScoreController();
     private EssenceController essenceController = new EssenceController();
+    private PlayerState currState;
     protected MovementStrategy leftStrategy;
     protected MovementStrategy rightStrategy;
     protected MovementStrategy upStrategy;
     protected MovementStrategy downStrategy;
     private Gui gui;
-    int cooldown;
+    private String normalPlayerColor = "#aae253";
     private PowerupController powerupController;
 
     public PlayerController(Player player, Gui gui, BulletPoolController bulletPoolController,
@@ -43,13 +44,13 @@ public class PlayerController implements CollisionHandlerController, ElementInte
         this.bulletPoolController = bulletPoolController;
         this.firingStrategy = firingStrategy;
 
-
         this.powerupController = powerupController;
 
         this.leftStrategy = new LeftMovement();
         this.rightStrategy = new RightMovement();
         this.upStrategy = new MoveUpwardsMovement();
         this.downStrategy = new FallDownMovement();
+        currState = new NormalState( this);
     }
 
     public void setDownStrategy(MovementStrategy downStrategy) {
@@ -68,20 +69,11 @@ public class PlayerController implements CollisionHandlerController, ElementInte
         this.upStrategy = upStrategy;
     }
 
-    public void fire(Gui gui, BulletPoolController bulletPoolController, long frame) {
-        if (gui.isActionActive(Action.SPACE)) {
-            firingStrategy.fire(player, player.getPosition().getUp(player.getHeight()), bulletPoolController,
-                    ColorOperation.invertColor(player.getColor()),
-                    ColliderCategory.PLAYER_BULLET, frame);
-
-        }
-    }
-
     public void setPosition(Position position){
         player.setPosition(position);
     }
 
-    public Position move(Gui gui) {
+    public Position move() {
         Position newPosition = new Position(player.getPosition().getX(),player.getPosition().getY());
         Position oldPosition = newPosition;
 
@@ -141,21 +133,14 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     @Override
     public void handleBullet(Bullet bullet) {
-        lifeController.setLifeToRemove(bullet.getDamage());
-        lifeController.notifyObservers();
         this.player.setHealth(this.player.getHealth()-bullet.getDamage());
+        lifeController.setLife(player.getHealth());
+        lifeController.notifyObservers();
     }
 
     @Override
     public void handleSpaceship(Spaceship spaceship) {
-        if(cooldown == 0){
-            lifeController.setLifeToRemove(5);
-            lifeController.notifyObservers();
-            this.player.setHealth(this.player.getHealth()-5);
-            cooldown = 80;
-            player.setColor("#FFFFFF");
-        }
-
+        currState.handleSpaceship(spaceship);
     }
 
 
@@ -177,20 +162,14 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     @Override
     public void handle(long frame) {
-        Position newPosition = move(gui);
-        setPosition(newPosition);
-        fire(gui, bulletPoolController, frame);
-        usePowerups(gui);
-        if(cooldown > 0) cooldown--;
-        if(cooldown == 0) player.setColor("#aae253");
+        currState.handle(frame);
     }
     public void handleShield(Shield shield) {
 
-
     }
 
 
-    private void usePowerups(Gui gui) {
+    public void usePowerups() {
         if (gui.isActionActive(Action.POWER_1))
             powerupController.spawnShield(player);
         if (gui.isActionActive(Action.POWER_2))
@@ -211,5 +190,36 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     public PowerupController getPowerupController() {
         return powerupController;
+    }
+
+    public void setColor(String color){
+        this.player.setColor(color);
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+    public void changeState(PlayerState playerState){
+        this.currState = playerState;
+    }
+
+    public String getNormalPlayerColor() {
+        return normalPlayerColor;
+    }
+
+    public FiringStrategy getFiringStrategy() {
+        return firingStrategy;
+    }
+
+    public BulletPoolController getBulletPoolController() {
+        return bulletPoolController;
+    }
+
+    public Gui getGui() {
+        return gui;
+    }
+
+    public PlayerState getCurrState() {
+        return currState;
     }
 }
