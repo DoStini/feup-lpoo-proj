@@ -458,4 +458,35 @@ public class GameControllerTest {
         Assertions.assertTrue(gameController.controllerHashMap.containsKey(bullet));
         Assertions.assertEquals(1, gameController.collisionHashMap.size());
     }
+
+    @Test
+    void insideBounds() {
+        GameController gameController = Mockito.spy(new GameController(gameModel, bulletPoolController));
+
+        Mockito.when(gameModel.getWidth()).thenReturn(10);
+        Mockito.when(gameModel.getHeight()).thenReturn(10);
+
+        Assertions.assertTrue(gameController.insideBounds(new Position(5,5), 0, 0));
+        Assertions.assertTrue(gameController.insideBounds(new Position(0,0), 0, 0));
+        Assertions.assertTrue(gameController.insideBounds(new Position(10,10), 0, 0));
+
+        Assertions.assertFalse(gameController.insideBounds(new Position(11,10), 0, 0));
+        Assertions.assertFalse(gameController.insideBounds(new Position(10,11), 0, 0));
+        Assertions.assertFalse(gameController.insideBounds(new Position(-1,0), 0, 0));
+        Assertions.assertFalse(gameController.insideBounds(new Position(0,-1), 0, 0));
+
+        Assertions.assertTrue(gameController.insideBounds(new Position(0,-1), 0, 1));
+        Assertions.assertFalse(gameController.insideBounds(new Position(0,-2), 0, 1));
+
+        Assertions.assertTrue(gameController.insideBounds(new Position(-1,0), 1, 0));
+        Assertions.assertFalse(gameController.insideBounds(new Position(-2,0), 1, 0));
+
+        Assertions.assertTrue(gameController.insideBounds(new Position(11,10), 1, 0));
+        Assertions.assertFalse(gameController.insideBounds(new Position(12,10), 1, 0));
+
+        Assertions.assertTrue(gameController.insideBounds(new Position(11,11), 2, 1));
+        Assertions.assertFalse(gameController.insideBounds(new Position(12,12), 2, 1));
+
+        Assertions.assertFalse(gameController.insideBounds(null, 2,2));
+    }
 }

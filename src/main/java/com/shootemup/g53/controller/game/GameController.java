@@ -156,8 +156,8 @@ public class GameController implements GenericController {
         if(pos == null){
             return false;
         }
-        return pos.getX() + width >= 0 && pos.getX() < gameModel.getWidth() + width &&
-                pos.getY() < gameModel.getHeight() + height && pos.getY() + height >= 0;
+        return pos.getX() + width >= 0 && pos.getX() <= gameModel.getWidth() + width &&
+                pos.getY() <= gameModel.getHeight() + height && pos.getY() + height >= 0;
     }
 
    public void handleCollision() {
