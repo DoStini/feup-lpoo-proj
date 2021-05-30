@@ -46,7 +46,7 @@ public class GameOverController implements GenericController {
 
     }
 
-    public boolean isClose(){
+    public boolean isClosed(){
         return gameOverModel.isClosed();
     }
 
