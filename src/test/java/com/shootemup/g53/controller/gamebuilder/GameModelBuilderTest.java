@@ -26,33 +26,27 @@ import java.util.List;
 import java.util.Random;
 
 class GameModelBuilderTest {
-
     private GameController gameController;
-    private GameModel gameModel;
-    private WaveFactory waveFactory;
-    private Wave wave;
-    private Gui gui;
-
     private GameModelBuilder gameModelBuilder;
-    private Random random;
 
     @BeforeEach
     void setup() {
-        gameModel = Mockito.spy(new GameModel(20, 20));
         gameController = Mockito.mock(GameController.class);
-        random = Mockito.mock(Random.class);
-        waveFactory = Mockito.mock(WaveFactory.class);
-        wave = Mockito.mock(Wave.class);
-        Mockito.when(waveFactory.getNextWave(gameController)).thenReturn(wave);
-        Mockito.when(gameController.getGameModel()).thenReturn(gameModel);
-        gui = Mockito.mock(Gui.class);
+
+        gameModelBuilder = new GameModelBuilder();
+        gameModelBuilder.setWidth(20);
+        gameModelBuilder.setHeight(20);
+    }
+
+    @Test
+    void constructor() {
+        Assertions.assertEquals(20, gameModelBuilder.gameModel.getWidth());
+        Assertions.assertEquals(20, gameModelBuilder.gameModel.getHeight());
     }
 
     @Test
     void setupPlayer() {
-        gameModelBuilder = new GameModelBuilder();
-
-        Player spaceship = new Player(new Position(20, 35), 3, 1, 20, "#aae253", 3,5);
+        Player spaceship = new Player(new Position(20, 35), 3, 1, 20, "#aae253", 3,10);
 
         BodyCollider playerCollider =
                 new LineCompositeFactory().createFromIsoscelesTriangle(spaceship, new Position(0, 0), 1);
@@ -72,39 +66,46 @@ class GameModelBuilderTest {
         colliders.add(playerCollider);
         colliders.add(pickupCollider);
 
-        Mockito.verify(gameModel, Mockito.times(1))
-                .setPlayer(spaceship);
+        gameModelBuilder.setupPlayer();
+
+        GameModel gameModel = gameModelBuilder.getGameModel();
+
+        Assertions.assertEquals(spaceship, gameModel.getPlayer());
         Assertions.assertEquals(playerCollider, gameModel.getColliders().get(0));
         Assertions.assertEquals(pickupCollider, gameModel.getColliders().get(1));
-
-        Mockito.verify(gameController, Mockito.times(1))
-                .addToControllerMap(Mockito.eq(spaceship), Mockito.any(PlayerController.class));
-        Mockito.verify(gameController, Mockito.times(1))
-                .addToCollisionMap(Mockito.eq(spaceship), Mockito.any(PlayerController.class));
     }
 
     @Test
     void setupElements() {
-        gameModelBuilder = new GameModelBuilder();
+        gameModelBuilder.setupElements();
+        GameModel gameModel = gameModelBuilder.getGameModel();
 
-        Mockito.verify(gameModel, Mockito.times(1)).setCoins(new ArrayList<>());
-        Mockito.verify(gameModel, Mockito.times(1)).setBulletList(new ArrayList<>());
-        Mockito.verify(gameModel, Mockito.times(1)).setEnemySpaceships(new ArrayList<>());
-        Mockito.verify(gameModel, Mockito.times(1)).setAsteroids(new ArrayList<>());
-        Mockito.verify(gameModel, Mockito.times(1)).setShields(new ArrayList<>());
-        Mockito.verify(gameModel, Mockito.times(1)).setEssences(new ArrayList<>());
+        Assertions.assertEquals(0, gameModel.getCoins().size());
+        Assertions.assertTrue(gameModel.getCoins() instanceof ArrayList);
 
+        Assertions.assertEquals(0, gameModel.getBulletList().size());
+        Assertions.assertTrue(gameModel.getBulletList() instanceof ArrayList);
+
+        Assertions.assertEquals(0, gameModel.getEnemySpaceships().size());
+        Assertions.assertTrue(gameModel.getEnemySpaceships() instanceof ArrayList);
+
+        Assertions.assertEquals(0, gameModel.getAsteroids().size());
+        Assertions.assertTrue(gameModel.getAsteroids() instanceof ArrayList);
+
+        Assertions.assertEquals(0, gameModel.getShieldList().size());
+        Assertions.assertTrue(gameModel.getShieldList() instanceof ArrayList);
+
+        Assertions.assertEquals(0, gameModel.getEssenceList().size());
+        Assertions.assertTrue(gameModel.getEssenceList() instanceof ArrayList);
     }
 
     @Test
     void setupBackground() {
-        gameModelBuilder = new GameModelBuilder();
+        gameModelBuilder.setupBackground();
+        GameModel gameModel = gameModelBuilder.getGameModel();
 
-        Mockito.verify(gameController, Mockito.times(1))
-                .setBackgroundController(Mockito.any(BackgroundController.class));
-
-        Mockito.verify(gameModel, Mockito.times(1))
-                .setBackground(Mockito.any(Background.class));
+//        Mockito.verify(gameController, Mockito.times(1))
+//                .setBackgroundController(Mockito.any(BackgroundController.class));
 
         Assertions.assertEquals(25, gameModel.getBackground().getMinStars());
         Assertions.assertEquals(30, gameModel.getBackground().getMaxStars());

@@ -85,4 +85,8 @@ public class PowerupController {
     public EssenceController getEssenceController() {
         return essenceController;
     }
+
+    public GameController getGameController() {
+        return gameController;
+    }
 }

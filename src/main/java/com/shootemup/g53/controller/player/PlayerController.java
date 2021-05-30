@@ -212,4 +212,20 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     public PowerupController getPowerupController() {
         return powerupController;
     }
+
+    public Gui getGui() {
+        return gui;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public BulletPoolController getBulletPoolController() {
+        return bulletPoolController;
+    }
+
+    public FiringStrategy getFiringStrategy() {
+        return firingStrategy;
+    }
 }

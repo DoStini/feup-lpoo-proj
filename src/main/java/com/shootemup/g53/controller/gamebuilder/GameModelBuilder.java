@@ -22,7 +22,7 @@ import com.shootemup.g53.ui.Gui;
 import java.util.*;
 
 public class GameModelBuilder {
-    private GameModel gameModel;
+    protected GameModel gameModel;
 
     public GameModelBuilder() {
         this.gameModel = new GameModel(50, 50);
