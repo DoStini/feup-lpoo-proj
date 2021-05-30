@@ -18,10 +18,16 @@ public class PauseState extends State<PauseModel> {
     private PlayState playState;
     private Gui gui;
     private KeyPressObserver keyPressObserver = new KeyPressObserver();
+    private int sleepFrames = 200;
 
     public PauseState(Game game, Gui gui, PlayState playState) {
         this.game = game;
         this.gui = gui;
+        this.playState = playState;
+        setup();
+    }
+
+    private void setup() {
         this.pauseController = new PauseStateController(playState);
         this.pauseController.getInputNotifier().addObserver(keyPressObserver);
         this.pauseViewer = new PauseViewer(gui);
@@ -42,34 +48,33 @@ public class PauseState extends State<PauseModel> {
 
     @Override
     public Viewer<PauseModel> getStateView() {
-        return null;
+        return pauseViewer;
     }
 
     @Override
     public GenericController getStateController() {
-        return null;
+        return pauseController;
     }
 
     @Override
     public void run() {
         try {
-        pauseViewer.draw(getStateModel());
-        Thread.sleep(200);
-        while (true) {
-            pauseController.handleKeyPress(gui);
-            if (keyPressObserver.getKeyPressed()) {
+            pauseViewer.draw(getStateModel());
+            while (true) {
+                pauseController.handleKeyPress(gui);
+                if (keyPressObserver.getKeyPressed()) {
 
-                pauseViewer.draw(getStateModel());
-                if (pauseController.isClose()) {
-                    return;
+                    if (pauseController.isClosed()) {
+                        return;
+                    }
+
+                    pauseViewer.draw(getStateModel());
+
+                    keyPressObserver.resetKeyPress();
+                    Thread.sleep(sleepFrames);
+
                 }
-
-                keyPressObserver.resetKeyPress();
-                Thread.sleep(200);
-
             }
-        }
-
 
         } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -78,6 +83,24 @@ public class PauseState extends State<PauseModel> {
 
     }
 
+    protected void setPauseController(PauseStateController pauseController) {
+        this.pauseController = pauseController;
+    }
 
+    protected void setPauseViewer(Viewer<PauseModel> pauseViewer) {
+        this.pauseViewer = pauseViewer;
+    }
+
+    protected void setPlayState(PlayState playState) {
+        this.playState = playState;
+    }
+
+    public void setKeyPressObserver(KeyPressObserver keyPressObserver) {
+        this.keyPressObserver = keyPressObserver;
+    }
+
+    public void setSleepFrames(int sleepFrames) {
+        this.sleepFrames = sleepFrames;
+    }
 }
 

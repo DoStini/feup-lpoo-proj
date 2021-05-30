@@ -51,7 +51,6 @@ class GameDirectorTest {
         inOrder.verify(gameModelBuilder, Mockito.times(1)).setWidth(10);
         inOrder.verify(gameModelBuilder, Mockito.times(1)).setupPlayer();
         inOrder.verify(gameModelBuilder, Mockito.times(1)).setupBackground();
-        inOrder.verify(gameModelBuilder, Mockito.times(1)).setupElements();
 
         inOrder.verify(gameControllerBuilder, Mockito.times(1)).setupModel(gameModel);
         inOrder.verify(gameControllerBuilder, Mockito.times(1)).setupPlayer(player);

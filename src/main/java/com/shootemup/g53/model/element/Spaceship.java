@@ -5,13 +5,15 @@ import com.shootemup.g53.model.util.objectpool.PoolableObject;
 
 public class Spaceship extends MovableElement {
     private int height;
-    private int health;
+    protected int health;
     private int bulletDamage;
+    private int maxHealth;
 
     public Spaceship(Position position, int height,int health, String color, double speed, int bulletDamage) {
         super(position, color, speed);
         this.height = height;
         this.health = health;
+        this.maxHealth = health;
         this.bulletDamage = bulletDamage;
     }
 
@@ -40,10 +42,16 @@ public class Spaceship extends MovableElement {
         return health;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public int getMaxHealth() {
+        return maxHealth;
+    }
 
-        this.health = Math.max(0, Math.min(30, health));
+    public void setHealth(int health) {
+        this.health = Math.max(0, Math.min(maxHealth, health));
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
     }
 
     public void setBulletDamage(int bulletDamage) {
@@ -57,7 +65,10 @@ public class Spaceship extends MovableElement {
         Spaceship other = (Spaceship) o;
         return super.equals(o)
                 && other.height == this.height
-                && other.getSpeed() == this.getSpeed();
+                && other.getSpeed() == this.getSpeed()
+                && other.getBulletDamage() == this.getBulletDamage()
+                && other.getMaxHealth() == this.getMaxHealth()
+                && other.getHealth() == this.getMaxHealth();
     }
 
 }

@@ -14,7 +14,6 @@ public class GameDirector {
         modelBuilder.setWidth(width);
         modelBuilder.setupPlayer();
         modelBuilder.setupBackground();
-        modelBuilder.setupElements();
 
         controllerBuilder.setupModel(modelBuilder.getGameModel());
         controllerBuilder.setupPlayer(modelBuilder.getGameModel().getPlayer());

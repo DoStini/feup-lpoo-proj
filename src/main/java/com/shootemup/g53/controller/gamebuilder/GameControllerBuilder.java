@@ -15,6 +15,11 @@ public class GameControllerBuilder {
     private final Gui gui;
     GameController gameController;
 
+    public GameControllerBuilder(Gui gui, GameController gameController) {
+        this.gui = gui;
+        this.gameController = gameController;
+    }
+
     public GameControllerBuilder(Gui gui) {
         this.gui = gui;
         gameController = new GameController(null);

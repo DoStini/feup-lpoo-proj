@@ -27,7 +27,7 @@ class PowerupControllerTest {
 
     @BeforeEach
     void setup() {
-        player = Mockito.spy(new Player(Mockito.mock(Position.class), 0,0, 30, "", 10.0, 10));
+        player = Mockito.spy(new Player(Mockito.mock(Position.class), 0,0, 20, "", 10.0, 10));
         gameController = Mockito.mock(GameController.class);
         gameModel = Mockito.spy(new GameModel(20,20));
         gameModel.setShields(new ArrayList<>());
@@ -104,18 +104,18 @@ class PowerupControllerTest {
     @Test
     void maxHealth() {
         player.setEssence(9);
-        player.setHealth(30);
+        player.setHealth(20);
         Assertions.assertFalse(controller.healthBoost(player));
         Assertions.assertEquals(9, player.getEssence());
-        Assertions.assertEquals(30, player.getHealth());
+        Assertions.assertEquals(20, player.getHealth());
     }
 
     @Test
     void capHealth() {
         player.setEssence(9);
-        player.setHealth(25);
+        player.setHealth(15);
         Assertions.assertTrue(controller.healthBoost(player));
         Assertions.assertEquals(1, player.getEssence());
-        Assertions.assertEquals(30, player.getHealth());
+        Assertions.assertEquals(20, player.getHealth());
     }
 }

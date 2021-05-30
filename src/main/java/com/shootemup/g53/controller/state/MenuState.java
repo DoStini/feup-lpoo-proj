@@ -16,6 +16,7 @@ public class MenuState extends State<MenuModel> {
     private Viewer<MenuModel> menuViewer;
     private Gui gui;
     private KeyPressObserver keyPressObserver = new KeyPressObserver();
+    private long sleepFrames = 200;
 
     public MenuState(Game game, Gui gui) {
         this.game = game;
@@ -50,24 +51,44 @@ public class MenuState extends State<MenuModel> {
     @Override
     public void run() {
         try {
-        menuViewer.draw(getStateModel());
-        Thread.sleep(200);
-        while (true) {
+            menuViewer.draw(getStateModel());
+            while (true) {
 
-            menuController.handleKeyPress(gui);
-            if(keyPressObserver.getKeyPressed()){
-                menuViewer.draw(getStateModel());
-                if(menuController.isClose()){
-                    return;
+                menuController.handleKeyPress(gui);
+                if(keyPressObserver.getKeyPressed()){
+                    if(menuController.isClosed()){
+                        return;
+                    }
+
+                    menuViewer.draw(getStateModel());
+                    Thread.sleep(sleepFrames);
+                    keyPressObserver.resetKeyPress();
                 }
-                Thread.sleep(200);
-                keyPressObserver.resetKeyPress();
-            }
 
+                }
             }
-        }
         catch (InterruptedException  e) {
             e.printStackTrace();
         }
+    }
+
+    public void setSleepFrames(int sleepFrames) {
+        this.sleepFrames = sleepFrames;
+    }
+
+    public void setMenuController(MenuStateController menuController) {
+        this.menuController = menuController;
+    }
+
+    public void setMenuViewer(Viewer<MenuModel> menuViewer) {
+        this.menuViewer = menuViewer;
+    }
+
+    public void setGui(Gui gui) {
+        this.gui = gui;
+    }
+
+    public void setKeyPressObserver(KeyPressObserver keyPressObserver) {
+        this.keyPressObserver = keyPressObserver;
     }
 }

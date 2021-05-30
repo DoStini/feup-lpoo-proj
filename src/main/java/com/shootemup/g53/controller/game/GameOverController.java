@@ -23,10 +23,10 @@ public class GameOverController implements GenericController {
 
     @Override
     public void handleKeyPress(Gui gui) {
-        if(gui.isActionActive(Action.UP)){
+         if(gui.isActionActive(Action.UP)){
             gameOverModel.previousOption();
             inputNotifier.notifyObservers();
-        }
+         }
         else if(gui.isActionActive(Action.DOWN)){
             gameOverModel.nextOption();
             inputNotifier.notifyObservers();
@@ -46,7 +46,7 @@ public class GameOverController implements GenericController {
 
     }
 
-    public boolean isClose(){
+    public boolean isClosed(){
         return gameOverModel.isClosed();
     }
 

@@ -14,6 +14,10 @@ import java.util.List;
 public class GameModelBuilder {
     protected GameModel gameModel;
 
+    public GameModelBuilder(GameModel gameModel) {
+        this.gameModel = gameModel;
+    }
+
     public GameModelBuilder() {
         this.gameModel = new GameModel(50, 50);
     }
@@ -55,15 +59,6 @@ public class GameModelBuilder {
         Background background = new Background(25, 30);
 
         gameModel.setBackground(background);
-    }
-
-    protected void setupElements() {
-        gameModel.setCoins(new ArrayList<>());
-        gameModel.setBulletList(new ArrayList<>());
-        gameModel.setEnemySpaceships(new ArrayList<>());
-        gameModel.setAsteroids(new ArrayList<>());
-        gameModel.setShields(new ArrayList<>());
-        gameModel.setEssences(new ArrayList<>());
     }
 
     public GameModel getGameModel() {

@@ -23,4 +23,8 @@ public class InputNotifier implements EventSubject<InputObserver> {
             inputObserver.notifyAction();
         }
     }
+
+    public List<InputObserver> getInputObservers() {
+        return inputObservers;
+    }
 }

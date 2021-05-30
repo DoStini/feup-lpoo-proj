@@ -78,4 +78,8 @@ public class GameGenerator {
     public WaveFactory getWaveFactory() {
         return waveFactory;
     }
+
+    public long getBaseSkip() {
+        return baseSkip;
+    }
 }

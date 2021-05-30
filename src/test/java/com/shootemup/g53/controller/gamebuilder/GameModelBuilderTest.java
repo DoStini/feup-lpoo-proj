@@ -76,30 +76,6 @@ class GameModelBuilderTest {
     }
 
     @Test
-    void setupElements() {
-        gameModelBuilder.setupElements();
-        GameModel gameModel = gameModelBuilder.getGameModel();
-
-        Assertions.assertEquals(0, gameModel.getCoins().size());
-        Assertions.assertTrue(gameModel.getCoins() instanceof ArrayList);
-
-        Assertions.assertEquals(0, gameModel.getBulletList().size());
-        Assertions.assertTrue(gameModel.getBulletList() instanceof ArrayList);
-
-        Assertions.assertEquals(0, gameModel.getEnemySpaceships().size());
-        Assertions.assertTrue(gameModel.getEnemySpaceships() instanceof ArrayList);
-
-        Assertions.assertEquals(0, gameModel.getAsteroids().size());
-        Assertions.assertTrue(gameModel.getAsteroids() instanceof ArrayList);
-
-        Assertions.assertEquals(0, gameModel.getShieldList().size());
-        Assertions.assertTrue(gameModel.getShieldList() instanceof ArrayList);
-
-        Assertions.assertEquals(0, gameModel.getEssenceList().size());
-        Assertions.assertTrue(gameModel.getEssenceList() instanceof ArrayList);
-    }
-
-    @Test
     void setupBackground() {
         gameModelBuilder.setupBackground();
         GameModel gameModel = gameModelBuilder.getGameModel();
