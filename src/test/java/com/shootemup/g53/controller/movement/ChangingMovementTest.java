@@ -104,5 +104,16 @@ class ChangingMovementTest {
         Mockito.verify(random, Mockito.times(2)).nextInt(Mockito.anyInt());
     }
 
+    @Test
+    void contains() {
+
+        movementStrategies = Arrays.asList(new FallDownMovement());
+
+        ChangingMovement controller = new ChangingMovement(15, movementStrategies,  random,0);
+
+        Assertions.assertTrue(controller.contains(new FallDownMovement()));
+        Assertions.assertFalse(controller.contains(new MoveUpwardsMovement()));
+
+    }
 
 }
