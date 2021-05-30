@@ -79,7 +79,7 @@ public class SpaceshipGenerator extends MovableElementGenerator {
         gameController.addToCollisionMap(spaceship, spaceshipController);
     }
 
-    private void setDamage(Spaceship spaceship) {
+    protected void setDamage(Spaceship spaceship) {
         spaceship.setBulletDamage(rand.nextInt(maxDamage - 1) + 1);
     }
 
@@ -87,8 +87,10 @@ public class SpaceshipGenerator extends MovableElementGenerator {
         spaceship.setHeight(rand.nextInt(maxSize-minSize)+minSize);
     }
 
-    private void setHealth(Spaceship spaceship) {
-        spaceship.setHealth(rand.nextInt(maxHealth-minHealth)+minHealth);
+    protected void setHealth(Spaceship spaceship) {
+        int health = rand.nextInt(maxHealth-minHealth)+minHealth;
+        spaceship.setMaxHealth(health);
+        spaceship.setHealth(health);
     }
 
     @Override

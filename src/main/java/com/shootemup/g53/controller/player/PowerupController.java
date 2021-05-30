@@ -17,9 +17,10 @@ public class PowerupController {
     private GameController gameController;
     private GameModel gameModel;
     private EssenceController essenceController = new EssenceController();
-    private int shieldEssenceCost = 5;
-    private int healthCost = 8;
-    private int healthBoost = 10;
+    private final int shieldEssenceCost = 5;
+    private final int healthCost = 8;
+    private final int healthBoost = 10;
+
     private LifeController lifeController = new LifeController();
 
     public PowerupController(GameController gameController) {
