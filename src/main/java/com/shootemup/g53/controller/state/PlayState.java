@@ -17,6 +17,8 @@ import com.shootemup.g53.view.Viewer;
 import com.shootemup.g53.view.game.GameViewer;
 import com.shootemup.g53.view.infobar.InfoBarViewer;
 
+import java.util.Objects;
+
 public class PlayState extends State<GameModel> {
     private final GameModel gameModel;
     private GameController gameController;
@@ -138,4 +140,16 @@ public class PlayState extends State<GameModel> {
         this.gameController = gameController;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PlayState)) return false;
+        PlayState playState = (PlayState) o;
+        return gui.equals(playState.gui) && game == playState.game;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(gui);
+    }
 }

@@ -50,7 +50,7 @@ class GameModelBuilderTest {
 
     @Test
     void setupPlayer() {
-        gameModelBuilder = new GameModelBuilder(gui, gameController, 2);
+        gameModelBuilder = new GameModelBuilder();
 
         Player spaceship = new Player(new Position(20, 35), 3, 1, 20, "#aae253", 3,5);
 
@@ -85,7 +85,7 @@ class GameModelBuilderTest {
 
     @Test
     void setupElements() {
-        gameModelBuilder = new GameModelBuilder(gui, gameController, 2);
+        gameModelBuilder = new GameModelBuilder();
 
         Mockito.verify(gameModel, Mockito.times(1)).setCoins(new ArrayList<>());
         Mockito.verify(gameModel, Mockito.times(1)).setBulletList(new ArrayList<>());
@@ -98,7 +98,7 @@ class GameModelBuilderTest {
 
     @Test
     void setupBackground() {
-        gameModelBuilder = new GameModelBuilder(gui, gameController, 2);
+        gameModelBuilder = new GameModelBuilder();
 
         Mockito.verify(gameController, Mockito.times(1))
                 .setBackgroundController(Mockito.any(BackgroundController.class));
@@ -108,114 +108,5 @@ class GameModelBuilderTest {
 
         Assertions.assertEquals(25, gameModel.getBackground().getMinStars());
         Assertions.assertEquals(30, gameModel.getBackground().getMaxStars());
-    }
-
-    @Test
-    void setupElementGenerators() {
-        gameModelBuilder = new GameModelBuilder(gui, gameController, 2);
-
-        List<ElementGenerator> generators = gameModelBuilder.getGenerators();
-
-        Assertions.assertEquals(3, generators.size());
-        Assertions.assertEquals(AsteroidGenerator.class, generators.get(0).getClass());
-        Assertions.assertEquals(CoinGenerator.class, generators.get(1).getClass());
-    }
-
-    @Test
-    void nextGeneration() {
-        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(1);
-        gameModelBuilder = new GameModelBuilder(random, gui, gameController, waveFactory, 2);
-
-        Assertions.assertEquals(0, gameModelBuilder.getNextGeneration());
-        gameModelBuilder.setNextGeneration();
-        Assertions.assertEquals(3, gameModelBuilder.getNextGeneration());
-        gameModelBuilder.setNextGeneration();
-        Assertions.assertEquals(6, gameModelBuilder.getNextGeneration());
-    }
-
-    @Test
-    void handle() {
-        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
-        Mockito.when(gameModel.getEnemySpaceships())
-                .thenReturn(Arrays.asList(Mockito.mock(Spaceship.class)));
-        List<ElementGenerator> elementGenerators = Arrays.asList(Mockito.mock(ElementGenerator.class));
-
-        gameModelBuilder = new GameModelBuilder(random, gui, gameController, waveFactory, 2);
-        gameModelBuilder.setupElementGenerators(elementGenerators);
-
-        gameModelBuilder.handle(0);
-        Mockito.verify(waveFactory, Mockito.times(1))
-                .getNextWave(gameController);
-    }
-
-    @Test
-    void handleFailed() {
-        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
-        Mockito.when(gameModel.getEnemySpaceships())
-                .thenReturn(Arrays.asList(Mockito.mock(Spaceship.class)));
-
-        ElementGenerator elementGenerator = Mockito.mock(ElementGenerator.class);
-        List<ElementGenerator> elementGenerators = Arrays.asList(elementGenerator);
-
-        gameModelBuilder = new GameModelBuilder(random, gui, gameController, waveFactory, 2);
-        gameModelBuilder.setupElementGenerators(elementGenerators);
-
-        gameModelBuilder.handle(0);
-        gameModelBuilder.handle(1);
-
-        Mockito.verify(wave, Mockito.times(1)).handle(0);
-        Mockito.verify(waveFactory, Mockito.times(1))
-                .getNextWave(gameController);
-        Mockito.verify(elementGenerator, Mockito.times(1)).generateElement();
-    }
-
-    @Test
-    void handleSeveral() {
-        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
-        Mockito.when(gameModel.getEnemySpaceships())
-                .thenReturn(Arrays.asList(Mockito.mock(Spaceship.class)));
-
-        ElementGenerator elementGenerator = Mockito.mock(ElementGenerator.class);
-        List<ElementGenerator> elementGenerators = Arrays.asList(elementGenerator);
-
-        gameModelBuilder = new GameModelBuilder(random, gui, gameController, waveFactory, 2);
-        gameModelBuilder.setupElementGenerators(elementGenerators);
-
-        gameModelBuilder.handle(0);
-        gameModelBuilder.handle(1);
-        gameModelBuilder.handle(2);
-        gameModelBuilder.handle(3);
-        gameModelBuilder.handle(4);
-
-        Mockito.verify(wave, Mockito.times(1)).handle(0);
-        Mockito.verify(wave, Mockito.times(1)).handle(2);
-        Mockito.verify(wave, Mockito.times(1)).handle(4);
-        Mockito.verify(elementGenerator, Mockito.times(3)).generateElement();
-
-        Mockito.verify(waveFactory, Mockito.times(1))
-                .getNextWave(gameController);
-    }
-
-    @Test
-    void handleNewWave() {
-        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(0);
-        Mockito.when(gameModel.getEnemySpaceships())
-                .thenReturn(Arrays.asList(Mockito.mock(Spaceship.class)));
-
-        ElementGenerator elementGenerator = Mockito.mock(ElementGenerator.class);
-        List<ElementGenerator> elementGenerators = Arrays.asList(elementGenerator);
-
-        gameModelBuilder = new GameModelBuilder(random, gui, gameController, waveFactory, 2);
-        gameModelBuilder.setupElementGenerators(elementGenerators);
-
-        gameModelBuilder.handle(0);
-
-        Mockito.when(wave.handle(1)).thenReturn(true);
-        gameModelBuilder.handle(1);
-
-        gameModelBuilder.handle(2);
-
-        Mockito.verify(waveFactory, Mockito.times(2))
-                .getNextWave(gameController);
     }
 }

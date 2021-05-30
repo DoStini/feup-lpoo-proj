@@ -58,7 +58,7 @@ public class GameTest {
         state = Mockito.mock(PlayState.class);
         gameModel = Mockito.mock(GameModel.class);
         Mockito.when(gameModel.isGameFinished()).thenReturn(true);
-        game = new Game(gui, gameModel);
+        game = new Game(gui);
         state = Mockito.spy(new CustomState(game));
         gui = Mockito.mock(Gui.class);
 
