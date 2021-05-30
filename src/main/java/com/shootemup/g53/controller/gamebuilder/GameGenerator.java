@@ -22,6 +22,12 @@ public class GameGenerator {
     protected GameModel gameModel;
     Wave currentWave;
 
+    public GameGenerator(GameController gameController, long baseSkip){
+        this(new Random(), gameController,
+                new WaveFactory(1, 0.2f, 5, 100, 0.02f),
+                baseSkip);
+    }
+
     public GameGenerator(Random rand, GameController gameController, WaveFactory waveFactory, long baseSkip) {
         this.baseSkip = baseSkip;
         this.rand = rand;
@@ -29,6 +35,8 @@ public class GameGenerator {
         this.gameController = gameController;
         this.gameModel = gameController.getGameModel();
         this.currentWave = waveFactory.getNextWave(gameController);
+
+        setupElementGenerators();
     }
 
     private void setupElementGenerators() {
