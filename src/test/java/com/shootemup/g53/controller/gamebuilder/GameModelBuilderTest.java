@@ -46,7 +46,7 @@ class GameModelBuilderTest {
 
     @Test
     void setupPlayer() {
-        Player spaceship = new Player(new Position(20, 35), 3, 1, 20, "#aae253", 3,10);
+        Player spaceship = new Player(new Position(20, 35), 3, 1, 20, "#aae253", 3,5);
 
         BodyCollider playerCollider =
                 new LineCompositeFactory().createFromIsoscelesTriangle(spaceship, new Position(0, 0), 1);

@@ -28,7 +28,7 @@ public class GameModelBuilder {
 
     protected void setupPlayer() {
         Player spaceship = new Player(new Position(20, 35), 3, 1, 20, "#aae253",
-                3, 10);
+                3, 5);
         gameModel.setPlayer(spaceship);
 
         List<BodyCollider> colliders = new ArrayList<>();
