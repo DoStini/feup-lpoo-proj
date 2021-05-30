@@ -14,7 +14,6 @@ import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -299,6 +298,87 @@ class PlayerControllerTest {
         assertEquals(controller.insideBounds(position),false);
         position = new Position(40,49);
         assertEquals(controller.insideBounds(position),false);
+    }
+
+
+    @Test
+    void testLeftMovement() {
+        PlayerController controller = new PlayerController(player,gui,bulletPoolController,powerupController,firingController);
+        Position basePosition = new Position(5,5);
+        Mockito.when(player.getPosition()).thenReturn(basePosition);
+        controller.setLeftStrategy(strategy);
+
+        Mockito.when(gui.isActionActive(Action.A)).thenReturn(true);
+        Position failedPosition = new Position(0,25);
+        Mockito.when(strategy.move(Mockito.any(), Mockito.anyDouble())).thenReturn(failedPosition);
+
+        assertEquals(basePosition, controller.move());
+
+        Mockito.when(gui.isActionActive(Action.A)).thenReturn(true);
+        failedPosition = new Position(1,25);
+        Mockito.when(strategy.move(Mockito.any(), Mockito.anyDouble())).thenReturn(failedPosition);
+
+        assertEquals(failedPosition, controller.move());
+    }
+
+    @Test
+    void testRightMovement() {
+        PlayerController controller = new PlayerController(player,gui,bulletPoolController,powerupController,firingController);
+        Position basePosition = new Position(5,5);
+        Mockito.when(player.getPosition()).thenReturn(basePosition);
+        controller.setRightStrategy(strategy);
+
+        Mockito.when(gui.isActionActive(Action.D)).thenReturn(true);
+        Position failedPosition = new Position(40,25);
+        Mockito.when(strategy.move(Mockito.any(), Mockito.anyDouble())).thenReturn(failedPosition);
+
+        Mockito.when(gui.isActionActive(Action.D)).thenReturn(true);
+        failedPosition = new Position(39,25);
+        Mockito.when(strategy.move(Mockito.any(), Mockito.anyDouble())).thenReturn(failedPosition);
+
+        assertEquals(failedPosition, controller.move());
+    }
+
+    @Test
+    void testDownMovement() {
+        PlayerController controller = new PlayerController(player,gui,bulletPoolController,powerupController,firingController);
+        Position basePosition = new Position(5,5);
+        Mockito.when(player.getPosition()).thenReturn(basePosition);
+        controller.setDownStrategy(strategy);
+
+        Mockito.when(gui.isActionActive(Action.S)).thenReturn(true);
+        Position failedPosition = new Position(25,50);
+        Mockito.when(strategy.move(Mockito.any(), Mockito.anyDouble())).thenReturn(failedPosition);
+
+        assertEquals(basePosition, controller.move());
+
+
+        Mockito.when(gui.isActionActive(Action.S)).thenReturn(true);
+        failedPosition = new Position(25,49);
+        Mockito.when(strategy.move(Mockito.any(), Mockito.anyDouble())).thenReturn(failedPosition);
+
+        assertEquals(failedPosition, controller.move());
+    }
+
+    @Test
+    void testFailedMovementsUp() {
+        PlayerController controller = new PlayerController(player,gui,bulletPoolController,powerupController,firingController);
+        Position basePosition = new Position(5,5);
+        Mockito.when(player.getPosition()).thenReturn(basePosition);
+        controller.setUpStrategy(strategy);
+
+        Mockito.when(gui.isActionActive(Action.W)).thenReturn(true);
+        Position failedPosition = new Position(25,-1);
+        Mockito.when(strategy.move(Mockito.any(), Mockito.anyDouble())).thenReturn(failedPosition);
+
+        assertEquals(basePosition, controller.move());
+
+        Mockito.when(gui.isActionActive(Action.W)).thenReturn(true);
+        failedPosition = new Position(25,0);
+        Mockito.when(strategy.move(Mockito.any(), Mockito.anyDouble())).thenReturn(failedPosition);
+
+        assertEquals(failedPosition, controller.move());
+
     }
 
     @Test
