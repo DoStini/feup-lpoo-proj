@@ -59,6 +59,7 @@ public class GameOverState extends State<GameOverModel> {
 
     @Override
     public void run() {
+        gui.resetAllKeyPress();
         try {
             gameOverViewer.draw(getStateModel());
             while (true) {

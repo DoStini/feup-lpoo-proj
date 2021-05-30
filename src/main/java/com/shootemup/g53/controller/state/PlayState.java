@@ -96,7 +96,7 @@ public class PlayState extends State<GameModel> {
     @Override
     public void run(){
         timerThread.start();
-
+        gui.resetAllKeyPress();
         
         try{
             while(true){

@@ -50,6 +50,7 @@ public class MenuState extends State<MenuModel> {
 
     @Override
     public void run() {
+        gui.resetAllKeyPress();
         try {
             menuViewer.draw(getStateModel());
             while (true) {
