@@ -57,7 +57,7 @@ public class InfoBarModel extends Model implements PlayerLifeObserver, PlayerSco
 
     @Override
     public void updateLife(int amount) {
-        this.currentLives = this.currentLives - amount;
+        this.currentLives = amount;
     }
 
     @Override
@@ -77,7 +77,6 @@ public class InfoBarModel extends Model implements PlayerLifeObserver, PlayerSco
     public void setMaxLives(int maxLives) {
         this.maxLives = maxLives;
     }
-
 
     public int getEssence() {
         return essence;
@@ -100,7 +99,7 @@ public class InfoBarModel extends Model implements PlayerLifeObserver, PlayerSco
     }
 
     @Override
-    public void notifyEssence(int amount) {
-        essence = essence + amount;
+    public void setEssence(int amount) {
+        essence = amount;
     }
 }

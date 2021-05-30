@@ -14,7 +14,7 @@ public class InfoBarController {
         gameController.getPlayerController().getScoreController().addObserver(infoBarModel);
         gameController.getPlayerController().getEssenceController().addObserver(infoBarModel);
         infoBarModel.setEssenceShieldCost(gameController.getPlayerController().getPowerupController().getShieldEssenceCost());
-        gameController.getPlayerController().getPowerupController().getEssenceController().addObserver(infoBarModel);
+        gameController.getPlayerController().getPowerupController().getEssenceNotifier().addObserver(infoBarModel);
         gameController.getPlayerController().getPowerupController().getLifeController().addObserver(infoBarModel);
         infoBarModel.setEssenceHealthCost(gameController.getPlayerController().getPowerupController().getHealthCost());
         gameController.getScoreController().addObserver(infoBarModel);
