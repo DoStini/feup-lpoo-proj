@@ -20,4 +20,8 @@ public class WaveCompletionController implements EventSubject<WaveCompletionObse
         for(WaveCompletionObserver waveCompletionObserver: waveCompletionObservers)
             waveCompletionObserver.updateWaveCompleted();
     }
+
+    public List<WaveCompletionObserver> getWaveCompletionObservers() {
+        return waveCompletionObservers;
+    }
 }

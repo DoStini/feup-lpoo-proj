@@ -7,6 +7,7 @@ import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.infobar.InfoBarController;
 
 import com.shootemup.g53.controller.gamebuilder.GameBuilder;
+import com.shootemup.g53.model.element.Player;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.infobar.InfoBarModel;
 import com.shootemup.g53.ui.Gui;
@@ -15,13 +16,15 @@ import com.shootemup.g53.view.game.GameViewer;
 import com.shootemup.g53.view.infobar.InfoBarViewer;
 
 public class PlayState extends State<GameModel> {
-    private final GameModel gameModel;
+    private GameModel gameModel;
     private GameController gameController;
     private GameBuilder gameBuilder;
     private Viewer<GameModel> gameViewer;
     private Gui gui;
     private InfoBarController infoBarController;
     private InfoBarViewer infoBarViewer;
+    private Thread timerThread;
+    private int frameSleep = 50;
     int seconds = 0;
 
     long frame = 0;
@@ -29,13 +32,22 @@ public class PlayState extends State<GameModel> {
     public PlayState(Game game, GameModel gameModel, Gui gui) {
         this.game = game;
         this.gameModel = gameModel;
+        this.gui = gui;
+        setup();
+    }
+
+    private void setup() {
         this.gameController = new GameController(this.gameModel);
         this.gameBuilder = new GameBuilder(gui, this.gameController, 10);
         this.gameViewer = new GameViewer(gui);
-        this.gui = gui;
         this.infoBarViewer = new InfoBarViewer(this.gui, 10);
-        this.infoBarController = new InfoBarController(gameController, new InfoBarModel(getStateModel().getPlayer().getHealth(),1,seconds,getStateModel().getPlayer().getHealth()));
+
+        Player player = getStateModel().getPlayer();
+        this.infoBarController = new InfoBarController(gameController,
+                new InfoBarModel(player.getHealth(),
+                1,seconds, player.getHealth()));
         gameBuilder.getWaveFactory().getWaveCompletionController().addObserver(getInfoBarModel());
+        startTimerThread();
     }
 
     public InfoBarModel getInfoBarModel(){
@@ -64,31 +76,13 @@ public class PlayState extends State<GameModel> {
 
     @Override
     public void run(){
-        Thread second_counter = new Thread(){
-            @Override
-            public void run(){
-                try{
-                    while(!gameController.isGameFinished()){
-
-                        Thread.sleep(50);
-                        frame++;
-                        if(frame % 20 == 0) seconds++;
-                    }
-
-                }catch(InterruptedException e){
-                    e.printStackTrace();
-                }
-
-            }
-        };
-
-        second_counter.start();
+        timerThread.start();
 
         
         try{
             while(true){
                 gui.clear();
-                Thread.sleep(50);
+                Thread.sleep(frameSleep);
                 gameBuilder.handle(frame);
                 gameController.handleKeyPress(gui);
                 gameController.handle(frame);
@@ -99,7 +93,7 @@ public class PlayState extends State<GameModel> {
                     return;
                 }else if(gameController.isPaused()){
                     gameController.unpause();
-                    second_counter.interrupt();
+                    timerThread.interrupt();
                     game.changeState(new PauseState(game,gui,this));
                     return;
                 }
@@ -114,19 +108,83 @@ public class PlayState extends State<GameModel> {
         }
     }
 
+    private void startTimerThread() {
+        timerThread = new Thread(() -> {
+            try{
+                while(!gameController.isGameFinished()){
+
+                    Thread.sleep(frameSleep);
+                    frame++;
+                    if(frame % (1000/frameSleep) == 0) seconds++;
+                }
+
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void setTimerThread(Thread timerThread) {
+        this.timerThread = timerThread;
+    }
+
+    public void setFrameSleep(int frameSleep) {
+        this.frameSleep = frameSleep;
+    }
+
     public InfoBarViewer getInfoBarViewer() {
         return infoBarViewer;
+    }
+
+    protected void setInfoBarViewer(InfoBarViewer infoBarViewer) {
+        this.infoBarViewer = infoBarViewer;
     }
 
     public GameModel getGameModel() {
         return gameModel;
     }
 
-    public void setGameController(GameController gameController) {
+    protected void setGameController(GameController gameController) {
         this.gameController = gameController;
     }
 
-    public void setGameBuilder(GameBuilder gameBuilder) {
+    protected void setGameBuilder(GameBuilder gameBuilder) {
         this.gameBuilder = gameBuilder;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    protected void setGameViewer(Viewer<GameModel> gameViewer) {
+        this.gameViewer = gameViewer;
+    }
+
+    public int getSeconds() {
+        return seconds;
+    }
+
+    public long getFrame() {
+        return frame;
+    }
+
+    protected void setInfoBarController(InfoBarController infoBarController) {
+        this.infoBarController = infoBarController;
+    }
+
+    protected Thread getTimerThread() {
+        return timerThread;
+    }
+
+    protected GameBuilder getGameBuilder() {
+        return gameBuilder;
+    }
+
+    public Viewer<GameModel> getGameViewer() {
+        return gameViewer;
+    }
+
+    public InfoBarController getInfoBarController() {
+        return infoBarController;
     }
 }
