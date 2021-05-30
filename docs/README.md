@@ -604,6 +604,10 @@ This could be fixed using a parameter object, since lots of parameters are share
 
 ### Coverage
 ![Coverage Report](tests/coverage.png)
+![Coverage Report](tests/coverage2.png)
+![Coverage Report](tests/coverage3.png)
+![Coverage Report](tests/coverage4.png)
+![Coverage Report](tests/coverage5.png)
 
 Some features that are already well-defined strong tests, however there are some mutants still left to fix.
 
@@ -612,7 +616,7 @@ Some situations like game states and controllers are yet tested, since they are 
 ### Conclusion
 
 Due to lack of time to test everything, we focused harder on testing the controllers and left some models fairly untested - also because the model usually has only setters and getters.
-However, we tried very hard to eliminate mutations in the tests, and we acomplished a very good result. The mutants left in the code are some basic `Thread.sleep`  which we didn't find a way of testing, and some boundaries issues.
+However, we tried very hard to eliminate mutations in the tests, and we accomplished a very good result. The mutants left in the code are some basic `Thread.sleep`  which we didn't find a way of testing, and some boundaries issues.
 
 ## Self-evaluation
 

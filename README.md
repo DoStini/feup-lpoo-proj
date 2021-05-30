@@ -20,4 +20,14 @@ The chosen spaceship proved itself to be worthy of this mission because of its m
 ![Game Over](docs/images/screenshots/gameOver.png)
 *This is our Game Over screen*
 
+![SpreadAll](docs/gifs/spreadAll.gif)
+*This is the spread all firing pattern*
 
+![SpreadDown](docs/gifs/spreadDown.gif)
+*This is the spread down firing pattern*
+
+![Background](docs/gifs/initBackground.gif)
+*This is the initial background*
+
+![Gameplay](docs/gifs/gameplay.gif)
+*This is a stellar gameplay*
