@@ -12,7 +12,6 @@ public class StartCommand extends ButtonCommand{
 
     @Override
     public void execute() {
-        GameModel gameModel = new GameModel(game.getGui().getWidth(), game.getGui().getHeight());
-        game.changeState(new PlayState(game, gameModel, game.getGui()));
+        game.changeState(new PlayState(game, game.getGui()));
     }
 }

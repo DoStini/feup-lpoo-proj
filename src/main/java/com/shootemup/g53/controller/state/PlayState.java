@@ -4,6 +4,8 @@ import com.shootemup.g53.controller.Game;
 import com.shootemup.g53.controller.GenericController;
 import com.shootemup.g53.controller.game.GameController;
 
+import com.shootemup.g53.controller.gamebuilder.GameControllerBuilder;
+import com.shootemup.g53.controller.gamebuilder.GameDirector;
 import com.shootemup.g53.controller.infobar.InfoBarController;
 
 import com.shootemup.g53.controller.gamebuilder.GameModelBuilder;
@@ -26,11 +28,18 @@ public class PlayState extends State<GameModel> {
 
     long frame = 0;
 
-    public PlayState(Game game, GameModel gameModel, Gui gui) {
+    public PlayState(Game game, Gui gui) {
         this.game = game;
-        this.gameModel = gameModel;
-        this.gameController = new GameController(this.gameModel);
-        this.gameModelBuilder = new GameModelBuilder(gui, this.gameController, 10);
+
+        GameModelBuilder gameModelBuilder = new GameModelBuilder();
+        GameControllerBuilder gameControllerBuilder = new GameControllerBuilder(gui);
+        GameDirector gameDirector = new GameDirector(gameModelBuilder, gameControllerBuilder);
+
+        gameDirector.make(gui.getWidth(), gui.getHeight());
+
+        this.gameController = gameControllerBuilder.getGameController();
+        this.gameModel = gameModelBuilder.getGameModel();
+
         this.gameViewer = new GameViewer(gui);
         this.gui = gui;
         this.infoBarViewer = new InfoBarViewer(this.gui, 10);

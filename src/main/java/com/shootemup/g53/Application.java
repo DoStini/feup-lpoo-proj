@@ -19,7 +19,7 @@ public class Application {
         int height = 70, width = 80;
 
         Gui gui = new LanternaGui(height,width, 15);
-        Game game = new Game(gui, height, width);
+        Game game = new Game(gui);
         game.run();
         gui.close();
 

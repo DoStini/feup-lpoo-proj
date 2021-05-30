@@ -8,14 +8,10 @@ import com.shootemup.g53.ui.Gui;
 public class Game {
     private State state;
     private Gui gui;
-    protected int width;
-    protected int height;
     private boolean toExit = false;
 
-    public Game(Gui gui, int width, int height){
+    public Game(Gui gui){
         this.gui = gui;
-        this.width = width;
-        this.height = height;
         this.state = new MenuState(this,gui);
     }
 
