@@ -51,23 +51,22 @@ public class MenuState extends State<MenuModel> {
     @Override
     public void run() {
         try {
-        menuViewer.draw(getStateModel());
-        Thread.sleep(200);
-        while (true) {
+            menuViewer.draw(getStateModel());
+            while (true) {
 
-            menuController.handleKeyPress(gui);
-            if(keyPressObserver.getKeyPressed()){
-                if(menuController.isClosed()){
-                    return;
+                menuController.handleKeyPress(gui);
+                if(keyPressObserver.getKeyPressed()){
+                    if(menuController.isClosed()){
+                        return;
+                    }
+
+                    menuViewer.draw(getStateModel());
+                    Thread.sleep(sleepFrames);
+                    keyPressObserver.resetKeyPress();
                 }
 
-                menuViewer.draw(getStateModel());
-                Thread.sleep(sleepFrames);
-                keyPressObserver.resetKeyPress();
+                }
             }
-
-            }
-        }
         catch (InterruptedException  e) {
             e.printStackTrace();
         }

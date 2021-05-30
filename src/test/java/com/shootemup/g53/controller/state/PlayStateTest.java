@@ -93,13 +93,15 @@ class PlayStateTest {
 
     @Test
     void runPaused() {
-        Thread thread = Mockito.mock(Thread.class);
-        playState.setTimerThread(thread);
+        Thread timerThread = Mockito.mock(Thread.class);
+        playState.setTimerThread(timerThread);
 
         Mockito.when(gameModel.isGameFinished()).thenReturn(false);
 
         Mockito.doReturn(false, false, false, true)
                 .when(gameModel).isPaused();
+
+        Assertions.assertEquals(timerThread, playState.getTimerThread());
 
         playState.run();
 
@@ -114,12 +116,15 @@ class PlayStateTest {
 
         Mockito.verify(game, Mockito.times(1))
                 .changeState(Mockito.any(PauseState.class));
-        Mockito.verify(thread, Mockito.times(1))
+        Mockito.verify(timerThread, Mockito.times(1))
                 .interrupt();
-        Mockito.verify(thread, Mockito.times(1))
+        Mockito.verify(timerThread, Mockito.times(1))
                 .start();
         Mockito.verify(gameController, Mockito.times(1))
                 .unpause();
+
+        Assertions.assertNotEquals(timerThread, playState.getTimerThread());
+
 
         Mockito.verify(gui, Mockito.times(4)).clear();
         Mockito.verify(gui, Mockito.times(3)).refresh();
