@@ -188,7 +188,7 @@ When implementing the Menu, we found ourselves in a situation where the PauseCon
 
 
 #### The pattern
-To solve this issue, we have applied an adaptation of the [Command Pattern](https://refactoring.guru/design-patterns/command),encapsulating the Game state changes in the Buttons themselves.
+To solve this issue, we have applied an adaptation of the [Command Pattern](https://refactoring.guru/design-patterns/command), encapsulating the Game state changes in the Buttons themselves.
 
 This pattern allows us to extract all the different commands into different classes, so that adding a new command is as simple as adding a new Command class.
 
