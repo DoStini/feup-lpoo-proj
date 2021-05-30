@@ -28,6 +28,7 @@ public class GameGenerator {
         this.waveFactory = waveFactory;
         this.gameController = gameController;
         this.gameModel = gameController.getGameModel();
+        this.currentWave = waveFactory.getNextWave(gameController);
     }
 
     private void setupElementGenerators() {

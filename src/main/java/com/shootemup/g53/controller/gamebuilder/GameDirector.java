@@ -1,16 +1,23 @@
 package com.shootemup.g53.controller.gamebuilder;
 
 public class GameDirector {
-    GameModelBuilder builder;
+    GameModelBuilder modelBuilder;
+    private final GameControllerBuilder controllerBuilder;
 
-    public GameDirector(GameModelBuilder builder) {
-        this.builder = builder;
+    public GameDirector(GameModelBuilder modelBuilder, GameControllerBuilder controllerBuilder) {
+        this.modelBuilder = modelBuilder;
+        this.controllerBuilder = controllerBuilder;
     }
 
-//    private void setupGame() {
-//        setupPlayer();
-//        setupBackground();
-//        setupElements();
-//        this.currentWave = waveFactory.getNextWave(gameController);
-//    }
+    public void make(int width, int height) {
+        modelBuilder.setHeight(height);
+        modelBuilder.setWidth(width);
+        modelBuilder.setupPlayer();
+        modelBuilder.setupBackground();
+        modelBuilder.setupElements();
+
+        controllerBuilder.setupModel(modelBuilder.getGameModel());
+        controllerBuilder.setupPlayer(modelBuilder.getGameModel().getPlayer());
+        controllerBuilder.setupBackground(modelBuilder.getGameModel().getBackground());
+    }
 }

@@ -15,9 +15,12 @@ public class GameControllerBuilder {
     private final Gui gui;
     GameController gameController;
 
-    public GameControllerBuilder(Gui gui, GameModel model) {
+    public GameControllerBuilder(Gui gui) {
         this.gui = gui;
         gameController = new GameController(null);
+    }
+
+    protected void setupModel(GameModel model) {
         gameController.setGameModel(model);
     }
 
@@ -33,5 +36,9 @@ public class GameControllerBuilder {
 
     protected void setupBackground(Background background) {
         gameController.setBackgroundController(new BackgroundController(gameController.getGameModel(), background, 30, 3.5));
+    }
+
+    public GameController getGameController() {
+        return gameController;
     }
 }

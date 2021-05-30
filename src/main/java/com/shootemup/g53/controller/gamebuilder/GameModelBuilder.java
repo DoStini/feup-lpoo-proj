@@ -38,7 +38,7 @@ public class GameModelBuilder {
         this.gameModel.setWidth(width);
     }
 
-    private void setupPlayer() {
+    protected void setupPlayer() {
         Player spaceship = new Player(new Position(20, 35), 3, 1, 20, "#aae253",
                 3, 10);
         gameModel.setPlayer(spaceship);
@@ -63,18 +63,22 @@ public class GameModelBuilder {
         gameModel.setColliders(colliders);
     }
 
-    private void setupBackground() {
+    protected void setupBackground() {
         Background background = new Background(25, 30);
 
         gameModel.setBackground(background);
     }
 
-    private void setupElements() {
+    protected void setupElements() {
         gameModel.setCoins(new ArrayList<>());
         gameModel.setBulletList(new ArrayList<>());
         gameModel.setEnemySpaceships(new ArrayList<>());
         gameModel.setAsteroids(new ArrayList<>());
         gameModel.setShields(new ArrayList<>());
         gameModel.setEssences(new ArrayList<>());
+    }
+
+    public GameModel getGameModel() {
+        return this.gameModel;
     }
 }
