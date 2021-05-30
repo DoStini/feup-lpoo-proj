@@ -6,7 +6,6 @@ import com.shootemup.g53.controller.observer.EssenceController;
 import com.shootemup.g53.controller.observer.LifeController;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
-import com.shootemup.g53.model.collider.LineCompositeCollider;
 import com.shootemup.g53.model.collider.LineCompositeFactory;
 import com.shootemup.g53.model.element.Player;
 import com.shootemup.g53.model.element.Shield;
@@ -16,7 +15,8 @@ import com.shootemup.g53.model.util.Position;
 public class PowerupController {
     private GameController gameController;
     private GameModel gameModel;
-    private EssenceController essenceController = new EssenceController();
+
+    private EssenceController essenceNotifier = new EssenceController();
     private final int shieldEssenceCost = 5;
     private final int healthCost = 8;
     private final int healthBoost = 10;
@@ -31,9 +31,7 @@ public class PowerupController {
     private boolean consumeEssence(Player player, int cost) {
         if(!player.removeEssence(cost))
             return false;
-
-        essenceController.setAmount(-cost);
-        essenceController.notifyObservers();
+       
         return true;
     }
 
@@ -41,6 +39,8 @@ public class PowerupController {
         if(!consumeEssence(player, shieldEssenceCost))
             return false;
 
+        getEssenceNotifier().setAmount(player.getEssence());
+        getEssenceNotifier().notifyObservers();
         generateShield(player);
 
         return true;
@@ -53,8 +53,9 @@ public class PowerupController {
         int health = player.getHealth();
 
         player.setHealth(health + healthBoost);
-        lifeController.setLifeToRemove(-(player.getHealth() - health));
+        lifeController.setLife(player.getHealth());
         lifeController.notifyObservers();
+
         return true;
     }
 
@@ -83,8 +84,16 @@ public class PowerupController {
         return lifeController;
     }
 
-    public EssenceController getEssenceController() {
-        return essenceController;
+    public EssenceController getEssenceNotifier() {
+        return essenceNotifier;
+    }
+
+    public void setEssenceNotifier(EssenceController essenceNotifier) {
+        this.essenceNotifier = essenceNotifier;
+    }
+
+    public void setLifeController(LifeController lifeController) {
+        this.lifeController = lifeController;
     }
 
     public GameController getGameController() {

@@ -19,7 +19,7 @@ public class EssenceController implements EventSubject<EssenceObserver>{
     @Override
     public void notifyObservers() {
         for(EssenceObserver essenceObserver:essenceObservers){
-            essenceObserver.notifyEssence(amount);
+            essenceObserver.setEssence(amount);
         }
     }
 
@@ -29,5 +29,9 @@ public class EssenceController implements EventSubject<EssenceObserver>{
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public List<EssenceObserver> getEssenceObservers() {
+        return essenceObservers;
     }
 }
