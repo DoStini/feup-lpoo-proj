@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>LineCompositeFactory.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.shootemup.g53.model.collider;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.shootemup.g53.model.element.Element;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.shootemup.g53.model.util.Position;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.HashMap;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class LineCompositeFactory {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public LineCompositeCollider createFromSquare(Element element, Position topLeft, int width, int height) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        HashMap&#60;Integer, LineCollider&#62; colliderHashMap = new HashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_12'/>
+12
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_12'>4</a>
+<span>
+1. createFromSquare : Changed increment from 1 to -1 &rarr; TIMED_OUT<br/>
+2. createFromSquare : changed conditional boundary &rarr; KILLED<br/>
+3. createFromSquare : Replaced integer addition with subtraction &rarr; KILLED<br/>
+4. createFromSquare : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        for(int y = topLeft.getY(); y &#60;= topLeft.getY() + height; y++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            colliderHashMap.put(y, new LineCollider(element, new Position(topLeft.getX(), y), width));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_16'/>
+16
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_16'>1</a>
+<span>
+1. createFromSquare : replaced return value with null for com/shootemup/g53/model/collider/LineCompositeFactory::createFromSquare &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new LineCompositeCollider(element, colliderHashMap);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public LineCompositeCollider createFromVerticalLine(Element element, Position topLeft, int height) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        HashMap&#60;Integer, LineCollider&#62; colliderHashMap = new HashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_22'/>
+22
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_22'>4</a>
+<span>
+1. createFromVerticalLine : Changed increment from 1 to -1 &rarr; TIMED_OUT<br/>
+2. createFromVerticalLine : changed conditional boundary &rarr; KILLED<br/>
+3. createFromVerticalLine : Replaced integer addition with subtraction &rarr; KILLED<br/>
+4. createFromVerticalLine : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        for(int y = topLeft.getY(); y &#60;= topLeft.getY() + height; y++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            colliderHashMap.put(y, new LineCollider(element, new Position(topLeft.getX(), y), 0));</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_26'/>
+26
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_26'>1</a>
+<span>
+1. createFromVerticalLine : replaced return value with null for com/shootemup/g53/model/collider/LineCompositeFactory::createFromVerticalLine &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new LineCompositeCollider(element, colliderHashMap);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public LineCompositeCollider createFromIsoscelesTriangle(Element element, Position top, int height) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        HashMap&#60;Integer, LineCollider&#62; colliderHashMap = new HashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_32'/>
+32
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_32'>3</a>
+<span>
+1. createFromIsoscelesTriangle : Changed increment from 1 to -1 &rarr; TIMED_OUT<br/>
+2. createFromIsoscelesTriangle : changed conditional boundary &rarr; KILLED<br/>
+3. createFromIsoscelesTriangle : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        for(int y = 0; y &#60;= height; y++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            colliderHashMap.put(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_34'/>
+34
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_34'>4</a>
+<span>
+1. createFromIsoscelesTriangle : Replaced integer addition with subtraction &rarr; KILLED<br/>
+2. createFromIsoscelesTriangle : Replaced integer subtraction with addition &rarr; KILLED<br/>
+3. createFromIsoscelesTriangle : Replaced integer addition with subtraction &rarr; KILLED<br/>
+4. createFromIsoscelesTriangle : Replaced integer multiplication with division &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    y+top.getY(), new LineCollider(element, new Position(top.getX()-y, y+ top.getY()), 2*(y))</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            );</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_38'/>
+38
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_38'>1</a>
+<span>
+1. createFromIsoscelesTriangle : replaced return value with null for com/shootemup/g53/model/collider/LineCompositeFactory::createFromIsoscelesTriangle &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new LineCompositeCollider(element, colliderHashMap);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public LineCompositeCollider createFromInvertedIsoscelesTriangle(Element element, Position top, int height) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        HashMap&#60;Integer, LineCollider&#62; colliderHashMap = new HashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_44'/>
+44
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_44'>3</a>
+<span>
+1. createFromInvertedIsoscelesTriangle : Changed increment from 1 to -1 &rarr; TIMED_OUT<br/>
+2. createFromInvertedIsoscelesTriangle : changed conditional boundary &rarr; KILLED<br/>
+3. createFromInvertedIsoscelesTriangle : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        for(int y = 0; y &#60;= height; y++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            colliderHashMap.put(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_46'/>
+46
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_46'>4</a>
+<span>
+1. createFromInvertedIsoscelesTriangle : Replaced integer subtraction with addition &rarr; KILLED<br/>
+2. createFromInvertedIsoscelesTriangle : Replaced integer subtraction with addition &rarr; KILLED<br/>
+3. createFromInvertedIsoscelesTriangle : Replaced integer subtraction with addition &rarr; KILLED<br/>
+4. createFromInvertedIsoscelesTriangle : Replaced integer multiplication with division &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    top.getY()-y, new LineCollider(element, new Position(top.getX()-y, top.getY()-y), 2*(y))</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            );</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_50'/>
+50
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_50'>1</a>
+<span>
+1. createFromInvertedIsoscelesTriangle : replaced return value with null for com/shootemup/g53/model/collider/LineCompositeFactory::createFromInvertedIsoscelesTriangle &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new LineCompositeCollider(element, colliderHashMap);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public LineCompositeCollider createFromCircle(Element element, Position center, int radius) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        HashMap&#60;Integer, LineCollider&#62; colliderHashMap = new HashMap&#60;&#62;();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_56'/>
+56
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_56'>2</a>
+<span>
+1. createFromCircle : negated conditional &rarr; KILLED<br/>
+2. createFromCircle : replaced return value with null for com/shootemup/g53/model/collider/LineCompositeFactory::createFromCircle &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if(radius == 0) return  new LineCompositeCollider(element, colliderHashMap);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        colliderHashMap.put(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_59'/>
+59
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_59'>1</a>
+<span>
+1. createFromCircle : Replaced integer multiplication with division &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                center.getY(), new LineCollider(element, center.getLeft(radius), 2*radius)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        );</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_62'/>
+62
+</td>
+<td class='uncertain'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_62'>4</a>
+<span>
+1. createFromCircle : Changed increment from 1 to -1 &rarr; TIMED_OUT<br/>
+2. createFromCircle : changed conditional boundary &rarr; KILLED<br/>
+3. createFromCircle : Replaced integer addition with subtraction &rarr; KILLED<br/>
+4. createFromCircle : negated conditional &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='uncertain'>        for(int r = 1; r &#60; radius+1; r++) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_63'/>
+63
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_63'>1</a>
+<span>
+1. createFromCircle : Replaced integer subtraction with addition &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            int currentRadius = radius - r;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            colliderHashMap.put(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_66'/>
+66
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_66'>2</a>
+<span>
+1. createFromCircle : Replaced integer addition with subtraction &rarr; KILLED<br/>
+2. createFromCircle : Replaced integer multiplication with division &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    center.getY()+r, new LineCollider(element, center.getLeft(currentRadius).getUp(r), 2*(currentRadius))</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            );</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            colliderHashMap.put(</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_69'/>
+69
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_69'>2</a>
+<span>
+1. createFromCircle : Replaced integer subtraction with addition &rarr; KILLED<br/>
+2. createFromCircle : Replaced integer multiplication with division &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    center.getY()-r, new LineCollider(element, center.getLeft(currentRadius).getDown(r), 2*(currentRadius))</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            );</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_73'/>
+73
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_73'>1</a>
+<span>
+1. createFromCircle : replaced return value with null for com/shootemup/g53/model/collider/LineCompositeFactory::createFromCircle &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new LineCompositeCollider(element, colliderHashMap);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@776c147d_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@776c147d_12'>12</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_12'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createFromSquare<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromSquare()]</span></span> changed conditional boundary &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createFromSquare<br/><b>Killed by : </b>none</span></span> Changed increment from 1 to -1 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createFromSquare<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromSquare()]</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createFromSquare<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromSquare()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@776c147d_16'>16</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_16'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createFromSquare<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromSquare()]</span></span> replaced return value with null for com/shootemup/g53/model/collider/LineCompositeFactory::createFromSquare &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@776c147d_22'>22</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_22'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createFromVerticalLine<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromLine()]</span></span> changed conditional boundary &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createFromVerticalLine<br/><b>Killed by : </b>none</span></span> Changed increment from 1 to -1 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createFromVerticalLine<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromLine()]</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createFromVerticalLine<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromLine()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@776c147d_26'>26</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_26'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createFromVerticalLine<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromLine()]</span></span> replaced return value with null for com/shootemup/g53/model/collider/LineCompositeFactory::createFromVerticalLine &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@776c147d_32'>32</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_32'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createFromIsoscelesTriangle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromIsoscelesTriangle()]</span></span> changed conditional boundary &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createFromIsoscelesTriangle<br/><b>Killed by : </b>none</span></span> Changed increment from 1 to -1 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createFromIsoscelesTriangle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromIsoscelesTriangle()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@776c147d_34'>34</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_34'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createFromIsoscelesTriangle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromIsoscelesTriangle()]</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createFromIsoscelesTriangle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromIsoscelesTriangle()]</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createFromIsoscelesTriangle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromIsoscelesTriangle()]</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createFromIsoscelesTriangle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromIsoscelesTriangle()]</span></span> Replaced integer multiplication with division &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@776c147d_38'>38</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_38'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createFromIsoscelesTriangle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromIsoscelesTriangle()]</span></span> replaced return value with null for com/shootemup/g53/model/collider/LineCompositeFactory::createFromIsoscelesTriangle &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@776c147d_44'>44</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_44'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createFromInvertedIsoscelesTriangle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromInvertedIsoscelesTriangle()]</span></span> changed conditional boundary &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createFromInvertedIsoscelesTriangle<br/><b>Killed by : </b>none</span></span> Changed increment from 1 to -1 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createFromInvertedIsoscelesTriangle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromInvertedIsoscelesTriangle()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@776c147d_46'>46</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_46'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createFromInvertedIsoscelesTriangle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromInvertedIsoscelesTriangle()]</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createFromInvertedIsoscelesTriangle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromInvertedIsoscelesTriangle()]</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createFromInvertedIsoscelesTriangle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromInvertedIsoscelesTriangle()]</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createFromInvertedIsoscelesTriangle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromInvertedIsoscelesTriangle()]</span></span> Replaced integer multiplication with division &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@776c147d_50'>50</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_50'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createFromInvertedIsoscelesTriangle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromInvertedIsoscelesTriangle()]</span></span> replaced return value with null for com/shootemup/g53/model/collider/LineCompositeFactory::createFromInvertedIsoscelesTriangle &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@776c147d_56'>56</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_56'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createFromCircle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromCircle()]</span></span> negated conditional &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createFromCircle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromCircle()]</span></span> replaced return value with null for com/shootemup/g53/model/collider/LineCompositeFactory::createFromCircle &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@776c147d_59'>59</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_59'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createFromCircle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromCircle()]</span></span> Replaced integer multiplication with division &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@776c147d_62'>62</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_62'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createFromCircle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromCircle()]</span></span> changed conditional boundary &rarr; KILLED</p> <p class='TIMED_OUT'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createFromCircle<br/><b>Killed by : </b>none</span></span> Changed increment from 1 to -1 &rarr; TIMED_OUT</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>createFromCircle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromCircle()]</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>createFromCircle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromCircle()]</span></span> negated conditional &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@776c147d_63'>63</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_63'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createFromCircle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromCircle()]</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@776c147d_66'>66</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_66'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createFromCircle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromCircle()]</span></span> Replaced integer addition with subtraction &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createFromCircle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromCircle()]</span></span> Replaced integer multiplication with division &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@776c147d_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_69'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createFromCircle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromCircle()]</span></span> Replaced integer subtraction with addition &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createFromCircle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromCircle()]</span></span> Replaced integer multiplication with division &rarr; KILLED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@776c147d_73'>73</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@776c147d_73'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createFromCircle<br/><b>Killed by : </b>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromCircle()]</span></span> replaced return value with null for com/shootemup/g53/model/collider/LineCompositeFactory::createFromCircle &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromIsoscelesTriangle()] (2 ms)</li><li>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromCircle()] (1 ms)</li><li>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromInvertedIsoscelesTriangle()] (2 ms)</li><li>com.shootemup.g53.controller.game.BulletPoolControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.game.BulletPoolControllerTest]/[method:poolHasNoObject()] (3 ms)</li><li>com.shootemup.g53.controller.state.PlayStateTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.state.PlayStateTest]/[method:runPaused()] (223 ms)</li><li>com.shootemup.g53.controller.state.PlayStateTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.state.PlayStateTest]/[method:setupGame()] (14 ms)</li><li>com.shootemup.g53.controller.state.PlayStateTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.state.PlayStateTest]/[method:timerThreadFrame()] (166 ms)</li><li>com.shootemup.g53.controller.game.BulletPoolControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.game.BulletPoolControllerTest]/[method:addBullet()] (3 ms)</li><li>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromSquare()] (2 ms)</li><li>com.shootemup.g53.controller.gamebuilder.element.SpaceshipGeneratorTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.gamebuilder.element.SpaceshipGeneratorTest]/[method:setCollider()] (2 ms)</li><li>com.shootemup.g53.controller.gamebuilder.element.AsteroidGeneratorTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.gamebuilder.element.AsteroidGeneratorTest]/[method:generateElement()] (3 ms)</li><li>com.shootemup.g53.controller.command.StartCommandTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.command.StartCommandTest]/[method:execute()] (4 ms)</li><li>com.shootemup.g53.controller.player.PowerupControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PowerupControllerTest]/[method:oneTimeEssenceShield()] (3 ms)</li><li>com.shootemup.g53.controller.gamebuilder.element.EssenceGeneratorTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.gamebuilder.element.EssenceGeneratorTest]/[method:generateElement()] (3 ms)</li><li>com.shootemup.g53.model.collider.LineCompositeFactoryTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.collider.LineCompositeFactoryTest]/[method:fromLine()] (1 ms)</li><li>com.shootemup.g53.controller.game.BulletPoolControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.game.BulletPoolControllerTest]/[method:poolHasObject()] (4 ms)</li><li>com.shootemup.g53.controller.gamebuilder.GameModelBuilderTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.gamebuilder.GameModelBuilderTest]/[method:setupPlayer()] (3 ms)</li><li>com.shootemup.g53.controller.gamebuilder.element.AsteroidGeneratorTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.gamebuilder.element.AsteroidGeneratorTest]/[method:setCollider()] (3 ms)</li><li>com.shootemup.g53.controller.state.PlayStateTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.state.PlayStateTest]/[method:timerThreadSeconds()] (2017 ms)</li><li>com.shootemup.g53.controller.state.PlayStateTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.state.PlayStateTest]/[method:runFinished()] (218 ms)</li><li>com.shootemup.g53.controller.GameTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.GameTest]/[method:testRun()] (12 ms)</li><li>com.shootemup.g53.controller.gamebuilder.element.EssenceGeneratorTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.gamebuilder.element.EssenceGeneratorTest]/[method:setCollider()] (2 ms)</li><li>com.shootemup.g53.controller.gamebuilder.element.CoinGeneratorTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.gamebuilder.element.CoinGeneratorTest]/[method:setCollider()] (3 ms)</li><li>com.shootemup.g53.controller.player.PowerupControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PowerupControllerTest]/[method:sameEssence()] (4 ms)</li><li>com.shootemup.g53.controller.gamebuilder.element.SpaceshipGeneratorTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.gamebuilder.element.SpaceshipGeneratorTest]/[method:generateElement()] (5 ms)</li><li>com.shootemup.g53.controller.gamebuilder.element.CoinGeneratorTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.gamebuilder.element.CoinGeneratorTest]/[method:generateElement()] (3 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.6.3
+
+</body>
+</html>
