@@ -142,6 +142,10 @@ public class GameBuilder {
         return nextGeneration;
     }
 
+    public long getBaseSkip() {
+        return baseSkip;
+    }
+
     public WaveFactory getWaveFactory() {
         return waveFactory;
     }

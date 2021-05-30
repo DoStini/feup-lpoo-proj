@@ -8,7 +8,8 @@ public class InfoBarController {
 
     public InfoBarController(GameController gameController, InfoBarModel infoBarModel){
         this.infoBarModel = infoBarModel;
-        gameController.getPlayerController().getLifeController().addObserver(infoBarModel);
+        PlayerController playerController = gameController.getPlayerController();
+        playerController.getLifeController().addObserver(infoBarModel);
         gameController.getPlayerController().getScoreController().addObserver(infoBarModel);
         gameController.getPlayerController().getEssenceController().addObserver(infoBarModel);
         infoBarModel.setEssenceShieldCost(gameController.getPlayerController().getPowerupController().getShieldEssenceCost());

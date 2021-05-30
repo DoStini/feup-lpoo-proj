@@ -93,6 +93,7 @@ public class InfoBarViewer extends Viewer<InfoBarModel> {
         }
     }
 
+
     public void drawInfoBarBackground(Gui gui){
         Drawer rectangleDrawer = new RectangleDrawer(infoBarBackground, infoBarWidth,gui.getHeight());
         rectangleDrawer.draw(gui,new Position(gui.getWidth() - infoBarWidth,0));
@@ -108,5 +109,9 @@ public class InfoBarViewer extends Viewer<InfoBarModel> {
         drawTime(gui,infoBarModel);
         drawEssence(gui, infoBarModel);
         drawPowerups(gui, infoBarModel);
+    }
+  
+    public int getInfoBarWidth() {
+        return infoBarWidth;
     }
 }
