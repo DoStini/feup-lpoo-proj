@@ -6,7 +6,7 @@ import com.shootemup.g53.controller.game.GameController;
 
 import com.shootemup.g53.controller.infobar.InfoBarController;
 
-import com.shootemup.g53.controller.gamebuilder.GameBuilder;
+import com.shootemup.g53.controller.gamebuilder.GameModelBuilder;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.infobar.InfoBarModel;
 import com.shootemup.g53.ui.Gui;
@@ -17,7 +17,7 @@ import com.shootemup.g53.view.infobar.InfoBarViewer;
 public class PlayState extends State<GameModel> {
     private final GameModel gameModel;
     private GameController gameController;
-    private GameBuilder gameBuilder;
+    private GameModelBuilder gameModelBuilder;
     private Viewer<GameModel> gameViewer;
     private Gui gui;
     private InfoBarController infoBarController;
@@ -30,12 +30,12 @@ public class PlayState extends State<GameModel> {
         this.game = game;
         this.gameModel = gameModel;
         this.gameController = new GameController(this.gameModel);
-        this.gameBuilder = new GameBuilder(gui, this.gameController, 10);
+        this.gameModelBuilder = new GameModelBuilder(gui, this.gameController, 10);
         this.gameViewer = new GameViewer(gui);
         this.gui = gui;
         this.infoBarViewer = new InfoBarViewer(this.gui, 10);
         this.infoBarController = new InfoBarController(gameController, new InfoBarModel(getStateModel().getPlayer().getHealth(),1,seconds,getStateModel().getPlayer().getHealth()));
-        gameBuilder.getWaveFactory().getWaveCompletionController().addObserver(getInfoBarModel());
+        gameModelBuilder.getWaveFactory().getWaveCompletionController().addObserver(getInfoBarModel());
     }
 
     public InfoBarModel getInfoBarModel(){
@@ -89,7 +89,7 @@ public class PlayState extends State<GameModel> {
             while(true){
                 gui.clear();
                 Thread.sleep(50);
-                gameBuilder.handle(frame);
+                gameModelBuilder.handle(frame);
                 gameController.handleKeyPress(gui);
                 gameController.handle(frame);
                 infoBarController.handle(seconds);
@@ -126,7 +126,7 @@ public class PlayState extends State<GameModel> {
         this.gameController = gameController;
     }
 
-    public void setGameBuilder(GameBuilder gameBuilder) {
-        this.gameBuilder = gameBuilder;
+    public void setGameBuilder(GameModelBuilder gameModelBuilder) {
+        this.gameModelBuilder = gameModelBuilder;
     }
 }

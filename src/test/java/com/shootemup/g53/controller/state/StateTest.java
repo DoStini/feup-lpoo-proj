@@ -6,10 +6,9 @@ import com.shootemup.g53.controller.game.GameController;
 import com.shootemup.g53.controller.observer.LifeController;
 import com.shootemup.g53.controller.observer.ScoreController;
 import com.shootemup.g53.controller.observer.WaveCompletionController;
-import com.shootemup.g53.controller.gamebuilder.GameBuilder;
+import com.shootemup.g53.controller.gamebuilder.GameModelBuilder;
 import com.shootemup.g53.controller.player.PlayerController;
 import com.shootemup.g53.model.element.Player;
-import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
@@ -29,7 +28,7 @@ public class StateTest {
     private WaveCompletionController waveCompletionController;
     private ScoreController scoreController;
     private GameModel gameModel;
-    private GameBuilder gameBuilder;
+    private GameModelBuilder gameModelBuilder;
     private Gui gui;
     private Game game;
     private Player player;
@@ -55,7 +54,7 @@ public class StateTest {
         Mockito.when(playerController.getScoreController()).thenReturn(scoreController);
         Mockito.when(playerController.getLifeController()).thenReturn(lifeController);
         gameViewer = Mockito.mock(GameViewer.class);
-        gameBuilder = Mockito.mock(GameBuilder.class);
+        gameModelBuilder = Mockito.mock(GameModelBuilder.class);
         gui = Mockito.mock(Gui.class);
 
         game = Mockito.mock(Game.class);

@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-class GameBuilderTest {
+class GameModelBuilderTest {
 
     private GameController gameController;
     private GameModel gameModel;
@@ -33,7 +33,7 @@ class GameBuilderTest {
     private Wave wave;
     private Gui gui;
 
-    private GameBuilder gameBuilder;
+    private GameModelBuilder gameModelBuilder;
     private Random random;
 
     @BeforeEach
@@ -50,7 +50,7 @@ class GameBuilderTest {
 
     @Test
     void setupPlayer() {
-        gameBuilder = new GameBuilder(gui, gameController, 2);
+        gameModelBuilder = new GameModelBuilder(gui, gameController, 2);
 
         Player spaceship = new Player(new Position(20, 35), 3, 1, 20, "#aae253", 3,5);
 
@@ -85,7 +85,7 @@ class GameBuilderTest {
 
     @Test
     void setupElements() {
-        gameBuilder = new GameBuilder(gui, gameController, 2);
+        gameModelBuilder = new GameModelBuilder(gui, gameController, 2);
 
         Mockito.verify(gameModel, Mockito.times(1)).setCoins(new ArrayList<>());
         Mockito.verify(gameModel, Mockito.times(1)).setBulletList(new ArrayList<>());
@@ -98,7 +98,7 @@ class GameBuilderTest {
 
     @Test
     void setupBackground() {
-        gameBuilder = new GameBuilder(gui, gameController, 2);
+        gameModelBuilder = new GameModelBuilder(gui, gameController, 2);
 
         Mockito.verify(gameController, Mockito.times(1))
                 .setBackgroundController(Mockito.any(BackgroundController.class));
@@ -112,9 +112,9 @@ class GameBuilderTest {
 
     @Test
     void setupElementGenerators() {
-        gameBuilder = new GameBuilder(gui, gameController, 2);
+        gameModelBuilder = new GameModelBuilder(gui, gameController, 2);
 
-        List<ElementGenerator> generators = gameBuilder.getGenerators();
+        List<ElementGenerator> generators = gameModelBuilder.getGenerators();
 
         Assertions.assertEquals(3, generators.size());
         Assertions.assertEquals(AsteroidGenerator.class, generators.get(0).getClass());
@@ -124,13 +124,13 @@ class GameBuilderTest {
     @Test
     void nextGeneration() {
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(1);
-        gameBuilder = new GameBuilder(random, gui, gameController, waveFactory, 2);
+        gameModelBuilder = new GameModelBuilder(random, gui, gameController, waveFactory, 2);
 
-        Assertions.assertEquals(0, gameBuilder.getNextGeneration());
-        gameBuilder.setNextGeneration();
-        Assertions.assertEquals(3, gameBuilder.getNextGeneration());
-        gameBuilder.setNextGeneration();
-        Assertions.assertEquals(6, gameBuilder.getNextGeneration());
+        Assertions.assertEquals(0, gameModelBuilder.getNextGeneration());
+        gameModelBuilder.setNextGeneration();
+        Assertions.assertEquals(3, gameModelBuilder.getNextGeneration());
+        gameModelBuilder.setNextGeneration();
+        Assertions.assertEquals(6, gameModelBuilder.getNextGeneration());
     }
 
     @Test
@@ -140,10 +140,10 @@ class GameBuilderTest {
                 .thenReturn(Arrays.asList(Mockito.mock(Spaceship.class)));
         List<ElementGenerator> elementGenerators = Arrays.asList(Mockito.mock(ElementGenerator.class));
 
-        gameBuilder = new GameBuilder(random, gui, gameController, waveFactory, 2);
-        gameBuilder.setupElementGenerators(elementGenerators);
+        gameModelBuilder = new GameModelBuilder(random, gui, gameController, waveFactory, 2);
+        gameModelBuilder.setupElementGenerators(elementGenerators);
 
-        gameBuilder.handle(0);
+        gameModelBuilder.handle(0);
         Mockito.verify(waveFactory, Mockito.times(1))
                 .getNextWave(gameController);
     }
@@ -157,11 +157,11 @@ class GameBuilderTest {
         ElementGenerator elementGenerator = Mockito.mock(ElementGenerator.class);
         List<ElementGenerator> elementGenerators = Arrays.asList(elementGenerator);
 
-        gameBuilder = new GameBuilder(random, gui, gameController, waveFactory, 2);
-        gameBuilder.setupElementGenerators(elementGenerators);
+        gameModelBuilder = new GameModelBuilder(random, gui, gameController, waveFactory, 2);
+        gameModelBuilder.setupElementGenerators(elementGenerators);
 
-        gameBuilder.handle(0);
-        gameBuilder.handle(1);
+        gameModelBuilder.handle(0);
+        gameModelBuilder.handle(1);
 
         Mockito.verify(wave, Mockito.times(1)).handle(0);
         Mockito.verify(waveFactory, Mockito.times(1))
@@ -178,14 +178,14 @@ class GameBuilderTest {
         ElementGenerator elementGenerator = Mockito.mock(ElementGenerator.class);
         List<ElementGenerator> elementGenerators = Arrays.asList(elementGenerator);
 
-        gameBuilder = new GameBuilder(random, gui, gameController, waveFactory, 2);
-        gameBuilder.setupElementGenerators(elementGenerators);
+        gameModelBuilder = new GameModelBuilder(random, gui, gameController, waveFactory, 2);
+        gameModelBuilder.setupElementGenerators(elementGenerators);
 
-        gameBuilder.handle(0);
-        gameBuilder.handle(1);
-        gameBuilder.handle(2);
-        gameBuilder.handle(3);
-        gameBuilder.handle(4);
+        gameModelBuilder.handle(0);
+        gameModelBuilder.handle(1);
+        gameModelBuilder.handle(2);
+        gameModelBuilder.handle(3);
+        gameModelBuilder.handle(4);
 
         Mockito.verify(wave, Mockito.times(1)).handle(0);
         Mockito.verify(wave, Mockito.times(1)).handle(2);
@@ -205,15 +205,15 @@ class GameBuilderTest {
         ElementGenerator elementGenerator = Mockito.mock(ElementGenerator.class);
         List<ElementGenerator> elementGenerators = Arrays.asList(elementGenerator);
 
-        gameBuilder = new GameBuilder(random, gui, gameController, waveFactory, 2);
-        gameBuilder.setupElementGenerators(elementGenerators);
+        gameModelBuilder = new GameModelBuilder(random, gui, gameController, waveFactory, 2);
+        gameModelBuilder.setupElementGenerators(elementGenerators);
 
-        gameBuilder.handle(0);
+        gameModelBuilder.handle(0);
 
         Mockito.when(wave.handle(1)).thenReturn(true);
-        gameBuilder.handle(1);
+        gameModelBuilder.handle(1);
 
-        gameBuilder.handle(2);
+        gameModelBuilder.handle(2);
 
         Mockito.verify(waveFactory, Mockito.times(2))
                 .getNextWave(gameController);
