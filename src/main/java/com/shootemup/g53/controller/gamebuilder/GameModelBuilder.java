@@ -1,15 +1,5 @@
 package com.shootemup.g53.controller.gamebuilder;
 
-import com.shootemup.g53.controller.element.BackgroundController;
-import com.shootemup.g53.controller.firing.MovingBulletStrategy;
-import com.shootemup.g53.controller.game.GameController;
-import com.shootemup.g53.controller.gamebuilder.element.AsteroidGenerator;
-import com.shootemup.g53.controller.gamebuilder.element.CoinGenerator;
-import com.shootemup.g53.controller.gamebuilder.element.ElementGenerator;
-import com.shootemup.g53.controller.gamebuilder.element.EssenceGenerator;
-import com.shootemup.g53.controller.movement.*;
-import com.shootemup.g53.controller.player.PlayerController;
-import com.shootemup.g53.controller.player.PowerupController;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.collider.LineCompositeFactory;
@@ -17,9 +7,9 @@ import com.shootemup.g53.model.element.Background;
 import com.shootemup.g53.model.element.Player;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
-import com.shootemup.g53.ui.Gui;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameModelBuilder {
     protected GameModel gameModel;

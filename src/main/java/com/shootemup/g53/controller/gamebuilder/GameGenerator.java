@@ -6,7 +6,6 @@ import com.shootemup.g53.controller.gamebuilder.element.CoinGenerator;
 import com.shootemup.g53.controller.gamebuilder.element.ElementGenerator;
 import com.shootemup.g53.controller.gamebuilder.element.EssenceGenerator;
 import com.shootemup.g53.model.game.GameModel;
-import com.shootemup.g53.ui.Gui;
 
 import java.util.Arrays;
 import java.util.List;
