@@ -1,8 +1,8 @@
 package com.shootemup.g53.controller.gamebuilder;
 
 public class GameDirector {
-    GameModelBuilder modelBuilder;
-    private final GameControllerBuilder controllerBuilder;
+    protected final GameModelBuilder modelBuilder;
+    protected final GameControllerBuilder controllerBuilder;
 
     public GameDirector(GameModelBuilder modelBuilder, GameControllerBuilder controllerBuilder) {
         this.modelBuilder = modelBuilder;
