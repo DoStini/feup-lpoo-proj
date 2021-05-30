@@ -17,3 +17,7 @@ The chosen spaceship proved itself to be worthy of this mission because of its m
 ![Game State](docs/images/screenshots/game_state.PNG)
 *Example from the game state*
 
+![Game Over](docs/images/screenshots/gameOver.png)
+*This is our Game Over screen*
+
+

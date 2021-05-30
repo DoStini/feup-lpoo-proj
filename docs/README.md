@@ -114,7 +114,7 @@ In order to solve this problem we chose the [Facade Pattern](https://refactoring
 
 #### Implementation
 
-To implement this we also created an AWTInputController in order to get a fluid movement to the player, that the pollInput method wouldn't work, creating a map of active actions.
+To implement this we also created an AWTInputController in order to get a fluid movement to the player, that the pollInput method wouldn't be able to replicate, creating a map of active actions.
 
 The following UML illustrates how this pattern was implemented:
 
@@ -608,6 +608,11 @@ This could be fixed using a parameter object, since lots of parameters are share
 Some features that are already well-defined strong tests, however there are some mutants still left to fix.
 
 Some situations like game states and controllers are yet tested, since they are still in a thought process.
+
+### Conclusion
+
+Due to lack of time to test everything, we focused harder on testing the controllers and left some models fairly untested - also because the model usually has only setters and getters.
+However, we tried very hard to eliminate mutations in the tests, and we acomplished a very good result. The mutants left in the code are some basic `Thread.sleep`  which we didn't find a way of testing, and some boundaries issues.
 
 ## Self-evaluation
 
