@@ -45,7 +45,7 @@ public class MenuStateController implements GenericController {
 
     }
 
-    public boolean isClose(){
+    public boolean isClosed(){
         return menuModel.isClosed();
     }
 

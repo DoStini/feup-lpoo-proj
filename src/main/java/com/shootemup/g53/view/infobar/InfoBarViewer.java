@@ -80,4 +80,8 @@ public class InfoBarViewer extends Viewer<InfoBarModel> {
             gui.drawText(textColor,text,new Position(XPosition - text.length()/5,5 + currY ),infoBarBackground);
         }
     }
+
+    public int getInfoBarWidth() {
+        return infoBarWidth;
+    }
 }
