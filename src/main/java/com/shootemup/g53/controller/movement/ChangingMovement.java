@@ -2,13 +2,14 @@ package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.model.util.Position;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ChangingMovement implements MovementStrategy {
-    private int changeRate;
+public class ChangingMovement extends IncrementalMovement {
+    protected int changeRate;
     private MovementStrategy currentController;
-    private List<MovementStrategy> controllers;
+    protected List<MovementStrategy> controllers;
     private int lastChange = 0;
     private int frame = 0;
     private Random randomGen;
@@ -34,15 +35,40 @@ public class ChangingMovement implements MovementStrategy {
     }
 
     @Override
-    public Position move(Position position, int speed) {
+    Position moveFrame(Position position, int speed) {
         frame++;
-        if (frame > lastChange + changeRate)
+        if (frame > lastChange + changeRate){
+            lastChange = frame;
             setNewController();
+        }
+
         return currentController.move(position, speed);
     }
 
     @Override
-    public void handleFailedMovement() {
-        currentController.handleFailedMovement();
+    public MovementStrategy cloneStrategy() {
+        List<MovementStrategy> strategies = new ArrayList<>();
+
+        for(MovementStrategy strategy : controllers) {
+            strategies.add(strategy.cloneStrategy());
+        }
+
+        return new ChangingMovement(changeRate, strategies);
+    }
+
+    public boolean contains(MovementStrategy strategy) {
+        return controllers.stream().anyMatch(st -> st.getClass() == strategy.getClass());
+    }
+
+    public void addMovement(MovementStrategy movementStrategy) {
+        controllers.add(movementStrategy);
+    }
+
+    public List<MovementStrategy> getControllers() {
+        return controllers;
+    }
+
+    public int getChangingRate() {
+        return changeRate;
     }
 }

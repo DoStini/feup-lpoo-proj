@@ -13,6 +13,7 @@ public class ObjectPool<T extends PoolableObject> {
         init(templateObject);
     }
 
+    @SuppressWarnings("unchecked")
     private void init(T template) {
         for (int i = 0; i < cacheSize; i++) {
             T sample = (T) template.clone();

@@ -4,10 +4,6 @@ plugins {
     id 'info.solidsoft.pitest' version '1.6.0'
 }
 
-pitest {
-    junit5PluginVersion = '0.12'
-}
-
 group 'com.shootemup.g53'
 version '1.0-SNAPSHOT'
 
@@ -24,6 +20,7 @@ dependencies {
 }
 
 pitest {
+    //targetClasses = ['com.shootemup.g53.controller.gamebuilder.*']
     junit5PluginVersion = '0.12'
 }
 

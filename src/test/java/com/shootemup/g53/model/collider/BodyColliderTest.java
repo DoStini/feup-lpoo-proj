@@ -37,6 +37,12 @@ class BodyColliderTest {
         Assertions.assertEquals(element2.getPosition().add(new Position(1,1)), collider2BB.getTopLeft().add(element2.getPosition()));
         Assertions.assertEquals(4, collider2BB.getWidth());
         Assertions.assertEquals(0, collider2BB.getHeight());
+
+        Assertions.assertEquals(element1, collider.getElement());
+        Assertions.assertNotEquals(element2, collider.getElement());
+        Assertions.assertEquals(collider.getElement(), collider.getElement());
+        Assertions.assertEquals(element2, collider2.getElement());
+        Assertions.assertNotEquals(element1, collider2.getElement());
     }
 
     @Test

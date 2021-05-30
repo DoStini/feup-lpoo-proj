@@ -2,10 +2,10 @@ package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.model.util.Position;
 
-public class CircularMovement implements MovementStrategy {
-    private final double radius;
-    private double angle;
-    private double angularSpeed;
+public class CircularMovement  extends IncrementalMovement {
+    protected final double radius;
+    protected double angle;
+    protected double angularSpeed;
 
     public CircularMovement(double radius, double initAngle, double angularSpeed) {
         this.radius = radius;
@@ -14,7 +14,7 @@ public class CircularMovement implements MovementStrategy {
     }
 
     @Override
-    public Position move(Position position, int speed) {
+    Position moveFrame(Position position, int speed) {
         Position curCenter = position.sub(
                 new Position(
                         Math.toIntExact(Math.round(radius*Math.cos(this.angle))),
@@ -32,8 +32,20 @@ public class CircularMovement implements MovementStrategy {
         ).add(curCenter);
     }
 
+    public double getRadius() {
+        return radius;
+    }
+
+    public double getAngle() {
+        return angle;
+    }
+
+    public double getAngularSpeed() {
+        return angularSpeed;
+    }
+
     @Override
-    public void handleFailedMovement() {
-        this.angularSpeed = -this.angularSpeed;
+    public MovementStrategy cloneStrategy() {
+        return new CircularMovement(radius, angle, Math.toDegrees(angularSpeed));
     }
 }

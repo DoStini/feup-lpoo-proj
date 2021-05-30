@@ -10,6 +10,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.input.AWTInputController;
 import com.shootemup.g53.controller.input.InputController;
+import com.shootemup.g53.controller.input.InputObserver;
 import com.shootemup.g53.model.util.Position;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 
@@ -24,6 +25,9 @@ public class LanternaGui implements Gui {
 
     Screen screen;
     TerminalSize terminalSize;
+    private int fontSize;
+    private int height;
+    private int width;
     private InputController<KeyEvent> inputController;
 
     private AWTTerminalFontConfiguration loadFont(int fontSize) throws URISyntaxException, IOException, FontFormatException {
@@ -33,7 +37,7 @@ public class LanternaGui implements Gui {
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge.registerFont(font);
-
+        this.fontSize = fontSize;
         Font loadedFont = font.deriveFont(Font.PLAIN, fontSize);
         return AWTTerminalFontConfiguration.newInstance(loadedFont);
     }
@@ -49,6 +53,8 @@ public class LanternaGui implements Gui {
         screen.doResizeIfNecessary();
         return screen;
     }
+
+
 
     void setupInputController(Terminal terminal) {
         this.inputController = new AWTInputController(terminal);
@@ -75,6 +81,8 @@ public class LanternaGui implements Gui {
         try {
             AWTTerminalFontConfiguration font = loadFont(fontSize);
             screen = loadTerminal(hSize, vSize, font);
+            this.width = vSize;
+            this.height = hSize;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (FontFormatException e) {
@@ -96,6 +104,13 @@ public class LanternaGui implements Gui {
     }
 
     @Override
+    public void drawColor(int red, int green, int blue, Position pos) {
+        TextGraphics graphics = screen.newTextGraphics();
+        graphics.setBackgroundColor(new TextColor.RGB(red, green, blue));
+        graphics.setCharacter(pos.getX(), pos.getY(), ' ');
+    }
+
+    @Override
     public void drawLine(String color, Position pos, int width) {
         TextGraphics graphics = screen.newTextGraphics();
         graphics.setBackgroundColor(TextColor.Factory.fromString(color));
@@ -110,9 +125,20 @@ public class LanternaGui implements Gui {
     }
 
     @Override
+    public void drawText(String color, String text, Position pos, String backgroundColor) {
+        TextGraphics graphics = screen.newTextGraphics();
+        graphics.setForegroundColor(TextColor.Factory.fromString(color));
+        graphics.setBackgroundColor(TextColor.Factory.fromString(backgroundColor));
+        graphics.putString(pos.getX() - text.length()/ 2, pos.getY(), text);
+    }
+
+    @Override
     public boolean isActionActive(Action act) {
         return inputController.isActionActive(act);
     }
+
+
+
 
     @Override
     public void refresh() {
@@ -121,6 +147,21 @@ public class LanternaGui implements Gui {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    @Override
+    public void resetAllKeyPress() {
+        inputController.resetKeyPresses();
     }
 
     @Override

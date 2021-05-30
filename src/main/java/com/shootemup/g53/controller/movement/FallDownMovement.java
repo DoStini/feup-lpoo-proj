@@ -2,15 +2,14 @@ package com.shootemup.g53.controller.movement;
 
 import com.shootemup.g53.model.util.Position;
 
-public class FallDownMovement implements MovementStrategy {
-
+public class FallDownMovement extends IncrementalMovement {
     @Override
-    public Position move(Position position, int speed) {
+    Position moveFrame(Position position, int speed) {
         return position.getDown(speed);
     }
 
     @Override
-    public void handleFailedMovement() {
-
+    public MovementStrategy cloneStrategy() {
+        return new FallDownMovement();
     }
 }

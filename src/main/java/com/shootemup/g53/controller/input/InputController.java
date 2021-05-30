@@ -14,8 +14,8 @@ public abstract class InputController<T> {
         return keysPressed.getOrDefault(act, false);
     }
 
-    public abstract void handleEvent(T event);
-
     public abstract Action eventToAction(T event);
+
+    public void resetKeyPresses(){ keysPressed.clear();}
 
 }

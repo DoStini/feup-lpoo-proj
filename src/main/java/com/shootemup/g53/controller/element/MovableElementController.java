@@ -1,13 +1,16 @@
 package com.shootemup.g53.controller.element;
 
+import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.element.MovableElement;
 import com.shootemup.g53.model.util.Position;
 
 public class MovableElementController {
     private MovableElement movableElement;
+    private MovementStrategy movementStrategy;
 
-    public MovableElementController(MovableElement movableElement) {
+    public MovableElementController(MovableElement movableElement, MovementStrategy movementStrategy) {
         this.movableElement = movableElement;
+        this.movementStrategy = movementStrategy;
     }
 
     public void setPosition(Position position){
@@ -15,12 +18,9 @@ public class MovableElementController {
     }
 
     public Position move(){
-        return movableElement.move();
+        return movementStrategy.move(movableElement.getPosition(), movableElement.getSpeed());
     }
 
-    public void handleFailedMovement(){
-        movableElement.handleFailedMovement();
-    }
 
     public void setMovableElement(MovableElement movableElement) {
         this.movableElement = movableElement;

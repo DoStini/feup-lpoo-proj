@@ -21,12 +21,14 @@ public class AWTInputController extends InputController<KeyEvent> {
 
             @Override
             public void keyPressed(KeyEvent e) {
+
                 Action act = eventToAction(e);
                 keysPressed.put(act, true);
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
+
                 Action act = eventToAction(e);
                 keysPressed.put(act, false);
             }
@@ -38,9 +40,11 @@ public class AWTInputController extends InputController<KeyEvent> {
         if (event == null)
             return Action.NONE;
 
-        switch (event.getKeyChar()) {
-            case KeyEvent.VK_ESCAPE:
-                return Action.ESC;
+        switch (Character.toLowerCase(event.getKeyChar())) {
+            case 'e':
+                return Action.POWER_1;
+            case 'r':
+                return Action.POWER_2;
             case 'w':
                 return Action.W;
             case 'a':
@@ -54,6 +58,8 @@ public class AWTInputController extends InputController<KeyEvent> {
         }
 
         switch (event.getKeyCode()) {
+            case KeyEvent.VK_ESCAPE:
+                return Action.ESC;
             case KeyEvent.VK_LEFT:
                 return Action.LEFT;
             case KeyEvent.VK_UP:
@@ -69,8 +75,5 @@ public class AWTInputController extends InputController<KeyEvent> {
         return Action.NONE;
     }
 
-    @Override
-    public void handleEvent(KeyEvent event) {
 
-    }
 }

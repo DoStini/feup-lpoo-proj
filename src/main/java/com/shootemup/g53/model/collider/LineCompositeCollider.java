@@ -4,6 +4,7 @@ import com.shootemup.g53.model.element.Element;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class LineCompositeCollider extends BodyCollider {
     private final HashMap<Integer, LineCollider> colliderHashMap;
@@ -71,5 +72,19 @@ public class LineCompositeCollider extends BodyCollider {
 
     protected HashMap<Integer, LineCollider> getColliderHashMap() {
         return colliderHashMap;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LineCompositeCollider)) return false;
+        if (!super.equals(o)) return false;
+        LineCompositeCollider that = (LineCompositeCollider) o;
+        return colliderHashMap.equals(that.colliderHashMap);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(colliderHashMap);
     }
 }

@@ -3,14 +3,15 @@ package com.shootemup.g53.controller.movement;
 import com.shootemup.g53.model.util.Direction;
 import com.shootemup.g53.model.util.Position;
 
-public class DiagonalBounceMovement implements MovementStrategy {
-    private final Position initalPosition;
-    private final int xLeftLimit;
-    private final int xRightLimit;
-    private Direction direction;
+public class DiagonalBounceMovement extends IncrementalMovement {
+    protected final Position initalPosition;
+    protected final int xLeftLimit;
+    protected final int xRightLimit;
+    protected Direction direction;
+
 
     @Override
-    public Position move(Position position, int speed) {
+    Position moveFrame(Position position, int speed) {
         switch (this.direction) {
             case DOWN_LEFT:
                 position = this.moveLeft(position, speed);
@@ -26,13 +27,11 @@ public class DiagonalBounceMovement implements MovementStrategy {
         return position.getDown(speed);
     }
 
+
     @Override
-    public void handleFailedMovement() {
-        if(this.direction == Direction.DOWN_LEFT) this.direction = Direction.DOWN_RIGHT;
-        else this.direction = Direction.DOWN_LEFT;
+    public MovementStrategy cloneStrategy() {
+        return new DiagonalBounceMovement(xLeftLimit, xRightLimit, direction, new Position(initalPosition.getX(), initalPosition.getY()));
     }
-
-
 
     public DiagonalBounceMovement(int xLeftLimit, int xRightLimit, Direction direction, Position initalPosition) {
         this.xLeftLimit = xLeftLimit;
@@ -46,9 +45,7 @@ public class DiagonalBounceMovement implements MovementStrategy {
         int x = newPosition.getX();
 
         if(x < initalPosition.getX() - xLeftLimit) {
-            int diff = xLeftLimit - x;
-            newPosition = newPosition.getRight(2*diff);
-
+            newPosition = position.getRight(speed);
             this.direction = Direction.DOWN_RIGHT;
         }
 
@@ -61,14 +58,26 @@ public class DiagonalBounceMovement implements MovementStrategy {
         int x = newPosition.getX();
 
         if(x > initalPosition.getX() + xRightLimit) {
-            int diff = x- xRightLimit;
-            newPosition = newPosition.getLeft(diff + diff);
-
-            this.direction = Direction.DOWN_LEFT;
+            newPosition = position.getLeft(speed);
+              this.direction = Direction.DOWN_LEFT;
         }
 
         return newPosition;
     }
 
+    public Position getInitalPosition() {
+        return initalPosition;
+    }
 
+    public int getxLeftLimit() {
+        return xLeftLimit;
+    }
+
+    public int getxRightLimit() {
+        return xRightLimit;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
 }
