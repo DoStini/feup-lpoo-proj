@@ -110,7 +110,7 @@ To implement this we also created an AWTInputController in order to get a fluid 
 
 The following UML illustrates how this pattern was implemented:
 
-![Facade](images/design/facade_gui.png.png)
+![Facade](images/design/facade_gui.png)
 
 #### Consequences
 
@@ -132,12 +132,12 @@ In order to do this, we decided to adopt a State Pattern since we wanted a diffe
 
 The following UML illustrates how this pattern was implemented:
 
-![Player States Pattern](images/design/player_state_pattern.png)
+![Player States Pattern](images/design/player_state_pattern.PNG)
 
 
 The following State Diagram represents when the different states will transition between each other:
 
-![Player States Diagram](images/design/state_diagram.png)
+![Player States Diagram](images/design/state_diagram.PNG)
 
 #### Consequences
 
@@ -158,7 +158,7 @@ To implement the different states of the game we used the state pattern, which w
 
 The following UML illustrates how this pattern was implemented:
 
-![Game States Pattern](images/design/game_state_pattern.png)
+![Game States Pattern](images/design/game_state_pattern.PNG)
 
 These classes can be found here:
 
@@ -219,7 +219,7 @@ This pattern allows all the different classes which the InfoBar needs informatio
 #### Implementation
 The current implementation when dealing with notifying the event of player taking damage.
 
-![LifeController](images/design/life_observer.png)
+![LifeController](images/design/life_observer.PNG)
 
 The above UML contains the following classes.
 

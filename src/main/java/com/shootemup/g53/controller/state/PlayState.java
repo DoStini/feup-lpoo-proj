@@ -109,7 +109,7 @@ public class PlayState extends State<GameModel> {
                 infoBarController.handle(seconds);
 
                 if(gameController.isGameFinished()){
-                    game.changeState(new GameOverState(this.game,this.gui));
+                    game.changeState(new GameOverState(this.game,this.gui,gameModel.getPlayer().getCoins() * seconds));
                     return;
                 }else if(gameController.isPaused()){
                     gameController.unpause();
