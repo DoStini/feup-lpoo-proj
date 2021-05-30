@@ -20,9 +20,11 @@ public class GameOverViewer extends Viewer<GameOverModel> {
         gui.clear();
         String text = "GAME OVER!";
         gui.drawText("#ff0000",text, new Position(gui.getWidth()/2  , 2),"#000000");
+        text = "YOU MANAGED TO SCORE: " + model.getScore();
+        gui.drawText("#ff0000",text, new Position(gui.getWidth()/2  , 4),"#000000");
 
         text = "WOULD YOU CARE TO TRY AGAIN?";
-        gui.drawText("#ff0000",text, new Position(gui.getWidth()/2  ,4),"#000000");
+        gui.drawText("#ff0000",text, new Position(gui.getWidth()/2  ,6),"#000000");
 
         for(Button button: model.getOptions()){
             buttonView.draw(gui,button);

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>MovableElement.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package com.shootemup.g53.model.element;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.shootemup.g53.model.util.Position;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public abstract class MovableElement extends Element {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    private double speed;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public MovableElement(Position position, String color, double speed) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        super(position, color);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.speed = speed;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public double getSpeed() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_15'/>
+15
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_15'>1</a>
+<span>
+1. getSpeed : replaced double return with 0.0d for com/shootemup/g53/model/element/MovableElement::getSpeed &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return speed;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void setSpeed(double speed) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        this.speed = speed;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@3d63158f_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@3d63158f_15'>15</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@3d63158f_15'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getSpeed<br/><b>Killed by : </b>com.shootemup.g53.model.element.PlayerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.element.PlayerTest]/[method:constructorGetters()]</span></span> replaced double return with 0.0d for com/shootemup/g53/model/element/MovableElement::getSpeed &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>BOOLEAN_FALSE_RETURN</li>
+<li class='mutator'>BOOLEAN_TRUE_RETURN</li>
+<li class='mutator'>CONDITIONALS_BOUNDARY_MUTATOR</li>
+<li class='mutator'>EMPTY_RETURN_VALUES</li>
+<li class='mutator'>INCREMENTS_MUTATOR</li>
+<li class='mutator'>INVERT_NEGS_MUTATOR</li>
+<li class='mutator'>MATH_MUTATOR</li>
+<li class='mutator'>NEGATE_CONDITIONALS_MUTATOR</li>
+<li class='mutator'>NULL_RETURN_VALUES</li>
+<li class='mutator'>PRIMITIVE_RETURN_VALS_MUTATOR</li>
+<li class='mutator'>VOID_METHOD_CALL_MUTATOR</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>com.shootemup.g53.controller.player.PlayerControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PlayerControllerTest]/[method:powerUps()] (5 ms)</li><li>com.shootemup.g53.controller.game.GameControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.game.GameControllerTest]/[method:constructors()] (6 ms)</li><li>com.shootemup.g53.model.element.PlayerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.element.PlayerTest]/[method:playerClone()] (1 ms)</li><li>com.shootemup.g53.controller.state.PlayStateTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.state.PlayStateTest]/[method:runPaused()] (223 ms)</li><li>com.shootemup.g53.controller.player.PlayerControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PlayerControllerTest]/[method:handleMovementRight()] (6 ms)</li><li>com.shootemup.g53.controller.movement.MovementStrategyTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.movement.MovementStrategyTest]/[method:rightMovement()] (3 ms)</li><li>com.shootemup.g53.controller.movement.MovementStrategyTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.movement.MovementStrategyTest]/[method:diagonalBounce()] (3 ms)</li><li>com.shootemup.g53.controller.state.PlayStateTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.state.PlayStateTest]/[method:setupGame()] (14 ms)</li><li>com.shootemup.g53.controller.movement.MovementStrategyTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.movement.MovementStrategyTest]/[method:circular()] (4 ms)</li><li>com.shootemup.g53.controller.movement.MovementStrategyTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.movement.MovementStrategyTest]/[method:circularReverse()] (3 ms)</li><li>com.shootemup.g53.controller.gamebuilder.GameControllerBuilderTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.gamebuilder.GameControllerBuilderTest]/[method:setupPlayer()] (2 ms)</li><li>com.shootemup.g53.controller.player.PlayerControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PlayerControllerTest]/[method:testInsideBounds()] (5 ms)</li><li>com.shootemup.g53.controller.movement.MovementStrategyTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.movement.MovementStrategyTest]/[method:leftMovement()] (2 ms)</li><li>com.shootemup.g53.controller.player.PlayerControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PlayerControllerTest]/[method:testHandleCoin()] (4 ms)</li><li>com.shootemup.g53.controller.command.StartCommandTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.command.StartCommandTest]/[method:execute()] (4 ms)</li><li>com.shootemup.g53.controller.player.PlayerControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PlayerControllerTest]/[method:testFailedMovementsUp()] (4 ms)</li><li>com.shootemup.g53.model.element.PlayerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.element.PlayerTest]/[method:constructorGetters()] (1 ms)</li><li>com.shootemup.g53.controller.player.PlayerControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PlayerControllerTest]/[method:testPlayerInteractions()] (3 ms)</li><li>com.shootemup.g53.controller.movement.MovementStrategyTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.movement.MovementStrategyTest]/[method:goUp()] (3 ms)</li><li>com.shootemup.g53.model.element.StarTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.element.StarTest]/[method:cloneStar()] (1 ms)</li><li>com.shootemup.g53.controller.movement.MovementStrategyTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.movement.MovementStrategyTest]/[method:diagonalLeft()] (2 ms)</li><li>com.shootemup.g53.controller.player.PlayerControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PlayerControllerTest]/[method:handleMovementUp()] (4 ms)</li><li>com.shootemup.g53.controller.player.PlayerControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PlayerControllerTest]/[method:fireRateNotReached()] (10 ms)</li><li>com.shootemup.g53.controller.gamebuilder.GameControllerBuilderTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.gamebuilder.GameControllerBuilderTest]/[method:constructor()] (2 ms)</li><li>com.shootemup.g53.model.element.BulletTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.element.BulletTest]/[method:testClone()] (2 ms)</li><li>com.shootemup.g53.controller.gamebuilder.GameModelBuilderTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.gamebuilder.GameModelBuilderTest]/[method:setupPlayer()] (3 ms)</li><li>com.shootemup.g53.controller.movement.MovementStrategyTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.movement.MovementStrategyTest]/[method:diagonalRight()] (4 ms)</li><li>com.shootemup.g53.controller.state.PlayStateTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.state.PlayStateTest]/[method:runFinished()] (218 ms)</li><li>com.shootemup.g53.controller.movement.MovementStrategyTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.movement.MovementStrategyTest]/[method:fallDown()] (3 ms)</li><li>com.shootemup.g53.controller.GameTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.GameTest]/[method:testRun()] (12 ms)</li><li>com.shootemup.g53.controller.game.BulletPoolControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.game.BulletPoolControllerTest]/[method:settersGetters()] (3 ms)</li><li>com.shootemup.g53.controller.player.PlayerControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PlayerControllerTest]/[method:handleMultikeyMovement()] (4 ms)</li><li>com.shootemup.g53.controller.element.StarControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.element.StarControllerTest]/[method:handle()] (4 ms)</li><li>com.shootemup.g53.controller.gamebuilder.element.SpaceshipGeneratorTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.gamebuilder.element.SpaceshipGeneratorTest]/[method:generateElement()] (5 ms)</li><li>com.shootemup.g53.controller.player.PlayerControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PlayerControllerTest]/[method:testRightMovement()] (5 ms)</li><li>com.shootemup.g53.controller.player.PlayerControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PlayerControllerTest]/[method:testHandleEssence()] (4 ms)</li><li>com.shootemup.g53.controller.gamebuilder.GameControllerBuilderTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.gamebuilder.GameControllerBuilderTest]/[method:setupController()] (2 ms)</li><li>com.shootemup.g53.controller.player.PlayerControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PlayerControllerTest]/[method:testHandleBullet()] (3 ms)</li><li>com.shootemup.g53.model.element.StarTest.[engine:junit-jupiter]/[class:com.shootemup.g53.model.element.StarTest]/[method:constructor()] (2 ms)</li><li>com.shootemup.g53.controller.player.PlayerControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PlayerControllerTest]/[method:handleMovementLeft()] (7 ms)</li><li>com.shootemup.g53.controller.player.PlayerControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PlayerControllerTest]/[method:testDownMovement()] (4 ms)</li><li>com.shootemup.g53.controller.element.BackgroundControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.element.BackgroundControllerTest]/[method:handle()] (8 ms)</li><li>com.shootemup.g53.controller.player.PlayerControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PlayerControllerTest]/[method:testLeftMovement()] (4 ms)</li><li>com.shootemup.g53.controller.player.PlayerControllerTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.player.PlayerControllerTest]/[method:handleMovementDown()] (7 ms)</li><li>com.shootemup.g53.controller.movement.MovementStrategyTest.[engine:junit-jupiter]/[class:com.shootemup.g53.controller.movement.MovementStrategyTest]/[method:circularReverseAngle()] (4 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.6.3
+
+</body>
+</html>

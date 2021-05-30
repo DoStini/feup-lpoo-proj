@@ -54,6 +54,8 @@ public class LanternaGui implements Gui {
         return screen;
     }
 
+
+
     void setupInputController(Terminal terminal) {
         this.inputController = new AWTInputController(terminal);
     }
@@ -155,6 +157,11 @@ public class LanternaGui implements Gui {
     @Override
     public int getHeight() {
         return height;
+    }
+
+    @Override
+    public void resetAllKeyPress() {
+        inputController.resetKeyPresses();
     }
 
     @Override

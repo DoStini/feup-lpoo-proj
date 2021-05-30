@@ -58,6 +58,7 @@ public class PauseState extends State<PauseModel> {
 
     @Override
     public void run() {
+        gui.resetAllKeyPress();
         try {
             pauseViewer.draw(getStateModel());
             while (true) {

@@ -14,6 +14,7 @@ public interface Gui {
     void refresh();
     int getWidth();
     int getHeight();
+    void resetAllKeyPress();
     void close();
     void clear();
 }

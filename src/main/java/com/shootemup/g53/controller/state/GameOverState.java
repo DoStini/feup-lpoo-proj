@@ -23,18 +23,19 @@ public class GameOverState extends State<GameOverModel> {
     private KeyPressObserver keyPressObserver = new KeyPressObserver();
     private int sleepFrame = 200;
 
-    public GameOverState(Game game, Gui gui){
+    public GameOverState(Game game, Gui gui, int finalScore){
         this.game = game;
         this.gui = gui;
-        setup();
+        setup(finalScore);
     }
 
-    private void setup() {
+    private void setup(int finalScore) {
         this.gameOverController = new GameOverController();
         this.gameOverViewer = new GameOverViewer(gui);
         this.gameOverController.getInputNotifier().addObserver(keyPressObserver);
         getStateModel().getOptions().get(0).setButtonCommand(new StartCommand(game));
         getStateModel().getOptions().get(1).setButtonCommand(new ExitCommand(game));
+        gameOverController.setFinalScore(finalScore);
     }
 
     @Override
@@ -59,6 +60,7 @@ public class GameOverState extends State<GameOverModel> {
 
     @Override
     public void run() {
+        gui.resetAllKeyPress();
         try {
             gameOverViewer.draw(getStateModel());
             while (true) {

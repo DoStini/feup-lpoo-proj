@@ -157,6 +157,7 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     @Override
     public void handleCoin(Coin coin) {
+        player.addCoin(1);
         getScoreController().notifyObservers();
     }
 
