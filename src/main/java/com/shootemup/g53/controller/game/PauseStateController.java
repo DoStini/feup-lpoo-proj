@@ -1,11 +1,17 @@
 package com.shootemup.g53.controller.game;
 
 import com.shootemup.g53.controller.GenericController;
+import com.shootemup.g53.controller.command.MenuCommand;
+import com.shootemup.g53.controller.command.ResumeCommand;
+import com.shootemup.g53.controller.command.StartCommand;
 import com.shootemup.g53.controller.input.Action;
 import com.shootemup.g53.controller.input.InputNotifier;
 import com.shootemup.g53.controller.state.PlayState;
+import com.shootemup.g53.model.element.Button;
 import com.shootemup.g53.model.game.PauseModel;
 import com.shootemup.g53.ui.Gui;
+
+import java.util.List;
 
 public class PauseStateController implements GenericController {
 
@@ -40,7 +46,7 @@ public class PauseStateController implements GenericController {
         }
     }
 
-    public boolean isClose() {
+    public boolean isClosed() {
         return pauseModel.isClosed();
     }
 

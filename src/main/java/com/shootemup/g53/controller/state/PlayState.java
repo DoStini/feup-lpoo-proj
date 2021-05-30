@@ -94,6 +94,7 @@ public class PlayState extends State<GameModel> {
                 }else if(gameController.isPaused()){
                     gameController.unpause();
                     timerThread.interrupt();
+                    startTimerThread();
                     game.changeState(new PauseState(game,gui,this));
                     return;
                 }
@@ -119,7 +120,6 @@ public class PlayState extends State<GameModel> {
                 }
 
             }catch(InterruptedException e){
-                e.printStackTrace();
             }
         });
     }
