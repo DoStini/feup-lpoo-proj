@@ -24,7 +24,7 @@ public class EssenceGenerator extends MovableElementGenerator {
         super(rand, gameController, movementStrategyFactory, xMinPos, xMaxPos, minSpeed, maxSpeed);
     }
 
-    private void setValue(Essence essence) {
+    protected void setValue(Essence essence) {
         essence.setValue(rand.nextInt(maxVal-minVal)+minVal);
     }
 
@@ -49,5 +49,13 @@ public class EssenceGenerator extends MovableElementGenerator {
         setMovement(essence);
         setCollider(essence);
         gameModel.addEssence(essence);
+    }
+
+    public void setMinVal(int minVal) {
+        this.minVal = minVal;
+    }
+
+    public void setMaxVal(int maxVal) {
+        this.maxVal = maxVal;
     }
 }

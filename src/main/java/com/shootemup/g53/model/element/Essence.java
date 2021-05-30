@@ -21,4 +21,14 @@ public class Essence extends MovableElement {
     public void setValue(int value) {
         this.value = value;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Essence)) return false;
+        Essence other = (Essence) o;
+        return super.equals(o)
+                && other.value == this.value;
+    }
+
 }
