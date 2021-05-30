@@ -31,8 +31,8 @@ public class PowerupController {
             return false;
         player.removeEssence(shieldEssenceCost);
 
-        essenceNotifier.setAmount(player.getEssence());
-        essenceNotifier.notifyObservers();
+        getEssenceNotifier().setAmount(player.getEssence());
+        getEssenceNotifier().notifyObservers();
         generateShield(player);
 
         return true;
@@ -45,8 +45,8 @@ public class PowerupController {
         int health = player.getHealth();
 
         player.setHealth(Math.min(health + healthBoost, player.getMaxHealth()));
-        lifeController.setLife(player.getHealth());
-        lifeController.notifyObservers();
+        getLifeController().setLife(player.getHealth());
+        getLifeController().notifyObservers();
         return true;
     }
 
@@ -77,5 +77,13 @@ public class PowerupController {
 
     public EssenceController getEssenceNotifier() {
         return essenceNotifier;
+    }
+
+    public void setEssenceNotifier(EssenceController essenceNotifier) {
+        this.essenceNotifier = essenceNotifier;
+    }
+
+    public void setLifeController(LifeController lifeController) {
+        this.lifeController = lifeController;
     }
 }

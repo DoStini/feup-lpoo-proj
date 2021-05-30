@@ -31,8 +31,9 @@ public class NormalState extends PlayerState{
 
     @Override
     public void handleSpaceship(Spaceship spaceship) {
-        this.playerController.getPlayer().setHealth(this.playerController.getPlayer().getHealth()-5);
-        this.playerController.getLifeController().setLife(playerController.getPlayer().getHealth());
+        Player player = playerController.getPlayer();
+        player.setHealth(player.getHealth()-5);
+        this.playerController.getLifeController().setLife(player.getHealth());
         this.playerController.getLifeController().notifyObservers();
         this.playerController.changeState(new InvulnerableState(playerController, 80));
     }

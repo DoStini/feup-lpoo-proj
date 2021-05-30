@@ -134,20 +134,20 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     @Override
     public void handleBullet(Bullet bullet) {
         this.player.setHealth(this.player.getHealth()-bullet.getDamage());
-        lifeController.setLife(player.getHealth());
-        lifeController.notifyObservers();
+        getLifeController().setLife(player.getHealth());
+        getLifeController().notifyObservers();
     }
 
     @Override
     public void handleSpaceship(Spaceship spaceship) {
-        currState.handleSpaceship(spaceship);
+        getCurrState().handleSpaceship(spaceship);
     }
 
 
     public void handleEssence(Essence essence) {
         this.player.addEssence(essence.getValue());
-        essenceController.setAmount(essence.getValue());
-        essenceController.notifyObservers();
+        getEssenceController().setAmount(essence.getValue());
+        getEssenceController().notifyObservers();
     }
 
     @Override
@@ -157,12 +157,12 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     @Override
     public void handleCoin(Coin coin) {
-        scoreController.notifyObservers();
+        getScoreController().notifyObservers();
     }
 
     @Override
     public void handle(long frame) {
-        currState.handle(frame);
+        getCurrState().handle(frame);
     }
     public void handleShield(Shield shield) {
 
@@ -221,5 +221,17 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     public PlayerState getCurrState() {
         return currState;
+    }
+
+    public void setLifeController(LifeController lifeController) {
+        this.lifeController = lifeController;
+    }
+
+    public void setScoreController(ScoreController scoreController) {
+        this.scoreController = scoreController;
+    }
+
+    public void setEssenceController(EssenceController essenceController) {
+        this.essenceController = essenceController;
     }
 }

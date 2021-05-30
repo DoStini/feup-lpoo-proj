@@ -34,6 +34,7 @@ public class ObserverTest {
         EssenceController essenceController = new EssenceController();
         int essence = 5;
         essenceController.setAmount(essence);
+        assertEquals(essenceController.getAmount(),essence);
         essenceController.addObserver(essenceObserver);
         assertEquals(essenceController.getEssenceObservers(), Arrays.asList(essenceObserver));
         essenceController.notifyObservers();

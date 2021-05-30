@@ -1,7 +1,9 @@
 package com.shootemup.g53.controller.player;
 
+import com.shootemup.g53.controller.observer.EssenceController;
 import com.shootemup.g53.controller.element.ShieldController;
 import com.shootemup.g53.controller.game.GameController;
+import com.shootemup.g53.controller.observer.LifeController;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.collider.LineCompositeFactory;
@@ -22,12 +24,16 @@ class PowerupControllerTest {
 
     private Player player;
     private GameController gameController;
+    private EssenceController essenceNotifier;
+    private LifeController lifeController;
     private GameModel gameModel;
     private PowerupController controller;
 
     @BeforeEach
     void setup() {
         player = Mockito.mock(Player.class, Mockito.CALLS_REAL_METHODS);
+        lifeController = Mockito.mock(LifeController.class);
+        essenceNotifier = Mockito.mock(EssenceController.class);
         gameController = Mockito.mock(GameController.class);
         gameModel = Mockito.spy(new GameModel(20,20));
         gameModel.setShields(new ArrayList<>());
@@ -35,6 +41,8 @@ class PowerupControllerTest {
         Mockito.when(gameController.getGameModel()).thenReturn(gameModel);
 
         controller = new PowerupController(gameController);
+        controller.setLifeController(lifeController);
+        controller.setEssenceNotifier(essenceNotifier);
         player.setPosition(new Position(5, 5));
         player.setColor("#aaaaaa");
     }
@@ -43,6 +51,8 @@ class PowerupControllerTest {
     void NotEnoughEssence() {
         player.setEssence(3);
         Assertions.assertFalse(controller.spawnShield(player));
+        Mockito.verify(essenceNotifier,Mockito.times(0)).setAmount(player.getEssence());
+        Mockito.verify(essenceNotifier,Mockito.times(0)).notifyObservers();
         Assertions.assertEquals(3, player.getEssence());
     }
 
@@ -50,6 +60,8 @@ class PowerupControllerTest {
     void sameEssence() {
         player.setEssence(5);
         Assertions.assertTrue(controller.spawnShield(player));
+        Mockito.verify(essenceNotifier,Mockito.times(1)).setAmount(player.getEssence());
+        Mockito.verify(essenceNotifier,Mockito.times(1)).notifyObservers();
         Assertions.assertEquals(0, player.getEssence());
     }
 
