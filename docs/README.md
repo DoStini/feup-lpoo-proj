@@ -114,11 +114,11 @@ In order to solve this problem we chose the [Facade Pattern](https://refactoring
 
 #### Implementation
 
-To implement this we also created an AWTInputController in order to get a fluid movement to the player, that the pollInput method wouldn't work, creating a map of active actions.
+To implement this we also created an AWTInputController in order to get a fluid movement to the player, that the pollInput method wouldn't be able to replicate, creating a map of active actions.
 
 The following UML illustrates how this pattern was implemented:
 
-![Facade](images/design/facade_gui.png.png)
+![Facade](images/design/facade_gui.png)
 
 #### Consequences
 
@@ -140,12 +140,12 @@ In order to do this, we decided to adopt a State Pattern since we wanted a diffe
 
 The following UML illustrates how this pattern was implemented:
 
-![Player States Pattern](images/design/player_state_pattern.png)
+![Player States Pattern](images/design/player_state_pattern.PNG)
 
 
 The following State Diagram represents when the different states will transition between each other:
 
-![Player States Diagram](images/design/state_diagram.png)
+![Player States Diagram](images/design/state_diagram.PNG)
 
 #### Consequences
 
@@ -166,7 +166,7 @@ To implement the different states of the game we used the state pattern, which w
 
 The following UML illustrates how this pattern was implemented:
 
-![Game States Pattern](images/design/game_state_pattern.png)
+![Game States Pattern](images/design/game_state_pattern.PNG)
 
 These classes can be found here:
 
@@ -224,7 +224,7 @@ To solve this issue, we have applied an adaptation of the [Observer Pattern](htt
 #### Implementation
 The current implementation when dealing with notifying the event of player taking damage.
 
-![LifeController](images/design/life_observer.png)
+![LifeController](images/design/life_observer.PNG)
 
 The above UML contains the following classes.
 
@@ -608,6 +608,11 @@ This could be fixed using a parameter object, since lots of parameters are share
 Some features that are already well-defined strong tests, however there are some mutants still left to fix.
 
 Some situations like game states and controllers are yet tested, since they are still in a thought process.
+
+### Conclusion
+
+Due to lack of time to test everything, we focused harder on testing the controllers and left some models fairly untested - also because the model usually has only setters and getters.
+However, we tried very hard to eliminate mutations in the tests, and we acomplished a very good result. The mutants left in the code are some basic `Thread.sleep`  which we didn't find a way of testing, and some boundaries issues.
 
 ## Self-evaluation
 

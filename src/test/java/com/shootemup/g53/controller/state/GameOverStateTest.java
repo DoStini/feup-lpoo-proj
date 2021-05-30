@@ -33,7 +33,7 @@ class GameOverStateTest {
     void setup() {
         gui = Mockito.mock(Gui.class);
         game = Mockito.mock(Game.class);
-        gameOverState = new GameOverState(game, gui);
+        gameOverState = new GameOverState(game, gui,10);
         gameOverViewer = Mockito.mock(GameOverViewer.class);
         gameOverController = Mockito.mock(GameOverController.class);
         keyPressObserver = Mockito.mock(KeyPressObserver.class);
@@ -61,7 +61,7 @@ class GameOverStateTest {
 
     @Test
     void setupGameOver() {
-        GameOverState gameOverStateConst = new GameOverState(game, gui);
+        GameOverState gameOverStateConst = new GameOverState(game, gui,10);
         Assertions.assertNotNull(gameOverStateConst.getStateView());
         Assertions.assertNotNull(gameOverStateConst.getStateController());
 

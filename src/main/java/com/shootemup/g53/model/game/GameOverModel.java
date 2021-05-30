@@ -13,12 +13,14 @@ public class GameOverModel extends Model {
     private List<Button> options;
     private int selected;
     private boolean isClosed = false;
+    private int score;
 
     public GameOverModel(){
         options = new ArrayList<>();
-        this.tryAgainBtn = new Button("TRY AGAIN", new Position(0, 6),30,5,"#b52225");
-        this.exitBtn = new Button("EXIT", new Position(0, 18), 30,5,"#b52225");
+        this.tryAgainBtn = new Button("TRY AGAIN", new Position(0, 8),30,5,"#b52225");
+        this.exitBtn = new Button("EXIT", new Position(0, 20), 30,5,"#b52225");
         setup();
+
     }
 
     private void setup() {
@@ -72,4 +74,11 @@ public class GameOverModel extends Model {
         isClosed = closed;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 }

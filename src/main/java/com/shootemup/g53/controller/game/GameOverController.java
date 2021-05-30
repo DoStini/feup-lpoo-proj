@@ -16,9 +16,15 @@ public class GameOverController implements GenericController {
         this(new GameOverModel(), new InputNotifier());
     }
 
+
+
     public GameOverController(GameOverModel gameOverModel, InputNotifier inputNotifier) {
         this.gameOverModel = gameOverModel;
         this.inputNotifier = inputNotifier;
+    }
+
+    public void setFinalScore(int score){
+        this.gameOverModel.setScore(score);
     }
 
     @Override
