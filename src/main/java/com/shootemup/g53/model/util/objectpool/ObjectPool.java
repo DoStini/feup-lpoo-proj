@@ -14,6 +14,9 @@ public class ObjectPool<T extends PoolableObject> {
     }
 
     private void init(T template) {
+        if (!(template instanceof PoolableObject))
+            return;
+
         for (int i = 0; i < cacheSize; i++) {
             T sample = (T) template.clone();
             sample.deactivate();

@@ -65,5 +65,19 @@ public class DiagonalBounceMovement extends IncrementalMovement {
         return newPosition;
     }
 
+    public Position getInitalPosition() {
+        return initalPosition;
+    }
 
+    public int getxLeftLimit() {
+        return xLeftLimit;
+    }
+
+    public int getxRightLimit() {
+        return xRightLimit;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
 }

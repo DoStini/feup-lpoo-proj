@@ -15,10 +15,12 @@ import com.shootemup.g53.model.util.Position;
 public class PowerupController {
     private GameController gameController;
     private GameModel gameModel;
+
     private EssenceController essenceNotifier = new EssenceController();
-    private int shieldEssenceCost = 5;
-    private int healthCost = 8;
-    private int healthBoost = 10;
+    private final int shieldEssenceCost = 5;
+    private final int healthCost = 8;
+    private final int healthBoost = 10;
+
     private LifeController lifeController = new LifeController();
 
     public PowerupController(GameController gameController) {
@@ -26,10 +28,16 @@ public class PowerupController {
         this.gameModel = gameController.getGameModel();
     }
 
-    public boolean spawnShield(Player player) {
-        if (player.getEssence() < shieldEssenceCost)
+    private boolean consumeEssence(Player player, int cost) {
+        if(!player.removeEssence(cost))
             return false;
-        player.removeEssence(shieldEssenceCost);
+       
+        return true;
+    }
+
+    public boolean spawnShield(Player player) {
+        if(!consumeEssence(player, shieldEssenceCost))
+            return false;
 
         essenceNotifier.setAmount(player.getEssence());
         essenceNotifier.notifyObservers();
@@ -39,12 +47,12 @@ public class PowerupController {
     }
 
     public boolean healthBoost(Player player) {
-        if (player.getEssence() < healthCost)
+        if (player.getHealth() == player.getMaxHealth() || !consumeEssence(player, healthCost))
             return false;
 
         int health = player.getHealth();
 
-        player.setHealth(Math.min(health + healthBoost, player.getMaxHealth()));
+        player.setHealth(health + healthBoost);
         lifeController.setLife(player.getHealth());
         lifeController.notifyObservers();
         return true;
