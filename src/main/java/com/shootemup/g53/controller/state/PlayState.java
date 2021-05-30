@@ -4,9 +4,12 @@ import com.shootemup.g53.controller.Game;
 import com.shootemup.g53.controller.GenericController;
 import com.shootemup.g53.controller.game.GameController;
 
+import com.shootemup.g53.controller.gamebuilder.GameControllerBuilder;
+import com.shootemup.g53.controller.gamebuilder.GameDirector;
+import com.shootemup.g53.controller.gamebuilder.GameGenerator;
 import com.shootemup.g53.controller.infobar.InfoBarController;
 
-import com.shootemup.g53.controller.gamebuilder.GameBuilder;
+import com.shootemup.g53.controller.gamebuilder.GameModelBuilder;
 import com.shootemup.g53.model.element.Player;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.infobar.InfoBarModel;
@@ -15,30 +18,44 @@ import com.shootemup.g53.view.Viewer;
 import com.shootemup.g53.view.game.GameViewer;
 import com.shootemup.g53.view.infobar.InfoBarViewer;
 
+import java.util.Objects;
+
 public class PlayState extends State<GameModel> {
     private GameModel gameModel;
     private GameController gameController;
-    private GameBuilder gameBuilder;
     private Viewer<GameModel> gameViewer;
     private Gui gui;
     private InfoBarController infoBarController;
     private InfoBarViewer infoBarViewer;
+    private GameGenerator gameGenerator;
     private Thread timerThread;
     private int frameSleep = 50;
+
     int seconds = 0;
 
     long frame = 0;
 
-    public PlayState(Game game, GameModel gameModel, Gui gui) {
+    public PlayState(Game game, Gui gui, GameModelBuilder gameModelBuilder, GameControllerBuilder gameControllerBuilder) {
         this.game = game;
-        this.gameModel = gameModel;
         this.gui = gui;
-        setup();
+
+        setup(gameModelBuilder, gameControllerBuilder);
     }
 
-    private void setup() {
-        this.gameController = new GameController(this.gameModel);
-        this.gameBuilder = new GameBuilder(gui, this.gameController, 10);
+    public PlayState(Game game, Gui gui) {
+        this(game, gui, new GameModelBuilder(), new GameControllerBuilder(gui));
+    }
+
+    private void setup(GameModelBuilder gameModelBuilder, GameControllerBuilder gameControllerBuilder) {
+        GameDirector gameDirector = new GameDirector(gameModelBuilder, gameControllerBuilder);
+
+        gameDirector.make(gui.getWidth(), gui.getHeight());
+
+        this.gameController = gameControllerBuilder.getGameController();
+        this.gameModel = gameModelBuilder.getGameModel();
+
+        this.gameGenerator = new GameGenerator(gameController, 10);
+
         this.gameViewer = new GameViewer(gui);
         this.infoBarViewer = new InfoBarViewer(this.gui, 10);
 
@@ -46,7 +63,9 @@ public class PlayState extends State<GameModel> {
         this.infoBarController = new InfoBarController(gameController,
                 new InfoBarModel(player.getHealth(),
                 1,seconds, player.getHealth()));
-        gameBuilder.getWaveFactory().getWaveCompletionController().addObserver(getInfoBarModel());
+
+        gameGenerator.getWaveFactory().getWaveCompletionController().addObserver(getInfoBarModel());
+
         startTimerThread();
     }
 
@@ -83,7 +102,8 @@ public class PlayState extends State<GameModel> {
             while(true){
                 gui.clear();
                 Thread.sleep(frameSleep);
-                gameBuilder.handle(frame);
+                gameGenerator.handle(frame);
+
                 gameController.handleKeyPress(gui);
                 gameController.handle(frame);
                 infoBarController.handle(seconds);
@@ -148,8 +168,17 @@ public class PlayState extends State<GameModel> {
         this.gameController = gameController;
     }
 
-    protected void setGameBuilder(GameBuilder gameBuilder) {
-        this.gameBuilder = gameBuilder;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PlayState)) return false;
+        PlayState playState = (PlayState) o;
+        return gui.equals(playState.gui) && game == playState.game;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(gui);
     }
 
     public void setGame(Game game) {
@@ -172,12 +201,16 @@ public class PlayState extends State<GameModel> {
         this.infoBarController = infoBarController;
     }
 
-    protected Thread getTimerThread() {
-        return timerThread;
+    public void setGameGenerator(GameGenerator gameGenerator) {
+        this.gameGenerator = gameGenerator;
     }
 
-    protected GameBuilder getGameBuilder() {
-        return gameBuilder;
+    public GameGenerator getGameGenerator() {
+        return gameGenerator;
+    }
+
+    protected Thread getTimerThread() {
+        return timerThread;
     }
 
     public Viewer<GameModel> getGameViewer() {

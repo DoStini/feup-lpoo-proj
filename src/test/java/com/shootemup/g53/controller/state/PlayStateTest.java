@@ -3,7 +3,9 @@ package com.shootemup.g53.controller.state;
 import com.shootemup.g53.controller.Game;
 import com.shootemup.g53.controller.game.BulletPoolController;
 import com.shootemup.g53.controller.game.GameController;
-import com.shootemup.g53.controller.gamebuilder.GameBuilder;
+import com.shootemup.g53.controller.gamebuilder.GameControllerBuilder;
+import com.shootemup.g53.controller.gamebuilder.GameGenerator;
+import com.shootemup.g53.controller.gamebuilder.GameModelBuilder;
 import com.shootemup.g53.controller.infobar.InfoBarController;
 import com.shootemup.g53.controller.observer.LifeController;
 import com.shootemup.g53.controller.observer.ScoreController;
@@ -12,7 +14,6 @@ import com.shootemup.g53.controller.player.PlayerController;
 import com.shootemup.g53.model.element.Player;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.infobar.InfoBarModel;
-import com.shootemup.g53.model.util.Position;
 import com.shootemup.g53.ui.Gui;
 import com.shootemup.g53.view.Viewer;
 import com.shootemup.g53.view.game.GameViewer;
@@ -20,9 +21,10 @@ import com.shootemup.g53.view.infobar.InfoBarViewer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
 
 class PlayStateTest {
 
@@ -35,13 +37,15 @@ class PlayStateTest {
     private InfoBarViewer infoBarViewer;
     private InfoBarModel infoBarModel;
     private ScoreController scoreController;
+    private GameGenerator gameGenerator;
     private GameModel gameModel;
-    private GameBuilder gameBuilder;
     private Gui gui;
     private Game game;
     private Player player;
     private InfoBarController infoBarController;
     private PlayState playState;
+    private GameControllerBuilder gameControllerBuilder;
+    private GameModelBuilder gameModelBuilder;
 
     @BeforeEach
     void setup() {
@@ -50,19 +54,25 @@ class PlayStateTest {
         game = Mockito.mock(Game.class);
         bulletPoolController = Mockito.mock(BulletPoolController.class);
         gameController = Mockito.spy(new GameController(gameModel, bulletPoolController));
-        gameBuilder = Mockito.spy(new GameBuilder(gui, this.gameController, 10));
+        gameGenerator = Mockito.spy(new GameGenerator(gameController, 10));
         gameViewer = Mockito.mock(GameViewer.class);
         infoBarViewer = Mockito.mock(InfoBarViewer.class);
         infoBarController = Mockito.mock(InfoBarController.class);
         waveCompletionController = Mockito.mock(WaveCompletionController.class);
+        Mockito.when(gui.getHeight()).thenReturn(10);
+        Mockito.when(gui.getWidth()).thenReturn(10);
+        Mockito.when(game.getGui()).thenReturn(gui);
 
-        playState = new PlayState(game, gameModel, gui);
+        gameControllerBuilder = Mockito.spy(new GameControllerBuilder(gui, gameController));
+        gameModelBuilder = Mockito.spy(new GameModelBuilder(gameModel));
+
+        playState = new PlayState(game, gui, gameModelBuilder, gameControllerBuilder);
+
         playState.setGameController(gameController);
-        playState.setGameBuilder(gameBuilder);
+        playState.setGameGenerator(gameGenerator);
         playState.setGameViewer(gameViewer);
         playState.setInfoBarController(infoBarController);
         playState.setInfoBarViewer(infoBarViewer);
-
     }
 
     @Test
@@ -74,7 +84,7 @@ class PlayStateTest {
 
         playState.run();
 
-        Mockito.verify(gameBuilder, Mockito.times(4)).handle(Mockito.anyLong());
+        Mockito.verify(gameGenerator, Mockito.times(4)).handle(Mockito.anyLong());
 
         Mockito.verify(gameController, Mockito.times(4)).handle(Mockito.anyLong());
 
@@ -106,7 +116,7 @@ class PlayStateTest {
         playState.run();
 
 
-        Mockito.verify(gameBuilder, Mockito.times(4)).handle(Mockito.anyLong());
+        Mockito.verify(gameGenerator, Mockito.times(4)).handle(Mockito.anyLong());
         Mockito.verify(infoBarController, Mockito.times(4)).handle(Mockito.anyInt());
         Mockito.verify(gameController, Mockito.times(4)).handle(Mockito.anyLong());
         Mockito.verify(gameController, Mockito.times(4)).handleKeyPress(gui);
@@ -165,13 +175,13 @@ class PlayStateTest {
 
     @Test
     void setupGame() {
-        PlayState playState = new PlayState(game, gameModel, gui);
+        PlayState playState = new PlayState(game, gui);
 
-        Assertions.assertEquals(10, playState.getGameBuilder().getBaseSkip());
+        Assertions.assertEquals(10, playState.getGameGenerator().getBaseSkip());
         Assertions.assertNotNull(playState.getGameViewer());
         Assertions.assertEquals(10, playState.getInfoBarViewer().getInfoBarWidth());
         Assertions.assertEquals(1,
-                playState.getGameBuilder().getWaveFactory().getWaveCompletionController().getWaveCompletionObservers().size());
+                playState.getGameGenerator().getWaveFactory().getWaveCompletionController().getWaveCompletionObservers().size());
 
         InfoBarController infoBarController = playState.getInfoBarController();
         Assertions.assertNotNull(infoBarController);
