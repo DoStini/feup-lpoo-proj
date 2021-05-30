@@ -10,7 +10,7 @@ public class Game {
     private Gui gui;
     private boolean toExit = false;
 
-    public Game(Gui gui, GameModel gameModel){
+    public Game(Gui gui){
         this.gui = gui;
         this.state = new MenuState(this,gui);
     }

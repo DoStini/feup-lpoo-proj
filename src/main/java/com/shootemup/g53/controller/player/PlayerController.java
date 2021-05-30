@@ -192,9 +192,11 @@ public class PlayerController implements CollisionHandlerController, ElementInte
         return powerupController;
     }
 
+
     public void setColor(String color){
         this.player.setColor(color);
     }
+  
 
     public Player getPlayer() {
         return player;
@@ -210,6 +212,7 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     public FiringStrategy getFiringStrategy() {
         return firingStrategy;
     }
+
 
     public BulletPoolController getBulletPoolController() {
         return bulletPoolController;
@@ -234,4 +237,5 @@ public class PlayerController implements CollisionHandlerController, ElementInte
     public void setEssenceController(EssenceController essenceController) {
         this.essenceController = essenceController;
     }
+    
 }

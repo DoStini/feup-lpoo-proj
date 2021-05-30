@@ -80,4 +80,20 @@ public class BackgroundController implements ElementInterface {
             createStar(new Position(rng.nextInt(model.getWidth()), 0), rng.nextInt(maxDistance));
         }
     }
+
+    public Background getBackground() {
+        return background;
+    }
+
+    public GameModel getModel() {
+        return model;
+    }
+
+    public int getMaxDistance() {
+        return maxDistance;
+    }
+
+    public double getMaxSpeed() {
+        return maxSpeed;
+    }
 }

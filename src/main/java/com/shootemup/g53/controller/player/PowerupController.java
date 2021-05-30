@@ -95,4 +95,8 @@ public class PowerupController {
     public void setLifeController(LifeController lifeController) {
         this.lifeController = lifeController;
     }
+
+    public GameController getGameController() {
+        return gameController;
+    }
 }

@@ -19,7 +19,7 @@ class StartCommandTest {
     @BeforeEach
     void setUp() {
         gui = Mockito.mock(Gui.class);
-        game = Mockito.spy(new Game(gui, gameModel));
+        game = Mockito.spy(new Game(gui));
         Mockito.when(game.getGui()).thenReturn(gui);
         Mockito.when(gui.getHeight()).thenReturn(20);
         Mockito.when(gui.getWidth()).thenReturn(20);
@@ -27,16 +27,10 @@ class StartCommandTest {
 
     @Test
     void execute() {
-        GameModel expected = new GameModel(game.getGui().getWidth(), game.getGui().getHeight());
         StartCommand command = new StartCommand(game);
         command.execute();
         Mockito.verify(game, Mockito.never()).setToExit();
         Mockito.verify(game, Mockito.times(1))
-                .changeState(Mockito.any(PlayState.class));
-
-        GameModel got = ((PlayState)game.getState()).getGameModel();
-
-        Assertions.assertEquals(expected.getWidth(), got.getWidth());
-        Assertions.assertEquals(expected.getHeight(), got.getHeight());
+                .changeState(Mockito.eq(new PlayState(game, gui)));
     }
 }

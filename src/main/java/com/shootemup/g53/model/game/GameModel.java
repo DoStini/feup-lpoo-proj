@@ -5,6 +5,7 @@ import com.shootemup.g53.model.Model;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.element.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,6 +29,14 @@ public class GameModel extends Model {
     public GameModel(int width, int height) {
         this.width = width - 10;
         this.height = height;
+
+        setCoins(new ArrayList<>());
+        setBulletList(new ArrayList<>());
+        setEnemySpaceships(new ArrayList<>());
+        setAsteroids(new ArrayList<>());
+        setShields(new ArrayList<>());
+        setEssences(new ArrayList<>());
+        setColliders(new ArrayList<>());
     }
 
     public int getWidth() {
