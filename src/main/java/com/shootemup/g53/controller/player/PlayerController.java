@@ -146,7 +146,7 @@ public class PlayerController implements CollisionHandlerController, ElementInte
 
     public void handleEssence(Essence essence) {
         this.player.addEssence(essence.getValue());
-        getEssenceController().setAmount(essence.getValue());
+        getEssenceController().setAmount(player.getEssence());
         getEssenceController().notifyObservers();
     }
 
