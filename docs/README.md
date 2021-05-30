@@ -6,6 +6,14 @@ It will have to fight strong enemies in order to collect golden treasures to go 
 
 The chosen spaceship proved itself to be worthy of this mission because of its magical abilities to restore the damage caused by the enemies and to place special shields that would protect them against all types of threats. These threats are not only the enemies, but also asteroids, which they need to pay careful attention since they destroy everything in a single hit.
 
+## Instructions
+
+- WASD - player movement
+- E - use Shield PowerUp
+- R - use Health PowerUp
+- Arrow Keys - select menu options
+- Space Keys - shoot bullets
+
 ## Planned Features
 
 ### Specific Elements
@@ -207,14 +215,11 @@ We were able to define 4 commands, Start, Restart, Exit and Menu. These change t
 ### Observer Patterns for everyone
 #### Problem in Context
 
-When implementing the InfoBar we found ourselves needing information from many different classes from all over our program. It needed to know when the player lost health, when the player gained score, when the waveController spawned a new Wave, etc. Adding to this, we were having to needlessly draw the menus every frame like we did with the Play State even though it only needed to be redrawn when there was a user input.
+When implementing the InfoBar, we found ourselves needing information from many classes from all over our program. It needed to know when the player lost health, when the player gained score, when the waveController spawned a new Wave, etc. Adding to this, we were having to needlessly draw the menus every frame like we did with the Play State even though it only needed to be redrawn when there was a user input.
 
 
 #### The pattern
 To solve this issue, we have applied an adaptation of the [Observer Pattern](https://refactoring.guru/design-patterns/observer).
-
-This pattern allows all the different classes which the InfoBar needs information from to notify the infoBar when certain changes happen. It would also allow for the Gui to notify the PauseStateController, GameOverController and MenuStateController when there is a new input so they can redraw accordingly.
-
 
 #### Implementation
 The current implementation when dealing with notifying the event of player taking damage.
@@ -253,13 +258,12 @@ The above UML contains the following classes.
 - [PauseStateController](../src/main/java/com/shootemup/g53/controller/game/PauseStateController.java)
 
 #### Consequences
-
-The use of observers makes it so we only need to draw the info bar whenever new information is received.
+This pattern allows all the different classes which the InfoBar needs information from to notify the infoBar when certain changes happen. It would also allow for the Gui to notify the PauseStateController, GameOverController and MenuStateController when there is a new input, so they can redraw accordingly.
 
 ### Game Controller and Model initialization
 #### Problem in Context
 
-When the game starts, a game model and a game controller are created. This became problematic when the game started becoming more complex, requiring to create objects and storing them in the game model and then storing their controllers in the game controller. We could also want to create a gameModel or gameController without a background, or a gameModel and Controller with two or more players. This could be done in the client but it would result in messy and confusing code.
+When the game starts, a game model and a game controller are created. This became problematic when the game started becoming more complex, requiring to create objects and storing them in the game model and then storing their controllers in the game controller. We could also want to create a gameModel or gameController without a background, or a gameModel and Controller with two or more players. This could be done in the client, but it would result in messy and confusing code.
 
 #### The pattern
 
@@ -370,8 +374,6 @@ have collision checking using polymorphism.
 
 #### The Pattern
 
-To solve the issue related to the usage of multiple lines per collider, the [Composite Pattern](https://refactoring.guru/design-patterns/composite) was used.
-
 To solve the issue related to the checking of collisions of different shapes, while keeping the benefits of polymorphism
 , a variation of the [Visitor Pattern](https://refactoring.guru/design-patterns/visitor) was used. We deviated from
 the standard visitor behaviour by making the collider visit the other collider (a self visitor), making the collider
@@ -392,15 +394,15 @@ This pattern is implemented in the following classes:
 
 #### Consequences
 
-
+The visitor pattern allows to easily create interactions with different types of colliders. However, whenever a new collider is created, a new method in the BodyCollider class has to be created, and every subclass has to implement it.
 
 ### Collision Handlers
 
 #### Problem in Context
 
 Each object needs to have a different way of handling collisions with other objects. For example, when the player collides with a coin
-it needs to add it to its coin counter and the coin needs to deactivate itself. An [Observer Pattern](https://refactoring.guru/design-patterns/observer)
-could have been used, that would execute an action whenever a collision occured, but it required some complicated set up and the use of checking of class types.
+it needs to add it to its coin counter, and the coin needs to deactivate itself. An [Observer Pattern](https://refactoring.guru/design-patterns/observer)
+could have been used, that would execute an action whenever a collision occurred, but it required some complicated set up, and the use of checking of class types.
 
 #### The Pattern
 
@@ -453,6 +455,10 @@ This pattern is implemented in the following class:
 
 - [BoundingBoxFactory](../src/main/java/com/shootemup/g53/model/collider/BoundingBoxFactory.java)
 
+#### Consequences
+
+The use of the Factory Pattern helps to keep classes simple and separate their functions. The Line Collider does not need to know how to create its bounding box. The Factory also makes it easier to create different types of Bounding boxes.
+
 ### Line Composite Collider Shapes
 
 #### Problem in Context
@@ -474,6 +480,10 @@ The current implementation is as follows in the UML diagram.
 This pattern is implemented in the following class:
 
 - [LineCompositeFactory](../src/main/java/com/shootemup/g53/model/collider/LineCompositeFactory.java)
+
+#### Consequences
+
+The solution makes it easy to create different shapes using Line Composite Colliders. To add a new shape, it is only needed to create a new method. It also helps to make the client code easier to understand as it removes the need to create the Line Colliders manually every time, reducing duplicate code.
 
 ### Bullets
 #### Problem in Context
@@ -505,7 +515,7 @@ In order to have an interesting and challeging game, we need to instantiate new 
 There are two different types of waves: normal enemies and boss enemies. Each waves' spaceships differ in terms of health, size, damage and other properties, so we need a way to randomly parametrize these values with some limits and variations.
 
 #### The Pattern
-To solve this issue we used the [Factory Pattern](https://refactoring.guru/design-patterns/factory-method). This factory parametrizes the spaceship generator and chooses when to setup the next wave.
+To solve this issue we used the [Factory Pattern](https://refactoring.guru/design-patterns/factory-method). This factory parametrizes the spaceship generator and chooses when to set up the next wave.
 
 
 #### Implementation
@@ -534,7 +544,7 @@ In order to apply to the enemies' spaceships several strategies implemented and 
 
 
 #### The Pattern
-To solve this issue we used the [Factory Pattern](https://refactoring.guru/design-patterns/factory-method. This factory randomly chooses and instantiates several strategies. This is applied in a similar way both to Firing Strategies and MovementStrategies
+To solve this issue we used the [Factory Pattern](https://refactoring.guru/design-patterns/factory-method). This factory randomly chooses and instantiates several strategies. This is applied similarly both to Firing Strategies and MovementStrategies
 
 
 #### Implementation
@@ -550,7 +560,7 @@ This pattern is implemented in the following classes:
 
 #### Consequences
 The pattern allows us to easily create several spaceships with variations.
-The factory allows to choose from which strategies to choose from, by sending an array of strategy types.
+The factory allows choosing from which strategies to choose from, by sending an array of strategy types.
 
 By using these factories and wave generations, the game can evolve to very different states and very different enemies.
 
@@ -564,7 +574,7 @@ The classes [GameOverController](../src/main/java/com/shootemup/g53/controller/g
 
 ### Primitive obessession
 
-In our current version of the code, the color of the many Elements is being represented as a String which would be better of being represented as a Color class seeing as there's some behaviour associated with it, expressed in the [ColorOperation](../src/main/java/com/shootemup/g53/model/util/ColorOperation.java) class.
+In our current version of the code, the color of the many Elements is being represented as a String which would be better off being represented as a Color class seeing as there's some behaviour associated with it, expressed in the [ColorOperation](../src/main/java/com/shootemup/g53/model/util/ColorOperation.java) class.
 
 ### Long class
 
@@ -573,7 +583,7 @@ The class [GameController](../src/main/java/com/shootemup/g53/controller/game/Ga
 ### Switch Statement
 The [DiagonalBounceMovement](../src/main/java/com/shootemup/g53/controller/movement/CircularMovement.java) contains switch case statements.
 
-We can solve this issue by replacing the `Direction` with a state class, using a State Pattern. This could be achieved by using the already implemented [DiagonalDownLeft]() and [DiagonalDownRight]() movement classes.
+We can solve this issue by replacing the `Direction` with a state class, using a State Pattern. This could be achieved by using the already implemented [DiagonalDownLeft](../src/main/java/com/shootemup/g53/controller/movement/DiagonalDownLeftMovement.java) and [DiagonalDownRight](../src/main/java/com/shootemup/g53/controller/movement/DiagonalDownRightMovement.java) movement classes.
 
 ### Shotgun Surgery
 
@@ -582,7 +592,11 @@ Whenever a new collider shape is added, a new abstract method for checking colli
 
 There is no way to solve this issue without removing the Visitor Pattern which would make for worse organization.
 
-### 
+### Long Parameter List
+
+The classes [AsteroidGenerator](../src/main/java/com/shootemup/g53/controller/gamebuilder/element/AsteroidGenerator.java), [CoinGenerator](../src/main/java/com/shootemup/g53/controller/gamebuilder/element/CoinGenerator.java), [ElementGenerator](../src/main/java/com/shootemup/g53/controller/gamebuilder/element/ElementGenerator.java), [EssenceGenerator](../src/main/java/com/shootemup/g53/controller/gamebuilder/element/EssenceGenerator.java), [MovableElementGenerator](../src/main/java/com/shootemup/g53/controller/gamebuilder/element/MovableElementGenerator.java) and [SpaceshipGenerator](../src/main/java/com/shootemup/g53/controller/gamebuilder/element/SpaceshipGenerator.java) have long parameter lists in their constructors.
+
+This could be fixed using a parameter object, since lots of parameters are shared across these classes. Another solution would be to apply a [Builder Pattern](https://refactoring.guru/design-patterns/builder) and set the paramters through setters, but this only changes how the parameters are set, making for a vertically larger code, instead of horizontally large.
 
 ## Testing
 ### Mutation
