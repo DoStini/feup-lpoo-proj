@@ -13,9 +13,11 @@ import com.shootemup.g53.controller.movement.MovementStrategy;
 import com.shootemup.g53.model.collider.BodyCollider;
 import com.shootemup.g53.model.collider.ColliderCategory;
 import com.shootemup.g53.model.collider.LineCompositeFactory;
+import com.shootemup.g53.model.element.Asteroid;
 import com.shootemup.g53.model.element.Spaceship;
 import com.shootemup.g53.model.game.GameModel;
 import com.shootemup.g53.model.util.Position;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -31,6 +33,8 @@ class SpaceshipGeneratorTest {
     private MovementStrategyFactory movementStrategyFactory;
     private FiringStrategyFactory firingStrategyFactory;
     private GameModel gameModel;
+    private int minHealth = 5;
+    private int maxHealth = 10;
 
     private int xMinPos = 0,
             xMaxPos = 10,
@@ -64,11 +68,6 @@ class SpaceshipGeneratorTest {
     }
 
     @Test
-    void setFireController() {
-
-    }
-
-    @Test
     void setMovementController() {
         int randomVal = 2;
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(randomVal);
@@ -82,6 +81,15 @@ class SpaceshipGeneratorTest {
                 .addToControllerMap(Mockito.eq(spaceship), Mockito.any(SpaceshipController.class));
         Mockito.verify(gameController, Mockito.times(1))
                 .addToCollisionMap(Mockito.eq(spaceship), Mockito.any(SpaceshipController.class));
+    }
+
+    @Test
+    void setFiringStrategy() {
+        FiringStrategy firingStrategy = Mockito.mock(FiringStrategy.class);
+
+        Mockito.when(firingStrategyFactory.generate(Mockito.any())).thenReturn(firingStrategy);
+
+        Assertions.assertEquals(firingStrategy, spaceshipGenerator.setFiringStrategy(spaceship));
     }
 
     @Test
@@ -110,9 +118,49 @@ class SpaceshipGeneratorTest {
     }
 
     @Test
-    void generateElement() {
+    void setMovement() {
+        MovementStrategy movementStrategy = Mockito.mock(MovementStrategy.class);
+        Mockito.when(movementStrategyFactory.generate(spaceship)).thenReturn(movementStrategy);
+        Mockito.when(movementStrategyFactory.ensureFallDown(movementStrategy)).thenReturn(movementStrategy);
+
+        Assertions.assertEquals(movementStrategy, spaceshipGenerator.generateMovementStrategy(spaceship));
+
+        Mockito.verify(movementStrategyFactory, Mockito.times(1))
+                .ensureFallDown(movementStrategy);
+    }
+
+    @Test
+    void setDamage() {
         int randomVal = 2;
         Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(randomVal);
+
+        spaceshipGenerator.setDamage(spaceship);
+
+        Mockito.verify(random, Mockito.times(1)).nextInt(maxDamage-1);
+        Mockito.verify(spaceship, Mockito.times(1)).setBulletDamage(3);
+    }
+
+    @Test
+    void setHealth() {
+        int randomVal = 2;
+        spaceshipGenerator.setMinHealth(minHealth);
+        spaceshipGenerator.setMaxHealth(maxHealth);
+        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(randomVal);
+
+        spaceshipGenerator.setHealth(spaceship);
+
+        Mockito.verify(random, Mockito.times(1)).nextInt(maxHealth-minHealth);
+        Mockito.verify(spaceship, Mockito.times(1)).setHealth(randomVal + minHealth);
+        Mockito.verify(spaceship, Mockito.times(1)).setMaxHealth(randomVal + minHealth);
+    }
+
+    @Test
+    void generateElement() {
+        int randomVal = 2;
+        double randomDouble = 0.2;
+
+        Mockito.when(random.nextInt(Mockito.anyInt())).thenReturn(randomVal);
+        Mockito.when(random.nextDouble()).thenReturn(randomDouble);
         Mockito.when(movementStrategyFactory.generate(Mockito.any())).thenReturn(Mockito.mock(MovementStrategy.class));
         Mockito.when(firingStrategyFactory.generate(Mockito.any())).thenReturn(Mockito.mock(FiringStrategy.class));
 
@@ -120,17 +168,18 @@ class SpaceshipGeneratorTest {
 
         spaceshipGenerator.generateElement();
 
-        double randomDouble = 1.0;
 
-        /*Mockito.verify(gameModel, Mockito.times(1)).addEnemy(
-                new Spaceship(new Position(randomVal, 0),
-                        randomVal+minSize, randomVal+5, color,
-                        randomDouble*(maxSpeed-minSpeed)+minSpeed, randomVal+1));
-        */
+        Spaceship spaceship = new Spaceship(new Position(randomVal+xMinPos, 0),
+                randomVal + minSize, randomVal+minHealth, color,
+                randomDouble*(maxSpeed-minSpeed)+minSpeed, randomVal+1);
+
+        Mockito.verify(gameModel, Mockito.times(1)).addEnemy(spaceship);
+
         Mockito.verify(gameController, Mockito.times(1))
                 .addToControllerMap(Mockito.any(Spaceship.class), Mockito.any(SpaceshipController.class));
         Mockito.verify(gameController, Mockito.times(1))
                 .addToCollisionMap(Mockito.any(Spaceship.class), Mockito.any(SpaceshipController.class));
         Mockito.verify(gameModel, Mockito.times(1)).addCollider(Mockito.any(BodyCollider.class));
+
     }
 }
